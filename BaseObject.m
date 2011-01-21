@@ -19,4 +19,8 @@
 - (void) encodeWithCoder:(NSCoder *)coder {
     @throw @"Unimplemented";
 }
+
+- (void) dealloc {
+    [super dealloc];
+}
 @end

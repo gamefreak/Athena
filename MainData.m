@@ -13,11 +13,18 @@
 @implementation MainData
 - (id) initWithCoder:(LuaUnarchiver *)decoder {
     [super init];
-    [decoder decodeArrayOfClass:[BaseObject class] forKey:@"objects"];
+    objects = [[decoder decodeArrayOfClass:[BaseObject class]
+                                    forKey:@"objects"] retain];
     return self;
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
     @throw @"Unimplemented";
+}
+
+
+- (void) dealloc {
+    [objects release];
+    [super dealloc];
 }
 @end

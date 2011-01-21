@@ -18,7 +18,7 @@
     
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
-        [LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:@"/Users/scott/xsera/Resources/Scripts/Modules/data.lua"]];
+        [LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:@"/Users/scott/xsera/Resources/Scripts/Modules/data.lua"]]; //Very hard coded
     
     }
     return self;
