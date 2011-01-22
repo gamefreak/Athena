@@ -48,6 +48,7 @@
 		D21EB2DB12E8BDE200694EBA /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB2BA12E8BDE200694EBA /* print.c */; };
 		D21EB31F12E8C41700694EBA /* BaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB31E12E8C41700694EBA /* BaseObject.m */; };
 		D293F5D812EB78E000EF1CCA /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5D712EB78E000EF1CCA /* Race.m */; };
+		D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5E812EB82ED00EF1CCA /* BriefPoint.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,8 @@
 		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
 		D293F5D612EB78E000EF1CCA /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
 		D293F5D712EB78E000EF1CCA /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
+		D293F5E712EB82ED00EF1CCA /* BriefPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefPoint.h; sourceTree = "<group>"; };
+		D293F5E812EB82ED00EF1CCA /* BriefPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefPoint.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -293,6 +296,8 @@
 		D21EB32112E8C41E00694EBA /* AresTypes */ = {
 			isa = PBXGroup;
 			children = (
+				D293F5E712EB82ED00EF1CCA /* BriefPoint.h */,
+				D293F5E812EB82ED00EF1CCA /* BriefPoint.m */,
 				D21EB31D12E8C41700694EBA /* BaseObject.h */,
 				D21EB31E12E8C41700694EBA /* BaseObject.m */,
 				D293F5D612EB78E000EF1CCA /* Race.h */,
@@ -407,6 +412,7 @@
 				D21EB31F12E8C41700694EBA /* BaseObject.m in Sources */,
 				D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */,
 				D293F5D812EB78E000EF1CCA /* Race.m in Sources */,
+				D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

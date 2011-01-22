@@ -11,6 +11,8 @@
 
 @interface MainData : NSObject <NSCoding> {
     NSMutableArray *objects;
+    NSMutableArray *races;
+    NSMutableArray *briefings;
 }
 
 @end
