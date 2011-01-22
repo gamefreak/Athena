@@ -126,6 +126,7 @@
 		D21EB2BA12E8BDE200694EBA /* print.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = print.c; sourceTree = "<group>"; };
 		D21EB31D12E8C41700694EBA /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
 		D21EB31E12E8C41700694EBA /* BaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObject.m; sourceTree = "<group>"; };
+		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -298,6 +299,7 @@
 		D264F8BD12E8EE3A0050BCFB /* Archivers */ = {
 			isa = PBXGroup;
 			children = (
+				D2802FD412EA572500F1A0B0 /* Archivers.h */,
 				D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */,
 				D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */,
 				D216E72F12E9DE1700D17AFB /* LuaArchiver.h */,

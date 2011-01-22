@@ -7,7 +7,7 @@
 //
 
 #import "BaseObject.h"
-
+#import "Archivers.h"
 
 @implementation BaseObject
 - (id) initWithCoder:(NSCoder *)coder {

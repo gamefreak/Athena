@@ -7,8 +7,7 @@
 //
 
 #import "MainData.h"
-#import "LuaUnarchiver.h"
-#import "LuaArchiver.h"
+#import "Archivers.h"
 #import "BaseObject.h"
 
 @implementation MainData
