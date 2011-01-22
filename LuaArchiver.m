@@ -117,4 +117,11 @@
     [data appendString:@"};\n"];
     [self down];
 }
+
+- (void) encodeInteger:(NSInteger)value forKey:(NSString *)key {
+    [self up];
+    [self indent];
+    [data appendFormat:@"%@ = %d;\n", key, value];
+    [self down];
+}
 @end

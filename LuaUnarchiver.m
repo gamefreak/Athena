@@ -160,4 +160,11 @@
     return NSMakePoint(x, y);
 }
 
+- (NSInteger) decodeIntegerForKey:(NSString *)key {
+    [self getKey:key];
+    NSInteger val = lua_tointeger(L, -1);
+    [self pop];
+    return val;
+}
+
 @end
