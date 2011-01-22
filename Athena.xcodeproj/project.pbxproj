@@ -47,6 +47,7 @@
 		D21EB2D912E8BDE200694EBA /* lzio.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB2B712E8BDE200694EBA /* lzio.c */; };
 		D21EB2DB12E8BDE200694EBA /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB2BA12E8BDE200694EBA /* print.c */; };
 		D21EB31F12E8C41700694EBA /* BaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB31E12E8C41700694EBA /* BaseObject.m */; };
+		D293F5D812EB78E000EF1CCA /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5D712EB78E000EF1CCA /* Race.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +128,8 @@
 		D21EB31D12E8C41700694EBA /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
 		D21EB31E12E8C41700694EBA /* BaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObject.m; sourceTree = "<group>"; };
 		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
+		D293F5D612EB78E000EF1CCA /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
+		D293F5D712EB78E000EF1CCA /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -292,6 +295,8 @@
 			children = (
 				D21EB31D12E8C41700694EBA /* BaseObject.h */,
 				D21EB31E12E8C41700694EBA /* BaseObject.m */,
+				D293F5D612EB78E000EF1CCA /* Race.h */,
+				D293F5D712EB78E000EF1CCA /* Race.m */,
 			);
 			name = AresTypes;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				D21EB2DB12E8BDE200694EBA /* print.c in Sources */,
 				D21EB31F12E8C41700694EBA /* BaseObject.m in Sources */,
 				D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */,
+				D293F5D812EB78E000EF1CCA /* Race.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
