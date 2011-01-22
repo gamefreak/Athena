@@ -9,6 +9,40 @@
 #import "LuaUnarchiver.h"
 #import "MainData.h"
 
+@interface LuaUnarchiver (Private)
+- (NSUInteger) getKey:(NSString *)key;
+- (NSUInteger) getKeyPath:(NSString *)keyPath;
+- (void) pop;
+- (void) popN:(NSUInteger)n;
+@end
+
+@implementation LuaUnarchiver (Private)
+- (NSUInteger) getKey:(NSString *)key {
+    lua_pushstring(L, [key UTF8String]);
+    lua_gettable(L, -2);
+    return 1;
+}
+
+- (NSUInteger) getKeyPath:(NSString *)keyPath {
+    NSArray *components = [keyPath componentsSeparatedByString:@"."];
+    for (id subKey in components) {
+        lua_pushstring(L, [subKey UTF8String]);
+        lua_gettable(L, -2);
+    }
+    return [components count];
+}
+
+- (void) pop {
+    lua_pop(L, 1);
+}
+
+- (void) popN:(NSUInteger)n {
+    lua_pop(L, n);
+}
+@end
+
+
+
 @implementation LuaUnarchiver
 - (id) init {
     [super init];
@@ -49,17 +83,15 @@
 
 
 - (id) decodeObjectOfClass:(Class<NSCoding>)class forKey:(NSString *)key {
-    lua_pushstring(L, [key UTF8String]);
-    lua_gettable(L, -2);
+    [self getKey:key];
     assert(lua_istable(L, -1));
     id obj = [[class alloc] initWithCoder:self];
-    lua_pop(L, 1);
+    [self pop];
     return [obj autorelease];
 }
 
 - (NSMutableArray *) decodeArrayOfClass:(Class<NSCoding>)class forKey:(NSString *)key {
-    lua_pushstring(L, [key UTF8String]);
-    lua_gettable(L, -2);
+    [self getKey:key];
     assert(lua_istable(L, -1));
 
     /*
@@ -78,28 +110,26 @@
         [object release];
         lua_pop(L, 1); //pops value
     }
-    lua_pop(L, 1); //pop the array's table
+    [self pop]; //pop the array's table
     return array;
 }
 
 
 - (BOOL) decodeBoolForKey:(NSString *)key {
-    lua_pushstring(L, [key UTF8String]);
-    lua_gettable(L, -2);
+    [self getKey:key];
     assert(lua_isboolean(L, -1));
     BOOL ret = lua_toboolean(L, -1);
-    lua_pop(L, 1);
+    [self pop];
     return ret;
 }
 
 - (NSString *) decodeStringForKey:(NSString *)key {
-    lua_pushstring(L, [key UTF8String]);
-    lua_gettable(L, -2);
+    [self getKey:key];
     assert(lua_isstring(L, -1));
     //    \\ -> \\\\
     //    \r -> \\r
     //    ]  -> \\]
-    NSMutableString *str = lua_tostring(L, -1);
+    NSMutableString *str = [NSMutableString stringWithUTF8String:lua_tostring(L, -1)];
     [str replaceOccurrencesOfString:@"\\"
                          withString:@"\\\\"
                             options:NSLiteralSearch
@@ -108,5 +138,26 @@
                          withString:@"\\r"
                             options:NSLiteralSearch
                               range:NSMakeRange(0, [str length])];
+    [self pop];
+    return str;
 }
+
+- (float) decodeFloatForKey:(NSString *)key {
+    [self getKey:key];
+    float value = lua_tonumber(L, -1);
+    [self pop];
+    return value;
+}
+
+- (NSPoint) decodePointForKey:(NSString *)key {
+    [self getKey:key];
+    [self getKey:@"x"];
+    CGFloat x = lua_tonumber(L, -1);
+    [self pop];
+    [self getKey:@"y"];
+    CGFloat y = lua_tonumber(L, -1);
+    [self popN:2];
+    return NSMakePoint(x, y);
+}
+
 @end

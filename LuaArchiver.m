@@ -99,4 +99,22 @@
     [data appendFormat:@"%@ = [[%@]];\n", key, [string stringByReplacingOccurrencesOfString:@"]" withString:@"\\]"]];
     [self down];
 }
+
+- (void) encodeFloat:(float)value forKey:(NSString *)key {
+    [self up];
+    [self indent];
+    [data appendFormat:@"%@ = %f;\n", key, value];
+    [self down];
+}
+
+- (void) encodePoint:(NSPoint)point forKey:(NSString *)key {
+    [self up];
+    [self indent];
+    [data appendFormat:@"%@ = {\n", key];
+    [self encodeFloat:point.x forKey:@"x"];
+    [self encodeFloat:point.y forKey:@"y"];
+    [self indent];
+    [data appendString:@"};\n"];
+    [self down];
+}
 @end
