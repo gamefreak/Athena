@@ -8,6 +8,8 @@
 
 #import "MyDocument.h"
 #import "LuaUnarchiver.h"
+#import "MainData.h"
+#import "LuaArchiver.h"
 
 @implementation MyDocument
 
@@ -18,7 +20,9 @@
     
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
-        [LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:@"/Users/scott/xsera/Resources/Scripts/Modules/data.lua"]]; //Very hard coded
+        MainData *mData = [LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:@"/Users/scott/xsera/Resources/Scripts/Modules/data.lua"]]; //Very hard coded
+        NSData *lData = [LuaArchiver archivedDataWithRootObject:mData withName:@"data"];
+        NSLog(@"%s",[lData bytes]);
     
     }
     return self;

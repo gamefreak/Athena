@@ -12,12 +12,10 @@
 @implementation BaseObject
 - (id) initWithCoder:(NSCoder *)coder {
     [super init];
-    NSLog(@"BaseObject init");
     return self;
 }
 
 - (void) encodeWithCoder:(NSCoder *)coder {
-    @throw @"Unimplemented";
 }
 
 - (void) dealloc {

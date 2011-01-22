@@ -56,7 +56,7 @@
     return dat;
 }
 
-- (void) encodeObject:(id <NSCoding>)obj forKey:(NSString *)key {
+- (void) encodeObject:(id <NSObject,NSCoding>)obj forKey:(NSString *)key {
     [self up];
     [self indent];
     [data appendString:key];
@@ -70,8 +70,33 @@
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key {
     [self up];
     [self indent];
+    [data appendString:key];
+    [data appendString:@" = {\n"];
+    [self up];
+    NSInteger idx = 0;
+    for (id<NSCoding> obj in array) {
+        [self indent]; [data appendFormat:@"[%d] = {\n", idx];
+        [obj encodeWithCoder:self];
+        [self indent]; [data appendString:@"};\n"];
+        idx++;
+    }
+    [self down];
     [self indent];
     [data appendString:@"};\n"];
+    [self down];
+}
+
+- (void) encodeBool:(BOOL)value forKey:(NSString *)key {
+    [self up];
+    [self indent];
+    [data appendFormat:@"%@ = %@;\n", key, (value?@"true":@"false")];
+    [self down];
+}
+
+- (void) encodeString:(NSString *)string forKey:(NSString *)key {
+    [self up];
+    [self indent];
+    [data appendFormat:@"%@ = [[%@]];\n", key, [string stringByReplacingOccurrencesOfString:@"]" withString:@"\\]"]];
     [self down];
 }
 @end

@@ -8,6 +8,7 @@
 
 #import "MainData.h"
 #import "LuaUnarchiver.h"
+#import "LuaArchiver.h"
 #import "BaseObject.h"
 
 @implementation MainData
@@ -18,8 +19,8 @@
     return self;
 }
 
-- (void) encodeWithCoder:(NSCoder *)aCoder {
-    @throw @"Unimplemented";
+- (void) encodeWithCoder:(LuaArchiver *)aCoder {
+    [aCoder encodeArray:objects forKey:@"objects"];
 }
 
 

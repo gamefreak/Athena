@@ -47,6 +47,16 @@
     return [decodedObject autorelease];
 }
 
+
+- (id) decodeObjectOfClass:(Class<NSCoding>)class forKey:(NSString *)key {
+    lua_pushstring(L, [key UTF8String]);
+    lua_gettable(L, -2);
+    assert(lua_istable(L, -1));
+    id obj = [[class alloc] initWithCoder:self];
+    lua_pop(L, 1);
+    return [obj autorelease];
+}
+
 - (NSMutableArray *) decodeArrayOfClass:(Class<NSCoding>)class forKey:(NSString *)key {
     lua_pushstring(L, [key UTF8String]);
     lua_gettable(L, -2);
@@ -59,7 +69,7 @@
      */
     //lua_objlen returns the highest index so allocate +1
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:lua_objlen(L, -1) + 1];
-    for (int idx = 0; idx < lua_objlen(L, -1); idx++) {
+    for (int idx = 0; idx <= lua_objlen(L, -1); idx++) {
         lua_pushinteger(L, idx); //pushes key
         lua_gettable(L, -2); //pops key, pushes value
         //I would like to make this warning go away \/
@@ -70,5 +80,33 @@
     }
     lua_pop(L, 1); //pop the array's table
     return array;
+}
+
+
+- (BOOL) decodeBoolForKey:(NSString *)key {
+    lua_pushstring(L, [key UTF8String]);
+    lua_gettable(L, -2);
+    assert(lua_isboolean(L, -1));
+    BOOL ret = lua_toboolean(L, -1);
+    lua_pop(L, 1);
+    return ret;
+}
+
+- (NSString *) decodeStringForKey:(NSString *)key {
+    lua_pushstring(L, [key UTF8String]);
+    lua_gettable(L, -2);
+    assert(lua_isstring(L, -1));
+    //    \\ -> \\\\
+    //    \r -> \\r
+    //    ]  -> \\]
+    NSMutableString *str = lua_tostring(L, -1);
+    [str replaceOccurrencesOfString:@"\\"
+                         withString:@"\\\\"
+                            options:NSLiteralSearch
+                              range:NSMakeRange(0, [str length])];
+    [str replaceOccurrencesOfString:@"\r"
+                         withString:@"\\r"
+                            options:NSLiteralSearch
+                              range:NSMakeRange(0, [str length])];
 }
 @end

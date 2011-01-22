@@ -16,4 +16,5 @@
 @property (readonly) NSData *data;
 + (NSData *) archivedDataWithRootObject:(id)object withName:(NSString *)name;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key;
+- (void) encodeString:(NSString *)string forKey:(NSString *)key;
 @end

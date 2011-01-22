@@ -16,5 +16,7 @@
 }
 + (id) unarchiveObjectWithData:(NSData *)data;
 - (void) loadData:(NSData *)data;
+- (id) decodeObjectOfClass:(Class<NSCoding>)class forKey:(NSString *)key;
 - (NSMutableArray *) decodeArrayOfClass:(Class)_class forKey:(NSString *)key;
+- (NSString *) decodeStringForKey:(NSString *)key;
 @end
