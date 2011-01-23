@@ -18,5 +18,5 @@
 + (NSData *) archivedDataWithRootObject:(id)object withName:(NSString *)name;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key;
 - (void) encodeString:(NSString *)string forKey:(NSString *)key;
-- (XSPoint *) encodePoint:(XSPoint *)point forKey:(NSString *)key;
+- (void) encodePoint:(XSPoint *)point forKey:(NSString *)key;
 @end
