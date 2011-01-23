@@ -8,6 +8,8 @@
 
 #import "LuaUnarchiver.h"
 #import "MainData.h"
+#import "lualib.h"
+#import "lauxlib.h"
 
 @interface LuaUnarchiver (Private)
 - (NSUInteger) getKey:(NSString *)key;

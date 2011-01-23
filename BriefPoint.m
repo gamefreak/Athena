@@ -8,6 +8,7 @@
 
 #import "BriefPoint.h"
 #import "Archivers.h"
+#import "XSPoint.h"
 
 @implementation BriefPoint
 - (id) init {
@@ -17,7 +18,7 @@
     contentId = -1;
     objectId = -1;
     isVisible = YES;
-    range = NSMakePoint(0.0f, 0.0f);
+    range = [[XSPoint alloc] init];
     return self;
 }
 
@@ -41,7 +42,9 @@
         @throw @"Invalid Briefing Type";
     }
     
-    range = [coder decodePointForKey:@"range"];
+    [range release];
+    range = [[coder decodePointForKey:@"range"] retain];
+
     contentId = [coder decodeIntegerForKey:@"content"];
     return self;
 }
@@ -73,6 +76,7 @@
 
 - (void) dealloc {
     [title release];
+    [range release];
     [super dealloc];
 }
 @end

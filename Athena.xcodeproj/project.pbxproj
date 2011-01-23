@@ -49,6 +49,7 @@
 		D21EB31F12E8C41700694EBA /* BaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB31E12E8C41700694EBA /* BaseObject.m */; };
 		D293F5D812EB78E000EF1CCA /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5D712EB78E000EF1CCA /* Race.m */; };
 		D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5E812EB82ED00EF1CCA /* BriefPoint.m */; };
+		D293F65C12EBAAF600EF1CCA /* XSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F65B12EBAAF600EF1CCA /* XSPoint.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,8 @@
 		D293F5D712EB78E000EF1CCA /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
 		D293F5E712EB82ED00EF1CCA /* BriefPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefPoint.h; sourceTree = "<group>"; };
 		D293F5E812EB82ED00EF1CCA /* BriefPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefPoint.m; sourceTree = "<group>"; };
+		D293F65A12EBAAF600EF1CCA /* XSPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSPoint.h; sourceTree = "<group>"; };
+		D293F65B12EBAAF600EF1CCA /* XSPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSPoint.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,6 +195,7 @@
 			children = (
 				D21EB32112E8C41E00694EBA /* AresTypes */,
 				D264F8BD12E8EE3A0050BCFB /* Archivers */,
+				D293F65D12EBAAFD00EF1CCA /* Wrappers */,
 				D21EB27712E8BAEF00694EBA /* MainData.h */,
 				D21EB27812E8BAEF00694EBA /* MainData.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
@@ -318,6 +322,15 @@
 			name = Archivers;
 			sourceTree = "<group>";
 		};
+		D293F65D12EBAAFD00EF1CCA /* Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				D293F65A12EBAAF600EF1CCA /* XSPoint.h */,
+				D293F65B12EBAAF600EF1CCA /* XSPoint.m */,
+			);
+			name = Wrappers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -413,6 +426,7 @@
 				D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */,
 				D293F5D812EB78E000EF1CCA /* Race.m in Sources */,
 				D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */,
+				D293F65C12EBAAF600EF1CCA /* XSPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

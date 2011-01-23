@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class XSPoint;
 
 @interface LuaArchiver : NSCoder {
     NSMutableString *data;
@@ -17,4 +18,5 @@
 + (NSData *) archivedDataWithRootObject:(id)object withName:(NSString *)name;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key;
 - (void) encodeString:(NSString *)string forKey:(NSString *)key;
+- (XSPoint *) encodePoint:(XSPoint *)point forKey:(NSString *)key;
 @end

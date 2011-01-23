@@ -107,15 +107,8 @@
     [self down];
 }
 
-- (void) encodePoint:(NSPoint)point forKey:(NSString *)key {
-    [self up];
-    [self indent];
-    [data appendFormat:@"%@ = {\n", key];
-    [self encodeFloat:point.x forKey:@"x"];
-    [self encodeFloat:point.y forKey:@"y"];
-    [self indent];
-    [data appendString:@"};\n"];
-    [self down];
+- (void) encodePoint:(XSPoint *)point forKey:(NSString *)key {
+    [self encodeObject:point forKey:key];
 }
 
 - (void) encodeInteger:(NSInteger)value forKey:(NSString *)key {

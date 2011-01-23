@@ -7,6 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
+@class XSPoint;
+
 typedef enum {
     BriefTypeNoPoint,
     BriefTypeObject,
@@ -19,7 +22,7 @@ typedef enum {
     BriefingType type;
     NSInteger objectId;
     BOOL isVisible;
-    NSPoint range;
+    XSPoint *range;
     NSInteger contentId;
 }
 

@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "lua.h"
-#import "lualib.h"
-#import "lauxlib.h"
+
+@class XSPoint;
 
 @interface LuaUnarchiver : NSCoder {
     lua_State *L;
@@ -19,4 +19,6 @@
 - (id) decodeObjectOfClass:(Class<NSCoding>)class forKey:(NSString *)key;
 - (NSMutableArray *) decodeArrayOfClass:(Class)_class forKey:(NSString *)key;
 - (NSString *) decodeStringForKey:(NSString *)key;
+- (XSPoint *) decodePointForKey:(NSString *)key;
+
 @end
