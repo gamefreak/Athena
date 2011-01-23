@@ -39,6 +39,13 @@
     NSInteger health;
     NSInteger energy;
     NSInteger damage;
+
+    NSInteger initialAge;
+    NSInteger initialAgeRange;
+
+    NSInteger scale;
+    NSInteger layer;
+    NSInteger spriteId;
 }
 
 @end

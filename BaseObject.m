@@ -39,6 +39,13 @@
     health = 1000;
     energy = 1000;
     damage = 0;
+
+    initialAge = -1;
+    initialAgeRange = 0;
+
+    scale = 4096;//DIV by 4096
+    layer = 0;//TODO make this an enum.
+    spriteId = -1;
     return self;
 }
 
@@ -71,6 +78,13 @@
     health = [coder decodeIntegerForKey:@"health"];
     energy = [coder decodeIntegerForKey:@"energy"];
     damage = [coder decodeIntegerForKey:@"damage"];
+
+    initialAge = [coder decodeIntegerForKey:@"initialAge"];
+    initialAgeRange = [coder decodeIntegerForKey:@"initialAgeRange"];
+
+    scale = [coder decodeIntegerForKey:@"scale"];
+    layer = [coder decodeIntegerForKey:@"layer"];
+    spriteId = [coder decodeIntegerForKey:@"spriteId"];
     return self;
 }
 
@@ -102,6 +116,13 @@
     [coder encodeInteger:health forKey:@"health"];
     [coder encodeInteger:energy forKey:@"energy"];
     [coder encodeInteger:damage forKey:@"damage"];
+
+    [coder encodeInteger:initialAge forKey:@"initialAge"];
+    [coder encodeInteger:initialAgeRange forKey:@"initialAgeRange"];
+
+    [coder encodeInteger:scale forKey:@"scale"];
+    [coder encodeInteger:layer forKey:@"layer"];
+    [coder encodeInteger:spriteId forKey:@"spriteId"];
 }
 
 - (void) dealloc {
