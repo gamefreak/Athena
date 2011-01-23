@@ -8,6 +8,7 @@
 
 #import "LuaUnarchiver.h"
 #import "MainData.h"
+#import "XSPoint.h"
 #import "lualib.h"
 #import "lauxlib.h"
 
@@ -151,15 +152,11 @@
     return value;
 }
 
-- (NSPoint) decodePointForKey:(NSString *)key {
+- (XSPoint *) decodePointForKey:(NSString *)key {
     [self getKey:key];
-    [self getKey:@"x"];
-    CGFloat x = lua_tonumber(L, -1);
+    XSPoint *point = [[XSPoint alloc] initWithCoder: self];
     [self pop];
-    [self getKey:@"y"];
-    CGFloat y = lua_tonumber(L, -1);
-    [self popN:2];
-    return NSMakePoint(x, y);
+    return [point autorelease];
 }
 
 - (NSInteger) decodeIntegerForKey:(NSString *)key {

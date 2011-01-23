@@ -18,10 +18,11 @@
     plural = @"Untitled";
     military = @"Untitled";
     homeworld = @"Untitled";
+    return self;
 }
 
 - (id) initWithCoder:(LuaUnarchiver *)coder {
-    [super init];
+    [self init];
     raceId = [coder decodeIntegerForKey:@"id"];
     advantage = [coder decodeFloatForKey:@"advantage"];
     singular = [[coder decodeStringForKey:@"singular"] retain];
