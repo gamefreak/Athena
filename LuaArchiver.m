@@ -86,6 +86,25 @@
     [self down];
 }
 
+- (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key {
+    [self up];
+    [self indent];
+    [data appendString:key];
+    [data appendString:@" = {\n"];
+    [self up];
+    //Alphabetical sort
+    NSArray *keys = [dict keysSortedByValueUsingSelector:@selector(compare:)];
+    for (id key in keys) {
+        [self indent]; [data appendFormat:@"%@ = {\n", key];
+        [[dict objectForKey:key] encodeWithCoder:self];
+        [self indent]; [data appendString:@"};\n"];
+    }
+    [self down];
+    [self indent];
+    [data appendString:@"};\n"];
+    [self down];
+}
+
 - (void) encodeBool:(BOOL)value forKey:(NSString *)key {
     [self up];
     [self indent];
