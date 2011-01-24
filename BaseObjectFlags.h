@@ -49,6 +49,29 @@
 }
 @end
 
+@interface BaseObjectBuildFlags : ObjectFlags {
+    BOOL uncapturedBaseExists;
+    BOOL sufficientEscortExists;
+    BOOL thisBaseNeedsProtection;
+    BOOL friendUpTrend;
+    BOOL friendDownTrend;
+    BOOL foeUpTrend;
+    BOOL foeDownTrend;
+    BOOL matchingFoeExists;
+    BOOL onlyEngagedBy;
+    BOOL canOnlyEngage;
+    BOOL engageKey1;
+    BOOL engageKey2;
+    BOOL engageKey3;
+    BOOL engageKey4;
+    BOOL levelKey1;
+    BOOL levelKey2;
+    BOOL levelKey3;
+    BOOL levelKey4;
+}
+@end
+
+
 @interface BaseObjectOrderFlags : ObjectFlags {
     BOOL strongerThanTarget;
     BOOL targetIsBase;

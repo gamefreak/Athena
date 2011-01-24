@@ -45,7 +45,7 @@ typedef enum {
     NSString *staticName;
 
     BaseObjectAttributes *attributes;
-    //Build flags
+    BaseObjectBuildFlags *buildFlags;
     BaseObjectOrderFlags *orderFlags;
     NSInteger class;
     NSInteger race;

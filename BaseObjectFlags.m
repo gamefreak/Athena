@@ -77,6 +77,23 @@ static NSArray *bsobAttributeKeys;
 }
 @end
 
+static NSArray *bsobBuildFlags;
+@implementation BaseObjectBuildFlags
++ (NSArray *) keys {
+    if (bsobBuildFlags == nil) {
+        bsobBuildFlags = [[NSArray alloc] initWithObjects:
+        @"uncapturedBaseExists", @"sufficientEscortExists", @"thisBaseNeedsProtection", @"friendUpTrend",
+        @"friendDownTrend", @"foeUpTrend", @"foeDownTrend", @"matchingFoeExists",
+        [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+        [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+        [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+        [NSNull null], [NSNull null], @"onlyEngagedBy", @"canOnlyEngage",
+        @"engageKey1", @"engageKey2", @"engageKey3", @"engageKey4",
+        @"levelKey1", @"levelKey2", @"levelKey3", @"levelKey4", nil];
+    }
+    return bsobBuildFlags;
+}
+@end
 
 static NSArray *bsobOrderKeys;
 @implementation BaseObjectOrderFlags
