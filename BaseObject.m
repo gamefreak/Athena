@@ -215,3 +215,35 @@
 }
 @end
 
+@implementation Weapon
+- (id) init {
+    self = [super init];
+    ID = -1;
+    positionCount = 0;
+    positions = [[NSMutableArray alloc] initWithObjects:[XSPoint point], [XSPoint point], [XSPoint point], nil];
+    return self;
+}
+
+- (id) initWithCoder:(LuaUnarchiver *)coder {
+    self = [self init];
+    ID = [coder decodeIntegerForKey:@"id"];
+    positionCount = [coder decodeIntegerForKey:@"count"];
+    [positions setArray:[coder decodeArrayOfClass:[XSPoint class] forKey:@"positions"]];
+    return self;
+}
+
+- (void) encodeWithCoder:(LuaArchiver *)coder {
+    [coder encodeInteger:ID forKey:@"id"];
+    [coder encodeInteger:positionCount forKey:@"count"];
+    [coder encodeArray:positions forKey:@"positions"];
+}
+
+- (void) dealloc {
+    [positions release];
+    [super dealloc];
+}
+
++ (id) weapon {
+    return [[[Weapon alloc] init] autorelease];
+}
+@end

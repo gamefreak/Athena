@@ -37,6 +37,14 @@ typedef enum {
     ClutRed,
 } ClutColor;
 
+@interface Weapon : NSObject <NSCoding> {
+    NSInteger ID;//Uppercase because objective-c uses 'id' as a keyword.
+    NSInteger positionCount;
+    NSMutableArray *positions;
+}
++ (id) weapon;
+@end
+
 
 @interface BaseObject : NSObject <NSCoding> {
     NSString *name;
