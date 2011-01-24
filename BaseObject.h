@@ -92,6 +92,8 @@ typedef enum {
 
     NSInteger initialDirection;
     NSInteger initialDirectionRange;
+
+    NSMutableDictionary *weapons;
 }
 
 @end

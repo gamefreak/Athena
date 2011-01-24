@@ -58,6 +58,11 @@
 
     initialDirection = 0;
     initialDirectionRange = 0;
+
+    weapons = [[NSMutableData alloc] initWithCapacity:3];
+    [weapons setObject:[Weapon weapon] forKey:@"pulse"];
+    [weapons setObject:[Weapon weapon] forKey:@"beam"];
+    [weapons setObject:[Weapon weapon] forKey:@"special"];
     return self;
 }
 
@@ -129,6 +134,9 @@
 
     initialDirection = [coder decodeIntegerForKey:@"initialDirection"];
     initialDirectionRange = [coder decodeIntegerForKey:@"initialDirectionRange"];
+
+    [weapons release];
+    weapons = [coder decodeDictionaryOfClass:[Weapon class] forKey:@"weapons"];
     return self;
 }
 
@@ -200,6 +208,8 @@
 
     [coder encodeInteger:initialDirection forKey:@"initialDirection"];
     [coder encodeInteger:initialDirectionRange forKey:@"initialDirectionRange"];
+
+    [coder encodeDictionary:weapons forKey:@"weapons"];
 }
 
 - (void) dealloc {
@@ -211,6 +221,8 @@
     [attributes release];
     [buildFlags release];
     [orderFlags release];
+
+    [weapons release];
     [super dealloc];
 }
 @end
