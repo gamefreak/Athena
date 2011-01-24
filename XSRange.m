@@ -41,6 +41,11 @@
     [coder encodeInteger:range.length forKey:@"count"];
 }
 
+
++ (id) range {
+    return [[[XSRange alloc] init] autorelease];
+}
+
 @synthesize range;
 @dynamic first;
 - (void) setFirst:(NSUInteger)first {range.location = first;}

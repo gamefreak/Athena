@@ -18,4 +18,6 @@
 
 - (id) initWithPoint:(NSPoint)point;
 - (id) initWithX:(CGFloat)x Y:(CGFloat)y;
+
++ (id) point;
 @end

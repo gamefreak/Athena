@@ -48,4 +48,8 @@
     [coder encodeFloat:point.y forKey:@"y"];
 }
 
++ (id) point {
+    return [[[XSPoint alloc] init] autorelease];
+}
+
 @end

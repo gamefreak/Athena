@@ -18,4 +18,6 @@
 @property (readwrite, assign) NSRange range;
 @property (readwrite, assign) NSUInteger first;
 @property (readwrite, assign) NSUInteger count;
+
++ (id) range;
 @end
