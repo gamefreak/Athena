@@ -123,10 +123,11 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     lua_pushnil(L);
     while (lua_next(L, -2) != 0) {
-        id object = [[class alloc] initWithCoder:self];
-        [dict addObject:obj];
-        [object release];
-        lua_pop(1);
+        NSString *key = [NSString stringWithUTF8String:lua_tostring(L, -2)];
+        id value = [[class alloc] initWithCoder:self];
+        [dict setObject:value forKey:key];
+        [value release];
+        lua_pop(L, 1);
     }
     [self pop];
     return dict;
