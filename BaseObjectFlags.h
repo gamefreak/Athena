@@ -11,7 +11,7 @@
 
 //Abstract Class
 @interface ObjectFlags : NSObject <NSCoding> {}
-+ (NSArray *)keyArray;
++ (NSArray *)keys;
 @end
 
 @interface BaseObjectAttributes : ObjectFlags {
