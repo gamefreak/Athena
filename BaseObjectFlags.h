@@ -47,5 +47,30 @@
     BOOL appearOnRadar;
     BOOL onAutoPilot;
 }
+@end
 
+@interface BaseObjectOrderFlags : ObjectFlags {
+    BOOL strongerThanTarget;
+    BOOL targetIsBase;
+    BOOL targetIsNotBase;
+    BOOL targetIsLocal;
+    BOOL targetIsRemote;
+    BOOL onlyEscortNotBase;
+    BOOL targetIsFriend;
+    BOOL targetIsFoe;
+    BOOL hardMatchingFriend;
+    BOOL hardMatchingFoe;
+    BOOL hardFriendlyEscortOnly;
+    BOOL hardNoFriendlyEscort;
+    BOOL hardTargetIsRemote;
+    BOOL hardTargetIsLocal;
+    BOOL hardTargetIsFoe;
+    BOOL hardTargetIsFriend;
+    BOOL hardTargetIsNotBase;
+    BOOL hardTargetIsBase;
+    BOOL orderKey1;
+    BOOL orderKey2;
+    BOOL orderKey3;
+    BOOL orderKey4;
+}
 @end

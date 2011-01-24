@@ -18,6 +18,7 @@
     staticName = @"Untitled";
 
     attributes = [[BaseObjectAttributes alloc] init];
+    orderFlags = [[BaseObjectOrderFlags alloc] init];
 
     class = -1;
     race = -1;
@@ -68,6 +69,8 @@
 
     [attributes release];
     attributes = [[coder decodeObjectOfClass:[BaseObjectAttributes class] forKey:@"attributes"] retain];
+    [orderFlags release];
+    orderFlags = [[coder decodeObjectOfClass:[BaseObjectOrderFlags class] forKey:@"orderFlags"] retain];
 
     class = [coder decodeIntegerForKey:@"class"];
     race = [coder decodeIntegerForKey:@"race"];
@@ -133,6 +136,7 @@
     [coder encodeString:staticName forKey:@"staticName"];
 
     [coder encodeObject:attributes forKey:@"attributes"];
+    [coder encodeObject:orderFlags forKey:@"orderFlags"];
 
     [coder encodeInteger:class forKey:@"class"];
     [coder encodeInteger:race forKey:@"race"];
@@ -201,6 +205,7 @@
     [staticName release];
 
     [attributes release];
+    [orderFlags release];
     [super dealloc];
 }
 @end

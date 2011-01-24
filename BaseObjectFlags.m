@@ -70,10 +70,31 @@ static NSArray *bsobAttributeKeys;
                              @"autoTarget", @"animationCycle", @"canCollide", @"canBeHit",
                              @"isDestination", @"hideEffect", @"releaseEnergyOnDeath", @"hated",
                              @"occupiesSpace", @"staticDestination", @"canBeEvaded", @"neutralDeath",
-                             @"isGuided", @"appearOnRadar", [NSNull null], /*@"onAutoPilot" BUH?,*/ nil];
+                             @"isGuided", @"appearOnRadar", [NSNull null], @"onAutoPilot", nil];
         
     }
     return bsobAttributeKeys;
 }
 @end
+
+
+static NSArray *bsobOrderKeys;
+@implementation BaseObjectOrderFlags
++ (NSArray *) keys {
+    if (bsobOrderKeys == nil) {
+        bsobOrderKeys = [[NSArray alloc] initWithObjects:
+        @"strongerThanTarget", @"targetIsBase", @"targetIsNotBase", @"targetIsLocal",
+        @"targetIsRemote", @"onlyEscortNotBase", @"targetIsFriend", @"targetIsFoe",
+        [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+        [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+        [NSNull null], [NSNull null], @"hardMatchingFriend", @"hardMatchingFoe",
+        @"hardFriendlyEscortOnly", @"hardNoFriendlyEscort", @"hardTargetIsRemote", @"hardTargetIsLocal",
+        @"hardTargetIsFoe", @"hardTargetIsFriend", @"hardTargetIsNotBase", @"hardTargetIsBase",
+        @"orderKey1", @"orderKey2", @"orderKey3", @"orderKey4", nil];
+    }
+    return bsobOrderKeys;
+}
+
+@end
+
 

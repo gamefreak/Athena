@@ -43,10 +43,10 @@ typedef enum {
     NSString *shortName;
     NSString *notes;
     NSString *staticName;
-    //Attributes
+
     BaseObjectAttributes *attributes;
     //Build flags
-    //Order flags
+    BaseObjectOrderFlags *orderFlags;
     NSInteger class;
     NSInteger race;
 
