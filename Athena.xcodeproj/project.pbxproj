@@ -51,6 +51,7 @@
 		D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5E812EB82ED00EF1CCA /* BriefPoint.m */; };
 		D293F65C12EBAAF600EF1CCA /* XSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F65B12EBAAF600EF1CCA /* XSPoint.m */; };
 		D293F6A712EBB03200EF1CCA /* XSRange.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F6A612EBB03200EF1CCA /* XSRange.m */; };
+		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 /* End PBXBuildFile section */
 
@@ -139,6 +140,8 @@
 		D293F65B12EBAAF600EF1CCA /* XSPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSPoint.m; sourceTree = "<group>"; };
 		D293F6A512EBB03200EF1CCA /* XSRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSRange.h; sourceTree = "<group>"; };
 		D293F6A612EBB03200EF1CCA /* XSRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSRange.m; sourceTree = "<group>"; };
+		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
+		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -307,6 +310,8 @@
 				D293F5E812EB82ED00EF1CCA /* BriefPoint.m */,
 				D21EB31D12E8C41700694EBA /* BaseObject.h */,
 				D21EB31E12E8C41700694EBA /* BaseObject.m */,
+				D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */,
+				D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */,
 				D293F5D612EB78E000EF1CCA /* Race.h */,
 				D293F5D712EB78E000EF1CCA /* Race.m */,
 			);
@@ -433,6 +438,7 @@
 				D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */,
 				D293F65C12EBAAF600EF1CCA /* XSPoint.m in Sources */,
 				D293F6A712EBB03200EF1CCA /* XSRange.m in Sources */,
+				D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

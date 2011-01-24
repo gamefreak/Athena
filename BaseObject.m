@@ -17,6 +17,8 @@
     notes = @"";
     staticName = @"Untitled";
 
+    attributes = [[BaseObjectAttributes alloc] init];
+
     class = -1;
     race = -1;
 
@@ -63,6 +65,9 @@
     shortName = [[coder decodeStringForKey:@"shortName"] retain];
     notes = [[coder decodeStringForKey:@"notes"] retain];
     staticName = [[coder decodeStringForKey:@"staticName"] retain];
+
+    [attributes release];
+    attributes = [[coder decodeObjectOfClass:[BaseObjectAttributes class] forKey:@"attributes"] retain];
 
     class = [coder decodeIntegerForKey:@"class"];
     race = [coder decodeIntegerForKey:@"race"];
@@ -126,6 +131,8 @@
     [coder encodeString:shortName forKey:@"shortName"];
     [coder encodeString:notes forKey:@"notes"];
     [coder encodeString:staticName forKey:@"staticName"];
+
+    [coder encodeObject:attributes forKey:@"attributes"];
 
     [coder encodeInteger:class forKey:@"class"];
     [coder encodeInteger:race forKey:@"race"];
@@ -192,6 +199,8 @@
     [shortName release];
     [notes release];
     [staticName release];
+
+    [attributes release];
     [super dealloc];
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BaseObjectFlags.h"
 
 typedef enum {
     IconShapeNone,//SIGH
@@ -36,12 +37,14 @@ typedef enum {
     ClutRed,
 } ClutColor;
 
+
 @interface BaseObject : NSObject <NSCoding> {
     NSString *name;
     NSString *shortName;
     NSString *notes;
     NSString *staticName;
     //Attributes
+    BaseObjectAttributes *attributes;
     //Build flags
     //Order flags
     NSInteger class;
