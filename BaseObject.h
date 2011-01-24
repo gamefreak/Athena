@@ -8,6 +8,33 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum {
+    IconShapeNone,//SIGH
+    IconShapeSquare,
+    IconShapeTriangle,
+    IconShapeDiamond,
+    IconShapePlus,
+    IconShapeFramedSquare
+} IconShape;
+
+typedef enum {
+    ClutGray,
+    ClutOrange,
+    ClutYellow,
+    ClutBlue,
+    ClutGreen,
+    ClutPurple,
+    ClutIndigo,
+    ClutSalmon,
+    ClutGold,
+    ClutAqua,
+    ClutPink,
+    ClutPaleGreen,
+    ClutPalePurple,
+    ClutSkyBlue,
+    ClutTan,
+    ClutRed,
+} ClutColor;
 
 @interface BaseObject : NSObject <NSCoding> {
     NSString *name;
@@ -46,6 +73,11 @@
     NSInteger scale;
     NSInteger layer;
     NSInteger spriteId;
+
+    IconShape iconShape;
+    NSInteger iconSize;
+
+    ClutColor shieldColor;
 }
 
 @end

@@ -46,6 +46,11 @@
     scale = 4096;//DIV by 4096
     layer = 0;//TODO make this an enum.
     spriteId = -1;
+
+    iconShape = IconShapeTriangle;
+    iconSize = 4;//Size of cruiser
+
+    shieldColor = ClutGray;
     return self;
 }
 
@@ -85,6 +90,25 @@
     scale = [coder decodeIntegerForKey:@"scale"];
     layer = [coder decodeIntegerForKey:@"layer"];
     spriteId = [coder decodeIntegerForKey:@"spriteId"];
+
+    NSString *iconShapeStr = [coder decodeIntegerForKey:@"iconShape"];
+    if ([iconShapeStr isEqual:@"square"]){
+        iconShape = IconShapeSquare;
+    } else if ([iconShapeStr isEqual:@"triangle"]) {
+        iconShape = IconShapeTriangle;
+    } else if ([iconShapeStr isEqual:@"diamond"]) {
+        iconShape = IconShapeDiamond;
+    } else if ([iconShapeStr isEqual:@"plus"]) {
+        iconShape = IconShapePlus;
+    } else if ([iconShapeStr isEqual:@"framed square"]) {
+        iconShape = IconShapeFramedSquare;
+    } else {
+        @throw [NSString stringWithFormat:@"Invalid Icon Shape: %@", iconShapeStr];;
+    }
+
+    iconSize = [coder decodeIntegerForKey:@"iconSize"];
+
+    shieldColor = [coder decodeIntegerForKey:@"shieldColor"];
     return self;
 }
 
@@ -123,6 +147,31 @@
     [coder encodeInteger:scale forKey:@"scale"];
     [coder encodeInteger:layer forKey:@"layer"];
     [coder encodeInteger:spriteId forKey:@"spriteId"];
+
+    switch (iconShape) {
+        case IconShapeSquare:
+            [coder encodeString:@"square" forKey:@"iconShape"];
+            break;
+        case IconShapeTriangle:
+            [coder encodeString:@"triangle" forKey:@"iconShape"];
+            break;
+        case IconShapeDiamond:
+            [coder encodeString:@"diamond" forKey:@"iconShape"];
+            break;
+        case IconShapePlus:
+            [coder encodeString:@"plus" forKey:@"iconShape"];
+            break;
+        case IconShapeFramedSquare:
+            [coder encodeString:@"framed square" forKey:@"iconShape"];
+            break;
+        default:
+            @throw @"Invalid Icon Shape";
+            break;
+    }
+
+    [coder encodeInteger:iconSize forKey:@"iconSize"];
+
+    [coder encodeInteger:shieldColor forKey:@"shieldColor"];
 }
 
 - (void) dealloc {
