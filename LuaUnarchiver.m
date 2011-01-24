@@ -117,6 +117,20 @@
     return array;
 }
 
+- (NSMutableDictionary *) decodeDictionaryOfClass:(Class)class forKey:(NSString *)key {
+    [self getKey:key];
+    assert(lua_istable(L, -1));
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    lua_pushnil(L);
+    while (lua_next(L, -2) != 0) {
+        id object = [[class alloc] initWithCoder:self];
+        [dict addObject:obj];
+        [object release];
+        lua_pop(1);
+    }
+    [self pop];
+    return dict;
+}
 
 - (BOOL) decodeBoolForKey:(NSString *)key {
     [self getKey:key];

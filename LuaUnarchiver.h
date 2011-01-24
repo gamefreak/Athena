@@ -18,6 +18,7 @@
 - (void) loadData:(NSData *)data;
 - (id) decodeObjectOfClass:(Class<NSCoding>)class forKey:(NSString *)key;
 - (NSMutableArray *) decodeArrayOfClass:(Class)_class forKey:(NSString *)key;
+- (NSMutableDictionary *) decodeDictionaryOfClass:(Class)class forKey:(NSString *)key;
 - (NSString *) decodeStringForKey:(NSString *)key;
 - (XSPoint *) decodePointForKey:(NSString *)key;
 
