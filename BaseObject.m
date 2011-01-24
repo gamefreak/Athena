@@ -51,6 +51,9 @@
     iconSize = 4;//Size of cruiser
 
     shieldColor = ClutGray;
+
+    initialDirection = 0;
+    initialDirectionRange = 0;
     return self;
 }
 
@@ -102,13 +105,19 @@
         iconShape = IconShapePlus;
     } else if ([iconShapeStr isEqual:@"framed square"]) {
         iconShape = IconShapeFramedSquare;
+    } else if ([iconShapeStr isEqual:@"none"]){
+        //This case should only happen as a result of a fallback condition for the last case
+        iconShape = IconShapeNone;
     } else {
-        @throw [NSString stringWithFormat:@"Invalid Icon Shape: %@", iconShapeStr];;
+        iconShape = IconShapeNone;
     }
 
     iconSize = [coder decodeIntegerForKey:@"iconSize"];
 
     shieldColor = [coder decodeIntegerForKey:@"shieldColor"];
+
+    initialDirection = [coder decodeIntegerForKey:@"initialDirection"];
+    initialDirectionRange = [coder decodeIntegerForKey:@"initialDirectionRange"];
     return self;
 }
 
@@ -165,13 +174,17 @@
             [coder encodeString:@"framed square" forKey:@"iconShape"];
             break;
         default:
-            @throw @"Invalid Icon Shape";
+        case IconShapeNone:
+            [coder encodeString:@"none" forKey:@"iconShape"];
             break;
     }
 
     [coder encodeInteger:iconSize forKey:@"iconSize"];
 
     [coder encodeInteger:shieldColor forKey:@"shieldColor"];
+
+    [coder encodeInteger:initialDirection forKey:@"initialDirection"];
+    [coder encodeInteger:initialDirectionRange forKey:@"initialDirectionRange"];
 }
 
 - (void) dealloc {

@@ -78,6 +78,9 @@ typedef enum {
     NSInteger iconSize;
 
     ClutColor shieldColor;
+
+    NSInteger initialDirection;
+    NSInteger initialDirectionRange;
 }
 
 @end
