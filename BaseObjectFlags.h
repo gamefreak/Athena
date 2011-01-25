@@ -8,13 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Archivers.h"
+#import "FlagBlob.h"
 
-//Abstract Class
-@interface ObjectFlags : NSObject <LuaCoding> {}
-+ (NSArray *)keys;
-@end
-
-@interface BaseObjectAttributes : ObjectFlags {
+@interface BaseObjectAttributes : FlagBlob {
     BOOL canTurn;
     BOOL canBeEngaged;
     BOOL hasDirectionGoal;
@@ -49,7 +45,7 @@
 }
 @end
 
-@interface BaseObjectBuildFlags : ObjectFlags {
+@interface BaseObjectBuildFlags : FlagBlob {
     BOOL uncapturedBaseExists;
     BOOL sufficientEscortExists;
     BOOL thisBaseNeedsProtection;
@@ -72,7 +68,7 @@
 @end
 
 
-@interface BaseObjectOrderFlags : ObjectFlags {
+@interface BaseObjectOrderFlags : FlagBlob {
     BOOL strongerThanTarget;
     BOOL targetIsBase;
     BOOL targetIsNotBase;
