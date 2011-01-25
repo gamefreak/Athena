@@ -82,14 +82,22 @@
     return dat;
 }
 
-- (void) encodeObject:(id <NSObject,NSCoding>)obj forKey:(NSString *)key {
+- (void) encodeObject:(id <NSObject, LuaCoding>)obj forKey:(NSString *)key {
     [self up];
     [self indent];
     [data appendString:key];
-    [data appendString:@" = {\n"];
-    [obj encodeWithCoder:self];
-    [self indent];
-    [data appendString:@"};\n"];
+    if ([[obj class] isComposite]) {
+        [data appendString:@" = {\n"];
+    } else {
+        [data appendString:@" = "];
+    }
+    [obj encodeLuaWithCoder:self];
+    if ([[obj class] isComposite]) {
+        [self indent];
+        [data appendString:@"};\n"];
+    } else {
+        [data appendString:@";\n"];
+    }
     [self down];
 }
 
@@ -98,15 +106,12 @@
     [self indent];
     [data appendString:key];
     [data appendString:@" = {\n"];
-    [self up];
     NSInteger idx = (isZeroIndexed?0:1);
-    for (id<NSObject, NSCoding> obj in array) {
-        [self indent]; [data appendFormat:@"[%d] = {\n", idx];
-        [obj encodeWithCoder:self];
-        [self indent]; [data appendString:@"};\n"];
+    for (id<LuaCoding> obj in array) {
+        [self encodeObject:obj
+                    forKey:[NSString stringWithFormat:@"[%d]", idx]];
         idx++;
     }
-    [self down];
     [self indent];
     [data appendString:@"};\n"];
     [self down];
@@ -117,24 +122,19 @@
     [self indent];
     [data appendString:key];
     [data appendString:@" = {\n"];
-    [self up];
     //Alphabetical sort
     NSArray *keys = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (id key in keys) {
-        id obj = [dict objectForKey:key];
-        if ([obj isKindOfClass:[NSNumber class]]){
-            [self indent];
-            [data appendFormat:@"%@ = %@;\n", key, [(NSNumber *)obj encodedValue]];
-        } else {
-            [self indent]; [data appendFormat:@"%@ = {\n", key];
-            [obj encodeWithCoder:self];
-            [self indent]; [data appendString:@"};\n"];
-        }
+        id<LuaCoding> obj = [dict objectForKey:key];
+        [self encodeObject:obj forKey:key];
     }
-    [self down];
     [self indent];
     [data appendString:@"};\n"];
     [self down];
+}
+
+- (void) encodeBool:(BOOL)value {
+    [data appendString:(value?@"true":@"false")];
 }
 
 - (void) encodeBool:(BOOL)value forKey:(NSString *)key {

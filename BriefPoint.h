@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LuaCoding.h"
 
 @class XSPoint;
 
@@ -17,7 +18,7 @@ typedef enum {
     BriefTypeFreestanding
 } BriefingType;
 
-@interface BriefPoint : NSObject <NSCoding> {
+@interface BriefPoint : NSObject <LuaCoding> {
     NSString *title;
     BriefingType type;
     NSInteger objectId;

@@ -36,16 +36,20 @@
     
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     [self init];
     point.x = [coder decodeFloatForKey:@"x"];
     point.y = [coder decodeFloatForKey:@"y"];
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeFloat:point.x forKey:@"x"];
     [coder encodeFloat:point.y forKey:@"y"];
+}
+
++ (BOOL) isComposite {
+    return YES;
 }
 
 + (id) point {

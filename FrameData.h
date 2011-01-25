@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Color.h"
+#import "LuaCoding.h"
 
-@interface FrameData : NSObject <NSCoding> {} @end
+@interface FrameData : NSObject <LuaCoding> {} @end
 
 @interface RotationData : FrameData {
     NSInteger offset;

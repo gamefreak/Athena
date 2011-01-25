@@ -10,7 +10,7 @@
 #import "Archivers.h"
 
 //Abstract Class
-@interface ObjectFlags : NSObject <NSCoding> {}
+@interface ObjectFlags : NSObject <LuaCoding> {}
 + (NSArray *)keys;
 @end
 

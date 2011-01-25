@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LuaCoding.h"
 
-
-@interface MainData : NSObject <NSCoding> {
+@interface MainData : NSObject <LuaCoding> {
     NSMutableArray *objects;
     NSMutableArray *races;
     NSMutableArray *briefings;

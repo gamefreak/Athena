@@ -14,7 +14,7 @@
 #import "BriefPoint.h"
 
 @implementation MainData
-- (id) initWithCoder:(LuaUnarchiver *)decoder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)decoder {
     [super init];
     objects = [[decoder decodeArrayOfClass:[BaseObject class]
                                     forKey:@"objects"
@@ -30,7 +30,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)aCoder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)aCoder {
     [aCoder encodeArray:objects forKey:@"objects" zeroIndexed:YES];
     [aCoder encodeArray:races forKey:@"race" zeroIndexed:YES];
     [aCoder encodeArray:briefings forKey:@"briefings" zeroIndexed:YES];
@@ -42,5 +42,9 @@
     [races release];
     [briefings release];
     [super dealloc];
+}
+
++ (BOOL) isComposite {
+    return YES;
 }
 @end

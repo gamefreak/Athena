@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LuaCoding.h"
 
-
-@interface XSPoint : NSObject <NSCoding> {
+@interface XSPoint : NSObject <LuaCoding> {
     NSPoint point;
 }
 @property (readwrite, assign) CGFloat x;

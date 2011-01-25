@@ -22,7 +22,7 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     [title release];
     title = [[coder decodeStringForKey:@"title"] retain];
@@ -49,7 +49,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeString:title forKey:@"title"];
     switch (type) {
         case BriefTypeNoPoint:
@@ -78,5 +78,9 @@
     [title release];
     [range release];
     [super dealloc];
+}
+
++ (BOOL) isComposite {
+    return YES;
 }
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LuaCoding.h"
 
-
-@interface Race : NSObject <NSCoding> {
+@interface Race : NSObject <LuaCoding> {
     NSInteger raceId;
     CGFloat advantage;
     NSString *singular;

@@ -55,6 +55,7 @@
 		D295110612EE7BB700AE3316 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D295110512EE7BB700AE3316 /* FrameData.m */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
+		D2E03F1912EF191A00F77E59 /* XSBool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E03F1812EF191A00F77E59 /* XSBool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,6 +152,9 @@
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
+		D2E03F1712EF191A00F77E59 /* XSBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSBool.h; sourceTree = "<group>"; };
+		D2E03F1812EF191A00F77E59 /* XSBool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSBool.m; sourceTree = "<group>"; };
+		D2E03F2412EF1B1D00F77E59 /* LuaCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCoding.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				D2802FD412EA572500F1A0B0 /* Archivers.h */,
+				D2E03F2412EF1B1D00F77E59 /* LuaCoding.h */,
 				D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */,
 				D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */,
 				D216E72F12E9DE1700D17AFB /* LuaArchiver.h */,
@@ -338,6 +343,8 @@
 		D293F65D12EBAAFD00EF1CCA /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
+				D2E03F1712EF191A00F77E59 /* XSBool.h */,
+				D2E03F1812EF191A00F77E59 /* XSBool.m */,
 				D293F65A12EBAAF600EF1CCA /* XSPoint.h */,
 				D293F65B12EBAAF600EF1CCA /* XSPoint.m */,
 				D293F6A512EBB03200EF1CCA /* XSRange.h */,
@@ -461,6 +468,7 @@
 				D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */,
 				D29510B212EE771300AE3316 /* ActionRefs.m in Sources */,
 				D295110612EE7BB700AE3316 /* FrameData.m in Sources */,
+				D2E03F1912EF191A00F77E59 /* XSBool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -30,7 +30,7 @@ static NSArray *attributeBlobKeys;
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     NSArray *keys = [[self class] keys];
     for (id key in keys) {
@@ -43,7 +43,7 @@ static NSArray *attributeBlobKeys;
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     NSUInteger hex = 0x00000000;
     NSArray *keys = [[self class] keys];
     NSInteger position = 0;
@@ -56,6 +56,10 @@ static NSArray *attributeBlobKeys;
         position++;
     }
     [coder encodeInteger:hex forKey:@"hex"];
+}
+
++ (BOOL) isComposite {
+    return YES;
 }
 @end
 

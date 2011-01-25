@@ -21,7 +21,7 @@ typedef enum {
     IconShapeFramedSquare
 } IconShape;
 
-@interface Weapon : NSObject <NSCoding> {
+@interface Weapon : NSObject <LuaCoding> {
     NSInteger ID;//Uppercase because objective-c uses 'id' as a keyword.
     NSInteger positionCount;
     NSMutableArray *positions;
@@ -29,7 +29,7 @@ typedef enum {
 + (id) weapon;
 @end
 
-@interface BaseObject : NSObject <NSCoding> {
+@interface BaseObject : NSObject <LuaCoding> {
     NSString *name;
     NSString *shortName;
     NSString *notes;

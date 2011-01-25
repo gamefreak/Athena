@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LuaCoding.h"
 
-
-@interface XSRange : NSObject <NSCoding> {
+@interface XSRange : NSObject <LuaCoding> {
     NSRange range;
 }
 - (id) initWithRange:(NSRange)range;

@@ -16,20 +16,24 @@
     count = 0;
     return self;
 }
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     first = [coder decodeIntegerForKey:@"first"];
     count = [coder decodeIntegerForKey:@"count"];
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:first forKey:@"first"];
     [coder encodeInteger:count forKey:@"count"];
 }
 
 + (id) ref {
     return [[[self alloc] init] autorelease];
+}
+
++ (BOOL) isComposite {
+    return YES;
 }
 @end
 
@@ -40,14 +44,14 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
-    self = [super initWithCoder:coder];
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
     dontDestroyOnDeath = [coder decodeBoolForKey:@"dontDieOnDeath"];
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
-    [super encodeWithCoder:coder];
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
     [coder encodeBool:dontDestroyOnDeath forKey:@"dontDieOnDeath"];
 }
 @end
@@ -60,15 +64,15 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
-    self = [super initWithCoder:coder];
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
     interval = [coder decodeIntegerForKey:@"interval"];
     intervalRange = [coder decodeIntegerForKey:@"intervalRange"];
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
-    [super encodeWithCoder:coder];
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
     [coder encodeInteger:interval forKey:@"interval"];
     [coder encodeInteger:intervalRange forKey:@"intervalRange"];
 }

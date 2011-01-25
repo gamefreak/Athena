@@ -8,13 +8,19 @@
 
 #import "FrameData.h"
 #import "Archivers.h"
+#import "XSBool.h"
 
 @implementation FrameData
-- (id) initWithCoder:(NSCoder *)aDecoder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)aDecoder {
     self = [self init];
     return self;
 }
-- (void) encodeWithCoder:(NSCoder *)aCoder {}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)aCoder {}
+
++ (BOOL) isComposite {
+    return YES;
+}
 @end
 
 @implementation RotationData
@@ -27,7 +33,7 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     offset = [coder decodeIntegerForKey:@"offset"];
     resolution = [coder decodeIntegerForKey:@"resolution"];
@@ -36,7 +42,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:offset forKey:@"offset"];
     [coder encodeInteger:resolution forKey:@"resolution"];
     [coder encodeFloat:turnRate forKey:@"turnRate"];
@@ -58,7 +64,7 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     firstShape = [coder decodeIntegerForKey:@"firstShape"];
     lastShape = [coder decodeIntegerForKey:@"lastShape"];
@@ -71,7 +77,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:firstShape forKey:@"firstShape"];
     [coder encodeInteger:lastShape forKey:@"lastShape"];
     [coder encodeInteger:direction forKey:@"direction"];
@@ -93,7 +99,7 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     type = [coder decodeIntegerForKey:@"hex"];
     color = [coder decodeIntegerForKey:@"color"];
@@ -102,7 +108,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:type forKey:@"hex"];
     switch (type) {
         case BeamTypeKinetic:
@@ -146,9 +152,9 @@
 - (id) init {
     self = [super init];
     uses = [[NSMutableDictionary alloc] initWithCapacity:3];
-    [uses setObject:[NSNumber numberWithBool:NO] forKey:@"transportation"];
-    [uses setObject:[NSNumber numberWithBool:NO] forKey:@"attacking"];
-    [uses setObject:[NSNumber numberWithBool:NO] forKey:@"defence"];
+    [uses setObject:[XSBool no] forKey:@"transportation"];
+    [uses setObject:[XSBool no] forKey:@"attacking"];
+    [uses setObject:[XSBool no] forKey:@"defence"];
 
     energyCost = 0;
     reload = 1;//Need better default
@@ -159,15 +165,15 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    [uses setObject:[NSNumber numberWithBool:[coder decodeBoolForKeyPath:@"uses.transportation"]]
+    [uses setObject:[XSBool boolWithBool:[coder decodeBoolForKeyPath:@"uses.transportation"]]
              forKey:@"transportation"];
 
-    [uses setObject:[NSNumber numberWithBool:[coder decodeBoolForKeyPath:@"uses.attacking"]]
+    [uses setObject:[XSBool boolWithBool:[coder decodeBoolForKeyPath:@"uses.attacking"]]
              forKey:@"attacking"];
 
-    [uses setObject:[NSNumber numberWithBool:[coder decodeBoolForKeyPath:@"uses.defence"]]
+    [uses setObject:[XSBool boolWithBool:[coder decodeBoolForKeyPath:@"uses.defence"]]
              forKey:@"defence"];
     
     energyCost = [coder decodeIntegerForKey:@"energyCost"];
@@ -179,7 +185,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeDictionary:uses forKey:@"uses"];
     [coder encodeInteger:energyCost forKey:@"energyCost"];
     [coder encodeInteger:reload forKey:@"reload"];

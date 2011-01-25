@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LuaCoding.h"
 
-@interface ActionRef : NSObject <NSCoding> {
+@interface ActionRef : NSObject <LuaCoding> {
     NSInteger first, count;
 }
 + (id) ref;

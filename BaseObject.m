@@ -89,7 +89,7 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     name = [[coder decodeStringForKey:@"name"] retain];
     shortName = [[coder decodeStringForKey:@"shortName"] retain];
@@ -213,7 +213,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeString:name forKey:@"name"];
     [coder encodeString:shortName forKey:@"shortName"];
     [coder encodeString:notes forKey:@"notes"];
@@ -320,6 +320,10 @@
     [actions release];
     [super dealloc];
 }
+
++ (BOOL) isComposite {
+    return YES;
+}
 @end
 
 @implementation Weapon
@@ -331,7 +335,7 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     ID = [coder decodeIntegerForKey:@"id"];
     positionCount = [coder decodeIntegerForKey:@"count"];
@@ -343,7 +347,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:ID forKey:@"id"];
     [coder encodeInteger:positionCount forKey:@"count"];
     [coder encodeArray:positions forKey:@"positions" zeroIndexed:NO];
@@ -356,5 +360,9 @@
 
 + (id) weapon {
     return [[[Weapon alloc] init] autorelease];
+}
+
++ (BOOL) isComposite {
+    return YES;
 }
 @end

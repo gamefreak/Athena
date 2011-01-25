@@ -28,7 +28,7 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super init];
     NSUInteger first = [coder decodeIntegerForKey:@"first"];
     NSUInteger count = [coder decodeIntegerForKey:@"count"];
@@ -36,11 +36,14 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:range.location forKey:@"first"];
     [coder encodeInteger:range.length forKey:@"count"];
 }
 
++ (BOOL) isComposite {
+    return YES;
+}
 
 + (id) range {
     return [[[XSRange alloc] init] autorelease];

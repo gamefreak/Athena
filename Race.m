@@ -21,7 +21,7 @@
     return self;
 }
 
-- (id) initWithCoder:(LuaUnarchiver *)coder {
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     [self init];
     raceId = [coder decodeIntegerForKey:@"id"];
     advantage = [coder decodeFloatForKey:@"advantage"];
@@ -32,7 +32,7 @@
     return self;
 }
 
-- (void) encodeWithCoder:(LuaArchiver *)coder {
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:raceId forKey:@"id"];
     [coder encodeFloat:advantage forKey:@"advantage"];
     [coder encodeString:singular forKey:@"singular"];
@@ -47,5 +47,9 @@
     [military release];
     [homeworld release];
     [super dealloc];
+}
+
++ (BOOL) isComposite {
+    return YES;
 }
 @end

@@ -79,29 +79,29 @@
     [uarch loadData:data];
     
     //Remember: MainData is hardcoded here
-    MainData *decodedObject = [[MainData alloc] initWithCoder:uarch];
+    MainData *decodedObject = [[MainData alloc] initWithLuaCoder:uarch];
     [uarch release];
     return [decodedObject autorelease];
 }
 
 
-- (id) decodeObjectOfClass:(Class<NSCoding>)class forKey:(NSString *)key {
+- (id) decodeObjectOfClass:(Class<LuaCoding>)class forKey:(NSString *)key {
     [self getKey:key];
     assert(lua_istable(L, -1));
-    id obj = [[class alloc] initWithCoder:self];
+    id obj = [[class alloc] initWithLuaCoder:self];
     [self pop];
     return [obj autorelease];
 }
 
-- (id) decodeObjectOfClass:(Class<NSCoding>)class forKeyPath:(NSString *)keyPath {
+- (id) decodeObjectOfClass:(Class<LuaCoding>)class forKeyPath:(NSString *)keyPath {
     NSInteger popCount = [self getKeyPath:keyPath];
     assert(lua_istable(L, -1));
-    id obj = [[class alloc] initWithCoder:self];
+    id obj = [[class alloc] initWithLuaCoder:self];
     [self popN:popCount];
     return [obj autorelease];
 }
 
-- (NSMutableArray *) decodeArrayOfClass:(Class<NSCoding>)class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
+- (NSMutableArray *) decodeArrayOfClass:(Class<LuaCoding>)class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
     [self getKey:key];
     assert(lua_istable(L, -1));
 
@@ -116,7 +116,7 @@
         lua_pushinteger(L, idx); //pushes key
         lua_gettable(L, -2); //pops key, pushes value
         //I would like to make this warning go away \/
-        id object = [[class alloc] initWithCoder:self];
+        id object = [[class alloc] initWithLuaCoder:self];
         [array addObject:object];
         [object release];
         lua_pop(L, 1); //pops value
@@ -125,7 +125,7 @@
     return array;
 }
 
-- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<NSCoding>)class forKey:(NSString *)key {
+- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<LuaCoding>)class forKey:(NSString *)key {
     [self getKey:key];
     assert(lua_istable(L, -1));
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -134,13 +134,17 @@
         lua_pushvalue(L, -2);//Make a copy of the key
         NSString *key = [NSString stringWithUTF8String:lua_tostring(L, -1)];//Read the copy
         lua_pop(L, 1);//Pop the copy
-        id value = [[class alloc] initWithCoder:self];
+        id value = [[class alloc] initWithLuaCoder:self];
         [dict setObject:value forKey:key];
         [value release];
         lua_pop(L, 1);
     }
     [self pop];
     return dict;
+}
+
+- (BOOL) decodeBool {
+    return lua_toboolean(L, -1);
 }
 
 - (BOOL) decodeBoolForKey:(NSString *)key {
@@ -187,7 +191,7 @@
 
 - (XSPoint *) decodePointForKey:(NSString *)key {
     [self getKey:key];
-    XSPoint *point = [[XSPoint alloc] initWithCoder: self];
+    XSPoint *point = [[XSPoint alloc] initWithLuaCoder: self];
     [self pop];
     return [point autorelease];
 }
