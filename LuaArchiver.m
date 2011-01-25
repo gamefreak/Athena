@@ -136,4 +136,11 @@
     [data appendFormat:@"%@ = %d;\n", key, value];
     [self down];
 }
+
+- (void) encodeNilForKey:(NSString *)key {
+    [self up];
+    [self indent];
+    [data appendFormat:@"%@ = nil;\n", key];
+    [self down];
+}
 @end

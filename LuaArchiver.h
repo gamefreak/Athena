@@ -20,4 +20,5 @@
 - (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key;
 - (void) encodeString:(NSString *)string forKey:(NSString *)key;
 - (void) encodePoint:(XSPoint *)point forKey:(NSString *)key;
+- (void) encodeNilForKey:(NSString *)key;
 @end
