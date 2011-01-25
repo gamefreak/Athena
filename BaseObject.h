@@ -10,6 +10,7 @@
 #import "BaseObjectFlags.h"
 #import "ActionRefs.h"
 #import "Color.h"
+#import "FrameData.h"
 
 typedef enum {
     IconShapeNone,//SIGH
@@ -85,6 +86,8 @@ typedef enum {
     NSInteger arriveActionDistance;
     
     NSMutableDictionary *actions;
+
+    FrameData *frame;
 }
 
 @end

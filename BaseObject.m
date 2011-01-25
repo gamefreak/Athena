@@ -77,6 +77,8 @@
     [actions setObject:[ActionRef ref] forKey:@"collide"];
     [actions setObject:[ActivateActionRef ref] forKey:@"activate"];
     [actions setObject:[ActionRef ref] forKey:@"arrive"];
+
+    frame = [[RotationData alloc] init];
     return self;
 }
 
@@ -182,6 +184,17 @@
     [actions setObject:[coder decodeObjectOfClass:[ActionRef class]
                                        forKeyPath:@"actions.arrive"]
                 forKey:@"arrive"];
+
+    [frame release];
+    if ([[attributes valueForKey:@"shapeFromDirection"] boolValue] == YES) {
+        frame = [[RotationData alloc] init];
+    } else if ([[attributes valueForKey:@"isSelfAnimated"] boolValue] == YES) {
+        frame = [[AnimationData alloc] init];
+    } else if ([[attributes valueForKey:@"isBeam"] boolValue] == YES) {
+        frame = [[BeamData alloc] init];
+    } else {
+        frame = [[DeviceData alloc] init];
+    }
     return self;
 }
 
@@ -264,6 +277,16 @@
     [coder encodeInteger:arriveActionDistance forKey:@"arriveActionDistance"];
 
     [coder encodeDictionary:actions forKey:@"actions"];
+
+    if ([[attributes valueForKey:@"shapeFromDirection"] boolValue] == YES) {
+        [coder encodeObject:frame forKey:@"rotation"];
+    } else if ([[attributes valueForKey:@"isSelfAnimated"] boolValue] == YES) {
+        [coder encodeObject:frame forKey:@"animation"];
+    } else if ([[attributes valueForKey:@"isBeam"] boolValue] == YES) {
+        [coder encodeObject:frame forKey:@"beam"];
+    } else {
+        [coder encodeObject:frame forKey:@"device"];
+    }
 }
 
 - (void) dealloc {

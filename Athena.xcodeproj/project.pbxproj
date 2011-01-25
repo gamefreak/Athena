@@ -52,6 +52,7 @@
 		D293F65C12EBAAF600EF1CCA /* XSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F65B12EBAAF600EF1CCA /* XSPoint.m */; };
 		D293F6A712EBB03200EF1CCA /* XSRange.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F6A612EBB03200EF1CCA /* XSRange.m */; };
 		D29510B212EE771300AE3316 /* ActionRefs.m in Sources */ = {isa = PBXBuildFile; fileRef = D29510B112EE771300AE3316 /* ActionRefs.m */; };
+		D295110612EE7BB700AE3316 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D295110512EE7BB700AE3316 /* FrameData.m */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 /* End PBXBuildFile section */
@@ -144,6 +145,8 @@
 		D293F6A612EBB03200EF1CCA /* XSRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSRange.m; sourceTree = "<group>"; };
 		D29510B012EE771300AE3316 /* ActionRefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionRefs.h; sourceTree = "<group>"; };
 		D29510B112EE771300AE3316 /* ActionRefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionRefs.m; sourceTree = "<group>"; };
+		D295110412EE7BB700AE3316 /* FrameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameData.h; sourceTree = "<group>"; };
+		D295110512EE7BB700AE3316 /* FrameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameData.m; sourceTree = "<group>"; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 				D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */,
 				D29510B012EE771300AE3316 /* ActionRefs.h */,
 				D29510B112EE771300AE3316 /* ActionRefs.m */,
+				D295110412EE7BB700AE3316 /* FrameData.h */,
+				D295110512EE7BB700AE3316 /* FrameData.m */,
 			);
 			name = BaseObject;
 			sourceTree = "<group>";
@@ -455,6 +460,7 @@
 				D293F6A712EBB03200EF1CCA /* XSRange.m in Sources */,
 				D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */,
 				D29510B212EE771300AE3316 /* ActionRefs.m in Sources */,
+				D295110612EE7BB700AE3316 /* FrameData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
