@@ -7,6 +7,7 @@
 //
 
 #import "ActionRefs.h"
+#import "Archivers.h"
 
 @implementation ActionRef
 - (id) init {
@@ -28,7 +29,7 @@
 }
 
 + (id) ref {
-    return [[[[self class] alloc] init] autorelease];
+    return [[[self alloc] init] autorelease];
 }
 @end
 
@@ -36,17 +37,18 @@
 - (id) init {
     self = [super init];
     dontDestroyOnDeath = NO;
+    return self;
 }
 
 - (id) initWithCoder:(LuaUnarchiver *)coder {
     self = [super initWithCoder:coder];
-    dontDestroyOnDeath = [coder decodeBoolForKey:@"dontDestroyOnDeath"];
+    dontDestroyOnDeath = [coder decodeBoolForKey:@"dontDieOnDeath"];
     return self;
 }
 
 - (void) encodeWithCoder:(LuaArchiver *)coder {
     [super encodeWithCoder:coder];
-    [coder encodeInteger:dontDestroyOnDeath forKey:@"dontDestroyOnDeath"];
+    [coder encodeBool:dontDestroyOnDeath forKey:@"dontDieOnDeath"];
 }
 @end
 
@@ -55,6 +57,7 @@
     self = [super init];
     interval = 0;
     intervalRange = 0;
+    return self;
 }
 
 - (id) initWithCoder:(LuaUnarchiver *)coder {
