@@ -16,7 +16,7 @@
 }
 @property (readonly) NSData *data;
 + (NSData *) archivedDataWithRootObject:(id)object withName:(NSString *)name;
-- (void) encodeArray:(NSArray *)array forKey:(NSString *)key;
+- (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
 - (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key;
 - (void) encodeString:(NSString *)string forKey:(NSString *)key;
 - (void) encodePoint:(XSPoint *)point forKey:(NSString *)key;

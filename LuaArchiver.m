@@ -67,13 +67,13 @@
     [self down];
 }
 
-- (void) encodeArray:(NSArray *)array forKey:(NSString *)key {
+- (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
     [self up];
     [self indent];
     [data appendString:key];
     [data appendString:@" = {\n"];
     [self up];
-    NSInteger idx = 0;
+    NSInteger idx = (isZeroIndexed?0:1);
     for (id<NSCoding> obj in array) {
         [self indent]; [data appendFormat:@"[%d] = {\n", idx];
         [obj encodeWithCoder:self];

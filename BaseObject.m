@@ -240,14 +240,14 @@
     self = [self init];
     ID = [coder decodeIntegerForKey:@"id"];
     positionCount = [coder decodeIntegerForKey:@"count"];
-    [positions setArray:[coder decodeArrayOfClass:[XSPoint class] forKey:@"positions"]];
+    [positions setArray:[coder decodeArrayOfClass:[XSPoint class] forKey:@"positions" zeroIndexed:NO]];
     return self;
 }
 
 - (void) encodeWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:ID forKey:@"id"];
     [coder encodeInteger:positionCount forKey:@"count"];
-    [coder encodeArray:positions forKey:@"positions"];
+    [coder encodeArray:positions forKey:@"positions" zeroIndexed:NO];
 }
 
 - (void) dealloc {

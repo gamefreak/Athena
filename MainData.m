@@ -17,20 +17,23 @@
 - (id) initWithCoder:(LuaUnarchiver *)decoder {
     [super init];
     objects = [[decoder decodeArrayOfClass:[BaseObject class]
-                                    forKey:@"objects"] retain];
+                                    forKey:@"objects"
+                               zeroIndexed:YES] retain];
     
     races = [[decoder decodeArrayOfClass:[Race class]
-                                 forKey:@"race"] retain];
+                                 forKey:@"race"
+                             zeroIndexed:YES] retain];
     
     briefings = [[decoder decodeArrayOfClass:[BriefPoint class]
-                                      forKey:@"briefings"] retain];;
+                                      forKey:@"briefings"
+                                 zeroIndexed:YES] retain];;
     return self;
 }
 
 - (void) encodeWithCoder:(LuaArchiver *)aCoder {
-    [aCoder encodeArray:objects forKey:@"objects"];
-    [aCoder encodeArray:races forKey:@"race"];
-    [aCoder encodeArray:briefings forKey:@"briefings"];
+    [aCoder encodeArray:objects forKey:@"objects" zeroIndexed:YES];
+    [aCoder encodeArray:races forKey:@"race" zeroIndexed:YES];
+    [aCoder encodeArray:briefings forKey:@"briefings" zeroIndexed:YES];
 }
 
 

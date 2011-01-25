@@ -93,7 +93,7 @@
     return [obj autorelease];
 }
 
-- (NSMutableArray *) decodeArrayOfClass:(Class<NSCoding>)class forKey:(NSString *)key {
+- (NSMutableArray *) decodeArrayOfClass:(Class<NSCoding>)class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
     [self getKey:key];
     assert(lua_istable(L, -1));
 
@@ -103,8 +103,8 @@
      Like not being able to load all of the data.
      */
     //lua_objlen returns the highest index so allocate +1
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:lua_objlen(L, -1) + 1];
-    for (int idx = 0; idx <= lua_objlen(L, -1); idx++) {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:lua_objlen(L, -1) + (isZeroIndexed?1:0)];
+    for (int idx = (isZeroIndexed?0:1); idx <= lua_objlen(L, -1); idx++) {
         lua_pushinteger(L, idx); //pushes key
         lua_gettable(L, -2); //pops key, pushes value
         //I would like to make this warning go away \/
@@ -117,13 +117,15 @@
     return array;
 }
 
-- (NSMutableDictionary *) decodeDictionaryOfClass:(Class)class forKey:(NSString *)key {
+- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<NSCoding>)class forKey:(NSString *)key {
     [self getKey:key];
     assert(lua_istable(L, -1));
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     lua_pushnil(L);
     while (lua_next(L, -2) != 0) {
-        NSString *key = [NSString stringWithUTF8String:lua_tostring(L, -2)];
+        lua_pushvalue(L, -2);//Make a copy of the key
+        NSString *key = [NSString stringWithUTF8String:lua_tostring(L, -1)];//Read the copy
+        lua_pop(L, 1);//Pop the copy
         id value = [[class alloc] initWithCoder:self];
         [dict setObject:value forKey:key];
         [value release];
