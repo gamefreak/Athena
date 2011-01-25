@@ -12,6 +12,28 @@
 #import "lualib.h"
 #import "lauxlib.h"
 
+static void stackDump (lua_State *L) {
+    int i=lua_gettop(L);
+    printf(" ----------------  Stack Dump ----------------\n" );
+    while(  i   ) {
+        int t = lua_type(L, i);
+        switch (t) {
+            case LUA_TSTRING:
+                printf("%d:`%s'\n", i, lua_tostring(L, i));
+                break;
+            case LUA_TBOOLEAN:
+                printf("%d: %s\n",i,lua_toboolean(L, i) ? "true" : "false");
+                break;
+            case LUA_TNUMBER:
+                printf("%d: %g\n",  i, lua_tonumber(L, i));
+                break;
+            default: printf("%d: %s\n", i, lua_typename(L, t)); break;
+        }
+        i--;
+    }
+    printf("--------------- Stack Dump Finished ---------------\n");
+}
+
 @interface LuaUnarchiver (Private)
 - (NSUInteger) getKey:(NSString *)key;
 - (NSUInteger) getKeyPath:(NSString *)keyPath;
@@ -165,10 +187,13 @@
 
 - (NSString *) decodeStringForKey:(NSString *)key {
     [self getKey:key];
-    assert(lua_isstring(L, -1));
+//    assert(lua_isstring(L, -1));
     //    \\ -> \\\\
     //    \r -> \\r
     //    ]  -> \\]
+    if (lua_isnil(L, -1)) {
+        return @"";
+    }
     NSMutableString *str = [NSMutableString stringWithUTF8String:lua_tostring(L, -1)];
     [str replaceOccurrencesOfString:@"\\"
                          withString:@"\\\\"
