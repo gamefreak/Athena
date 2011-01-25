@@ -93,6 +93,14 @@
     return [obj autorelease];
 }
 
+- (id) decodeObjectOfClass:(Class<NSCoding>)class forKeyPath:(NSString *)keyPath {
+    NSInteger popCount = [self getKeyPath:keyPath];
+    assert(lua_istable(L, -1));
+    id obj = [[class alloc] initWithCoder:self];
+    [self popN:popCount];
+    return [obj autorelease];
+}
+
 - (NSMutableArray *) decodeArrayOfClass:(Class<NSCoding>)class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
     [self getKey:key];
     assert(lua_istable(L, -1));
