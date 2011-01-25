@@ -93,7 +93,7 @@
     [data appendString:@" = {\n"];
     [self up];
     //Alphabetical sort
-    NSArray *keys = [dict keysSortedByValueUsingSelector:@selector(compare:)];
+    NSArray *keys = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (id key in keys) {
         [self indent]; [data appendFormat:@"%@ = {\n", key];
         [[dict objectForKey:key] encodeWithCoder:self];
