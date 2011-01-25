@@ -79,6 +79,13 @@
     [actions setObject:[ActionRef ref] forKey:@"arrive"];
 
     frame = [[RotationData alloc] init];
+
+    skillNum = 1;
+    skillDen = 1;
+    skillNumAdj = 0;//???
+    skillDenAdj = 0;//???
+
+    portraitId = -1;
     return self;
 }
 
@@ -196,6 +203,13 @@
     } else {
         frame = [[DeviceData alloc] init];
     }
+
+    skillNum = [coder decodeIntegerForKey:@"skillNum"];
+    skillDen = [coder decodeIntegerForKey:@"skillDen"];
+    skillNumAdj = [coder decodeIntegerForKey:@"skillNumAdj"];
+    skillNumAdj = [coder decodeIntegerForKey:@"skillDenAdj"];
+
+    portraitId = [coder decodeIntegerForKey:@"portraitId"];
     return self;
 }
 
@@ -288,6 +302,8 @@
     } else {
         [coder encodeObject:frame forKey:@"device"];
     }
+
+    [coder encodeInteger:portraitId forKey:@"portraitId"];
 }
 
 - (void) dealloc {

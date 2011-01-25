@@ -88,6 +88,11 @@ typedef enum {
     NSMutableDictionary *actions;
 
     FrameData *frame;
+
+    NSInteger skillNum, skillDen;
+    NSInteger skillNumAdj, skillDenAdj;
+
+    NSInteger portraitId;
 }
 
 @end
