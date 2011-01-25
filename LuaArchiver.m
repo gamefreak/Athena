@@ -8,6 +8,32 @@
 
 #import "LuaArchiver.h"
 
+@interface NSNumber (StringEncoding)
+- (NSString *) encodedValue;
+@end
+
+@implementation NSNumber (StringEncoding)
+- (NSString *) encodedValue {
+    char code = *@encode(char);
+    switch (code) {
+        case 'c'://char forced to bool
+            return ([self boolValue]?@"YES":@"NO");
+            break;
+        case 'i'://int
+            return [NSString stringWithFormat:@"%d", [self intValue]];
+            break;
+        case 'f':
+            return [NSString stringWithFormat:@"%f", [self floatValue]];
+            break;
+        default:
+            @throw @"Unsupported NSNumber type";
+            break;
+    }
+}
+@end
+
+
+
 @interface LuaArchiver (Private)
 - (NSUInteger) up;
 - (NSUInteger) down;
@@ -74,7 +100,7 @@
     [data appendString:@" = {\n"];
     [self up];
     NSInteger idx = (isZeroIndexed?0:1);
-    for (id<NSCoding> obj in array) {
+    for (id<NSObject, NSCoding> obj in array) {
         [self indent]; [data appendFormat:@"[%d] = {\n", idx];
         [obj encodeWithCoder:self];
         [self indent]; [data appendString:@"};\n"];
@@ -95,9 +121,15 @@
     //Alphabetical sort
     NSArray *keys = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (id key in keys) {
-        [self indent]; [data appendFormat:@"%@ = {\n", key];
-        [[dict objectForKey:key] encodeWithCoder:self];
-        [self indent]; [data appendString:@"};\n"];
+        id obj = [dict objectForKey:key];
+        if ([obj isKindOfClass:[NSNumber class]]){
+            [self indent];
+            [data appendFormat:@"%@ = %@;\n", key, [(NSNumber *)obj encodedValue]];
+        } else {
+            [self indent]; [data appendFormat:@"%@ = {\n", key];
+            [obj encodeWithCoder:self];
+            [self indent]; [data appendString:@"};\n"];
+        }
     }
     [self down];
     [self indent];
