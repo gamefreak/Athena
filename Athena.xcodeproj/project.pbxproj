@@ -132,6 +132,7 @@
 		D21EB2BA12E8BDE200694EBA /* print.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = print.c; sourceTree = "<group>"; };
 		D21EB31D12E8C41700694EBA /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
 		D21EB31E12E8C41700694EBA /* BaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObject.m; sourceTree = "<group>"; };
+		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
 		D293F5D612EB78E000EF1CCA /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
 		D293F5D712EB78E000EF1CCA /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
@@ -202,6 +203,7 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D23EDD2112EE8129002699A4 /* Color.h */,
 				D21EB32112E8C41E00694EBA /* AresTypes */,
 				D264F8BD12E8EE3A0050BCFB /* Archivers */,
 				D293F65D12EBAAFD00EF1CCA /* Wrappers */,

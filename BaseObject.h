@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "BaseObjectFlags.h"
 #import "ActionRefs.h"
+#import "Color.h"
 
 typedef enum {
     IconShapeNone,//SIGH
@@ -18,25 +19,6 @@ typedef enum {
     IconShapePlus,
     IconShapeFramedSquare
 } IconShape;
-
-typedef enum {
-    ClutGray,
-    ClutOrange,
-    ClutYellow,
-    ClutBlue,
-    ClutGreen,
-    ClutPurple,
-    ClutIndigo,
-    ClutSalmon,
-    ClutGold,
-    ClutAqua,
-    ClutPink,
-    ClutPaleGreen,
-    ClutPalePurple,
-    ClutSkyBlue,
-    ClutTan,
-    ClutRed,
-} ClutColor;
 
 @interface Weapon : NSObject <NSCoding> {
     NSInteger ID;//Uppercase because objective-c uses 'id' as a keyword.
