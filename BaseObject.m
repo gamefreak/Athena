@@ -69,6 +69,14 @@
     dangerThreshold = 0.0f;
 
     arriveActionDistance = 0;
+    
+    actions = [[NSMutableDictionary alloc] initWithCapacity:6];
+    [actions setObject:[DestroyActionRef ref] forKey:@"destroy"];
+    [actions setObject:[ActionRef ref] forKey:@"expire"];
+    [actions setObject:[ActionRef ref] forKey:@"create"];
+    [actions setObject:[ActionRef ref] forKey:@"collide"];
+    [actions setObject:[ActivateActionRef ref] forKey:@"activate"];
+    [actions setObject:[ActionRef ref] forKey:@"arrive"];
     return self;
 }
 
@@ -150,6 +158,30 @@
 //    specialDirection = [coder decodeIntegerForKey:@"specialDirection"];
 
     arriveActionDistance = [coder decodeIntegerForKey:@"arriveActionDistance"];
+
+    [actions setObject:[coder decodeObjectOfClass:[DestroyActionRef class]
+                                       forKeyPath:@"actions.destroy"]
+                forKey:@"destroy"];
+
+    [actions setObject:[coder decodeObjectOfClass:[ActionRef class]
+                                       forKeyPath:@"actions.expire"]
+                forKey:@"expire"];
+
+    [actions setObject:[coder decodeObjectOfClass:[ActionRef class]
+                                       forKeyPath:@"actions.create"]
+                forKey:@"create"];
+
+    [actions setObject:[coder decodeObjectOfClass:[ActionRef class]
+                                       forKeyPath:@"actions.collide"]
+                forKey:@"collide"];
+
+    [actions setObject:[coder decodeObjectOfClass:[ActivateActionRef class]
+                                       forKeyPath:@"actions.activate"]
+                forKey:@"activate"];
+
+    [actions setObject:[coder decodeObjectOfClass:[ActionRef class]
+                                       forKeyPath:@"actions.arrive"]
+                forKey:@"arrive"];
     return self;
 }
 
@@ -230,6 +262,8 @@
 //    [coder encodeInteger:specialDirection forKey:@"specialDirection"];
 
     [coder encodeInteger:arriveActionDistance forKey:@"arriveActionDistance"];
+
+    [coder encodeDictionary:actions forKey:@"actions"];
 }
 
 - (void) dealloc {
@@ -243,6 +277,7 @@
     [orderFlags release];
 
     [weapons release];
+    [actions release];
     [super dealloc];
 }
 @end
@@ -281,5 +316,68 @@
 
 + (id) weapon {
     return [[[Weapon alloc] init] autorelease];
+}
+@end
+
+@implementation ActionRef
+- (id) init {
+    self = [super init];
+    first = 0;
+    count = 0;
+    return self;
+}
+- (id) initWithCoder:(LuaUnarchiver *)coder {
+    self = [self init];
+    first = [coder decodeIntegerForKey:@"first"];
+    count = [coder decodeIntegerForKey:@"count"];
+    return self;
+}
+
+- (void) encodeWithCoder:(LuaArchiver *)coder {
+    [coder encodeInteger:first forKey:@"first"];
+    [coder encodeInteger:count forKey:@"count"];
+}
+
++ (id) ref {
+    return [[[[self class] alloc] init] autorelease];
+}
+@end
+
+@implementation DestroyActionRef
+- (id) init {
+    self = [super init];
+    dontDestroyOnDeath = NO;
+}
+
+- (id) initWithCoder:(LuaUnarchiver *)coder {
+    self = [super initWithCoder:coder];
+    dontDestroyOnDeath = [coder decodeBoolForKey:@"dontDestroyOnDeath"];
+    return self;
+}
+
+- (void) encodeWithCoder:(LuaArchiver *)coder {
+    [super encodeWithCoder:coder];
+    [coder encodeInteger:dontDestroyOnDeath forKey:@"dontDestroyOnDeath"];
+}
+@end
+
+@implementation ActivateActionRef
+- (id) init {
+    self = [super init];
+    interval = 0;
+    intervalRange = 0;
+}
+
+- (id) initWithCoder:(LuaUnarchiver *)coder {
+    self = [super initWithCoder:coder];
+    interval = [coder decodeIntegerForKey:@"interval"];
+    intervalRange = [coder decodeIntegerForKey:@"intervalRange"];
+    return self;
+}
+
+- (void) encodeWithCoder:(LuaArchiver *)coder {
+    [super encodeWithCoder:coder];
+    [coder encodeInteger:interval forKey:@"interval"];
+    [coder encodeInteger:intervalRange forKey:@"intervalRange"];
 }
 @end

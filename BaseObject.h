@@ -45,6 +45,25 @@ typedef enum {
 + (id) weapon;
 @end
 
+@interface ActionRef : NSObject <NSCoding> {
+    NSInteger first, count;
+}
++ (id) ref;
+@end
+
+@interface DestroyActionRef : ActionRef {
+    BOOL dontDestroyOnDeath;
+}
+@end
+
+@interface ActivateActionRef : ActionRef {
+    NSInteger interval;
+    NSInteger intervalRange;
+}
+@end
+
+
+
 
 @interface BaseObject : NSObject <NSCoding> {
     NSString *name;
@@ -101,6 +120,8 @@ typedef enum {
 //Disabled
 //    NSInteger specialDirection;
     NSInteger arriveActionDistance;
+    
+    NSMutableDictionary *actions;
 }
 
 @end
