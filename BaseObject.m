@@ -153,6 +153,7 @@
 
     [weapons release];
     weapons = [coder decodeDictionaryOfClass:[Weapon class] forKey:@"weapons"];
+    [weapons retain];
 
     friendDefecit = [coder decodeFloatForKey:@"friendDefecit"];
     dangerThreshold = [coder decodeFloatForKey:@"dangerThreshold"];
