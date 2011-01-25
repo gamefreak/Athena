@@ -242,6 +242,10 @@
     ID = [coder decodeIntegerForKey:@"id"];
     positionCount = [coder decodeIntegerForKey:@"count"];
     [positions setArray:[coder decodeArrayOfClass:[XSPoint class] forKey:@"positions" zeroIndexed:NO]];
+    NSInteger arrayShortfall = 3 - [positions count];
+    for (NSInteger i = 0; i < arrayShortfall; i++) {
+        [positions addObject:[XSPoint point]];
+    }
     return self;
 }
 
