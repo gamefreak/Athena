@@ -13,6 +13,7 @@
     NSMutableArray *objects;
     NSMutableArray *races;
     NSMutableArray *briefings;
+    NSMutableArray *initials;
 }
 
 @end

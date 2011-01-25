@@ -56,6 +56,9 @@
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 		D2E03F1912EF191A00F77E59 /* XSBool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E03F1812EF191A00F77E59 /* XSBool.m */; };
+		D2E0409A12EF3C2B00F77E59 /* ScenarioInitial.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */; };
+		D2E040B112EF41A400F77E59 /* XSInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E040B012EF41A400F77E59 /* XSInteger.m */; };
+		D2E452D412EF4BC90099B0F9 /* FlagBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E452D312EF4BC90099B0F9 /* FlagBlob.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -155,6 +158,8 @@
 		D2E03F1712EF191A00F77E59 /* XSBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSBool.h; sourceTree = "<group>"; };
 		D2E03F1812EF191A00F77E59 /* XSBool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSBool.m; sourceTree = "<group>"; };
 		D2E03F2412EF1B1D00F77E59 /* LuaCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCoding.h; sourceTree = "<group>"; };
+		D2E0409812EF3C2B00F77E59 /* ScenarioInitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioInitial.h; sourceTree = "<group>"; };
+		D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioInitial.m; sourceTree = "<group>"; };
 		D2E040AF12EF41A400F77E59 /* XSInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSInteger.h; sourceTree = "<group>"; };
 		D2E040B012EF41A400F77E59 /* XSInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSInteger.m; sourceTree = "<group>"; };
 		D2E452D212EF4BC90099B0F9 /* FlagBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagBlob.h; sourceTree = "<group>"; };
@@ -329,6 +334,8 @@
 				D29510AF12EE770200AE3316 /* BaseObject */,
 				D293F5D612EB78E000EF1CCA /* Race.h */,
 				D293F5D712EB78E000EF1CCA /* Race.m */,
+				D2E0409812EF3C2B00F77E59 /* ScenarioInitial.h */,
+				D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */,
 			);
 			name = AresTypes;
 			sourceTree = "<group>";
@@ -477,6 +484,7 @@
 				D29510B212EE771300AE3316 /* ActionRefs.m in Sources */,
 				D295110612EE7BB700AE3316 /* FrameData.m in Sources */,
 				D2E03F1912EF191A00F77E59 /* XSBool.m in Sources */,
+				D2E0409A12EF3C2B00F77E59 /* ScenarioInitial.m in Sources */,
 				D2E040B112EF41A400F77E59 /* XSInteger.m in Sources */,
 				D2E452D412EF4BC90099B0F9 /* FlagBlob.m in Sources */,
 			);
