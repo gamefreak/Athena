@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "BaseObjectFlags.h"
+#import "ActionRefs.h"
 
 typedef enum {
     IconShapeNone,//SIGH
@@ -44,26 +45,6 @@ typedef enum {
 }
 + (id) weapon;
 @end
-
-@interface ActionRef : NSObject <NSCoding> {
-    NSInteger first, count;
-}
-+ (id) ref;
-@end
-
-@interface DestroyActionRef : ActionRef {
-    BOOL dontDestroyOnDeath;
-}
-@end
-
-@interface ActivateActionRef : ActionRef {
-    NSInteger interval;
-    NSInteger intervalRange;
-}
-@end
-
-
-
 
 @interface BaseObject : NSObject <NSCoding> {
     NSString *name;
