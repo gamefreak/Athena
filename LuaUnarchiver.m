@@ -151,6 +151,14 @@
     return ret;
 }
 
+- (BOOL) decodeBoolForKeyPath:(NSString *)keyPath {
+    NSUInteger popCount = [self getKeyPath:keyPath];
+    assert(lua_isboolean(L, -1));
+    BOOL ret = lua_toboolean(L, -1);
+    [self popN:popCount];
+    return ret;
+}
+
 - (NSString *) decodeStringForKey:(NSString *)key {
     [self getKey:key];
     assert(lua_isstring(L, -1));

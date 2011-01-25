@@ -20,6 +20,7 @@
 - (id) decodeObjectOfClass:(Class<NSCoding>)class forKeyPath:(NSString *)keyPath;
 - (NSMutableArray *) decodeArrayOfClass:(Class)_class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
 - (NSMutableDictionary *) decodeDictionaryOfClass:(Class)class forKey:(NSString *)key;
+- (BOOL) decodeBoolForKeyPath:(NSString *)keyPath;
 - (NSString *) decodeStringForKey:(NSString *)key;
 - (XSPoint *) decodePointForKey:(NSString *)key;
 
