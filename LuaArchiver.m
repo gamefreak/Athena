@@ -162,6 +162,13 @@
     [self encodeObject:point forKey:key];
 }
 
+- (void) encodeInteger:(NSInteger)value {
+    [self up];
+    [self indent];
+    [data appendFormat:@"%d"];
+    [self down];
+}
+
 - (void) encodeInteger:(NSInteger)value forKey:(NSString *)key {
     [self up];
     [self indent];

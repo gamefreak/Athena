@@ -196,6 +196,10 @@
     return [point autorelease];
 }
 
+- (NSInteger) decodeInteger {
+    return lua_tointeger(L, -1);
+}
+
 - (NSInteger) decodeIntegerForKey:(NSString *)key {
     [self getKey:key];
     NSInteger val = lua_tointeger(L, -1);
