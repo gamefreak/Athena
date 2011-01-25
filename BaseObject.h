@@ -94,6 +94,13 @@ typedef enum {
     NSInteger initialDirectionRange;
 
     NSMutableDictionary *weapons;
+
+    float friendDefecit;
+    float dangerThreshold;
+
+//Disabled
+//    NSInteger specialDirection;
+    NSInteger arriveActionDistance;
 }
 
 @end

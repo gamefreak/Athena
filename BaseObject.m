@@ -64,6 +64,11 @@
     [weapons setObject:[Weapon weapon] forKey:@"pulse"];
     [weapons setObject:[Weapon weapon] forKey:@"beam"];
     [weapons setObject:[Weapon weapon] forKey:@"special"];
+
+    friendDefecit = 0.0f;
+    dangerThreshold = 0.0f;
+
+    arriveActionDistance = 0;
     return self;
 }
 
@@ -138,6 +143,13 @@
 
     [weapons release];
     weapons = [coder decodeDictionaryOfClass:[Weapon class] forKey:@"weapons"];
+
+    friendDefecit = [coder decodeFloatForKey:@"friendDefecit"];
+    dangerThreshold = [coder decodeFloatForKey:@"dangerThreshold"];
+
+//    specialDirection = [coder decodeIntegerForKey:@"specialDirection"];
+
+    arriveActionDistance = [coder decodeIntegerForKey:@"arriveActionDistance"];
     return self;
 }
 
@@ -211,6 +223,13 @@
     [coder encodeInteger:initialDirectionRange forKey:@"initialDirectionRange"];
 
     [coder encodeDictionary:weapons forKey:@"weapons"];
+
+    [coder encodeFloat:friendDefecit forKey:@"friendDefecit"];
+    [coder encodeFloat:dangerThreshold forKey:@"dangerThreshold"];
+
+//    [coder encodeInteger:specialDirection forKey:@"specialDirection"];
+
+    [coder encodeInteger:arriveActionDistance forKey:@"arriveActionDistance"];
 }
 
 - (void) dealloc {
