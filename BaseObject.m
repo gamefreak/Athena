@@ -8,6 +8,7 @@
 
 #import "BaseObject.h"
 #import "Archivers.h"
+#import "XSPoint.h"
 
 @implementation BaseObject
 - (id) init {
@@ -59,7 +60,7 @@
     initialDirection = 0;
     initialDirectionRange = 0;
 
-    weapons = [[NSMutableData alloc] initWithCapacity:3];
+    weapons = [[NSMutableDictionary alloc] initWithCapacity:3];
     [weapons setObject:[Weapon weapon] forKey:@"pulse"];
     [weapons setObject:[Weapon weapon] forKey:@"beam"];
     [weapons setObject:[Weapon weapon] forKey:@"special"];
