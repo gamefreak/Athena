@@ -65,10 +65,10 @@
     nameOverride = [coder decodeStringForKey:@"nameOverride"];
     [nameOverride retain];
 
-//    [attributes release];
-//    attributes = [coder decodeObjectOfClass:[ScenarioInitialAttributes class]
-//                                     forKey:@"attributes"];
-//    [attributes retain];
+    [attributes release];
+    attributes = [coder decodeObjectOfClass:[ScenarioInitialAttributes class]
+                                     forKey:@"attributes"];
+    [attributes retain];
     return self;
 }
 

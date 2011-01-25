@@ -192,6 +192,7 @@ static void stackDump (lua_State *L) {
     //    \r -> \\r
     //    ]  -> \\]
     if (lua_isnil(L, -1)) {
+        [self pop];
         return @"";
     }
     NSMutableString *str = [NSMutableString stringWithUTF8String:lua_tostring(L, -1)];
