@@ -55,6 +55,7 @@
 		D295110612EE7BB700AE3316 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D295110512EE7BB700AE3316 /* FrameData.m */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
+		D2D7502F12F0874500B17631 /* NSString+LuaCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7502E12F0874500B17631 /* NSString+LuaCoding.m */; };
 		D2E03F1912EF191A00F77E59 /* XSBool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E03F1812EF191A00F77E59 /* XSBool.m */; };
 		D2E0409A12EF3C2B00F77E59 /* ScenarioInitial.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */; };
 		D2E040B112EF41A400F77E59 /* XSInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E040B012EF41A400F77E59 /* XSInteger.m */; };
@@ -155,6 +156,8 @@
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
+		D2D7502D12F0874500B17631 /* NSString+LuaCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LuaCoding.h"; sourceTree = "<group>"; };
+		D2D7502E12F0874500B17631 /* NSString+LuaCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LuaCoding.m"; sourceTree = "<group>"; };
 		D2E03F1712EF191A00F77E59 /* XSBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSBool.h; sourceTree = "<group>"; };
 		D2E03F1812EF191A00F77E59 /* XSBool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSBool.m; sourceTree = "<group>"; };
 		D2E03F2412EF1B1D00F77E59 /* LuaCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCoding.h; sourceTree = "<group>"; };
@@ -364,6 +367,8 @@
 				D293F65B12EBAAF600EF1CCA /* XSPoint.m */,
 				D293F6A512EBB03200EF1CCA /* XSRange.h */,
 				D293F6A612EBB03200EF1CCA /* XSRange.m */,
+				D2D7502D12F0874500B17631 /* NSString+LuaCoding.h */,
+				D2D7502E12F0874500B17631 /* NSString+LuaCoding.m */,
 			);
 			name = Wrappers;
 			sourceTree = "<group>";
@@ -487,6 +492,7 @@
 				D2E0409A12EF3C2B00F77E59 /* ScenarioInitial.m in Sources */,
 				D2E040B112EF41A400F77E59 /* XSInteger.m in Sources */,
 				D2E452D412EF4BC90099B0F9 /* FlagBlob.m in Sources */,
+				D2D7502F12F0874500B17631 /* NSString+LuaCoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
