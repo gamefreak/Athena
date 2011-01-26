@@ -195,14 +195,15 @@
 
     [frame release];
     if ([[attributes valueForKey:@"shapeFromDirection"] boolValue] == YES) {
-        frame = [[RotationData alloc] init];
+        frame = [coder decodeObjectOfClass:[RotationData class] forKey:@"rotation"];
     } else if ([[attributes valueForKey:@"isSelfAnimated"] boolValue] == YES) {
-        frame = [[AnimationData alloc] init];
+        frame = [coder decodeObjectOfClass:[AnimationData class] forKey:@"animation"];
     } else if ([[attributes valueForKey:@"isBeam"] boolValue] == YES) {
-        frame = [[BeamData alloc] init];
+        frame = [coder decodeObjectOfClass:[BeamData class] forKey:@"beam"];
     } else {
-        frame = [[DeviceData alloc] init];
+        frame = [coder decodeObjectOfClass:[DeviceData class] forKey:@"device"];
     }
+    [frame retain];
 
     skillNum = [coder decodeIntegerForKey:@"skillNum"];
     skillDen = [coder decodeIntegerForKey:@"skillDen"];
@@ -318,6 +319,8 @@
 
     [weapons release];
     [actions release];
+
+    [frame release];
     [super dealloc];
 }
 
