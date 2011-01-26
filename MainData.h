@@ -14,6 +14,7 @@
     NSMutableArray *races;
     NSMutableArray *briefings;
     NSMutableArray *initials;
+    NSMutableArray *scenarios;
 }
 
 @end

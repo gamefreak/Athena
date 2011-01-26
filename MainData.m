@@ -10,6 +10,7 @@
 #import "Archivers.h"
 #import "BaseObject.h"
 #import "Race.h"
+#import "Scenario.h"
 #import "ScenarioInitial.h"
 
 #import "BriefPoint.h"
@@ -32,6 +33,10 @@
     initials = [[decoder decodeArrayOfClass:[ScenarioInitial class]
                                      forKey:@"initials"
                                 zeroIndexed:YES] retain];
+
+    scenarios = [[decoder decodeArrayOfClass:[Scenario class]
+                                      forKey:@"scenarios"
+                                 zeroIndexed:YES] retain];
     return self;
 }
 
@@ -40,6 +45,7 @@
     [aCoder encodeArray:races forKey:@"race" zeroIndexed:YES];
     [aCoder encodeArray:briefings forKey:@"briefings" zeroIndexed:YES];
     [aCoder encodeArray:initials forKey:@"initials" zeroIndexed:YES];
+    [aCoder encodeArray:scenarios forKey:@"scenarios" zeroIndexed:YES];
 }
 
 
@@ -48,6 +54,7 @@
     [races release];
     [briefings release];
     [initials release];
+    [scenarios release];
     [super dealloc];
 }
 
