@@ -133,7 +133,7 @@
     layer = [coder decodeIntegerForKey:@"layer"];
     spriteId = [coder decodeIntegerForKey:@"spriteId"];
 
-    NSString *iconShapeStr = [coder decodeIntegerForKey:@"iconShape"];
+    NSString *iconShapeStr = [coder decodeStringForKey:@"iconShape"];
     if ([iconShapeStr isEqual:@"square"]){
         iconShape = IconShapeSquare;
     } else if ([iconShapeStr isEqual:@"triangle"]) {
