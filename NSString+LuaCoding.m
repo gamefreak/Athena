@@ -11,7 +11,7 @@
 
 @implementation NSString (LuaCoding)
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
-    [self initWithString:[coder decodeString]];
+    self = [self initWithString:[coder decodeString]];
     return self;
 }
 
