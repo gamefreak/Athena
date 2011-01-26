@@ -55,6 +55,7 @@
 		D295110612EE7BB700AE3316 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D295110512EE7BB700AE3316 /* FrameData.m */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
+		D2D7501A12F07F5A00B17631 /* Scenario.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7501912F07F5A00B17631 /* Scenario.m */; };
 		D2D7502F12F0874500B17631 /* NSString+LuaCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7502E12F0874500B17631 /* NSString+LuaCoding.m */; };
 		D2E03F1912EF191A00F77E59 /* XSBool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E03F1812EF191A00F77E59 /* XSBool.m */; };
 		D2E0409A12EF3C2B00F77E59 /* ScenarioInitial.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */; };
@@ -156,6 +157,8 @@
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
+		D2D7501812F07F5A00B17631 /* Scenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scenario.h; sourceTree = "<group>"; };
+		D2D7501912F07F5A00B17631 /* Scenario.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scenario.m; sourceTree = "<group>"; };
 		D2D7502D12F0874500B17631 /* NSString+LuaCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LuaCoding.h"; sourceTree = "<group>"; };
 		D2D7502E12F0874500B17631 /* NSString+LuaCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LuaCoding.m"; sourceTree = "<group>"; };
 		D2E03F1712EF191A00F77E59 /* XSBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSBool.h; sourceTree = "<group>"; };
@@ -337,6 +340,8 @@
 				D29510AF12EE770200AE3316 /* BaseObject */,
 				D293F5D612EB78E000EF1CCA /* Race.h */,
 				D293F5D712EB78E000EF1CCA /* Race.m */,
+				D2D7501812F07F5A00B17631 /* Scenario.h */,
+				D2D7501912F07F5A00B17631 /* Scenario.m */,
 				D2E0409812EF3C2B00F77E59 /* ScenarioInitial.h */,
 				D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */,
 			);
@@ -492,6 +497,7 @@
 				D2E0409A12EF3C2B00F77E59 /* ScenarioInitial.m in Sources */,
 				D2E040B112EF41A400F77E59 /* XSInteger.m in Sources */,
 				D2E452D412EF4BC90099B0F9 /* FlagBlob.m in Sources */,
+				D2D7501A12F07F5A00B17631 /* Scenario.m in Sources */,
 				D2D7502F12F0874500B17631 /* NSString+LuaCoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
