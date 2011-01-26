@@ -11,6 +11,7 @@
 #import "XSPoint.h"
 #import "lualib.h"
 #import "lauxlib.h"
+#import "NSString+LuaCoding.h"
 
 static void stackDump (lua_State *L) {
     int i=lua_gettop(L);

@@ -7,6 +7,7 @@
 //
 
 #import "LuaArchiver.h"
+#import "NSString+LuaCoding.h"
 
 @interface NSNumber (StringEncoding)
 - (NSString *) encodedValue;
