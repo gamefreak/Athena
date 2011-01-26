@@ -185,16 +185,14 @@ static void stackDump (lua_State *L) {
     return ret;
 }
 
-- (NSString *) decodeStringForKey:(NSString *)key {
-    [self getKey:key];
-//    assert(lua_isstring(L, -1));
+- (NSString *) decodeString {
     //    \\ -> \\\\
     //    \r -> \\r
     //    ]  -> \\]
     if (lua_isnil(L, -1)) {
-        [self pop];
         return @"";
     }
+
     NSMutableString *str = [NSMutableString stringWithUTF8String:lua_tostring(L, -1)];
     [str replaceOccurrencesOfString:@"\\"
                          withString:@"\\\\"
@@ -204,7 +202,20 @@ static void stackDump (lua_State *L) {
                          withString:@"\\r"
                             options:NSLiteralSearch
                               range:NSMakeRange(0, [str length])];
+    return str;
+}
+
+- (NSString *) decodeStringForKey:(NSString *)key {
+    [self getKey:key];
+    NSString *str = [self decodeString];
     [self pop];
+    return str;
+}
+
+- (NSString *) decodeStringForKeyPath:(NSString *)keyPath {
+    NSInteger popCount = [self getKey:keyPath];
+    NSString *str = [self decodeString];
+    [self popN:popCount];
     return str;
 }
 

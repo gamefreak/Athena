@@ -24,7 +24,11 @@
 - (NSMutableDictionary *) decodeDictionaryOfClass:(Class<LuaCoding>)class forKey:(NSString *)key;
 - (BOOL) decodeBool;
 - (BOOL) decodeBoolForKeyPath:(NSString *)keyPath;
+
+- (NSString *) decodeString;
 - (NSString *) decodeStringForKey:(NSString *)key;
+- (NSString *) decodeStringForKeyPath:(NSString *)keyPath;
+
 - (XSPoint *) decodePointForKey:(NSString *)key;
 - (NSInteger) decodeInteger;
 

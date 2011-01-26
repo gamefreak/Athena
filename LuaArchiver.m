@@ -144,10 +144,16 @@
     [self down];
 }
 
+- (void) encodeString:(NSString *)string {
+    [data appendFormat:@"[[%@]]", [string stringByReplacingOccurrencesOfString:@"]" withString:@"\\]"]];
+}
+
 - (void) encodeString:(NSString *)string forKey:(NSString *)key {
     [self up];
     [self indent];
-    [data appendFormat:@"%@ = [[%@]];\n", key, [string stringByReplacingOccurrencesOfString:@"]" withString:@"\\]"]];
+    [data appendFormat:@"%@ = ", key];
+    [self encodeString:string];
+    [data appendString:@";\n"];
     [self down];
 }
 

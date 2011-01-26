@@ -19,7 +19,10 @@
 + (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
 - (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key;
+
+- (void) encodeString:(NSString *)string;
 - (void) encodeString:(NSString *)string forKey:(NSString *)key;
+
 - (void) encodeBool:(BOOL)value;
 - (void) encodeInteger:(NSInteger)value;
 - (void) encodePoint:(XSPoint *)point forKey:(NSString *)key;
