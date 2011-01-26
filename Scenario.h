@@ -13,6 +13,7 @@
     NSUInteger netRaceFlags;
     NSInteger playerNum;//Number of players
     NSMutableArray *players;
+    NSMutableArray *scoreStrings;
 }
 @end
 

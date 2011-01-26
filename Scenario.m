@@ -8,6 +8,7 @@
 
 #import "Scenario.h"
 #import "Archivers.h"
+#import "NSString+LuaCoding.h"
 
 @implementation Scenario
 - (id) init {
@@ -17,7 +18,7 @@
     players = [[NSMutableArray alloc] initWithCapacity:2];
     [players addObject:[[[ScenarioPlayer alloc] initAsSinglePlayer] autorelease]];
     [players addObject:[[[ScenarioPlayer alloc] init] autorelease]];
-     
+    scoreStrings = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -30,6 +31,9 @@
                                  forKey:@"players"
                             zeroIndexed:NO];
     [players retain];
+    [scoreStrings release];
+    scoreStrings = [coder decodeArrayOfClass:[NSMutableString class] forKey:@"scoreString" zeroIndexed:YES];
+    [scoreStrings retain];
     return self;
 }
 
@@ -39,10 +43,14 @@
     [coder encodeArray:players
                 forKey:@"players"
            zeroIndexed:NO];
+    [coder encodeArray:scoreStrings
+                forKey:@"scoreString"
+           zeroIndexed:YES];
 }
 
 - (void) dealloc {
     [players release];
+    [scoreStrings release];
     [super dealloc];
 }
 
@@ -82,7 +90,7 @@
     
     race = [coder decodeIntegerForKey:@"race"];
     [name release];
-    name = [coder decodeStringForKey:@"name"];
+    name = [[coder decodeStringForKey:@"name"] retain];
     earningPower = [coder decodeFloatForKey:@"earningPower"];
     netRaceFlags = [coder decodeIntegerForKey:@"netRaceFlags"];
     return self;
