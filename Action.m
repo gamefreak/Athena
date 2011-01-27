@@ -111,4 +111,86 @@
     }
     return NoActionType;
 }
+
++ (NSString *) stringForType:(ActionType) type {
+    switch (type) {
+        case NoActionType:
+            return @"none";
+            break;
+        case CreateObjectActionType:
+            return @"create object";
+            break;
+        case PlaySoundActionType:
+            return @"play sound";
+            break;
+        case AlterActionType:
+            return @"alter";
+            break;
+        case MakeSparksActionType:
+            return @"make sparks";
+            break;
+        case ReleaseEnergyActionType:
+            return @"release energy";
+            break;
+        case LandAtActionType:
+            return @"land at";
+            break;
+        case EnterWarpActionType:
+            return @"enter warp";
+            break;
+        case DisplayMessageActionType:
+            return @"display message";
+            break;
+        case ChangeScoreActionType:
+            return @"change score";
+            break;
+        case DeclareWinnerActionType:
+            return @"declare winner";
+            break;
+        case DieActionType:
+            return @"die";
+            break;
+        case SetDestinationActionType:
+            return @"set destination";
+            break;
+        case ActivateSpecialActionType:
+            return @"activate special";
+            break;
+        case ActivatePulseActionType:
+            return @"activate pulse";
+            break;
+        case ActivateBeamActionType:
+            return @"activate beam";
+            break;
+        case ColorFlashActionType:
+            return @"color flash";
+            break;
+        case CreateObjectSetDestinationActionType:
+            return @"create object set destination";
+            break;
+        case NilTargetActionType:
+            return @"nil target";
+            break;
+        case DisableKeysActionType:
+            return @"disable keys";
+            break;
+        case EnableKeysActionType:
+            return @"enable keys";
+            break;
+        case SetZoomLevelActionType:
+            return @"set zoom level";
+            break;
+        case ComputerSelectActionType:
+            return @"computer select";
+            break;
+        case AssumeInitialObjectActionType:
+            return @"assume initial object";
+            break;
+        default:
+            @throw [NSString stringWithFormat:@"Unknown action type: %d", type];
+            break;
+    }
+    return nil;
+}
+
 @end
