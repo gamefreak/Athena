@@ -36,32 +36,6 @@ typedef enum {
     AssumeInitialObjectActionType
 } ActionType;
 
-typedef enum {
-    AlterHealth,
-    AlterVelocity,
-    AlterThrust,
-    AlterMaxThrust,
-    AlterMaxVelocity,
-    AlterMaxTurnRate,
-    AlterLocation,
-    AlterScale,
-    AlterPulseWeapon,
-    AlterBeamWeapon,
-    AlterSpecialWeapon,
-    AlterEnergy,
-    AlterOnwer,
-    AlterHidden,
-    AlterCloak,
-    AlterOffline,
-    AlterCurrentTurnRate,
-    AlterBaseType,
-    AlterActiveCondition,
-    AlterOccupation,
-    AlterAbsoluteCash,
-    AlterAge,
-    AlterAbsoluteLocation
-} AlterAction;
-
 @interface Action : NSObject <LuaCoding> {
     ActionType type;
     BOOL reflexive;

@@ -50,6 +50,7 @@
 		D2882C2612F1D41400A02383 /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882C2512F1D41400A02383 /* Condition.m */; };
 		D2882D3512F1F02D00A02383 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882D3412F1F02D00A02383 /* Action.m */; };
 		D28831CF12F21E7F00A02383 /* SubActions.m in Sources */ = {isa = PBXBuildFile; fileRef = D28831CE12F21E7F00A02383 /* SubActions.m */; };
+		D288326812F2340300A02383 /* AlterActions.m in Sources */ = {isa = PBXBuildFile; fileRef = D288326712F2340300A02383 /* AlterActions.m */; };
 		D293F5D812EB78E000EF1CCA /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5D712EB78E000EF1CCA /* Race.m */; };
 		D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5E812EB82ED00EF1CCA /* BriefPoint.m */; };
 		D293F65C12EBAAF600EF1CCA /* XSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F65B12EBAAF600EF1CCA /* XSPoint.m */; };
@@ -150,6 +151,8 @@
 		D2882D3412F1F02D00A02383 /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
 		D28831CD12F21E7F00A02383 /* SubActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubActions.h; sourceTree = "<group>"; };
 		D28831CE12F21E7F00A02383 /* SubActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubActions.m; sourceTree = "<group>"; };
+		D288326612F2340300A02383 /* AlterActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlterActions.h; sourceTree = "<group>"; };
+		D288326712F2340300A02383 /* AlterActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlterActions.m; sourceTree = "<group>"; };
 		D293F5D612EB78E000EF1CCA /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
 		D293F5D712EB78E000EF1CCA /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
 		D293F5E712EB82ED00EF1CCA /* BriefPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefPoint.h; sourceTree = "<group>"; };
@@ -378,6 +381,8 @@
 			children = (
 				D2882D3312F1F02D00A02383 /* Action.h */,
 				D2882D3412F1F02D00A02383 /* Action.m */,
+				D288326612F2340300A02383 /* AlterActions.h */,
+				D288326712F2340300A02383 /* AlterActions.m */,
 				D28831CD12F21E7F00A02383 /* SubActions.h */,
 				D28831CE12F21E7F00A02383 /* SubActions.m */,
 			);
@@ -525,6 +530,7 @@
 				D2882C2612F1D41400A02383 /* Condition.m in Sources */,
 				D2882D3512F1F02D00A02383 /* Action.m in Sources */,
 				D28831CF12F21E7F00A02383 /* SubActions.m in Sources */,
+				D288326812F2340300A02383 /* AlterActions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

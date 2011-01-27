@@ -8,6 +8,7 @@
 
 #import "Action.h"
 #import "Archivers.h"
+#import "AlterActions.h"
 #import "SubActions.h"
 
 @implementation Action
@@ -70,7 +71,9 @@
         case PlaySoundActionType:
             return [PlaySoundAction class];
             break;
-//        case AlterActionType:
+        case AlterActionType:
+            return [AlterAction class];
+            break;
         case MakeSparksActionType:
             return [MakeSparksAction class];
             break;
@@ -130,9 +133,6 @@
             break;
         case AssumeInitialObjectActionType:
             return [AssumeInitialObjectAction class];
-            break;
-        case AlterActionType:
-            @throw [NSString stringWithFormat:@"Unimplemented action type: %@", [self stringForType:type]];
             break;
         default:
             @throw [NSString stringWithFormat:@"Unknown action type: %d", type];
