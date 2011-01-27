@@ -52,6 +52,10 @@
     return YES;
 }
 
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
+
 + (id) point {
     return [[[XSPoint alloc] init] autorelease];
 }

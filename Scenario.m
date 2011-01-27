@@ -146,6 +146,10 @@
 + (BOOL) isComposite {
     return YES;
 }
+
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
 @end
 
 
@@ -215,6 +219,10 @@
 + (BOOL) isComposite {
     return YES;
 }
+
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
 @end
 
 @implementation ScenarioPar
@@ -249,6 +257,10 @@
 
 + (BOOL) isComposite {
     return YES;
+}
+
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
 }
 @end
 

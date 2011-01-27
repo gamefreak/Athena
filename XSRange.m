@@ -45,6 +45,10 @@
     return YES;
 }
 
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
+
 + (id) range {
     return [[[XSRange alloc] init] autorelease];
 }

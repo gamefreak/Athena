@@ -108,8 +108,9 @@ static void stackDump (lua_State *L) {
 }
 
 
-- (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key {
+- (id) decodeObjectOfClass:(Class<Alloc, NSObject, LuaCoding>)_class forKey:(NSString *)key {
     [self getKey:key];
+    Class class = [_class classForLuaCoder:self];
     if ([class isComposite]) {
         assert(lua_istable(L, -1));
     }
@@ -118,8 +119,9 @@ static void stackDump (lua_State *L) {
     return [obj autorelease];
 }
 
-- (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKeyPath:(NSString *)keyPath {
+- (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)_class forKeyPath:(NSString *)keyPath {
     NSInteger popCount = [self getKeyPath:keyPath];
+    Class class = [_class classForLuaCoder:self];
     if ([class isComposite]) {
         assert(lua_istable(L, -1));
     }
@@ -128,7 +130,7 @@ static void stackDump (lua_State *L) {
     return [obj autorelease];
 }
 
-- (NSMutableArray *) decodeArrayOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
+- (NSMutableArray *) decodeArrayOfClass:(Class<Alloc, LuaCoding>)_class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
     [self getKey:key];
     assert(lua_istable(L, -1));
 
@@ -142,7 +144,8 @@ static void stackDump (lua_State *L) {
     for (int idx = (isZeroIndexed?0:1); idx <= lua_objlen(L, -1); idx++) {
         lua_pushinteger(L, idx); //pushes key
         lua_gettable(L, -2); //pops key, pushes value
-        //I would like to make this warning go away \/
+
+        Class class = [_class classForLuaCoder:self];
         id object = [[class alloc] initWithLuaCoder:self];
         [array addObject:object];
         [object release];
@@ -152,7 +155,7 @@ static void stackDump (lua_State *L) {
     return array;
 }
 
-- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key {
+- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<Alloc, LuaCoding>)_class forKey:(NSString *)key {
     [self getKey:key];
     assert(lua_istable(L, -1));
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -161,6 +164,7 @@ static void stackDump (lua_State *L) {
         lua_pushvalue(L, -2);//Make a copy of the key
         NSString *key = [NSString stringWithUTF8String:lua_tostring(L, -1)];//Read the copy
         lua_pop(L, 1);//Pop the copy
+        Class class = [_class classForLuaCoder:self];
         id value = [[class alloc] initWithLuaCoder:self];
         [dict setObject:value forKey:key];
         [value release];

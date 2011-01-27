@@ -13,4 +13,5 @@
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder;
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder;
 + (BOOL) isComposite;
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder;
 @end

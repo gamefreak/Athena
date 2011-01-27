@@ -174,6 +174,10 @@
     return YES;
 }
 
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
+
 + (ConditionType) typeForString:(NSString *)typeName {
     if ([typeName isEqual:@"none"]) {
         return NoCondition;
@@ -339,6 +343,10 @@
 
 + (BOOL) isComposite {
     return YES;
+}
+
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
 }
 @end
 

@@ -22,4 +22,8 @@
 + (BOOL) isComposite {
     return NO;
 }
+
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
 @end

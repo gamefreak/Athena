@@ -39,6 +39,10 @@
     return NO;
 }
 
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
+
 + (id) boolWithBool:(BOOL)_bool {
     return [[[XSBool alloc] initWithBool:_bool] autorelease];
 }
