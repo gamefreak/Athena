@@ -73,7 +73,3 @@ typedef enum {
 + (ActionType) typeForString:(NSString *)type;
 + (NSString *) stringForType:(ActionType) type;
 @end
-
-@interface NoAction : Action {}
-@end
-
