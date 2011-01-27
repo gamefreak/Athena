@@ -12,16 +12,18 @@
 
 @class XSPoint;
 
+@protocol Alloc + (id) alloc; @end
+@interface NSObject (ALLOC_DO_YOU_SPEAK_IT) <Alloc> @end
 
 @interface LuaUnarchiver : NSCoder {
     lua_State *L;
 }
 + (id) unarchiveObjectWithData:(NSData *)data;
 - (void) loadData:(NSData *)data;
-- (id) decodeObjectOfClass:(Class<LuaCoding>)class forKey:(NSString *)key;
-- (id) decodeObjectOfClass:(Class<LuaCoding>)class forKeyPath:(NSString *)keyPath;
-- (NSMutableArray *) decodeArrayOfClass:(Class<LuaCoding>)_class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
-- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<LuaCoding>)class forKey:(NSString *)key;
+- (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key;
+- (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKeyPath:(NSString *)keyPath;
+- (NSMutableArray *) decodeArrayOfClass:(Class<Alloc, LuaCoding>)_class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
+- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key;
 - (BOOL) decodeBool;
 - (BOOL) decodeBoolForKeyPath:(NSString *)keyPath;
 

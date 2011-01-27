@@ -108,7 +108,7 @@ static void stackDump (lua_State *L) {
 }
 
 
-- (id) decodeObjectOfClass:(Class<LuaCoding>)class forKey:(NSString *)key {
+- (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key {
     [self getKey:key];
     assert(lua_istable(L, -1));
     id obj = [[class alloc] initWithLuaCoder:self];
@@ -116,7 +116,7 @@ static void stackDump (lua_State *L) {
     return [obj autorelease];
 }
 
-- (id) decodeObjectOfClass:(Class<LuaCoding>)class forKeyPath:(NSString *)keyPath {
+- (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKeyPath:(NSString *)keyPath {
     NSInteger popCount = [self getKeyPath:keyPath];
     assert(lua_istable(L, -1));
     id obj = [[class alloc] initWithLuaCoder:self];
@@ -124,7 +124,7 @@ static void stackDump (lua_State *L) {
     return [obj autorelease];
 }
 
-- (NSMutableArray *) decodeArrayOfClass:(Class<LuaCoding>)class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
+- (NSMutableArray *) decodeArrayOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
     [self getKey:key];
     assert(lua_istable(L, -1));
 
@@ -148,7 +148,7 @@ static void stackDump (lua_State *L) {
     return array;
 }
 
-- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<LuaCoding>)class forKey:(NSString *)key {
+- (NSMutableDictionary *) decodeDictionaryOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key {
     [self getKey:key];
     assert(lua_istable(L, -1));
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
