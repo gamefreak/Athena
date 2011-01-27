@@ -15,6 +15,7 @@
     NSMutableArray *briefings;
     NSMutableArray *initials;
     NSMutableArray *scenarios;
+    NSMutableArray *conditions;
 }
 
 @end

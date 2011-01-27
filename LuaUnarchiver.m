@@ -110,7 +110,9 @@ static void stackDump (lua_State *L) {
 
 - (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key {
     [self getKey:key];
-    assert(lua_istable(L, -1));
+    if ([class isComposite]) {
+        assert(lua_istable(L, -1));
+    }
     id obj = [[class alloc] initWithLuaCoder:self];
     [self pop];
     return [obj autorelease];
@@ -118,7 +120,9 @@ static void stackDump (lua_State *L) {
 
 - (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKeyPath:(NSString *)keyPath {
     NSInteger popCount = [self getKeyPath:keyPath];
-    assert(lua_istable(L, -1));
+    if ([class isComposite]) {
+        assert(lua_istable(L, -1));
+    }
     id obj = [[class alloc] initWithLuaCoder:self];
     [self popN:popCount];
     return [obj autorelease];

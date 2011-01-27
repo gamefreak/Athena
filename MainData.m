@@ -12,7 +12,7 @@
 #import "Race.h"
 #import "Scenario.h"
 #import "ScenarioInitial.h"
-
+#import "Condition.h"
 #import "BriefPoint.h"
 
 @implementation MainData
@@ -37,6 +37,9 @@
     scenarios = [[decoder decodeArrayOfClass:[Scenario class]
                                       forKey:@"scenarios"
                                  zeroIndexed:YES] retain];
+    conditions = [[decoder decodeArrayOfClass:[Condition class]
+                                       forKey:@"conditions"
+                                  zeroIndexed:YES] retain];
     return self;
 }
 
@@ -46,6 +49,7 @@
     [aCoder encodeArray:briefings forKey:@"briefings" zeroIndexed:YES];
     [aCoder encodeArray:initials forKey:@"initials" zeroIndexed:YES];
     [aCoder encodeArray:scenarios forKey:@"scenarios" zeroIndexed:YES];
+    [aCoder encodeArray:conditions forKey:@"conditions" zeroIndexed:YES];
 }
 
 
@@ -55,6 +59,7 @@
     [briefings release];
     [initials release];
     [scenarios release];
+    [conditions release];
     [super dealloc];
 }
 
