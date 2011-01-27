@@ -25,6 +25,56 @@
 }
 
 + (ActionAlterType) alterTypeForString:(NSString *)type {
+    if ([type isEqual:@"health"]) {
+        return AlterHealth;
+    } else if ([type isEqual:@"velocity"]) {
+        return AlterVelocity;
+    } else if ([type isEqual:@"thrust"]) {
+        return AlterThrust;
+    } else if ([type isEqual:@"max thrust"]) {
+        return AlterMaxThrust;
+    } else if ([type isEqual:@"max velocity"]) {
+        return AlterMaxVelocity;
+    } else if ([type isEqual:@"max turn rate"]) {
+        return AlterMaxTurnRate;
+    } else if ([type isEqual:@"location"]) {
+        return AlterLocation;
+    } else if ([type isEqual:@"scale"]) {
+        return AlterScale;
+    } else if ([type isEqual:@"pulse weapon"]) {
+        return AlterPulseWeapon;
+    } else if ([type isEqual:@"beam weapon"]) {
+        return AlterBeamWeapon;
+    } else if ([type isEqual:@"special"]) {
+        return AlterSpecialWeapon;
+    } else if ([type isEqual:@"energy"]) {
+        return AlterEnergy;
+    } else if ([type isEqual:@"owner"]) {
+        return AlterOnwer;
+    } else if ([type isEqual:@"hidden"]) {
+        return AlterHidden;
+    } else if ([type isEqual:@"cloak"]) {
+        return AlterCloak;
+    } else if ([type isEqual:@"offline"]) {
+        return AlterOffline;
+    } else if ([type isEqual:@"current turn rate"]) {
+        return AlterCurrentTurnRate;
+    } else if ([type isEqual:@"base type"]) {
+        return AlterBaseType;
+    } else if ([type isEqual:@"active condition"]) {
+        return AlterActiveCondition;
+    } else if ([type isEqual:@"occupation"]) {
+        return AlterOccupation;
+    } else if ([type isEqual:@"absolute cash"]) {
+        return AlterAbsoluteCash;
+    } else if ([type isEqual:@"age"]) {
+        return AlterAge;
+    } else if ([type isEqual:@"absolute location"]) {
+        return AlterAbsoluteLocation;
+    } else {
+        @throw [NSString stringWithFormat:@"Invalid alter action type: %@", type];
+    }
+    return -1;
     
 }
 
