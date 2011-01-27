@@ -23,6 +23,7 @@
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
+    type = [Action typeForString:[coder decodeStringForKey:@"type"]];
     reflexive = [coder decodeBoolForKey:@"reflexive"];
 
     inclusiveFilter = [coder decodeIntegerForKey:@"inclusiveFilter"];
@@ -36,6 +37,8 @@
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [coder encodeString:[Action stringForType:type]
+                 forKey:@"type"];
     [coder encodeBool:reflexive forKey:@"reflexive"];
     [coder encodeInteger:inclusiveFilter forKey:@"inclusiveFilter"];
     [coder encodeInteger:exclusiveFilter forKey:@"exclusiveFilter"];
