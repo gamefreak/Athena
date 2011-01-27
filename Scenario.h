@@ -9,11 +9,32 @@
 #import <Cocoa/Cocoa.h>
 #import "LuaCoding.h"
 
+@class XSRange, XSPoint;
+@class ScenarioPar;
+
 @interface Scenario : NSObject <LuaCoding> {
+//    NSInteger scenId;
+    NSString *name;
+
     NSUInteger netRaceFlags;
     NSInteger playerNum;//Number of players
     NSMutableArray *players;
     NSMutableArray *scoreStrings;
+    XSRange *initialObjects;
+    XSRange *conditions;
+    XSRange *briefings;
+    XSPoint *starmap;
+
+    ScenarioPar *par;
+
+    NSInteger angle;
+    NSInteger startTime;
+    BOOL isTraining;
+
+    NSInteger prologueId;
+    NSInteger epilogueId;
+    NSInteger songId;
+    NSString *movie;
 }
 @end
 
@@ -32,3 +53,12 @@ typedef enum {
 }
 - (id) initAsSinglePlayer;
 @end
+
+@interface ScenarioPar : NSObject <LuaCoding> {
+    NSInteger time;
+    NSInteger kills;
+    float ratio;
+    NSInteger losses;
+}
+@end
+
