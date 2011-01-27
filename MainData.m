@@ -14,6 +14,7 @@
 #import "ScenarioInitial.h"
 #import "Condition.h"
 #import "BriefPoint.h"
+#import "Action.h"
 
 @implementation MainData
 - (id) initWithLuaCoder:(LuaUnarchiver *)decoder {
@@ -40,6 +41,9 @@
     conditions = [[decoder decodeArrayOfClass:[Condition class]
                                        forKey:@"conditions"
                                   zeroIndexed:YES] retain];
+    actions = [[decoder decodeArrayOfClass:[Action class]
+                                    forKey:@"actions"
+                               zeroIndexed:YES] retain];
     return self;
 }
 
@@ -50,6 +54,7 @@
     [aCoder encodeArray:initials forKey:@"initials" zeroIndexed:YES];
     [aCoder encodeArray:scenarios forKey:@"scenarios" zeroIndexed:YES];
     [aCoder encodeArray:conditions forKey:@"conditions" zeroIndexed:YES];
+    [aCoder encodeArray:actions forKey:@"actions" zeroIndexed:YES];
 }
 
 
@@ -60,6 +65,7 @@
     [initials release];
     [scenarios release];
     [conditions release];
+    [actions release];
     [super dealloc];
 }
 
