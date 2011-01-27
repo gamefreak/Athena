@@ -7,6 +7,7 @@
 //
 
 #import "Action.h"
+#import "Archivers.h"
 
 @implementation Action
 - (id) init {
@@ -54,7 +55,39 @@
 }
 
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
-    return self;
+    ActionType type = [self typeForString:[coder decodeStringForKey:@"type"]];
+    switch (type) {
+        case NoActionType:
+        case CreateObjectActionType:
+        case PlaySoundActionType:
+        case AlterActionType:
+        case MakeSparksActionType:
+        case ReleaseEnergyActionType:
+        case LandAtActionType:
+        case EnterWarpActionType:
+        case DisplayMessageActionType:
+        case ChangeScoreActionType:
+        case DeclareWinnerActionType:
+        case DieActionType:
+        case SetDestinationActionType:
+        case ActivateSpecialActionType:
+        case ActivatePulseActionType:
+        case ActivateBeamActionType:
+        case ColorFlashActionType:
+        case CreateObjectSetDestinationActionType:
+        case NilTargetActionType:
+        case DisableKeysActionType:
+        case EnableKeysActionType:
+        case SetZoomLevelActionType:
+        case ComputerSelectActionType:
+        case AssumeInitialObjectActionType:
+            @throw [NSString stringWithFormat:@"Unimplemented action type: %@", [self stringForType:type]];
+            break;
+        default:
+            @throw [NSString stringWithFormat:@"Unknown action type: %d", type];
+            break;
+    }
+    return nil;
 }
 
 + (ActionType) typeForString:(NSString *)type {
