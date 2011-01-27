@@ -61,6 +61,49 @@
 }
 @end
 
+@interface DeclareWinnerAction : Action {
+    NSInteger player, nextLevel;
+    NSMutableString *text;
+}
+@end
+
+typedef enum {
+    DieActionNormal,
+    DieActionExpire,
+    DieActionDestroy
+} DieActionHow;
+
+@interface DieAction : Action {
+    DieActionHow how;
+}
+@end
+
+@interface SetDestinationAction : Action {
+}
+@end
+
+@interface ActivateSpecialAction : Action {
+}
+@end
+
+@interface ActivatePulseAction : Action {
+}
+@end
+
+@interface ActivateBeamAction : Action {
+}
+@end
+
+@interface ColorFlashAction : Action {
+    NSInteger duration;
+    NSInteger color, shade;
+}
+@end
+
+@interface CreateObjectSetDestinationAction : CreateObjectAction {
+}
+@end
+
 /* Copying stub.
 @interface CN : Action {
     

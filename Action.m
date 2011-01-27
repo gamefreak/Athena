@@ -90,13 +90,29 @@
             return [ChangeScoreAction class];
             break;
         case DeclareWinnerActionType:
+            return [DeclareWinnerAction class];
+            break;
         case DieActionType:
+            return [DieAction class];
+            break;
         case SetDestinationActionType:
+            return [SetDestinationAction class];
+            break;
         case ActivateSpecialActionType:
+            return [ActivateSpecialAction class];
+            break;
         case ActivatePulseActionType:
+            return [ActivatePulseAction class];
+            break;
         case ActivateBeamActionType:
+            return [ActivateBeamAction class];
+            break;
         case ColorFlashActionType:
+            return [ColorFlashAction class];
+            break;
         case CreateObjectSetDestinationActionType:
+            return [CreateObjectSetDestinationAction class];
+            break;
         case NilTargetActionType:
         case DisableKeysActionType:
         case EnableKeysActionType:

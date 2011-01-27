@@ -9,7 +9,8 @@
 #import "SubActions.h"
 #import "Archivers.h"
 
-@implementation NoAction @end
+@implementation NoAction
+@end
 
 @implementation CreateObjectAction
 - (id) init {
@@ -212,6 +213,120 @@
     [coder encodeInteger:score forKey:@"score"];
     [coder encodeInteger:amount forKey:@"amount"];
 }
+@end
+
+@implementation DeclareWinnerAction
+- (id) init {
+    self = [super init];
+    player = 0;
+    nextLevel = 0;
+    text = [[NSMutableString alloc] init];
+    return self;
+}
+
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    player = [coder decodeIntegerForKey:@"player"];
+    nextLevel = [coder decodeIntegerForKey:@"nextLevel"];
+
+    [text setString:[coder decodeStringForKey:@"text"]];
+
+    return self;
+}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:player forKey:@"player"];
+    [coder encodeInteger:nextLevel forKey:@"nextLevel"];
+    [coder encodeString:text forKey:@"text"];
+}
+
+- (void) dealloc {
+    [text release];
+    [super dealloc];
+}
+@end
+
+@implementation DieAction
+- (id) init {
+    self = [super init];
+    how = DieActionNormal;
+    return self;
+}
+
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    NSString *howStr = [coder decodeStringForKey:@"how"];
+    if ([howStr isEqual:@"plain"]) {
+        how = DieActionNormal;
+    } else if ([howStr isEqual:@"expire"]) {
+        how = DieActionExpire;
+    } else if ([howStr isEqual:@"destroy"]){
+        how = DieActionDestroy;
+    } else {
+        @throw [NSString stringWithFormat:@"Invalid die action type: %@", howStr];
+    }
+
+    return self;
+}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    switch (how) {
+        case DieActionNormal:
+            [coder encodeString:@"plain" forKey:@"how"];
+            break;
+        case DieActionExpire:
+            [coder encodeString:@"expire" forKey:@"how"];
+            break;
+        case DieActionDestroy:
+            [coder encodeString:@"destroy" forKey:@"how"];
+            break;
+        default:
+            @throw [NSString stringWithFormat:@"Invalid die action type: %d", how];
+            break;
+    }
+}
+@end
+
+@implementation SetDestinationAction
+@end
+
+@implementation ActivateSpecialAction
+@end
+
+@implementation ActivatePulseAction
+@end
+
+@implementation ActivateBeamAction
+@end
+
+@implementation ColorFlashAction
+- (id) init {
+    self = [super init];
+    duration = 1;//???
+    color = 0;//??? grey
+    shade = 0;//???
+    return self;
+}
+
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    duration = [coder decodeIntegerForKey:@"duration"];
+    color = [coder decodeIntegerForKey:@"color"];
+    shade = [coder decodeIntegerForKey:@"shade"];
+    return self;
+}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:duration forKey:@"duration"];
+    [coder encodeInteger:color forKey:@"color"];
+    [coder encodeInteger:shade forKey:@"shade"];
+}
+@end
+
+@implementation CreateObjectSetDestinationAction
 @end
 
 /* Copying stub.
