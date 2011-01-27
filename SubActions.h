@@ -104,6 +104,34 @@ typedef enum {
 }
 @end
 
+@interface NilTargetAction : Action {
+}
+@end
+
+@interface DisableKeysAction : Action {
+    NSUInteger keyMask;
+}
+@end
+
+@interface EnableKeysAction : DisableKeysAction {
+}
+@end
+
+@interface SetZoomLevelAction : Action {
+    NSInteger zoomLevel;
+}
+@end
+
+@interface ComputerSelectAction : Action {
+    NSInteger screen, line;
+}
+@end
+
+@interface AssumeInitialObjectAction : Action {
+    NSInteger ID;
+}
+@end
+
 /* Copying stub.
 @interface CN : Action {
     

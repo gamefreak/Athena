@@ -114,11 +114,23 @@
             return [CreateObjectSetDestinationAction class];
             break;
         case NilTargetActionType:
+            return [NilTargetAction class];
+            break;
         case DisableKeysActionType:
+            return [DisableKeysAction class];
+            break;
         case EnableKeysActionType:
+            return [EnableKeysAction class];
+            break;
         case SetZoomLevelActionType:
+            return [SetZoomLevelAction class];
+            break;
         case ComputerSelectActionType:
+            return [ComputerSelectAction class];
+            break;
         case AssumeInitialObjectActionType:
+            return [AssumeInitialObjectAction class];
+            break;
         case AlterActionType:
             @throw [NSString stringWithFormat:@"Unimplemented action type: %@", [self stringForType:type]];
             break;

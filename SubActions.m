@@ -329,6 +329,91 @@
 @implementation CreateObjectSetDestinationAction
 @end
 
+@implementation NilTargetAction
+@end
+
+@implementation DisableKeysAction
+- (id) init {
+    self = [super init];
+    keyMask = 0x00000000;//???
+    return self;
+}
+
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    keyMask = [coder decodeIntegerForKey:@"keyMask"];
+    return self;
+}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:keyMask forKey:@"keyMask"];
+}
+@end
+
+@implementation EnableKeysAction
+@end
+
+@implementation SetZoomLevelAction
+- (id) init {
+    self = [super init];
+    zoomLevel = 1;//???
+    return self;
+}
+
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    zoomLevel = [coder decodeIntegerForKey:@"zoomLevel"];
+    return self;
+}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:zoomLevel forKey:@"value"];
+}
+@end
+
+@implementation ComputerSelectAction
+- (id) init {
+    self = [super init];
+    screen = 1;//???
+    line = 1;//???
+    return self;
+}
+
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    screen = [coder decodeIntegerForKey:@"screen"];
+    line = [coder decodeIntegerForKey:@"line"];
+    return self;
+}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:screen forKey:@"screen"];
+    [coder encodeInteger:line forKey:@"line"];
+}
+@end
+
+@implementation AssumeInitialObjectAction
+- (id) init {
+    self = [super init];
+    ID = -1;//???
+    return self;
+}
+
+- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    ID = [coder decodeIntegerForKey:@"id"];
+    return self;
+}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:ID forKey:@"id"];
+}
+@end
+
 /* Copying stub.
 @implementation CN
 - (id) init {
