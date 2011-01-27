@@ -8,6 +8,7 @@
 
 #import "Action.h"
 #import "Archivers.h"
+#import "SubActions.h"
 
 @implementation Action
 - (id) init {
@@ -61,15 +62,33 @@
     ActionType type = [self typeForString:[coder decodeStringForKey:@"type"]];
     switch (type) {
         case NoActionType:
+            return [NoAction class];
+            break;
         case CreateObjectActionType:
+            return [CreateObjectAction class];
+            break;
         case PlaySoundActionType:
-        case AlterActionType:
+            return [PlaySoundAction class];
+            break;
+//        case AlterActionType:
         case MakeSparksActionType:
+            return [MakeSparksAction class];
+            break;
         case ReleaseEnergyActionType:
+            return [ReleaseEnergyAction class];
+            break;
         case LandAtActionType:
+            return [LandAtAction class];
+            break;
         case EnterWarpActionType:
+            return [EnterWarpAction class];
+            break;
         case DisplayMessageActionType:
+            return [DisplayMessageAction class];
+            break;
         case ChangeScoreActionType:
+            return [ChangeScoreAction class];
+            break;
         case DeclareWinnerActionType:
         case DieActionType:
         case SetDestinationActionType:
@@ -84,6 +103,7 @@
         case SetZoomLevelActionType:
         case ComputerSelectActionType:
         case AssumeInitialObjectActionType:
+        case AlterActionType:
             @throw [NSString stringWithFormat:@"Unimplemented action type: %@", [self stringForType:type]];
             break;
         default:
