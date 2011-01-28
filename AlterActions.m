@@ -192,7 +192,7 @@
         return AlterPulseWeapon;
     } else if ([type isEqual:@"beam weapon"]) {
         return AlterBeamWeapon;
-    } else if ([type isEqual:@"special"]) {
+    } else if ([type isEqual:@"special weapon"]) {
         return AlterSpecialWeapon;
     } else if ([type isEqual:@"energy"]) {
         return AlterEnergy;
