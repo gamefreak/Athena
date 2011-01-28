@@ -257,7 +257,7 @@
 				D21EB27812E8BAEF00694EBA /* MainData.m */,
 				2A37F4AEFDCFA73011CA2CEA /* AthenaDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */,
-				D288339812F24F7600A02383 /* Controllers */,
+				D288339812F24F7600A02383 /* Interface */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -402,7 +402,7 @@
 			name = Actions;
 			sourceTree = "<group>";
 		};
-		D288339812F24F7600A02383 /* Controllers */ = {
+		D288339812F24F7600A02383 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
 				D288339512F24F7000A02383 /* RaceEditor.h */,
@@ -410,7 +410,7 @@
 				D288343E12F263CC00A02383 /* ScenarioEditor.h */,
 				D288343F12F263CC00A02383 /* ScenarioEditor.m */,
 			);
-			name = Controllers;
+			name = Interface;
 			sourceTree = "<group>";
 		};
 		D293F65D12EBAAFD00EF1CCA /* Wrappers */ = {
