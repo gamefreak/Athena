@@ -68,21 +68,22 @@
 
 - (void) dealloc {
     [data release];
-    [raceEditor release];
     [super dealloc];
 }
 
 - (IBAction) openRaceEditor:(id)sender {
-    if (raceEditor == nil) {
-        raceEditor = [[RaceEditor alloc] initWithMainData:data];
-    }
+    RaceEditor *raceEditor = [[RaceEditor alloc] initWithMainData:data];
+    [self addWindowController:raceEditor];
+    [raceEditor setDocument:self];
     [raceEditor showWindow:self];
+    [raceEditor release];
 }
 
 - (IBAction) openScenarioEditor:(id)sender {
-    if (scenarioEditor == nil) {
-        scenarioEditor = [[ScenarioEditor alloc] initWithMainData:data];
-    }
+    ScenarioEditor *scenarioEditor = [[ScenarioEditor alloc] initWithMainData:data];
+    [self addWindowController:scenarioEditor];
+    [scenarioEditor setDocument:self];
     [scenarioEditor showWindow:self];
+    [scenarioEditor release];
 }
 @end
