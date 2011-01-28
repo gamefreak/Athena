@@ -51,6 +51,8 @@
 		D2882D3512F1F02D00A02383 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882D3412F1F02D00A02383 /* Action.m */; };
 		D28831CF12F21E7F00A02383 /* SubActions.m in Sources */ = {isa = PBXBuildFile; fileRef = D28831CE12F21E7F00A02383 /* SubActions.m */; };
 		D288326812F2340300A02383 /* AlterActions.m in Sources */ = {isa = PBXBuildFile; fileRef = D288326712F2340300A02383 /* AlterActions.m */; };
+		D288339212F24F4100A02383 /* RaceEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D288339112F24F4100A02383 /* RaceEditor.xib */; };
+		D288339712F24F7000A02383 /* RaceEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D288339612F24F7000A02383 /* RaceEditor.m */; };
 		D293F5D812EB78E000EF1CCA /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5D712EB78E000EF1CCA /* Race.m */; };
 		D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5E812EB82ED00EF1CCA /* BriefPoint.m */; };
 		D293F65C12EBAAF600EF1CCA /* XSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F65B12EBAAF600EF1CCA /* XSPoint.m */; };
@@ -153,6 +155,9 @@
 		D28831CE12F21E7F00A02383 /* SubActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubActions.m; sourceTree = "<group>"; };
 		D288326612F2340300A02383 /* AlterActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlterActions.h; sourceTree = "<group>"; };
 		D288326712F2340300A02383 /* AlterActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlterActions.m; sourceTree = "<group>"; };
+		D288339112F24F4100A02383 /* RaceEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RaceEditor.xib; sourceTree = "<group>"; };
+		D288339512F24F7000A02383 /* RaceEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaceEditor.h; sourceTree = "<group>"; };
+		D288339612F24F7000A02383 /* RaceEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaceEditor.m; sourceTree = "<group>"; };
 		D293F5D612EB78E000EF1CCA /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
 		D293F5D712EB78E000EF1CCA /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
 		D293F5E712EB82ED00EF1CCA /* BriefPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefPoint.h; sourceTree = "<group>"; };
@@ -247,6 +252,7 @@
 				D21EB27812E8BAEF00694EBA /* MainData.m */,
 				2A37F4AEFDCFA73011CA2CEA /* AthenaDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */,
+				D288339812F24F7600A02383 /* Controllers */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -269,6 +275,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* AthenaDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				D288339112F24F4100A02383 /* RaceEditor.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -389,6 +396,15 @@
 			name = Actions;
 			sourceTree = "<group>";
 		};
+		D288339812F24F7600A02383 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D288339512F24F7000A02383 /* RaceEditor.h */,
+				D288339612F24F7000A02383 /* RaceEditor.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		D293F65D12EBAAFD00EF1CCA /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,6 +484,7 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* AthenaDocument.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				D288339212F24F4100A02383 /* RaceEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +548,7 @@
 				D2882D3512F1F02D00A02383 /* Action.m in Sources */,
 				D28831CF12F21E7F00A02383 /* SubActions.m in Sources */,
 				D288326812F2340300A02383 /* AlterActions.m in Sources */,
+				D288339712F24F7000A02383 /* RaceEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,8 @@
 #import "MainData.h"
 #import "Archivers.h"
 
+#import "RaceEditor.h"
+
 @implementation AthenaDocument
 - (id) init {
     self = [super init];
@@ -65,6 +67,14 @@
 
 - (void) dealloc {
     [data release];
+    [raceEditor release];
     [super dealloc];
+}
+
+- (IBAction) openRaceEditor:(id)sender {
+    if (raceEditor == nil) {
+        raceEditor = [[RaceEditor alloc] initWithMainData:data];
+    }
+    [raceEditor showWindow:self];
 }
 @end
