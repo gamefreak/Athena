@@ -33,10 +33,22 @@ typedef enum {
     AlterAbsoluteCash,
     AlterAge,
     AlterAbsoluteLocation
-} ActionAlterType;
+} ActionAlterType; //Blegh
 
 
 @interface AlterAction : Action {
+    ActionAlterType alterType;
+    /*
+     isRelative becomes:
+        useObjectsOwner for alter-owner and alter-absolute-cash
+        retainAmmoCount for alter-base-type
+        conditionTrue   for alter-active-condion
+     */
+    BOOL isRelative;
+    NSInteger value;
+    NSInteger minimum, range;//becomes x, y for alter-absolute-location
+    //ID becomes player for alter-absolute-cash
+    NSInteger ID;
 }
 + (ActionAlterType) alterTypeForString:(NSString *)type;
 + (NSString *) stringForAlterType:(ActionAlterType)type;

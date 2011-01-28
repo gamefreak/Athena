@@ -7,21 +7,168 @@
 //
 
 #import "AlterActions.h"
-
+#import "Archivers.h"
 
 @implementation AlterAction
 - (id) init {
     self = [super init];
+    alterType = AlterHealth;
+    isRelative = NO;
+    value = 0;
+    minimum = 0;
+    range = 0;
+    ID = -1;
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
+    alterType = [AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]];
+
+    switch (alterType) {
+        case AlterVelocity:
+        case AlterThrust:
+        case AlterLocation:
+        case AlterAge:
+        case AlterAbsoluteLocation:
+            isRelative = [coder decodeBoolForKey:@"relative"];
+            break;
+        case AlterOnwer:
+        case AlterAbsoluteCash:
+            isRelative = [coder decodeBoolForKey:@"useObjectsOwner"];
+            break;
+        case AlterBaseType:
+            isRelative = [coder decodeBoolForKey:@"retainAmmoCount"];
+            break;
+        default:
+            break;
+    }
+
+    switch (alterType) {
+        case AlterHealth:
+        case AlterMaxThrust:
+        case AlterMaxVelocity:
+        case AlterMaxTurnRate:
+        case AlterScale:
+        case AlterEnergy:
+        case AlterOnwer:
+        case AlterOccupation:
+        case AlterAbsoluteCash:
+            value = [coder decodeIntegerForKey:@"value"];
+            break;
+        default:
+            break;
+    }
+
+    switch (alterType) {
+        case AlterVelocity:
+        case AlterThrust:
+        case AlterLocation:
+        case AlterHidden:
+        case AlterOnwer:
+        case AlterCurrentTurnRate:
+        case AlterActiveCondition:
+        case AlterAge:
+            minimum = [coder decodeIntegerForKey:@"minimum"];
+            range = [coder decodeIntegerForKey:@"range"];
+            break;
+        case AlterAbsoluteLocation:
+            minimum = [coder decodeIntegerForKey:@"x"];
+            range = [coder decodeIntegerForKey:@"y"];
+            break;
+        default:
+            break;
+    }
+
+    switch (alterType) {
+        case AlterPulseWeapon:
+        case AlterBeamWeapon:
+        case AlterSpecialWeapon:
+        case AlterBaseType:
+            ID = [coder decodeIntegerForKey:@"id"];
+            break;
+        case AlterAbsoluteCash:
+            ID = [coder decodeIntegerForKey:@"player"];
+            break;
+        default:
+            break;
+    }
+
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
+    [coder encodeString:[AlterAction stringForAlterType:alterType] forKey:@"alterType"];
+
+    switch (alterType) {
+        case AlterVelocity:
+        case AlterThrust:
+        case AlterLocation:
+        case AlterAge:
+        case AlterAbsoluteLocation:
+            [coder encodeBool:isRelative forKey:@"relative"];
+            break;
+        case AlterOnwer:
+        case AlterAbsoluteCash:
+            [coder encodeBool:isRelative forKey:@"useObjectsOwner"];
+            break;
+        case AlterBaseType:
+            [coder encodeBool:isRelative forKey:@"retainAmmoCount"];
+            break;
+        default:
+            break;
+    }
+
+    switch (alterType) {
+        case AlterHealth:
+        case AlterMaxThrust:
+        case AlterMaxVelocity:
+        case AlterMaxTurnRate:
+        case AlterScale:
+        case AlterEnergy:
+        case AlterOnwer:
+        case AlterOccupation:
+        case AlterAbsoluteCash:
+            [coder encodeInteger:value forKey:@"value"];
+            break;
+        default:
+            break;
+    }
+
+    switch (alterType) {
+        case AlterVelocity:
+        case AlterThrust:
+        case AlterLocation:
+        case AlterHidden:
+        case AlterOnwer:
+        case AlterCurrentTurnRate:
+        case AlterActiveCondition:
+        case AlterAge:
+            [coder encodeInteger:minimum forKey:@"minimum"];
+            [coder encodeInteger:range forKey:@"range"];
+            break;
+        case AlterAbsoluteLocation:
+            [coder encodeInteger:minimum forKey:@"x"];
+            [coder encodeInteger:range forKey:@"y"];
+            break;
+        default:
+            break;
+    }
+
+    switch (alterType) {
+        case AlterPulseWeapon:
+        case AlterBeamWeapon:
+        case AlterSpecialWeapon:
+        case AlterBaseType:
+            [coder encodeInteger:ID forKey:@"id"];
+            break;
+        case AlterAbsoluteCash:
+            [coder encodeInteger:ID forKey:@"player"];
+            break;
+        default:
+            break;
+    }
 }
 
 + (ActionAlterType) alterTypeForString:(NSString *)type {
