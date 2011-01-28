@@ -10,7 +10,7 @@
 #import "LuaCoding.h"
 
 @interface ActionRef : NSObject <LuaCoding> {
-    NSInteger first, count;
+    NSMutableArray *actions;
 }
 + (id) ref;
 @end

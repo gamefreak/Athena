@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "LuaCoding.h"
 
-@class XSRange, XSPoint;
+@class XSPoint;
 @class ScenarioPar;
 
 @interface Scenario : NSObject <LuaCoding> {
@@ -20,9 +20,11 @@
     NSInteger playerNum;//Number of players
     NSMutableArray *players;
     NSMutableArray *scoreStrings;
-    XSRange *initialObjects;
-    XSRange *conditions;
-    XSRange *briefings;
+
+    NSMutableArray *initialObjects;
+    NSMutableArray *conditions;
+    NSMutableArray *briefings;
+
     XSPoint *starmap;
 
     ScenarioPar *par;

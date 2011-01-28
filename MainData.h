@@ -11,11 +11,7 @@
 
 @interface MainData : NSObject <LuaCoding> {
     NSMutableArray *objects;
-    NSMutableArray *actions;
     NSMutableArray *scenarios;
-    NSMutableArray *briefings;
-    NSMutableArray *initials;
-    NSMutableArray *conditions;
     NSMutableArray *races;
 }
 

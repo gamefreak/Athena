@@ -10,6 +10,7 @@
 #import "Archivers.h"
 #import "XSPoint.h"
 #import "XSInteger.h"
+#import "Action.h"
 
 @implementation Condition
 - (id) init {
@@ -21,8 +22,7 @@
     ddata = [[NSMutableDictionary alloc] init];
     subject = -1;
     direct = -1;
-    start = 0;
-    count = 0;
+    actions = [[NSMutableArray alloc] init];
     flags = [[ConditionFlags alloc] init];
     return self;
 }
@@ -93,9 +93,10 @@
 
     subject = [coder decodeIntegerForKey:@"subject"];
     direct = [coder decodeIntegerForKey:@"direct"];
-    start = [coder decodeIntegerForKey:@"start"];
-    count = [coder decodeIntegerForKey:@"count"];
-    
+    [actions release];
+    actions = [coder decodeArrayOfClass:[Action class] forKey:@"actions" zeroIndexed:YES];
+    [actions retain];
+
     [flags release];
     flags = [coder decodeObjectOfClass:[ConditionFlags class]
                                 forKey:@"flags"];
@@ -156,8 +157,7 @@
 
     [coder encodeInteger:subject forKey:@"subject"];
     [coder encodeInteger:direct forKey:@"direct"];
-    [coder encodeInteger:start forKey:@"start"];
-    [coder encodeInteger:count forKey:@"count"];
+    [coder encodeArray:actions forKey:@"actions" zeroIndexed:YES];
 
     [coder encodeObject:flags forKey:@"flags"];
 }
@@ -166,6 +166,7 @@
     [location release];
     [counter release];
     [ddata release];
+    [actions release];
     [flags release];
     [super dealloc];
 }

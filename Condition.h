@@ -48,7 +48,7 @@ typedef enum {
     NSInteger intValue;
     NSMutableDictionary *ddata;
     NSInteger subject, direct;
-    NSInteger start, count;
+    NSMutableArray *actions;
     ConditionFlags *flags;
 }
 

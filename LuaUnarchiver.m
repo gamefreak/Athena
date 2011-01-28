@@ -141,7 +141,18 @@ static void stackDump (lua_State *L) {
      */
     //lua_objlen returns the highest index so allocate +1
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:lua_objlen(L, -1) + (isZeroIndexed?1:0)];
-    for (int idx = (isZeroIndexed?0:1); idx <= lua_objlen(L, -1); idx++) {
+    if (isZeroIndexed) {
+        lua_pushinteger(L, 0);
+        lua_gettable(L, -2);
+        if(!lua_isnil(L, -1)) {
+            Class class = [_class classForLuaCoder:self];
+            id object = [[class alloc] initWithLuaCoder:self];
+            [array addObject:object];
+            [object release];
+        }
+        lua_pop(L, 1);
+    }
+    for (int idx = 1; idx <= lua_objlen(L, -1); idx++) {
         lua_pushinteger(L, idx); //pushes key
         lua_gettable(L, -2); //pops key, pushes value
 

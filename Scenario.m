@@ -9,8 +9,11 @@
 #import "Scenario.h"
 #import "Archivers.h"
 #import "NSString+LuaCoding.h"
-#import "XSRange.h"
 #import "XSPoint.h"
+
+#import "BriefPoint.h"
+#import "ScenarioInitial.h"
+#import "Condition.h"
 
 @implementation Scenario
 - (id) init {
@@ -25,9 +28,9 @@
     [players addObject:[[[ScenarioPlayer alloc] init] autorelease]];
     scoreStrings = [[NSMutableArray alloc] init];
 
-    initialObjects = [[XSRange alloc] init];
-    conditions = [[XSRange alloc] init];
-    briefings = [[XSRange alloc] init];
+    initialObjects = [[NSMutableArray alloc] init];
+    conditions = [[NSMutableArray alloc] init];
+    briefings = [[NSMutableArray alloc] init];
 
     starmap = [[XSPoint alloc] init];
 
@@ -63,15 +66,15 @@
     [scoreStrings retain];
 
     [initialObjects release];
-    initialObjects = [coder decodeObjectOfClass:[XSRange class] forKey:@"initialObjects"];
+    initialObjects = [coder decodeArrayOfClass:[ScenarioInitial class] forKey:@"initialObjects" zeroIndexed:YES];
     [initialObjects retain];
 
     [conditions release];
-    conditions = [coder decodeObjectOfClass:[XSRange class] forKey:@"conditions"];
+    conditions = [coder decodeArrayOfClass:[Condition class] forKey:@"conditions" zeroIndexed:YES];
     [conditions retain];
 
     [briefings release];
-    briefings = [coder decodeObjectOfClass:[XSRange class] forKey:@"briefing"];
+    briefings = [coder decodeArrayOfClass:[BriefPoint class] forKey:@"briefing" zeroIndexed:YES];
     [briefings retain];
 
     [starmap release];
@@ -109,9 +112,11 @@
     [coder encodeArray:scoreStrings
                 forKey:@"scoreString"
            zeroIndexed:YES];
-    [coder encodeObject:initialObjects forKey:@"initialObjects"];
-    [coder encodeObject:conditions forKey:@"conditions"];
-    [coder encodeObject:briefings forKey:@"briefing"];
+
+    [coder encodeArray:initialObjects forKey:@"initialObjects" zeroIndexed:YES];
+    [coder encodeArray:conditions forKey:@"conditions" zeroIndexed:YES];
+    [coder encodeArray:briefings forKey:@"briefing" zeroIndexed:YES];
+
     [coder encodeObject:starmap forKey:@"starmap"];
     [coder encodeObject:par forKey:@"par"];
 

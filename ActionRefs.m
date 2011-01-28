@@ -8,24 +8,23 @@
 
 #import "ActionRefs.h"
 #import "Archivers.h"
+#import "Action.h"
 
 @implementation ActionRef
 - (id) init {
     self = [super init];
-    first = 0;
-    count = 0;
+    actions = [[NSMutableArray alloc] init];
     return self;
 }
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    first = [coder decodeIntegerForKey:@"first"];
-    count = [coder decodeIntegerForKey:@"count"];
+    [actions setArray:[coder decodeArrayOfClass:[Action class] forKey:@"seq" zeroIndexed:YES]];
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeInteger:first forKey:@"first"];
-    [coder encodeInteger:count forKey:@"count"];
+    [coder encodeArray:actions forKey:@"seq" zeroIndexed:YES];
 }
 
 + (id) ref {
@@ -38,6 +37,11 @@
 
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
+}
+
+- (void) dealloc {
+    [actions release];
+    [super dealloc];
 }
 @end
 
