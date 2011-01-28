@@ -146,7 +146,20 @@
 }
 
 - (void) encodeString:(NSString *)string {
-    [data appendFormat:@"[[%@]]", [string stringByReplacingOccurrencesOfString:@"]" withString:@"\\]"]];
+    NSMutableString *str = [NSMutableString stringWithString:string];
+    [str replaceOccurrencesOfString:@"\\"
+                         withString:@"\\\\"
+                            options:NSLiteralSearch
+                              range:NSMakeRange(0, [str length])];
+    [str replaceOccurrencesOfString:@"\r"
+                         withString:@"\\r"
+                            options:NSLiteralSearch
+                              range:NSMakeRange(0, [str length])];
+    [str replaceOccurrencesOfString:@"]"
+                         withString:@"\\]"
+                            options:NSLiteralSearch
+                              range:NSMakeRange(0, [str length])];
+    [data appendFormat:@"[[%@]]", str];
 }
 
 - (void) encodeString:(NSString *)string forKey:(NSString *)key {

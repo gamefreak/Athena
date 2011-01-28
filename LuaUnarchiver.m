@@ -203,14 +203,6 @@ static void stackDump (lua_State *L) {
     }
 
     NSMutableString *str = [NSMutableString stringWithUTF8String:lua_tostring(L, -1)];
-    [str replaceOccurrencesOfString:@"\\"
-                         withString:@"\\\\"
-                            options:NSLiteralSearch
-                              range:NSMakeRange(0, [str length])];
-    [str replaceOccurrencesOfString:@"\r"
-                         withString:@"\\r"
-                            options:NSLiteralSearch
-                              range:NSMakeRange(0, [str length])];
     return str;
 }
 
