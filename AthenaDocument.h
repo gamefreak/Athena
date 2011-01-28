@@ -9,11 +9,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MainData, RaceEditor;
+@class MainData;
+@class RaceEditor, ScenarioEditor;
 
 @interface AthenaDocument : NSDocument {
     MainData *data;
     RaceEditor *raceEditor;
+    ScenarioEditor *scenarioEditor;
 }
 - (IBAction) openRaceEditor:(id)sender;
+- (IBAction) openScenarioEditor:(id)sender;
 @end

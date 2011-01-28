@@ -11,6 +11,7 @@
 #import "Archivers.h"
 
 #import "RaceEditor.h"
+#import "ScenarioEditor.h"
 
 @implementation AthenaDocument
 - (id) init {
@@ -76,5 +77,12 @@
         raceEditor = [[RaceEditor alloc] initWithMainData:data];
     }
     [raceEditor showWindow:self];
+}
+
+- (IBAction) openScenarioEditor:(id)sender {
+    if (scenarioEditor == nil) {
+        scenarioEditor = [[ScenarioEditor alloc] initWithMainData:data];
+    }
+    [scenarioEditor showWindow:self];
 }
 @end
