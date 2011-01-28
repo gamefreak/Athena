@@ -263,6 +263,8 @@
         how = DieActionExpire;
     } else if ([howStr isEqual:@"destroy"]){
         how = DieActionDestroy;
+    } else if ([howStr isEqual:@""]) {//Glitch? set to Normal
+        how = DieActionNormal;
     } else {
         @throw [NSString stringWithFormat:@"Invalid die action type: %@", howStr];
     }
