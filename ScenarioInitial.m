@@ -13,6 +13,11 @@
 #import "XSRange.h"
 
 @implementation ScenarioInitial
+@synthesize type, owner, position, earning;
+@synthesize distanceRange, rotation, spriteIdOverride, builds;
+@synthesize initialDestination, nameOverride, attributes, base;
+@dynamic realName;
+
 - (id) init {
     self = [super init];
     type = -1;
@@ -106,6 +111,7 @@
     [builds release];
     [nameOverride release];
     [attributes release];
+    [base release];
     [super dealloc];
 }
 
@@ -116,10 +122,27 @@
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
 }
+
+- (void) findBaseFromArray:(NSArray *)array {
+    base = [[array objectAtIndex:type] retain];
+}
+
+- (NSString *) realName {
+    if ([nameOverride length] > 0) {
+        return nameOverride;
+    } else if (base != nil) {
+        return [base valueForKey:@"name"];
+    } else {
+        return @"";
+    }
+
+}
 @end
 
 static NSArray *snitAttrKeys;
-@implementation ScenarioInitialAttributes
+@implementation ScenarioInitialAttributes;
+@synthesize fixedRace, initiallyHidden, isPlayerShip, staticDestination;
+
 + (NSArray *) keys {
     if (snitAttrKeys == nil) {
         snitAttrKeys = [[NSArray alloc]

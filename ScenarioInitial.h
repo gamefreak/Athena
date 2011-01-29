@@ -11,6 +11,7 @@
 #import "FlagBlob.h"
 
 @class XSPoint, XSRange;
+@class BaseObject;
 
 @interface ScenarioInitialAttributes : FlagBlob {
     BOOL fixedRace;
@@ -18,6 +19,10 @@
     BOOL isPlayerShip;
     BOOL staticDestination;
 }
+@property (readwrite, assign) BOOL fixedRace;
+@property (readwrite, assign) BOOL initiallyHidden;
+@property (readwrite, assign) BOOL isPlayerShip;
+@property (readwrite, assign) BOOL staticDestination;
 @end
 
 
@@ -39,6 +44,22 @@
     NSString *nameOverride;
 
     ScenarioInitialAttributes *attributes;
-}
 
+    BaseObject *base;
+}
+@property (readonly) NSString *realName;
+@property (readwrite, assign) NSInteger type;
+@property (readwrite, assign) NSInteger owner;
+@property (readwrite, retain) XSPoint *position;
+@property (readwrite, assign) float earning;
+@property (readwrite, assign) NSInteger distanceRange;
+@property (readwrite, retain) XSRange *rotation;
+@property (readwrite, assign) NSInteger spriteIdOverride;
+@property (readwrite, retain) NSMutableArray *builds;
+@property (readwrite, assign) NSInteger initialDestination;
+@property (readwrite, retain) NSString *nameOverride;
+@property (readwrite, retain) ScenarioInitialAttributes *attributes;
+@property (readwrite, retain) BaseObject *base;
+
+- (void) findBaseFromArray:(NSArray *)array;
 @end
