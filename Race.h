@@ -17,5 +17,10 @@
     NSString *military;
     NSString *homeworld;
 }
-
+@property (readwrite, assign) NSInteger raceId;
+@property (readwrite, assign) CGFloat advantage;
+@property (readwrite, retain) NSString *singular;
+@property (readwrite, retain) NSString *plural;
+@property (readwrite, retain) NSString *military;
+@property (readwrite, retain) NSString *homeworld;
 @end

@@ -10,6 +10,9 @@
 #import "Archivers.h"
 
 @implementation Race
+@synthesize raceId, advantage;
+@synthesize singular, plural, military, homeworld;
+
 - (id) init {
     [super init];
     raceId = 0;
