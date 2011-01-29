@@ -51,6 +51,15 @@ typedef enum {
     NSMutableArray *actions;
     ConditionFlags *flags;
 }
+@property (readwrite, assign) ConditionType type;
+@property (readwrite, retain) XSPoint *location;
+@property (readwrite, retain) Counter *counter;
+@property (readwrite, assign) NSInteger intValue;
+@property (readwrite, retain) NSMutableDictionary *ddata;
+@property (readwrite, assign) NSInteger subject;
+@property (readwrite, assign) NSInteger direct;
+@property (readwrite, retain) NSMutableArray *actions;
+@property (readwrite, retain) ConditionFlags *flags;
 
 + (ConditionType) typeForString:(NSString *)typeName;
 + (NSString *) stringForType:(ConditionType)type;
@@ -60,6 +69,9 @@ typedef enum {
 @interface Counter : NSObject <LuaCoding> {
     NSInteger player, counterId, amount;
 }
+@property (readwrite, assign) NSInteger player;
+@property (readwrite, assign) NSInteger counterId;
+@property (readwrite, assign) NSInteger amount;
 @end
 
 @interface ConditionFlags : FlagBlob {
@@ -67,6 +79,9 @@ typedef enum {
     BOOL initiallyTrue;
     BOOL hasBeenTrue;
 }
+@property (readwrite, assign) BOOL trueOnlyOnce;
+@property (readwrite, assign) BOOL initiallyTrue;
+@property (readwrite, assign) BOOL hasBeenTrue;
 @end
 
 

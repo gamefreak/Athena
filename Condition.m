@@ -13,6 +13,9 @@
 #import "Action.h"
 
 @implementation Condition
+@synthesize type, location, counter, intValue, ddata;
+@synthesize subject, direct, actions, flags;
+
 - (id) init {
     self = [super init];
     type = NoCondition;
@@ -320,6 +323,8 @@
 @end
 
 @implementation Counter
+@synthesize player, counterId, amount;
+
 - (id) init {
     self = [super init];
     player = 0;
@@ -353,6 +358,8 @@
 
 static NSArray *conditionFlagKeys;
 @implementation ConditionFlags
+@synthesize trueOnlyOnce, initiallyTrue, hasBeenTrue;
+
 + (NSArray *) keys {
     if (conditionFlagKeys == nil) {
         conditionFlagKeys = [[NSArray alloc] initWithObjects:@"trueOnlyOnce", @"initiallyTrue", @"hasBeenTrue", nil];
