@@ -14,5 +14,7 @@
     NSMutableArray *scenarios;
     NSMutableArray *races;
 }
-
+@property (readonly) NSMutableArray *objects;
+@property (readonly) NSMutableArray *scenarios;
+@property (readonly) NSMutableArray *races;
 @end

@@ -18,6 +18,8 @@
 #import "Race.h"
 
 @implementation MainData
+@synthesize objects, scenarios, races;
+
 - (id) init {
     self = [super init];
     objects = [[NSMutableArray alloc] init];
