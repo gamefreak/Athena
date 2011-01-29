@@ -12,6 +12,9 @@
 #import "SubActions.h"
 
 @implementation Action
+@synthesize type, reflexive, inclusiveFilter, exclusiveFilter;
+@synthesize subjectOverride, directOverride, owner, delay;
+
 - (id) init {
     self = [super init];
     reflexive = NO;//Best way?

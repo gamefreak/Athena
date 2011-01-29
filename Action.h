@@ -44,6 +44,15 @@ typedef enum {
     NSInteger owner;
     NSInteger delay;
 }
+@property (readwrite, assign) ActionType type;
+@property (readwrite, assign) BOOL reflexive;
+@property (readwrite, assign) NSUInteger inclusiveFilter;
+@property (readwrite, assign) NSUInteger exclusiveFilter;
+@property (readwrite, assign) NSInteger subjectOverride;
+@property (readwrite, assign) NSInteger directOverride;
+@property (readwrite, assign) NSInteger owner;
+@property (readwrite, assign) NSInteger delay;
+
 + (ActionType) typeForString:(NSString *)type;
 + (NSString *) stringForType:(ActionType) type;
 @end

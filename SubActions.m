@@ -13,6 +13,9 @@
 @end
 
 @implementation CreateObjectAction
+@synthesize baseType, min, range;
+@synthesize velocityRelative, directionRelative, distanceRange;
+
 - (id) init {
     self = [super init];
     baseType = -1;
@@ -47,6 +50,10 @@
 @end
 
 @implementation PlaySoundAction
+@synthesize priority, persistence, isAbsolute;
+@synthesize volume, volumeRange;
+@synthesize soundId, soundIdRange;
+
 - (id) init {
     self = [super init];
     priority = 1;//???
@@ -84,6 +91,8 @@
 @end
 
 @implementation MakeSparksAction
+@synthesize count, velocity, velocityRange, color;
+
 - (id) init {
     self = [super init];
     count = 1;//???
@@ -112,6 +121,8 @@
 @end
 
 @implementation ReleaseEnergyAction
+@synthesize percent;
+
 - (id) init {
     self = [super init];
     percent = 100.0f;//???
@@ -131,6 +142,8 @@
 @end
 
 @implementation LandAtAction
+@synthesize speed;
+
 - (id) init {
     self = [super init];
     speed = 1;//???
@@ -150,6 +163,8 @@
 @end
 
 @implementation EnterWarpAction
+@synthesize warpSpeed;
+
 - (id) init {
     self = [super init];
     warpSpeed = 1;//???
@@ -169,6 +184,8 @@
 @end
 
 @implementation DisplayMessageAction
+@synthesize ID, page;
+
 - (id) init {
     self = [super init];
     ID = -1;
@@ -191,6 +208,8 @@
 @end
 
 @implementation ChangeScoreAction
+@synthesize player, score, amount;
+
 - (id) init {
     self = [super init];
     player = 0;//???
@@ -216,6 +235,8 @@
 @end
 
 @implementation DeclareWinnerAction
+@synthesize player, nextLevel, text;
+
 - (id) init {
     self = [super init];
     player = 0;
@@ -248,6 +269,8 @@
 @end
 
 @implementation DieAction
+@synthesize how;
+
 - (id) init {
     self = [super init];
     how = DieActionNormal;
@@ -304,6 +327,8 @@
 @end
 
 @implementation ColorFlashAction
+@synthesize duration, color, shade;
+
 - (id) init {
     self = [super init];
     duration = 1;//???
@@ -335,6 +360,8 @@
 @end
 
 @implementation DisableKeysAction
+@synthesize keyMask;
+
 - (id) init {
     self = [super init];
     keyMask = 0x00000000;//???
@@ -357,6 +384,8 @@
 @end
 
 @implementation SetZoomLevelAction
+@synthesize zoomLevel;
+
 - (id) init {
     self = [super init];
     zoomLevel = 1;//???
@@ -376,6 +405,8 @@
 @end
 
 @implementation ComputerSelectAction
+@synthesize screen, line;
+
 - (id) init {
     self = [super init];
     screen = 1;//???
@@ -398,6 +429,8 @@
 @end
 
 @implementation AssumeInitialObjectAction
+@synthesize ID;
+
 - (id) init {
     self = [super init];
     ID = -1;//???

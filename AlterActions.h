@@ -50,6 +50,13 @@ typedef enum {
     //ID becomes player for alter-absolute-cash
     NSInteger ID;
 }
+@property (readwrite, assign) ActionAlterType alterType;
+@property (readwrite, assign) BOOL isRelative;
+@property (readwrite, assign) NSInteger value;
+@property (readwrite, assign) NSInteger minimum;
+@property (readwrite, assign) NSInteger range;
+@property (readwrite, assign) NSInteger ID;
+
 + (ActionAlterType) alterTypeForString:(NSString *)type;
 + (NSString *) stringForAlterType:(ActionAlterType)type;
 @end

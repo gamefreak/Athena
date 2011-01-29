@@ -10,6 +10,9 @@
 #import "Archivers.h"
 
 @implementation AlterAction
+@synthesize alterType, isRelative, value;
+@synthesize minimum, range, ID;
+
 - (id) init {
     self = [super init];
     alterType = AlterHealth;
