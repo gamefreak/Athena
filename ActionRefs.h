@@ -12,16 +12,21 @@
 @interface ActionRef : NSObject <LuaCoding> {
     NSMutableArray *actions;
 }
+@property (readwrite, retain) actions;
+
 + (id) ref;
 @end
 
 @interface DestroyActionRef : ActionRef {
     BOOL dontDestroyOnDeath;
 }
+@property (readwrite, assign) BOOL dontDestroyOnDeath;
 @end
 
 @interface ActivateActionRef : ActionRef {
     NSInteger interval;
     NSInteger intervalRange;
 }
+@property (readwrite, assign) NSInteger interval;
+@property (readwrite, assign) NSInteger intervalRange;
 @end

@@ -10,6 +10,16 @@
 
 static NSArray *bsobAttributeKeys;
 @implementation BaseObjectAttributes
+@synthesize canTurn, canBeEngaged, hasDirectionGoal,isRemote;
+@synthesize isHumanControlled;
+@synthesize isBeam, doesBounce, isSelfAnimated, shapeFromDirection;
+@synthesize isPlayerShip, canBeDestination, canEngage, canEvade;
+@synthesize canAcceptMessages, canAcceptBuild, canAcceptDestination, autoTarget;
+@synthesize animationCycle, canCollide, canBeHit, isDestination;
+@synthesize hideEffect, releaseEnergyOnDeath, hated, occupiesSpace;
+@synthesize staticDestination, canBeEvaded, neutralDeath, isGuided;
+@synthesize appearOnRadar, onAutoPilot;
+
 + (NSArray *) keys {
     if (bsobAttributeKeys == nil) {
         bsobAttributeKeys = [[NSArray alloc] initWithObjects:@"canTurn", @"canBeEngaged", @"hasDirectionGoal", @"isRemote",
@@ -28,6 +38,12 @@ static NSArray *bsobAttributeKeys;
 
 static NSArray *bsobBuildFlags;
 @implementation BaseObjectBuildFlags
+@synthesize uncapturedBaseExists, sufficientEscortExists, thisBaseNeedsProtection;
+@synthesize friendUpTrend, friendDownTrend, foeUpTrend, foeDownTrend;
+@synthesize matchingFoeExists, onlyEngagedBy, canOnlyEngage;
+@synthesize engageKey1, engageKey2, engageKey3, engageKey4;
+@synthesize levelKey1, levelKey2, levelKey3, levelKey4;
+
 + (NSArray *) keys {
     if (bsobBuildFlags == nil) {
         bsobBuildFlags = [[NSArray alloc] initWithObjects:
@@ -46,6 +62,12 @@ static NSArray *bsobBuildFlags;
 
 static NSArray *bsobOrderKeys;
 @implementation BaseObjectOrderFlags
+@synthesize strongerThanTarget, targetIsBase, targetIsNotBase, targetIsLocal, targetIsRemote;
+@synthesize onlyEscortNotBase, targetIsFriend, targetIsFoe, hardMatchingFriend, hardMatchingFoe
+@synthesize hardFriendlyEscortOnly, hardNoFriendlyEscort, hardTargetIsRemote, hardTargetIsLocal;
+@synthesize hardTargetIsFoe, hardTargetIsFriend, hardTargetIsNotBase, hardTargetIsBase;
+@synthesize orderKey1, orderKey2, orderKey3, orderKey4;
+
 + (NSArray *) keys {
     if (bsobOrderKeys == nil) {
         bsobOrderKeys = [[NSArray alloc] initWithObjects:

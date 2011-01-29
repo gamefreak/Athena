@@ -11,6 +11,8 @@
 #import "Action.h"
 
 @implementation ActionRef
+@synthesize actions;
+
 - (id) init {
     self = [super init];
     actions = [[NSMutableArray alloc] init];
@@ -46,6 +48,8 @@
 @end
 
 @implementation DestroyActionRef
+@synthesize dontDestroyOnDeath;
+
 - (id) init {
     self = [super init];
     dontDestroyOnDeath = NO;
@@ -65,6 +69,8 @@
 @end
 
 @implementation ActivateActionRef
+@synthesize interval, intervalRange;
+
 - (id) init {
     self = [super init];
     interval = 0;

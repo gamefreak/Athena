@@ -18,6 +18,10 @@
     float turnRate;
     float turnAcceleration;
 }
+@property (readwrite, assign) NSInteger offset;
+@property (readwrite, assign) NSInteger resolution;
+@property (readwrite, assign) float turnRate;
+@property (readwrite, assign) float turnAcceleration;
 @end
 
 @interface AnimationData : FrameData {
@@ -26,6 +30,14 @@
     NSInteger speed, speedRange;
     NSInteger shape, shapeRange;
 }
+@property (readwrite, assign) NSInteger firstShape;
+@property (readwrite, assign) NSInteger lastShape;
+@property (readwrite, assign) NSInteger direction;
+@property (readwrite, assign) NSInteger directionRange;
+@property (readwrite, assign) NSInteger speed;
+@property (readwrite, assign) NSInteger speedRange;
+@property (readwrite, assign) NSInteger shape;
+@property (readwrite, assign) NSInteger shapeRange;
 @end
 
 typedef enum _ {
@@ -42,6 +54,10 @@ typedef enum _ {
     NSInteger accuracy;
     float range;
 }
+@property (readwrite, assign) BeamType type;
+@property (readwrite, assign) ClutColor color;
+@property (readwrite, assign) NSInteger accuracy;
+@property (readwrite, assign) float range;
 @end
 
 @interface DeviceData : FrameData {
@@ -53,4 +69,11 @@ typedef enum _ {
     NSInteger inverseSpeed;
     NSInteger restockCost;
 }
+@property (readwrite, retain) NSMutableDictionary *uses;
+@property (readwrite, assign) NSInteger energyCost;
+@property (readwrite, assign) NSInteger reload;
+@property (readwrite, assign) NSInteger ammo;
+@property (readwrite, assign) NSInteger range;
+@property (readwrite, assign) NSInteger inverseSpeed;
+@property (readwrite, assign) NSInteger restockCost;
 @end

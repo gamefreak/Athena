@@ -28,6 +28,8 @@
 @end
 
 @implementation RotationData
+@synthesize offset, resolution, turnRate, turnAcceleration;
+
 - (id) init {
     self = [super init];
     offset = 0;
@@ -55,6 +57,9 @@
 @end
 
 @implementation AnimationData
+@synthesize firstShape, lastShape, direction, directionRange;
+@synthesize speed, speedRange, shape, shapeRange;
+
 - (id) init {
     self = [super init];
     firstShape = 0;
@@ -94,6 +99,8 @@
 @end
 
 @implementation BeamData
+@synthesize type, color, accuracy, range;
+
 - (id) init {
     self = [super init];
     type = BeamTypeKinetic;
@@ -153,6 +160,9 @@
 @end
 
 @implementation DeviceData
+@synthesize uses, energyCost, reload, ammo;
+@synthesize range, inverseSpeed, restockCost;
+
 - (id) init {
     self = [super init];
     uses = [[NSMutableDictionary alloc] initWithCapacity:3];

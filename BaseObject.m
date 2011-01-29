@@ -11,6 +11,22 @@
 #import "XSPoint.h"
 
 @implementation BaseObject
+@synthesize name, shortName, notes, staticName;
+@synthesize attributes, buildFlags, orderFlags;
+@synthesize classNumber, race;
+@synthesize price, buildTime, buildRatio;
+@synthesize offence, escortRank, friendDefecit, dangerThreshold;
+@synthesize maxVelocity, warpSpeed, warpOutDistance;
+@synthesize initialVelocity, initialVelocityRange;
+@synthesize mass, thrust, health, energy, damage
+@synthesize initialAge, initialAgeRange;
+@synthesize scale, layer, spriteId, iconShape, iconSize, shieldColor;
+@synthesize initialDirection, initialDirectionRange;
+@synthesize weapons, actions, arriveActionDistance, frame;
+@synthesize skillNum, skillDen, skillNumAdj, skillDenAdj;
+@synthesize portraitId;
+//@synthesize specialDirection; //Disabled
+
 - (id) init {
     self = [super init];
     name = @"Untitled";
@@ -334,6 +350,8 @@
 @end
 
 @implementation Weapon
+@synthesize ID, positionCount, positions;
+
 - (id) init {
     self = [super init];
     ID = -1;
