@@ -11,6 +11,9 @@
 #import "XSPoint.h"
 
 @implementation BriefPoint
+@synthesize title, type, objectId;
+@synthesize isVisible, range, contentId;
+
 - (id) init {
     self = [super init];
     title = @"Untitled";

@@ -26,5 +26,10 @@ typedef enum {
     XSPoint *range;
     NSInteger contentId;
 }
-
+@property (readwrite, retain) NSString *title;
+@property (readwrite, assign) BriefingType type;
+@property (readwrite, assign) NSInteger objectId;
+@property (readwrite, assign) BOOL isVisible;
+@property (readwrite, retain) XSPoint *range;
+@property (readwrite, assign) NSInteger contentId;
 @end
