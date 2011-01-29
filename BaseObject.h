@@ -105,7 +105,7 @@ typedef enum {
 @property (readwrite, retain) BaseObjectAttributes *attributes;
 @property (readwrite, retain) BaseObjectBuildFlags *buildFlags;
 @property (readwrite, retain) BaseObjectOrderFlags *orderFlags;
-@property (readwrite, assign) NSInteger class;
+@property (readwrite, assign) NSInteger classNumber;
 @property (readwrite, assign) NSInteger race;
 @property (readwrite, assign) NSInteger price;
 @property (readwrite, assign) NSInteger buildTime;

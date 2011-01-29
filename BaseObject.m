@@ -18,7 +18,7 @@
 @synthesize offence, escortRank, friendDefecit, dangerThreshold;
 @synthesize maxVelocity, warpSpeed, warpOutDistance;
 @synthesize initialVelocity, initialVelocityRange;
-@synthesize mass, thrust, health, energy, damage
+@synthesize mass, thrust, health, energy, damage;
 @synthesize initialAge, initialAgeRange;
 @synthesize scale, layer, spriteId, iconShape, iconSize, shieldColor;
 @synthesize initialDirection, initialDirectionRange;
@@ -38,7 +38,7 @@
     buildFlags = [[BaseObjectBuildFlags alloc] init];
     orderFlags = [[BaseObjectOrderFlags alloc] init];
 
-    class = -1;
+    classNumber = -1;
     race = -1;
 
     price = 1000;
@@ -119,7 +119,7 @@
     [orderFlags release];
     orderFlags = [[coder decodeObjectOfClass:[BaseObjectOrderFlags class] forKey:@"orderFlags"] retain];
 
-    class = [coder decodeIntegerForKey:@"class"];
+    classNumber = [coder decodeIntegerForKey:@"class"];
     race = [coder decodeIntegerForKey:@"race"];
 
     price = [coder decodeIntegerForKey:@"price"];
@@ -240,7 +240,7 @@
     [coder encodeObject:buildFlags forKey:@"buildFlags"];
     [coder encodeObject:orderFlags forKey:@"orderFlags"];
 
-    [coder encodeInteger:class forKey:@"class"];
+    [coder encodeInteger:classNumber forKey:@"class"];
     [coder encodeInteger:race forKey:@"race"];
 
     [coder encodeInteger:price forKey:@"price"];

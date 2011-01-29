@@ -12,7 +12,7 @@
 @interface ActionRef : NSObject <LuaCoding> {
     NSMutableArray *actions;
 }
-@property (readwrite, retain) actions;
+@property (readwrite, retain) NSMutableArray *actions;
 
 + (id) ref;
 @end

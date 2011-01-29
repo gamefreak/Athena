@@ -63,7 +63,7 @@ static NSArray *bsobBuildFlags;
 static NSArray *bsobOrderKeys;
 @implementation BaseObjectOrderFlags
 @synthesize strongerThanTarget, targetIsBase, targetIsNotBase, targetIsLocal, targetIsRemote;
-@synthesize onlyEscortNotBase, targetIsFriend, targetIsFoe, hardMatchingFriend, hardMatchingFoe
+@synthesize onlyEscortNotBase, targetIsFriend, targetIsFoe, hardMatchingFriend, hardMatchingFoe;
 @synthesize hardFriendlyEscortOnly, hardNoFriendlyEscort, hardTargetIsRemote, hardTargetIsLocal;
 @synthesize hardTargetIsFoe, hardTargetIsFriend, hardTargetIsNotBase, hardTargetIsBase;
 @synthesize orderKey1, orderKey2, orderKey3, orderKey4;

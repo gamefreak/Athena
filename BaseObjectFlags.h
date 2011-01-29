@@ -114,6 +114,7 @@
 @property (readwrite, assign) BOOL levelKey2;
 @property (readwrite, assign) BOOL levelKey3;
 @property (readwrite, assign) BOOL levelKey4;
+
 @end
 
 
@@ -141,22 +142,26 @@
     BOOL orderKey3;
     BOOL orderKey4;
 }
-@property (readwrite, assign) BOOL uncapturedBaseExists;
-@property (readwrite, assign) BOOL sufficientEscortExists;
-@property (readwrite, assign) BOOL thisBaseNeedsProtection;
-@property (readwrite, assign) BOOL friendUpTrend;
-@property (readwrite, assign) BOOL friendDownTrend;
-@property (readwrite, assign) BOOL foeUpTrend;
-@property (readwrite, assign) BOOL foeDownTrend;
-@property (readwrite, assign) BOOL matchingFoeExists;
-@property (readwrite, assign) BOOL onlyEngagedBy;
-@property (readwrite, assign) BOOL canOnlyEngage;
-@property (readwrite, assign) BOOL engageKey1;
-@property (readwrite, assign) BOOL engageKey2;
-@property (readwrite, assign) BOOL engageKey3;
-@property (readwrite, assign) BOOL engageKey4;
-@property (readwrite, assign) BOOL levelKey1;
-@property (readwrite, assign) BOOL levelKey2;
-@property (readwrite, assign) BOOL levelKey3;
-@property (readwrite, assign) BOOL levelKey4;
+@property (readwrite, assign) BOOL strongerThanTarget;
+@property (readwrite, assign) BOOL targetIsBase;
+@property (readwrite, assign) BOOL targetIsNotBase;
+@property (readwrite, assign) BOOL targetIsLocal;
+@property (readwrite, assign) BOOL targetIsRemote;
+@property (readwrite, assign) BOOL onlyEscortNotBase;
+@property (readwrite, assign) BOOL targetIsFriend;
+@property (readwrite, assign) BOOL targetIsFoe;
+@property (readwrite, assign) BOOL hardMatchingFriend;
+@property (readwrite, assign) BOOL hardMatchingFoe;
+@property (readwrite, assign) BOOL hardFriendlyEscortOnly;
+@property (readwrite, assign) BOOL hardNoFriendlyEscort;
+@property (readwrite, assign) BOOL hardTargetIsRemote;
+@property (readwrite, assign) BOOL hardTargetIsLocal;
+@property (readwrite, assign) BOOL hardTargetIsFoe;
+@property (readwrite, assign) BOOL hardTargetIsFriend;
+@property (readwrite, assign) BOOL hardTargetIsNotBase;
+@property (readwrite, assign) BOOL hardTargetIsBase;
+@property (readwrite, assign) BOOL orderKey1;
+@property (readwrite, assign) BOOL orderKey2;
+@property (readwrite, assign) BOOL orderKey3;
+@property (readwrite, assign) BOOL orderKey4;
 @end
