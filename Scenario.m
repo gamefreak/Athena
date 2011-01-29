@@ -16,6 +16,12 @@
 #import "Condition.h"
 
 @implementation Scenario
+@synthesize name, netRaceFlags;
+@synthesize playerNum, players, scoreStrings;
+@synthesize initialObjects, conditions, briefings;
+@synthesize starmap, par, angle, startTime, isTraining;
+@synthesize prologueId, epilogueId, songId, movie;
+
 - (id) init {
     self = [super init];
 //    scenId = 0;
@@ -159,6 +165,8 @@
 
 
 @implementation ScenarioPlayer
+@synthesize type, race, name, earningPower, netRaceFlags;
+
 - (id) init {
     self = [super init];
     type = PlayerTypeCpu;
@@ -231,6 +239,8 @@
 @end
 
 @implementation ScenarioPar
+@synthesize time, kills, ratio, losses;
+
 - (id) init {
     self = [super init];
     time = 0;

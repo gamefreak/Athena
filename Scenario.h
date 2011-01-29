@@ -38,6 +38,23 @@
     NSInteger songId;
     NSString *movie;
 }
+@property (readwrite, retain) NSString *name;
+@property (readwrite, assign) NSUInteger netRaceFlags;
+@property (readwrite, assign) NSInteger playerNum;
+@property (readwrite, retain) NSMutableArray *players;
+@property (readwrite, retain) NSMutableArray *scoreStrings;
+@property (readwrite, retain) NSMutableArray *initialObjects;
+@property (readwrite, retain) NSMutableArray *conditions;
+@property (readwrite, retain) NSMutableArray *briefings;
+@property (readwrite, retain) XSPoint *starmap;
+@property (readwrite, retain) ScenarioPar *par;
+@property (readwrite, assign) NSInteger angle;
+@property (readwrite, assign) NSInteger startTime;
+@property (readwrite, assign) BOOL isTraining;
+@property (readwrite, assign) NSInteger prologueId;
+@property (readwrite, assign) NSInteger epilogueId;
+@property (readwrite, assign) NSInteger songId;
+@property (readwrite, retain) NSString *movie;
 @end
 
 typedef enum {
@@ -53,6 +70,11 @@ typedef enum {
     float earningPower;
     NSUInteger netRaceFlags;
 }
+@property (readwrite, assign) PlayerType type;
+@property (readwrite, assign) NSInteger race;
+@property (readwrite, retain) NSString *name;
+@property (readwrite, assign) float earningPower;
+@property (readwrite, assign) NSUInteger netRaceFlags;
 - (id) initAsSinglePlayer;
 @end
 
@@ -62,5 +84,9 @@ typedef enum {
     float ratio;
     NSInteger losses;
 }
+@property (readwrite, assign) NSInteger time;
+@property (readwrite, assign) NSInteger kills;
+@property (readwrite, assign) float ratio;
+@property (readwrite, assign) NSInteger losses;
 @end
 
