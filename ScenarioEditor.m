@@ -8,6 +8,7 @@
 
 #import "ScenarioEditor.h"
 #import "MainData.h"
+#import "InitialEditor.h"
 
 @implementation ScenarioEditor
 - (id) initWithMainData:(MainData *)_data {
@@ -18,6 +19,15 @@
     }
     return self;
 }
+
+- (IBAction) openInitialEditor:(id)sender {
+    InitialEditor *editor = [[InitialEditor alloc] initWithMainData:data scenario:[scenarioArray selectionIndex]];
+    [[self document] addWindowController:editor];
+    [editor setDocument:[self document]];
+    [editor showWindow:self];
+    [editor release];
+}
+
 
 - (void) dealloc {
     [data release];

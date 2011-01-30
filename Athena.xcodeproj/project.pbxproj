@@ -62,6 +62,8 @@
 		D29510B212EE771300AE3316 /* ActionRefs.m in Sources */ = {isa = PBXBuildFile; fileRef = D29510B112EE771300AE3316 /* ActionRefs.m */; };
 		D295110612EE7BB700AE3316 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D295110512EE7BB700AE3316 /* FrameData.m */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
+		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
+		D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2C55B4B12F3235E007140A2 /* InitialEditor.xib */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 		D2D7501A12F07F5A00B17631 /* Scenario.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7501912F07F5A00B17631 /* Scenario.m */; };
 		D2D7502F12F0874500B17631 /* NSString+LuaCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7502E12F0874500B17631 /* NSString+LuaCoding.m */; };
@@ -177,6 +179,9 @@
 		D295110512EE7BB700AE3316 /* FrameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameData.m; sourceTree = "<group>"; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
+		D2C55B3A12F321E2007140A2 /* InitialEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialEditor.h; sourceTree = "<group>"; };
+		D2C55B3B12F321E2007140A2 /* InitialEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialEditor.m; sourceTree = "<group>"; };
+		D2C55B4B12F3235E007140A2 /* InitialEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialEditor.xib; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
 		D2D7501812F07F5A00B17631 /* Scenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scenario.h; sourceTree = "<group>"; };
@@ -282,6 +287,7 @@
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
 				D288344912F2642B00A02383 /* ScenarioEditor.xib */,
+				D2C55B4B12F3235E007140A2 /* InitialEditor.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -409,6 +415,8 @@
 				D288339612F24F7000A02383 /* RaceEditor.m */,
 				D288343E12F263CC00A02383 /* ScenarioEditor.h */,
 				D288343F12F263CC00A02383 /* ScenarioEditor.m */,
+				D2C55B3A12F321E2007140A2 /* InitialEditor.h */,
+				D2C55B3B12F321E2007140A2 /* InitialEditor.m */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -494,6 +502,7 @@
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				D288339212F24F4100A02383 /* RaceEditor.xib in Resources */,
 				D288344A12F2642B00A02383 /* ScenarioEditor.xib in Resources */,
+				D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +568,7 @@
 				D288326812F2340300A02383 /* AlterActions.m in Sources */,
 				D288339712F24F7000A02383 /* RaceEditor.m in Sources */,
 				D288344012F263CC00A02383 /* ScenarioEditor.m in Sources */,
+				D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,9 @@
 @class MainData;
 
 @interface ScenarioEditor : NSWindowController {
+    IBOutlet NSArrayController *scenarioArray;
     MainData *data;
 }
 - (id) initWithMainData:(MainData *)data;
+- (IBAction) openInitialEditor:(id)sender;
 @end
