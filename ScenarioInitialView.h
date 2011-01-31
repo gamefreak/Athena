@@ -13,13 +13,16 @@
     NSMutableArray *initialObjects;
     CGFloat scale;
     NSPoint center;
-    NSAffineTransform *viewTransform;
 }
 - (IBAction) autoScale:(id)sender;
 - (IBAction) zoomIn:(id)sender;
 - (IBAction) zoomOut:(id)sender;
 - (void) updateTransform;
 - (void) setInitials:(NSMutableArray *)initials;
-- (void) drawSquareOfSize:(NSInteger)size ofColor:(NSColor *)color atPoint:(NSPoint)point;
+- (void) drawSquareOfSize:(CGFloat)size color:(NSColor *)color atPoint:(NSPoint)point;
+- (void) drawFramedSquareOfSize:(CGFloat)size color:(NSColor *)color atPoint:(NSPoint)point;
+- (void) drawPlusOfSize:(CGFloat)size color:(NSColor *)color atPoint:(NSPoint)point;
+- (void) drawTriangleOfSize:(CGFloat)size color:(NSColor *)color atPoint:(NSPoint)point;
+- (void) drawDiamondOfSize:(CGFloat)size color:(NSColor *)color atPoint:(NSPoint)point;
 - (NSRect) calculateScenariosBounds;
 @end
