@@ -124,7 +124,9 @@
 }
 
 - (void) findBaseFromArray:(NSArray *)array {
-    base = [[array objectAtIndex:type] retain];
+    if (base == nil) {
+        base = [[array objectAtIndex:type] retain];
+    }
 }
 
 - (NSString *) realName {

@@ -10,6 +10,7 @@
 #import "MainData.h"
 #import "Scenario.h"
 #import "ScenarioInitial.h"
+#import "ScenarioInitialView.h"
 
 @implementation InitialEditor
 - (id) initWithMainData:(MainData *)_data scenario:(NSUInteger)scenarioId {
@@ -24,6 +25,10 @@
         }
     }
     return self;
+}
+
+- (void) awakeFromNib {
+    [initialView setInitials:scenario.initialObjects];
 }
 
 - (void) dealloc {

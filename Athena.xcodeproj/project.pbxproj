@@ -71,6 +71,7 @@
 		D2E0409A12EF3C2B00F77E59 /* ScenarioInitial.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */; };
 		D2E040B112EF41A400F77E59 /* XSInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E040B012EF41A400F77E59 /* XSInteger.m */; };
 		D2E452D412EF4BC90099B0F9 /* FlagBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E452D312EF4BC90099B0F9 /* FlagBlob.m */; };
+		D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -197,6 +198,8 @@
 		D2E040B012EF41A400F77E59 /* XSInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSInteger.m; sourceTree = "<group>"; };
 		D2E452D212EF4BC90099B0F9 /* FlagBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagBlob.h; sourceTree = "<group>"; };
 		D2E452D312EF4BC90099B0F9 /* FlagBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlagBlob.m; sourceTree = "<group>"; };
+		D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioInitialView.h; sourceTree = "<group>"; };
+		D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioInitialView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,6 +420,8 @@
 				D288343F12F263CC00A02383 /* ScenarioEditor.m */,
 				D2C55B3A12F321E2007140A2 /* InitialEditor.h */,
 				D2C55B3B12F321E2007140A2 /* InitialEditor.m */,
+				D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */,
+				D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -569,6 +574,7 @@
 				D288339712F24F7000A02383 /* RaceEditor.m in Sources */,
 				D288344012F263CC00A02383 /* ScenarioEditor.m in Sources */,
 				D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */,
+				D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

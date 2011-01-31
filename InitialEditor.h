@@ -9,10 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 @class MainData, Scenario;
+@class ScenarioInitialView;
 
 @interface InitialEditor : NSWindowController {
     MainData *data;
     Scenario *scenario;
+    IBOutlet ScenarioInitialView *initialView;
 }
 - (id) initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
 @end
