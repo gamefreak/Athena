@@ -47,6 +47,7 @@
 		D21EB2D912E8BDE200694EBA /* lzio.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB2B712E8BDE200694EBA /* lzio.c */; };
 		D21EB2DB12E8BDE200694EBA /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB2BA12E8BDE200694EBA /* print.c */; };
 		D21EB31F12E8C41700694EBA /* BaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB31E12E8C41700694EBA /* BaseObject.m */; };
+		D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */; };
 		D2882C2612F1D41400A02383 /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882C2512F1D41400A02383 /* Condition.m */; };
 		D2882D3512F1F02D00A02383 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882D3412F1F02D00A02383 /* Action.m */; };
 		D28831CF12F21E7F00A02383 /* SubActions.m in Sources */ = {isa = PBXBuildFile; fileRef = D28831CE12F21E7F00A02383 /* SubActions.m */; };
@@ -150,6 +151,8 @@
 		D21EB2BA12E8BDE200694EBA /* print.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = print.c; sourceTree = "<group>"; };
 		D21EB31D12E8C41700694EBA /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
 		D21EB31E12E8C41700694EBA /* BaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObject.m; sourceTree = "<group>"; };
+		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
+		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
 		D2882C2412F1D41400A02383 /* Condition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Condition.h; sourceTree = "<group>"; };
@@ -266,6 +269,8 @@
 				2A37F4AEFDCFA73011CA2CEA /* AthenaDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */,
 				D288339812F24F7600A02383 /* Interface */,
+				D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */,
+				D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 				D288344012F263CC00A02383 /* ScenarioEditor.m in Sources */,
 				D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */,
 				D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */,
+				D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
