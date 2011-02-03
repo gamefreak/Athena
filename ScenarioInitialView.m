@@ -402,10 +402,34 @@ const CGFloat iconSizeScale = 2.0f;
 }
 
 - (void) scrollWheel:(NSEvent *)event {
-    //BAH!
-//    NSLog(@"EVENT: %@", theEvent);
-    center.x -= event.deltaX / scale;
-    center.y += event.deltaY / scale;
+    /*
+     NSEvent.h defines
+     enum {
+         NSMouseEventSubtype             = 0,
+         NSTabletPointEventSubtype       = 1,
+         NSTabletProximityEventSubtype   = 2,
+         NSTouchEventSubtype             = 3
+     }
+     From my observations scroll wheel events that originate from
+     a mouse return 0 (NSMouseEventSubtype) as expected but if the event
+     originates from a trackpad it returns 1 (NSTabletPointEventSubtype)
+     this seems to be inconsistent
+     */
+    const short NSTrackpadEventSubtype = 1;
+
+    short subtype = event.subtype;
+    if (subtype == NSMouseEventSubtype) {
+        //Mouse, so zoom
+        float delta = event.deltaY + 1.0f;
+        delta = MAX(delta, 0.75f);
+        delta = MIN(delta, 1.33f);
+        NSLog(@"delta: %f", delta);
+        scale *= delta;
+    } else if (subtype == NSTrackpadEventSubtype) {
+        //Trackpad, so scroll
+        center.x -= event.deltaX / scale;
+        center.y += event.deltaY / scale;
+    }
     [self updateTransform];
 }
 
