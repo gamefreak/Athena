@@ -14,7 +14,10 @@
 @interface InitialEditor : NSWindowController {
     MainData *data;
     Scenario *scenario;
+    NSMutableArray *initialObjects;
     IBOutlet ScenarioInitialView *initialView;
 }
 - (id) initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
+
+- (IBAction)fudge:(id)sender;
 @end

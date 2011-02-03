@@ -20,7 +20,10 @@
         [data retain];
         scenario = [data.scenarios objectAtIndex:scenarioId];
         [scenario retain];
-        for (ScenarioInitial *initial in scenario.initialObjects) {
+        initialObjects = scenario.initialObjects;
+        [initialObjects retain];
+
+        for (ScenarioInitial *initial in initialObjects) {
             [initial findBaseFromArray:data.objects];
         }
     }
@@ -28,12 +31,29 @@
 }
 
 - (void) awakeFromNib {
-    [initialView setInitials:scenario.initialObjects];
+    [initialView setInitials:initialObjects];
 }
 
 - (void) dealloc {
     [data release];
     [scenario release];
+    [initialObjects release];
     [super dealloc];
+}
+
++ (BOOL)accessInstanceVariablesDirectly {
+    return YES;
+}
+
+#pragma mark Accessors
+- (void) insertObject:(ScenarioInitial *)initial inInitialObjectsAtIndex:(NSInteger)index {
+    [initialView addInitialObject:initial];
+    [initialObjects insertObject:initial atIndex:index];
+}
+
+- (void) removeObjectFromInitialObjectsAtIndex:(NSInteger)index {
+    ScenarioInitial *initial = [initialObjects objectAtIndex:index];
+    [initialView removeInitialObject:initial];
+    [initialObjects removeObjectAtIndex:index];
 }
 @end

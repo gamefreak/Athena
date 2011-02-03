@@ -12,18 +12,23 @@
 #import "XSPoint.h"
 #import <math.h>
 
-NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
-    return NSMakePoint(point.x + x, point.y + y);
+NSRect SquareRectWithCenterAndSize(NSPoint center, CGFloat size) {
+    return NSMakeRect(center.x - size * 0.5f, center.y - size * 0.5f, size, size);
 }
 
-@implementation ScenarioInitialView
+const CGFloat selectionBorderThickness = 4.0f;
+const CGFloat iconSizeScale = 2.0f;
 
+@implementation ScenarioInitialView
 - (id)initWithFrame:(NSRect)frame {
+
     self = [super initWithFrame:frame];
     if (self) {
         initialObjects = [[NSMutableArray alloc] init];
         scale = 1.0f;
         center = NSMakePoint(0.0f, 0.0f);
+        destinations = [[NSMutableSet alloc] init];
+        clickedObject = nil;
     }
     return self;
 }
@@ -37,23 +42,19 @@ NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
     scale = MIN(xscale, yscale) / 1.1;
     center = NSMakePoint(NSMidX(bounds), NSMidY(bounds));
     [self updateTransform];
-    [self setNeedsDisplay:YES];
 }
 
 - (IBAction) zoomIn:(id)sender {
     scale *= 1.5;
     [self updateTransform];
-    [self setNeedsDisplay:YES];
 }
 
 - (IBAction) zoomOut:(id)sender {
     scale /= 1.5;
     [self updateTransform];
-    [self setNeedsDisplay:YES];
 }
 
 - (void) updateTransform {
-    NSLog(@"Updating Transform");
     NSRect frame = [self frame];
     NSSize viewSize = NSMakeSize(frame.size.width/scale, frame.size.height/scale);
     [self setBoundsSize:viewSize];
@@ -62,19 +63,90 @@ NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
     origin.x = center.x - viewSize.width * 0.5f;
     origin.y = center.y - viewSize.height * 0.5f;
     [self setBoundsOrigin:origin];
+    [self setNeedsDisplay:YES];
 }
-
 
 - (void) setInitials:(NSMutableArray *)initials {
     NSLog(@"Setting Initials");
     [initialObjects setArray:initials];
+    for (ScenarioInitial *initial in initialObjects) {
+        if (initial.base.attributes.isDestination) {
+            [destinations addObject:initial];
+        }
+    }
+
     [self autoScale:nil];
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
+- (void) drawRect:(NSRect)dirtyRect {
     [[NSColor blackColor] setFill];
     NSRectFill(dirtyRect);
-    for (ScenarioInitial *initial in initialObjects) {
+    [self drawGridInRect:[self bounds]];
+    [self drawDestinationConnectors];
+    [self drawScenarioObjects];
+}
+
+- (void) drawGridInRect:(NSRect)rect {
+    NSRect bounds = NSIntegralRect([self bounds]);
+    static const CGFloat bigGridDistance = 32768.0f;
+    static const CGFloat smallGridDistance = 4096.0f;
+
+    rect = NSIntegralRect(rect);
+    rect = bounds;
+    CGFloat left = NSMinX(rect);
+    CGFloat right = NSMaxX(rect);
+    CGFloat top = NSMinY(rect);
+    CGFloat bottom = NSMaxY(rect);
+
+    left -= fmod(left, bigGridDistance) + bigGridDistance;
+    right -= fmod(right, bigGridDistance) - bigGridDistance;
+    top -= fmod(top, bigGridDistance) + bigGridDistance;
+    bottom -= fmod(bottom, bigGridDistance) - bigGridDistance;
+
+    NSBezierPath *greenPath = [NSBezierPath bezierPath];
+    NSBezierPath *bluePath = [NSBezierPath bezierPath];
+    [greenPath setLineWidth:2.0f/scale];
+    [bluePath setLineWidth:1.0f/scale];
+
+    static const CGFloat blueLineLimit = 1.0f/128.0f;
+
+    for (CGFloat x = left; x <= right; x += smallGridDistance) {
+        if (fabs(fmod(x, bigGridDistance)) <= 1.0f) {
+            [greenPath moveToPoint:NSMakePoint(x, top)];
+            [greenPath lineToPoint:NSMakePoint(x, bottom)];
+        } else if (scale > blueLineLimit) {
+            [bluePath moveToPoint:NSMakePoint(x, top)];
+            [bluePath lineToPoint:NSMakePoint(x, bottom)];
+        }
+    }
+    
+    for (CGFloat y = top; y <= bottom; y += smallGridDistance) {
+        if (fabs(fmod(y, bigGridDistance)) <= 1.0f) {
+            [greenPath moveToPoint:NSMakePoint(left, y)];
+            [greenPath lineToPoint:NSMakePoint(right, y)];
+        } else if (scale > blueLineLimit) {
+            [bluePath moveToPoint:NSMakePoint(left, y)];
+            [bluePath lineToPoint:NSMakePoint(right, y)];
+        }
+    }
+
+    [[NSColor blueColor] setStroke];
+    [bluePath stroke];
+    [[NSColor greenColor] setStroke];
+    [greenPath stroke];
+}
+
+- (void) drawScenarioObjects {
+    NSUInteger index = [initialsController selectionIndex];
+    ScenarioInitial *selection = nil;
+    if (index != NSNotFound) {
+        selection = [initialObjects objectAtIndex:index];   
+    }
+
+    //Paint back to front
+    for (ScenarioInitial *initial in [initialObjects reverseObjectEnumerator]) {
+        BOOL shouldHighlight = (initial == selection);
+
         NSColor *iconColor;
         switch (initial.owner) {
             case 0:
@@ -87,39 +159,60 @@ NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
                 iconColor = [NSColor redColor];
                 break;
         }
+        
 
-        static const CGFloat iconSizeScale = 2.0f;
-
+        
         switch (initial.base.iconShape) {
             case IconShapeSquare:
                 [self drawSquareOfSize:initial.base.iconSize * iconSizeScale
                                  color:iconColor
-                               atPoint:initial.position.point];
+                               atPoint:initial.position.point
+                           highlighted:shouldHighlight];
                 break;
             case IconShapeFramedSquare:
                 [self drawFramedSquareOfSize:initial.base.iconSize * iconSizeScale
                                        color:iconColor
-                                     atPoint:initial.position.point];
+                                     atPoint:initial.position.point
+                                 highlighted:shouldHighlight];
                 break;
             case IconShapeTriangle:
                 [self drawTriangleOfSize:initial.base.iconSize * iconSizeScale
                                    color:iconColor
-                                 atPoint:initial.position.point];
+                                 atPoint:initial.position.point
+                             highlighted:shouldHighlight];
                 break;
             case IconShapePlus:
                 [self drawPlusOfSize:initial.base.iconSize * iconSizeScale
-                                   color:iconColor
-                                 atPoint:initial.position.point];
+                               color:iconColor
+                             atPoint:initial.position.point
+                         highlighted:shouldHighlight];
                 break;
             case IconShapeDiamond:
                 [self drawDiamondOfSize:initial.base.iconSize * iconSizeScale
                                   color:iconColor
-                                atPoint:initial.position.point];
+                                atPoint:initial.position.point
+                            highlighted:shouldHighlight];
                 break;
             default:
                 break;
         }
+    } 
+}
+
+- (void) drawDestinationConnectors {
+    [[NSColor purpleColor] setStroke];
+    NSBezierPath *path = [NSBezierPath bezierPath];
+    [path setLineWidth:2.0f/scale];
+    
+    for (ScenarioInitial *a in destinations) {
+        for (ScenarioInitial *b in destinations) {
+            if (a > b) {
+                [path moveToPoint:a.position.point];
+                [path lineToPoint:b.position.point];
+            }
+        }
     }
+    [path stroke];
 }
 
 - (NSRect) calculateScenariosBounds {
@@ -138,9 +231,14 @@ NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
 
 - (void) drawSquareOfSize:(CGFloat)size
                     color:(NSColor *)color
-                  atPoint:(NSPoint)point {
+                  atPoint:(NSPoint)point
+              highlighted:(BOOL)isHighlighted {
+    [[NSColor yellowColor] setStroke];
     [color setFill];
+
     NSBezierPath *path = [NSBezierPath bezierPath];
+    [path setLineWidth:selectionBorderThickness/scale];
+    
     [path moveToPoint:NSMakePoint(0.5f, 0.5f)];
     [path lineToPoint:NSMakePoint(0.5f, -0.5f)];
     [path lineToPoint:NSMakePoint(-0.5f, -0.5f)];
@@ -152,38 +250,43 @@ NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
     [transform scaleBy:size/scale];
     [path transformUsingAffineTransform:transform];
 
+    if (isHighlighted) {
+        [path stroke];
+    }
     [path fill];
 }
 
 - (void) drawFramedSquareOfSize:(CGFloat)size
                     color:(NSColor *)color
-                  atPoint:(NSPoint)point {
-    [color setFill];
-    [[color blendedColorWithFraction:0.5f ofColor:[NSColor blackColor]] setStroke];
+                  atPoint:(NSPoint)point
+              highlighted:(BOOL)isHighlighted {
+    CGFloat inverseScale = size/scale;
+    NSRect rect = NSMakeRect(point.x - 0.5f * inverseScale, point.y - 0.5f * inverseScale, inverseScale, inverseScale);
 
-    NSBezierPath *path = [NSBezierPath bezierPath];
-    [path moveToPoint:NSMakePoint(0.5f, 0.5f)];
-    [path lineToPoint:NSMakePoint(0.5f, -0.5f)];
-    [path lineToPoint:NSMakePoint(-0.5f, -0.5f)];
-    [path lineToPoint:NSMakePoint(-0.5f, 0.5f)];
-    [path closePath];
-    
-    NSAffineTransform *transform = [NSAffineTransform transform];
-    [transform translateXBy:point.x yBy:point.y];
-    [transform scaleBy:size/scale];
-    [path transformUsingAffineTransform:transform];
-    
-    [path fill];
-    [path stroke];//Why wont it work?
+    if (isHighlighted) {
+        [[NSColor yellowColor] setFill];
+        NSFrameRectWithWidth(NSInsetRect(rect, -selectionBorderThickness/scale/2.0f, -selectionBorderThickness/scale/2.0f), selectionBorderThickness/scale);
+    }
+    [color setFill];
+    NSRectFill(rect);
+    [[color blendedColorWithFraction:0.2f
+                             ofColor:[NSColor blackColor]] setFill];
+    NSFrameRectWithWidth(rect, 2.0f/scale);
 }
 
 - (void) drawPlusOfSize:(CGFloat)size
                   color:(NSColor *)color
-                atPoint:(NSPoint)point {
+                atPoint:(NSPoint)point
+            highlighted:(BOOL)isHighlighted {
     static const CGFloat innerDist = 1.0f/6.0f;
     static const CGFloat outerDist = 0.5f;
+
+    [[NSColor yellowColor] setStroke];
     [color setFill];
+
     NSBezierPath *path = [NSBezierPath bezierPath];
+    [path setLineWidth:selectionBorderThickness/scale];
+
     [path moveToPoint:NSMakePoint(-innerDist, outerDist)];//TL
     [path lineToPoint:NSMakePoint(innerDist, outerDist)];//TR
     [path lineToPoint:NSMakePoint(innerDist, innerDist)];//TRC
@@ -205,16 +308,26 @@ NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
     [transform translateXBy:point.x yBy:point.y];
     [transform scaleBy:size/scale];
     [path transformUsingAffineTransform:transform];
+
+    if (isHighlighted) {
+        [path stroke];
+    }
     [path fill];
 }
 
 - (void) drawTriangleOfSize:(CGFloat)size
                       color:(NSColor *)color
-                    atPoint:(NSPoint)point {
-    [color setFill];
+                    atPoint:(NSPoint)point
+                highlighted:(BOOL)isHighlighted {
     const CGFloat lengthAcross = sin(M_PI/3.0f);
     const CGFloat offset = tan(M_PI/6.0f)*0.5f;
+
+    [[NSColor yellowColor] setStroke];
+    [color setFill];
+
     NSBezierPath *path = [NSBezierPath bezierPath];
+    [path setLineWidth:4.0f/scale];
+
     [path moveToPoint:NSMakePoint(-0.5f, offset)];
     [path lineToPoint:NSMakePoint(0.5f, offset)];
     [path lineToPoint:NSMakePoint(0.0f, -lengthAcross+offset)];
@@ -224,14 +337,20 @@ NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
     [transform translateXBy:point.x yBy:point.y];
     [transform scaleBy:size/scale];
     [path transformUsingAffineTransform:transform];
+    
+    if (isHighlighted) {
+        [path stroke];
+    }
     [path fill];
 }
 
 - (void) drawDiamondOfSize:(CGFloat)size
                      color:(NSColor *)color
-                   atPoint:(NSPoint)point {
-    [color setFill];
+                   atPoint:(NSPoint)point
+               highlighted:(BOOL)isHighlighted {
     static const CGFloat scaleVl = 0.5f;
+    [[NSColor yellowColor] setStroke];
+    [color setFill];
 
     NSBezierPath *path = [NSBezierPath bezierPath];
     [path moveToPoint:NSMakePoint(0.0f, scaleVl)];//Top
@@ -246,8 +365,103 @@ NSPoint NSPointAdd(NSPoint point, CGFloat x, CGFloat y) {
     [path transformUsingAffineTransform:transform];
     [path fill];
 }
+
 - (void) dealloc {
     [initialObjects release];
+    [destinations release];
+    [clickedObject release];
     [super dealloc];
+}
+
+- (void) tableViewSelectionDidChange:(NSNotification *)notification {
+    ScenarioInitial *obj = [initialsController selection];
+    if (obj != NSNoSelectionMarker) {
+        NSRect bounds = [self bounds];
+        XSPoint *position = [obj valueForKey:@"position"];
+        if (!NSPointInRect(position.point, bounds)) {
+            //Move the cursor if out of view
+            center = position.point;
+            [self updateTransform];
+        }
+    }
+    [self setNeedsDisplay:YES];
+}
+
+- (void) addInitialObject:(ScenarioInitial *)object {
+    if (object.base.attributes.isDestination) {
+        [destinations addObject:object];
+    }
+    [self setNeedsDisplay:YES];
+}
+
+- (void) removeInitialObject:(ScenarioInitial *)object {
+    [destinations removeObject:object];
+    [self setNeedsDisplay:YES];
+}
+
+- (void) magnifyWithEvent:(NSEvent *)event {
+    scale *= [event magnification] + 1.0f;
+    [self updateTransform];
+}
+
+- (void) scrollWheel:(NSEvent *)event {
+    //BAH!
+//    NSLog(@"EVENT: %@", theEvent);
+    center.x -= event.deltaX / scale;
+    center.y += event.deltaY / scale;
+    [self updateTransform];
+}
+
+- (void) mouseDown:(NSEvent *)event {
+    
+    NSAssert(clickedObject == nil, @"clickedObject != nil");
+    NSPoint clickPoint = [self convertPoint: event.locationInWindow fromView:nil];
+    
+    hasDragged = NO;
+    id selection = [initialsController selection];
+    BOOL willChangeSelection = YES;
+    if (selection != NSNoSelectionMarker) {
+        NSLog(@"Has Selection");
+        XSPoint *point = [selection valueForKey:@"position"];
+        NSRect selectedObjectRect = SquareRectWithCenterAndSize(point.point, [[selection valueForKeyPath:@"base.iconSize"] floatValue] * iconSizeScale);
+        NSLog(@"POINT: %@", NSStringFromPoint(clickPoint));
+        NSLog(@"RECT: %@", NSStringFromRect(selectedObjectRect));
+        if (NSPointInRect(clickPoint, selectedObjectRect)) {
+            NSLog(@"FOUND");
+            clickedObject = selection;
+            [clickedObject retain];
+            willChangeSelection = NO;
+        }
+    }
+
+    //Search for new selection
+    if (willChangeSelection) {
+        NSUInteger index = 0;
+        for (ScenarioInitial *init in initialObjects) {
+            NSPoint point = init.position.point;
+            NSRect testRect = SquareRectWithCenterAndSize(point, init.base.iconSize * iconSizeScale / scale);
+            if (NSPointInRect(clickPoint, testRect)) {
+                clickedObject = init;
+                [clickedObject retain];
+                [initialsController setSelectionIndex:index];
+                break;
+            }
+            index++;
+        }
+    }
+}
+
+- (void) mouseDragged:(NSEvent *)event {
+    if (clickedObject != nil) {
+        XSPoint *position = [clickedObject valueForKey:@"position"];
+        position.x += event.deltaX / scale;
+        position.y -= event.deltaY / scale;
+        [self setNeedsDisplay:YES];
+    }
+}
+
+- (void) mouseUp:(NSEvent *)event {
+    [clickedObject release];
+    clickedObject = nil;
 }
 @end
