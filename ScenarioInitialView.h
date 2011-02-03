@@ -12,21 +12,22 @@
 
 @interface ScenarioInitialView : NSView <NSTableViewDelegate>{
     NSMutableArray *initialObjects;
-    CGFloat scale;
-    NSPoint center;
     NSMutableSet *destinations;
     IBOutlet NSArrayController *initialsController;
 
+    CGFloat scale;
+    NSPoint center;
+
     ScenarioInitial *clickedObject;
-    BOOL hasDragged;
 }
 - (IBAction) autoScale:(id)sender;
 - (IBAction) zoomIn:(id)sender;
 - (IBAction) zoomOut:(id)sender;
 - (void) updateTransform;
-//- (NSRect) calculatedRect;
+
 - (void) setInitials:(NSMutableArray *)initials;
 
+- (void) drawGrid;
 - (void) drawDestinationConnectors;
 - (void) drawScenarioObjects;
 

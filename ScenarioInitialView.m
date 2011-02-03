@@ -81,18 +81,17 @@ const CGFloat iconSizeScale = 2.0f;
 - (void) drawRect:(NSRect)dirtyRect {
     [[NSColor blackColor] setFill];
     NSRectFill(dirtyRect);
-    [self drawGridInRect:[self bounds]];
+    [self drawGrid];
     [self drawDestinationConnectors];
     [self drawScenarioObjects];
 }
 
-- (void) drawGridInRect:(NSRect)rect {
-    NSRect bounds = NSIntegralRect([self bounds]);
+- (void) drawGrid {
     static const CGFloat bigGridDistance = 32768.0f;
     static const CGFloat smallGridDistance = 4096.0f;
+    static const CGFloat blueLineLimit = 1.0f/128.0f;
 
-    rect = NSIntegralRect(rect);
-    rect = bounds;
+    NSRect rect = NSIntegralRect([self bounds]);
     CGFloat left = NSMinX(rect);
     CGFloat right = NSMaxX(rect);
     CGFloat top = NSMinY(rect);
@@ -107,8 +106,6 @@ const CGFloat iconSizeScale = 2.0f;
     NSBezierPath *bluePath = [NSBezierPath bezierPath];
     [greenPath setLineWidth:2.0f/scale];
     [bluePath setLineWidth:1.0f/scale];
-
-    static const CGFloat blueLineLimit = 1.0f/128.0f;
 
     for (CGFloat x = left; x <= right; x += smallGridDistance) {
         if (fabs(fmod(x, bigGridDistance)) <= 1.0f) {
@@ -417,7 +414,6 @@ const CGFloat iconSizeScale = 2.0f;
     NSAssert(clickedObject == nil, @"clickedObject != nil");
     NSPoint clickPoint = [self convertPoint: event.locationInWindow fromView:nil];
     
-    hasDragged = NO;
     id selection = [initialsController selection];
     BOOL willChangeSelection = YES;
     if (selection != NSNoSelectionMarker) {
