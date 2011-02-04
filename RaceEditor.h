@@ -9,9 +9,15 @@
 #import <Cocoa/Cocoa.h>
 
 @class MainData;
+@class Race;
 
 @interface RaceEditor : NSWindowController {
     MainData *data;
+    NSMutableArray *races;
 }
 - (id) initWithMainData:(MainData *)data;
+
+- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
+- (void) startObservingRace:(Race *)race;
+- (void) stopObservingRace:(Race *)race;
 @end
