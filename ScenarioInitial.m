@@ -14,13 +14,13 @@
 
 @implementation ScenarioInitial
 @synthesize type, owner, position, earning;
-@synthesize distanceRange, rotation, spriteIdOverride, builds;
+@synthesize distanceRange, rotation, rotationRange, spriteIdOverride, builds;
 @synthesize initialDestination, nameOverride, attributes, base;
 @dynamic realName;
 
 - (id) init {
     self = [super init];
-    type = -1;
+    type = 0;
     owner = 0;
 
     position = [[XSPoint alloc] init];
@@ -28,7 +28,8 @@
     earning = 1.0f;
     distanceRange = 0;
 
-    rotation = [[XSRange alloc] init];
+    rotation = 0;
+    rotationRange = 0;
 
     spriteIdOverride = -1;
 
@@ -55,8 +56,11 @@
     earning = [coder decodeFloatForKey:@"earning"];
     distanceRange = [coder decodeIntegerForKey:@"distanceRange"];
 
-    rotation.first = [coder decodeIntegerForKey:@"minimum"];
-    rotation.count = [coder decodeIntegerForKey:@"range"];
+    rotation = [coder decodeIntegerForKeyPath:@"rotation.minimum"];
+    rotationRange = [coder decodeIntegerForKeyPath:@"rotation.range"];
+    
+    rotation = [coder decodeIntegerForKeyPath:@"rotation.minimum"];
+    rotationRange = [coder decodeIntegerForKeyPath:@"rotation.range"];
 
     spriteIdOverride = [coder decodeIntegerForKey:@"spriteIdOverride"];
 
@@ -87,8 +91,8 @@
     [coder encodeInteger:distanceRange forKey:@"distanceRange"];
 
     [coder encodeDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
-        [XSInteger xsIntegerWithValue:rotation.first], @"minimum",
-        [XSInteger xsIntegerWithValue:rotation.count], @"range", nil
+        [XSInteger xsIntegerWithValue:rotation], @"minimum",
+        [XSInteger xsIntegerWithValue:rotation], @"range", nil
                              ] forKey:@"rotation"];
 
     [coder encodeInteger:spriteIdOverride forKey:@"spriteIdOverride"];

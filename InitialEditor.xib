@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="8"/>
+			<integer value="7"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -217,7 +217,7 @@
 											<reference key="NSSuperview" ref="1023020168"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="494660720">
-												<int key="NSCellFlags">-1267597759</int>
+												<int key="NSCellFlags">-1804468671</int>
 												<int key="NSCellFlags2">272630784</int>
 												<string key="NSContents"/>
 												<reference key="NSSupport" ref="590437405"/>
@@ -349,7 +349,7 @@
 											<reference key="NSSuperview" ref="1023020168"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="726959535">
-												<int key="NSCellFlags">-1267597759</int>
+												<int key="NSCellFlags">-1804468671</int>
 												<int key="NSCellFlags2">272630784</int>
 												<string key="NSContents"/>
 												<reference key="NSSupport" ref="590437405"/>
@@ -635,6 +635,10 @@
 					<string>position.y</string>
 					<string>earning</string>
 					<string>initialDestination</string>
+					<string>rotation</string>
+					<string>rotation.first</string>
+					<string>rotation.count</string>
+					<string>rotationRange</string>
 				</object>
 				<string key="NSObjectClassName">ScenarioInitial</string>
 				<bool key="NSEditable">YES</bool>
@@ -754,22 +758,6 @@
 					<int key="connectionID">78</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.initialDestination</string>
-						<reference key="source" ref="953181075"/>
-						<reference key="destination" ref="889967139"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="953181075"/>
-							<reference key="NSDestination" ref="889967139"/>
-							<string key="NSLabel">value: selection.initialDestination</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.initialDestination</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">79</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">initialView</string>
 						<reference key="source" ref="1001"/>
@@ -861,6 +849,54 @@
 						<reference key="destination" ref="713172194"/>
 					</object>
 					<int key="connectionID">107</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.initialDestination</string>
+						<reference key="source" ref="799821218"/>
+						<reference key="destination" ref="889967139"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="799821218"/>
+							<reference key="NSDestination" ref="889967139"/>
+							<string key="NSLabel">value: selection.initialDestination</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.initialDestination</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">113</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.rotation</string>
+						<reference key="source" ref="153965815"/>
+						<reference key="destination" ref="889967139"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="153965815"/>
+							<reference key="NSDestination" ref="889967139"/>
+							<string key="NSLabel">value: selection.rotation</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.rotation</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">116</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.rotationRange</string>
+						<reference key="source" ref="921353213"/>
+						<reference key="destination" ref="889967139"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="921353213"/>
+							<reference key="NSDestination" ref="889967139"/>
+							<string key="NSLabel">value: selection.rotationRange</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.rotationRange</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">117</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1441,7 +1477,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">107</int>
+			<int key="maxID">117</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1449,17 +1485,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">InitialEditor</string>
 					<string key="superclassName">NSWindowController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">fudge:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">fudge:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">fudge:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">initialView</string>
 						<string key="NS.object.0">ScenarioInitialView</string>

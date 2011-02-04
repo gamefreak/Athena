@@ -34,7 +34,8 @@
     float earning;
     NSInteger distanceRange;
 
-    XSRange *rotation;
+    NSInteger rotation;
+    NSInteger rotationRange;
 
     NSInteger spriteIdOverride;
 
@@ -53,7 +54,8 @@
 @property (readwrite, retain) XSPoint *position;
 @property (readwrite, assign) float earning;
 @property (readwrite, assign) NSInteger distanceRange;
-@property (readwrite, retain) XSRange *rotation;
+@property (readwrite, assign) NSInteger rotation;
+@property (readwrite, assign) NSInteger rotationRange;
 @property (readwrite, assign) NSInteger spriteIdOverride;
 @property (readwrite, retain) NSMutableArray *builds;
 @property (readwrite, assign) NSInteger initialDestination;
