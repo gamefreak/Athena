@@ -423,7 +423,6 @@ const CGFloat iconSizeScale = 2.0f;
         float delta = event.deltaY + 1.0f;
         delta = MAX(delta, 0.75f);
         delta = MIN(delta, 1.33f);
-        NSLog(@"delta: %f", delta);
         scale *= delta;
     } else if (subtype == NSTrackpadEventSubtype) {
         //Trackpad, so scroll
@@ -441,13 +440,9 @@ const CGFloat iconSizeScale = 2.0f;
     id selection = [initialsController selection];
     BOOL willChangeSelection = YES;
     if (selection != NSNoSelectionMarker) {
-        NSLog(@"Has Selection");
         XSPoint *point = [selection valueForKey:@"position"];
         NSRect selectedObjectRect = SquareRectWithCenterAndSize(point.point, [[selection valueForKeyPath:@"base.iconSize"] floatValue] * iconSizeScale);
-        NSLog(@"POINT: %@", NSStringFromPoint(clickPoint));
-        NSLog(@"RECT: %@", NSStringFromRect(selectedObjectRect));
         if (NSPointInRect(clickPoint, selectedObjectRect)) {
-            NSLog(@"FOUND");
             clickedObject = selection;
             [clickedObject retain];
             willChangeSelection = NO;

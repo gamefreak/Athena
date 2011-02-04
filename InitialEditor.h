@@ -18,6 +18,4 @@
     IBOutlet ScenarioInitialView *initialView;
 }
 - (id) initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
-
-- (IBAction)fudge:(id)sender;
 @end
