@@ -60,4 +60,27 @@
 @dynamic count;
 - (void) setCount:(NSUInteger)count {range.length = count;}
 - (NSUInteger) count {return range.length;}
+
+static NSSet *fcKeyPaths;
++ (NSSet *) keyPathsForValuesAffectingFirst {
+    if (fcKeyPaths == nil) {
+        fcKeyPaths = [[NSSet alloc] initWithObjects:@"range", nil];
+    }
+    return fcKeyPaths;
+}
+
++ (NSSet *) keyPathsForValuesAffectingCount {
+    if (fcKeyPaths == nil) {
+        fcKeyPaths = [[NSSet alloc] initWithObjects:@"range", nil];
+    }
+    return fcKeyPaths;
+}
+
+static NSSet *rangeKeyPaths;
++ (NSSet *) keyPathsForValuesAffectingRange {
+    if (rangeKeyPaths == nil) {
+        rangeKeyPaths = [[NSSet alloc] initWithObjects:@"first", @"count", nil];
+    }
+    return rangeKeyPaths;
+}
 @end

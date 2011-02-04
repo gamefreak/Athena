@@ -60,4 +60,26 @@
     return [[[XSPoint alloc] init] autorelease];
 }
 
+static NSSet *xyKeyPaths;
++ (NSSet *) keyPathsForValuesAffectingX {
+    if (xyKeyPaths == nil) {
+        xyKeyPaths = [[NSSet alloc] initWithObjects:@"point", nil];
+    }
+    return xyKeyPaths;
+}
+
++ (NSSet *) keyPathsForValuesAffectingY {
+    if (xyKeyPaths == nil) {
+        xyKeyPaths = [[NSSet alloc] initWithObjects:@"point", nil];
+    }
+    return xyKeyPaths;
+}
+
+static NSSet *pointKeyPaths;
++ (NSSet *) keyPathsForValuesAffectingPoint {
+    if (pointKeyPaths == nil) {
+        pointKeyPaths = [[NSSet alloc] initWithObjects:@"x", @"y", nil];
+    }
+    return pointKeyPaths;
+}
 @end

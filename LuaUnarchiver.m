@@ -256,4 +256,10 @@ static void stackDump (lua_State *L) {
     return val;
 }
 
+- (NSInteger) decodeIntegerForKeyPath:(NSString *)keyPath {
+    NSInteger popCount = [self getKeyPath:keyPath];
+    NSInteger val = lua_tointeger(L, -1);
+    [self popN:popCount];
+    return val;
+}
 @end

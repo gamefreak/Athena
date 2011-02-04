@@ -33,5 +33,6 @@
 
 - (XSPoint *) decodePointForKey:(NSString *)key;
 - (NSInteger) decodeInteger;
+- (NSInteger) decodeIntegerForKeyPath:(NSString *)keyPath;
 
 @end
