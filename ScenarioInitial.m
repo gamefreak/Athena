@@ -139,9 +139,26 @@
     } else if (base != nil) {
         return [base valueForKey:@"name"];
     } else {
-        return @"";
+        return @"-";
     }
 
+}
+
+static NSSet *nameKeys;
++ (NSSet *) keyPathsForValuesAffectingType {
+    if (nameKeys == nil) {
+        NSLog(@"+keyPathsForValuesAffectingType");
+        nameKeys = [[NSSet alloc] initWithObjects:@"realName", nil];
+    }
+    return nameKeys;
+}
+
++ (NSSet *) keyPathsForValuesAffectingNameOverride {
+    if (nameKeys == nil) {
+        NSLog(@"+keyPathsForValuesAffectingNameOverride");
+        nameKeys = [[NSSet alloc] initWithObjects:@"realName", nil];
+    }
+    return nameKeys;
 }
 @end
 
