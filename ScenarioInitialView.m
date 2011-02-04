@@ -488,8 +488,12 @@ const CGFloat iconSizeScale = 2.0f;
         }
         position.x += event.deltaX / scale;
         position.y -= event.deltaY / scale;
-        [self setNeedsDisplay:YES];
+    } else {
+        center.x -= event.deltaX / scale;
+        center.y += event.deltaY / scale;
+        [self updateTransform];
     }
+    [self setNeedsDisplay:YES];
 }
 
 - (void) mouseUp:(NSEvent *)event {
