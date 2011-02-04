@@ -19,7 +19,10 @@
     NSPoint center;
 
     ScenarioInitial *clickedObject;
+    BOOL isDragging;
 }
+@property (readonly) BOOL isDragging;
+
 - (IBAction) autoScale:(id)sender;
 - (IBAction) zoomIn:(id)sender;
 - (IBAction) zoomOut:(id)sender;
@@ -39,6 +42,10 @@
 
 - (NSRect) calculateScenariosBounds;
 
+- (void) startObservingInitial:(ScenarioInitial *)initial;
+- (void) stopObservingInitial:(ScenarioInitial *)initial;
+- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
 - (void) addInitialObject:(ScenarioInitial *)object;
 - (void) removeInitialObject:(ScenarioInitial *)object;
+
 @end

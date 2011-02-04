@@ -20,6 +20,8 @@ const CGFloat selectionBorderThickness = 4.0f;
 const CGFloat iconSizeScale = 2.0f;
 
 @implementation ScenarioInitialView
+@synthesize isDragging;
+
 - (id)initWithFrame:(NSRect)frame {
 
     self = [super initWithFrame:frame];
@@ -29,6 +31,7 @@ const CGFloat iconSizeScale = 2.0f;
         center = NSMakePoint(0.0f, 0.0f);
         destinations = [[NSMutableSet alloc] init];
         clickedObject = nil;
+        isDragging = NO;
     }
     return self;
 }
@@ -68,11 +71,12 @@ const CGFloat iconSizeScale = 2.0f;
 
 - (void) setInitials:(NSMutableArray *)initials {
     NSLog(@"Setting Initials");
-    [initialObjects setArray:initials];
+    [initialObjects release];
+    initialObjects = initials;
+    [initialObjects retain];
+
     for (ScenarioInitial *initial in initialObjects) {
-        if (initial.base.attributes.isDestination) {
-            [destinations addObject:initial];
-        }
+        [self addInitialObject:initial];
     }
 
     [self autoScale:nil];
@@ -191,6 +195,7 @@ const CGFloat iconSizeScale = 2.0f;
                             highlighted:shouldHighlight];
                 break;
             default:
+                @throw @"Invalid icon shape.";
                 break;
         }
     } 
@@ -364,6 +369,9 @@ const CGFloat iconSizeScale = 2.0f;
 }
 
 - (void) dealloc {
+    for (ScenarioInitial *initial in initialObjects) {
+        [self stopObservingInitial:initial];
+    }
     [initialObjects release];
     [destinations release];
     [clickedObject release];
@@ -388,11 +396,13 @@ const CGFloat iconSizeScale = 2.0f;
     if (object.base.attributes.isDestination) {
         [destinations addObject:object];
     }
+    [self startObservingInitial:object];
     [self setNeedsDisplay:YES];
 }
 
 - (void) removeInitialObject:(ScenarioInitial *)object {
     [destinations removeObject:object];
+    [self stopObservingInitial:object];
     [self setNeedsDisplay:YES];
 }
 
@@ -469,6 +479,13 @@ const CGFloat iconSizeScale = 2.0f;
 - (void) mouseDragged:(NSEvent *)event {
     if (clickedObject != nil) {
         XSPoint *position = [clickedObject valueForKey:@"position"];
+        if (!isDragging) {
+            NSLog(@"Starting Drag.");
+            NSLog(@"Pushing: %@", NSStringFromPoint(position.point));
+            id undoTarget = [[[self window] undoManager] prepareWithInvocationTarget:self];
+            [undoTarget changeKeyPath:@"position.point" ofObject:clickedObject toValue:[NSValue valueWithPoint:position.point]];
+            isDragging = YES;
+        }
         position.x += event.deltaX / scale;
         position.y -= event.deltaY / scale;
         [self setNeedsDisplay:YES];
@@ -476,7 +493,32 @@ const CGFloat iconSizeScale = 2.0f;
 }
 
 - (void) mouseUp:(NSEvent *)event {
+    isDragging = NO;
     [clickedObject release];
     clickedObject = nil;
 }
+
+- (void) startObservingInitial:(ScenarioInitial *)initial {
+    //Only used for refreshing
+    [initial.position addObserver:self forKeyPath:@"point" options:NSKeyValueObservingOptionOld context:NULL];
+    [initial addObserver:self forKeyPath:@"owner" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void) stopObservingInitial:(ScenarioInitial *)initial {
+    [initial.position removeObserver:self forKeyPath:@"point"];
+    [initial removeObserver:self forKeyPath:@"owner"];
+}
+
+- (void) observeValueForKeyPath:(NSString *)keyPath
+                       ofObject:(id)object
+                         change:(NSDictionary *)change
+                        context:(void *)context {
+    [self setNeedsDisplay:YES];
+}
+
+- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value {
+    [object setValue:value forKeyPath:keyPath];
+    [self setNeedsDisplay:YES];
+}
+
 @end

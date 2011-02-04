@@ -74,7 +74,6 @@
 - (IBAction) openRaceEditor:(id)sender {
     RaceEditor *raceEditor = [[RaceEditor alloc] initWithMainData:data];
     [self addWindowController:raceEditor];
-    [raceEditor setDocument:self];
     [raceEditor showWindow:self];
     [raceEditor release];
 }
@@ -82,7 +81,6 @@
 - (IBAction) openScenarioEditor:(id)sender {
     ScenarioEditor *scenarioEditor = [[ScenarioEditor alloc] initWithMainData:data];
     [self addWindowController:scenarioEditor];
-    [scenarioEditor setDocument:self];
     [scenarioEditor showWindow:self];
     [scenarioEditor release];
 }

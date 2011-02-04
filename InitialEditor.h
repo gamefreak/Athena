@@ -8,7 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MainData, Scenario;
+@class MainData;
+@class Scenario, ScenarioInitial;
 @class ScenarioInitialView;
 
 @interface InitialEditor : NSWindowController {
@@ -16,6 +17,12 @@
     Scenario *scenario;
     NSMutableArray *initialObjects;
     IBOutlet ScenarioInitialView *initialView;
+
+    BOOL isDragging;
 }
 - (id) initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
+
+- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
+- (void) startObservingInitial:(ScenarioInitial *)initial;
+- (void) stopObservingInitial:(ScenarioInitial *)initial;
 @end
