@@ -60,9 +60,7 @@
     [data release];
     data = [LuaUnarchiver unarchiveObjectWithData:inData];
     [data retain];
-    if (outError != NULL) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
+
     return YES;
 }
 

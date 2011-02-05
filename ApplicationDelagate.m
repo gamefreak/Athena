@@ -30,12 +30,12 @@
     }
     if (location != nil) {
         NSDocumentController *doc = [NSDocumentController sharedDocumentController];
-        NSError **error;
+        NSError *error = nil;
         [doc openDocumentWithContentsOfURL:location
                                    display:YES
-                                     error:error];
-        if (error != NULL) {
-            NSLog(@"ERROR: %@", *error);
+                                     error:&error];
+        if (error != nil) {
+            NSLog(@"ERROR: %@", error);
         }
     }
 }
