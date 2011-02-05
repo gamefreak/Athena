@@ -35,6 +35,10 @@
     return [[[XSBool alloc] initWithBool:NO] autorelease];
 }
 
+- (NSString *) description {
+    return (value?@"YES":@"NO");
+}
+
 + (BOOL) isComposite {
     return NO;
 }

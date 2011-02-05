@@ -38,6 +38,10 @@
     [coder encodeInteger:value];
 }
 
+- (NSString *) description {
+    return [NSString stringWithFormat:@"%d", value];
+}
+
 + (BOOL) isComposite {
     return NO;
 }
