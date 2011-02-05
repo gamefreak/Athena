@@ -64,9 +64,9 @@
 
     spriteIdOverride = [coder decodeIntegerForKey:@"spriteIdOverride"];
 
-    [builds setArray:[coder decodeArrayOfClass:[XSInteger class]
-                                        forKey:@"builds"
-                                   zeroIndexed:YES]];
+    [builds release];
+    builds = [coder decodeArrayOfClass:[XSInteger class] forKey:@"builds" zeroIndexed:YES];
+    [builds retain];
 
     initialDestination = [coder decodeIntegerForKey:@"initialDestination"];
 

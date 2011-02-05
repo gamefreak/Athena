@@ -11,6 +11,7 @@
 #import "Scenario.h"
 #import "ScenarioInitial.h"
 #import "ScenarioInitialView.h"
+#import "XSInteger.h"
 
 @implementation InitialEditor
 - (id) initWithMainData:(MainData *)_data scenario:(NSUInteger)scenarioId {
@@ -135,5 +136,13 @@
          ofObject:object
          toValue:[change objectForKey:NSKeyValueChangeOldKey]];
     }
+}
+
+- (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
+    return [NSString stringWithFormat:@"%@", representedObject];
+}
+
+- (id) tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
+    return [XSInteger xsIntegerWithValue:[editingString integerValue]];
 }
 @end

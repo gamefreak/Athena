@@ -12,7 +12,7 @@
 @class Scenario, ScenarioInitial;
 @class ScenarioInitialView;
 
-@interface InitialEditor : NSWindowController {
+@interface InitialEditor : NSWindowController <NSTokenFieldDelegate> {
     MainData *data;
     Scenario *scenario;
     NSMutableArray *initialObjects;
