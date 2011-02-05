@@ -20,7 +20,7 @@
 @synthesize playerNum, players, scoreStrings;
 @synthesize initialObjects, conditions, briefings;
 @synthesize starmap, par, angle, startTime, isTraining;
-@synthesize prologueId, epilogueId, songId, movie;
+@synthesize prologue, epilogue, songId, movie;
 
 - (id) init {
     self = [super init];
@@ -44,8 +44,9 @@
 
     angle = 0;
 
-    prologueId = -1;
-    epilogueId = -1;
+    prologue = @"";
+    epilogue = @"";
+
     songId = -1;
     movie = @"";
     return self;
@@ -95,8 +96,9 @@
     startTime = [coder decodeIntegerForKey:@"startTime"];
     isTraining = [coder decodeBoolForKey:@"isTraining"];
 
-    prologueId = [coder decodeIntegerForKey:@"prologueId"];
-    epilogueId = [coder decodeIntegerForKey:@"epilogueId"];
+    self.prologue = [coder decodeStringForKey:@"prologue"];
+    self.epilogue = [coder decodeStringForKey:@"epilogue"];
+
     songId = [coder decodeIntegerForKey:@"songId"];
 
     [movie release];
@@ -130,8 +132,8 @@
     [coder encodeInteger:startTime forKey:@"startTime"];
     [coder encodeBool:isTraining forKey:@"isTraining"];
 
-    [coder encodeInteger:prologueId forKey:@"prologueId"];
-    [coder encodeInteger:epilogueId forKey:@"epilogueId"];
+    [coder encodeString:prologue forKey:@"prologue"];
+    [coder encodeString:epilogue forKey:@"epilogue"];
     [coder encodeInteger:songId forKey:@"songId"];
 
     if ([movie isEqual:@""]) {
@@ -150,6 +152,8 @@
     [briefings release];
     [starmap release];
     [par release];
+    [prologue release];
+    [epilogue release];
     [movie release];
     [super dealloc];
 }
