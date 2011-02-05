@@ -23,7 +23,6 @@
 - (IBAction) openInitialEditor:(id)sender {
     InitialEditor *editor = [[InitialEditor alloc] initWithMainData:data scenario:[scenarioArray selectionIndex]];
     [[self document] addWindowController:editor];
-    [editor setDocument:[self document]];
     [editor showWindow:self];
     [editor release];
 }
