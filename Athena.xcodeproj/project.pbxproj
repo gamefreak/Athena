@@ -15,6 +15,8 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D216E73012E9DE1700D17AFB /* LuaArchiver.m */; };
+		D21E8BC712FDFDEE00769B69 /* TextEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D21E8BC612FDFDEE00769B69 /* TextEditor.xib */; };
+		D21E8BCA12FDFE0C00769B69 /* TextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D21E8BC912FDFE0C00769B69 /* TextEditor.m */; };
 		D21EB27912E8BAEF00694EBA /* MainData.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB27812E8BAEF00694EBA /* MainData.m */; };
 		D21EB2BB12E8BDE200694EBA /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28312E8BDE200694EBA /* lapi.c */; };
 		D21EB2BC12E8BDE200694EBA /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28512E8BDE200694EBA /* lauxlib.c */; };
@@ -92,6 +94,9 @@
 		8D15AC370486D014006FF6A4 /* Athena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Athena.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D216E72F12E9DE1700D17AFB /* LuaArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaArchiver.h; sourceTree = "<group>"; };
 		D216E73012E9DE1700D17AFB /* LuaArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaArchiver.m; sourceTree = "<group>"; };
+		D21E8BC612FDFDEE00769B69 /* TextEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextEditor.xib; sourceTree = "<group>"; };
+		D21E8BC812FDFE0C00769B69 /* TextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditor.h; sourceTree = "<group>"; };
+		D21E8BC912FDFE0C00769B69 /* TextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditor.m; sourceTree = "<group>"; };
 		D21EB27712E8BAEF00694EBA /* MainData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainData.h; sourceTree = "<group>"; };
 		D21EB27812E8BAEF00694EBA /* MainData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainData.m; sourceTree = "<group>"; };
 		D21EB28312E8BDE200694EBA /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
@@ -296,6 +301,7 @@
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
 				D288344912F2642B00A02383 /* ScenarioEditor.xib */,
 				D2C55B4B12F3235E007140A2 /* InitialEditor.xib */,
+				D21E8BC612FDFDEE00769B69 /* TextEditor.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -427,6 +433,8 @@
 				D2C55B3B12F321E2007140A2 /* InitialEditor.m */,
 				D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */,
 				D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */,
+				D21E8BC812FDFE0C00769B69 /* TextEditor.h */,
+				D21E8BC912FDFE0C00769B69 /* TextEditor.m */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -513,6 +521,7 @@
 				D288339212F24F4100A02383 /* RaceEditor.xib in Resources */,
 				D288344A12F2642B00A02383 /* ScenarioEditor.xib in Resources */,
 				D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */,
+				D21E8BC712FDFDEE00769B69 /* TextEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +590,7 @@
 				D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */,
 				D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */,
 				D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */,
+				D21E8BCA12FDFE0C00769B69 /* TextEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
