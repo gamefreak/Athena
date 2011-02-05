@@ -16,4 +16,6 @@
 }
 - (id) initWithMainData:(MainData *)data;
 - (IBAction) openInitialEditor:(id)sender;
+- (IBAction) openPrologueEditor:(id)sender;
+- (IBAction) openEpilogueEditor:(id)sender;
 @end

@@ -9,6 +9,7 @@
 #import "ScenarioEditor.h"
 #import "MainData.h"
 #import "InitialEditor.h"
+#import "TextEditor.h"
 
 @implementation ScenarioEditor
 - (id) initWithMainData:(MainData *)_data {
@@ -27,6 +28,21 @@
     [editor release];
 }
 
+- (IBAction) openPrologueEditor:(id)sender {
+    NSString *text = [[scenarioArray selection] valueForKey:@"prologue"];
+    TextEditor *editor = [[TextEditor alloc] initWithTitle:@"Prologue" text:text];
+    [[self document] addWindowController:editor];
+    [editor showWindow:self];
+    [editor release];
+}
+
+- (IBAction) openEpilogueEditor:(id)sender {
+    NSString *text = [[scenarioArray selection] valueForKey:@"epilogue"];
+    TextEditor *editor = [[TextEditor alloc] initWithTitle:@"Epilogue" text:text];
+    [[self document] addWindowController:editor];
+    [editor showWindow:self];
+    [editor release];
+}
 
 - (void) dealloc {
     [data release];
