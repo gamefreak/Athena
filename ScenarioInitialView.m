@@ -229,6 +229,8 @@ const CGFloat iconSizeScale = 2.0f;
                                 atPoint:initial.position.point
                             highlighted:shouldHighlight];
                 break;
+            case IconShapeNone:
+                break;
             default:
                 @throw @"Invalid icon shape.";
                 break;
