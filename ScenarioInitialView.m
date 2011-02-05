@@ -390,6 +390,8 @@ const CGFloat iconSizeScale = 2.0f;
     [color setFill];
 
     NSBezierPath *path = [NSBezierPath bezierPath];
+    [path setLineWidth:4.0f / scale];
+
     [path moveToPoint:NSMakePoint(0.0f, scaleVl)];//Top
     [path lineToPoint:NSMakePoint(scaleVl, 0.0f)];//Right
     [path lineToPoint:NSMakePoint(0.0f, -scaleVl)];//Bottom
@@ -400,6 +402,10 @@ const CGFloat iconSizeScale = 2.0f;
     [transform translateXBy:point.x yBy:point.y];
     [transform scaleBy:size/scale];
     [path transformUsingAffineTransform:transform];
+
+    if (isHighlighted) {
+        [path stroke];
+    }
     [path fill];
 }
 
