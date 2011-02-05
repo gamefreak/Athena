@@ -10,4 +10,5 @@
 #import "LuaCoding.h"
 
 @interface NSString (LuaCoding) <LuaCoding>
+- (id) string;
 @end

@@ -21,6 +21,11 @@
     return self;
 }
 
+- (void) awakeFromNib {
+    [scoreStringTable setTarget:self];
+    [scoreStringTable setDoubleAction:@selector(scoreStringTableClick:)];
+}
+
 - (IBAction) openInitialEditor:(id)sender {
     InitialEditor *editor = [[InitialEditor alloc] initWithMainData:data scenario:[scenarioArray selectionIndex]];
     [[self document] addWindowController:editor];
@@ -42,6 +47,14 @@
     [[self document] addWindowController:editor];
     [editor showWindow:self];
     [editor release];
+}
+
+- (IBAction) scoreStringTableClick:(id)sender {
+    NSMutableString *newEntry = [scoreStringController newObject];
+    [scoreStringController addObject:newEntry];
+    NSUInteger index = [[scoreStringController arrangedObjects] indexOfObjectIdenticalTo:newEntry];
+    [scoreStringTable editColumn:0 row:index withEvent:nil select:YES];
+    [newEntry release];
 }
 
 - (void) dealloc {

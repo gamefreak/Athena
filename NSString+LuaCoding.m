@@ -26,4 +26,8 @@
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
 }
+
+- (id) string {
+    return self;
+}
 @end

@@ -69,7 +69,7 @@
     [players retain];
 
     [scoreStrings release];
-    scoreStrings = [coder decodeArrayOfClass:[NSString class] forKey:@"scoreString" zeroIndexed:YES];
+    scoreStrings = [coder decodeArrayOfClass:[NSMutableString class] forKey:@"scoreString" zeroIndexed:YES];
     [scoreStrings retain];
 
     [initialObjects release];
