@@ -39,6 +39,8 @@
     NSString *movie;
 }
 @property (readwrite, retain) NSString *name;
+@property (readonly) NSString *singleLineName;
+
 @property (readwrite, assign) NSUInteger netRaceFlags;
 @property (readwrite, assign) NSInteger playerNum;
 @property (readwrite, retain) NSMutableArray *players;

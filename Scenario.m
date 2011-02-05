@@ -161,6 +161,20 @@
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
 }
+
+@dynamic singleLineName;
+- (NSString *) singleLineName {
+    NSMutableString *slName = [NSMutableString stringWithString:name];
+    [slName replaceOccurrencesOfString:@"\n"
+                            withString:@" "
+                               options:NSCaseInsensitiveSearch
+                                 range:NSMakeRange(0, [slName length])];
+    [slName replaceOccurrencesOfString:@"\\i"
+                            withString:@""
+                               options:NSCaseInsensitiveSearch
+                                 range:NSMakeRange(0, [slName length])];
+    return slName;
+}
 @end
 
 
