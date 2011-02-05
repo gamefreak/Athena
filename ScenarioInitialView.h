@@ -14,6 +14,7 @@
     NSMutableArray *initialObjects;
     NSMutableSet *destinations;
     IBOutlet NSArrayController *initialsController;
+    BOOL shouldDrawLabels;
 
     CGFloat scale;
     NSPoint center;
@@ -26,10 +27,12 @@
 - (IBAction) autoScale:(id)sender;
 - (IBAction) zoomIn:(id)sender;
 - (IBAction) zoomOut:(id)sender;
+- (IBAction) redraw:(id)sender;
 - (void) updateTransform;
 
 - (void) setInitials:(NSMutableArray *)initials;
 
+- (void) drawLabels;
 - (void) drawGrid;
 - (void) drawDestinationConnectors;
 - (void) drawScenarioObjects;

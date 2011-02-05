@@ -30,6 +30,7 @@ const CGFloat iconSizeScale = 2.0f;
         scale = 1.0f;
         center = NSMakePoint(0.0f, 0.0f);
         destinations = [[NSMutableSet alloc] init];
+        shouldDrawLabels = YES;
         clickedObject = nil;
         isDragging = NO;
     }
@@ -55,6 +56,10 @@ const CGFloat iconSizeScale = 2.0f;
 - (IBAction) zoomOut:(id)sender {
     scale /= 1.5;
     [self updateTransform];
+}
+
+- (IBAction) redraw:(id)sender {
+    [self setNeedsDisplay:YES];
 }
 
 - (void) updateTransform {
@@ -85,9 +90,39 @@ const CGFloat iconSizeScale = 2.0f;
 - (void) drawRect:(NSRect)dirtyRect {
     [[NSColor blackColor] setFill];
     NSRectFill(dirtyRect);
+    if (shouldDrawLabels) {
+        [self drawLabels];
+    }
     [self drawGrid];
     [self drawDestinationConnectors];
     [self drawScenarioObjects];
+}
+
+- (void) drawLabels {
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+    [attributes setObject:[NSFont fontWithName:@"Courier" size:10.0f/scale] forKey:NSFontAttributeName];
+
+    for (ScenarioInitial *obj in initialObjects) {
+        NSColor *color;
+        switch (obj.owner) {
+            case 0:
+                color = [NSColor greenColor];
+                break;
+            case -1:
+                color = [NSColor blueColor];
+                break;
+            default:
+                color = [NSColor redColor];
+                break;
+        }
+        [attributes setObject:color forKey:NSForegroundColorAttributeName];
+        
+        NSPoint point = obj.position.point;
+        point.y -= (obj.base.iconSize + 2.0f) / scale;
+        point.x += (obj.base.iconSize + 2.0f) / scale;
+        
+        [obj.realName drawAtPoint:point withAttributes:attributes];
+    }
 }
 
 - (void) drawGrid {

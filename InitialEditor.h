@@ -18,7 +18,6 @@
     NSMutableArray *initialObjects;
     IBOutlet ScenarioInitialView *initialView;
 
-    BOOL isDragging;
 }
 - (id) initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
 
