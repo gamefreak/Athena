@@ -123,6 +123,7 @@ const CGFloat iconSizeScale = 2.0f;
         
         [obj.realName drawAtPoint:point withAttributes:attributes];
     }
+    [attributes release];
 }
 
 - (void) drawGrid {
