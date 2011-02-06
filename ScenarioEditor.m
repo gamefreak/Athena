@@ -50,11 +50,14 @@
 }
 
 - (IBAction) scoreStringTableClick:(id)sender {
-    NSMutableString *newEntry = [scoreStringController newObject];
-    [scoreStringController addObject:newEntry];
-    NSUInteger index = [[scoreStringController arrangedObjects] indexOfObjectIdenticalTo:newEntry];
-    [scoreStringTable editColumn:0 row:index withEvent:nil select:YES];
-    [newEntry release];
+    NSUInteger row = [scoreStringTable clickedRow];
+    if (row == -1) {
+        NSMutableString *newEntry = [scoreStringController newObject];
+        [scoreStringController addObject:newEntry];
+        row = [[scoreStringController arrangedObjects] indexOfObjectIdenticalTo:newEntry];
+        [newEntry release];
+    }
+    [scoreStringTable editColumn:0 row:row withEvent:nil select:NO];
 }
 
 - (void) dealloc {
