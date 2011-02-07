@@ -27,9 +27,9 @@
 - (BOOL) decodeBool;
 - (BOOL) decodeBoolForKeyPath:(NSString *)keyPath;
 
-- (NSString *) decodeString;
-- (NSString *) decodeStringForKey:(NSString *)key;
-- (NSString *) decodeStringForKeyPath:(NSString *)keyPath;
+- (NSMutableString *) decodeString;
+- (NSMutableString *) decodeStringForKey:(NSString *)key;
+- (NSMutableString *) decodeStringForKeyPath:(NSString *)keyPath;
 
 - (XSPoint *) decodePointForKey:(NSString *)key;
 - (NSInteger) decodeInteger;

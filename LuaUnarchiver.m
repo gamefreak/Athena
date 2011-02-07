@@ -205,28 +205,28 @@ static void stackDump (lua_State *L) {
     return ret;
 }
 
-- (NSString *) decodeString {
+- (NSMutableString *) decodeString {
     //    \\ -> \\\\
     //    \r -> \\r
     //    ]  -> \\]
     if (lua_isnil(L, -1)) {
-        return @"";
+        return [NSMutableString string];
     }
 
     NSMutableString *str = [NSMutableString stringWithUTF8String:lua_tostring(L, -1)];
     return str;
 }
 
-- (NSString *) decodeStringForKey:(NSString *)key {
+- (NSMutableString *) decodeStringForKey:(NSString *)key {
     [self getKey:key];
-    NSString *str = [self decodeString];
+    NSMutableString *str = [self decodeString];
     [self pop];
     return str;
 }
 
-- (NSString *) decodeStringForKeyPath:(NSString *)keyPath {
+- (NSMutableString *) decodeStringForKeyPath:(NSString *)keyPath {
     NSInteger popCount = [self getKey:keyPath];
-    NSString *str = [self decodeString];
+    NSMutableString *str = [self decodeString];
     [self popN:popCount];
     return str;
 }
