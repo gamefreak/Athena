@@ -10,6 +10,7 @@
 #import "MainData.h"
 #import "InitialEditor.h"
 #import "TextEditor.h"
+#import "StarmapPicker.h"
 
 @implementation ScenarioEditor
 - (id) initWithMainData:(MainData *)_data {
@@ -33,12 +34,20 @@
     [editor release];
 }
 
+- (IBAction) openStarmapPicker:(id)sender {
+    StarmapPicker *picker = [[StarmapPicker alloc] initWithScenario:[scenarioArray selection]];
+    [[self document] addWindowController:picker];
+    [picker showWindow:self];
+    [picker release];
+}
+
 - (IBAction) openPrologueEditor:(id)sender {
     NSString *text = [[scenarioArray selection] valueForKey:@"prologue"];
     TextEditor *editor = [[TextEditor alloc] initWithTitle:@"Prologue" text:text];
     [[self document] addWindowController:editor];
     [editor showWindow:self];
     [editor release];
+    NSLog(@"Starmap");
 }
 
 - (IBAction) openEpilogueEditor:(id)sender {

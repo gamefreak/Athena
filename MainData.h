@@ -13,6 +13,8 @@
     NSMutableArray *objects;
     NSMutableArray *scenarios;
     NSMutableArray *races;
+    NSMutableDictionary *sprites;
+    NSMutableDictionary *sounds;
 }
 @property (readonly) NSMutableArray *objects;
 @property (readonly) NSMutableArray *scenarios;

@@ -64,6 +64,10 @@
 		D293F6A712EBB03200EF1CCA /* XSRange.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F6A612EBB03200EF1CCA /* XSRange.m */; };
 		D29510B212EE771300AE3316 /* ActionRefs.m in Sources */ = {isa = PBXBuildFile; fileRef = D29510B112EE771300AE3316 /* ActionRefs.m */; };
 		D295110612EE7BB700AE3316 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D295110512EE7BB700AE3316 /* FrameData.m */; };
+		D2A1911212FE3BE500232914 /* Starmap.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911112FE3BE500232914 /* Starmap.png */; };
+		D2A1911812FE3C0D00232914 /* StarmapPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1911712FE3C0D00232914 /* StarmapPicker.m */; };
+		D2A1911D12FE3CB700232914 /* StarmapPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911C12FE3CB700232914 /* StarmapPicker.xib */; };
+		D2A1914F12FE415800232914 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1914E12FE415800232914 /* StarmapView.m */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
 		D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2C55B4B12F3235E007140A2 /* InitialEditor.xib */; };
@@ -186,6 +190,12 @@
 		D29510B112EE771300AE3316 /* ActionRefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionRefs.m; sourceTree = "<group>"; };
 		D295110412EE7BB700AE3316 /* FrameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameData.h; sourceTree = "<group>"; };
 		D295110512EE7BB700AE3316 /* FrameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameData.m; sourceTree = "<group>"; };
+		D2A1911112FE3BE500232914 /* Starmap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Starmap.png; sourceTree = "<group>"; };
+		D2A1911612FE3C0D00232914 /* StarmapPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarmapPicker.h; sourceTree = "<group>"; };
+		D2A1911712FE3C0D00232914 /* StarmapPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarmapPicker.m; sourceTree = "<group>"; };
+		D2A1911C12FE3CB700232914 /* StarmapPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarmapPicker.xib; sourceTree = "<group>"; };
+		D2A1914D12FE415800232914 /* StarmapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarmapView.h; sourceTree = "<group>"; };
+		D2A1914E12FE415800232914 /* StarmapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarmapView.m; sourceTree = "<group>"; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2C55B3A12F321E2007140A2 /* InitialEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialEditor.h; sourceTree = "<group>"; };
@@ -263,9 +273,6 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D23EDD2112EE8129002699A4 /* Color.h */,
-				D2E452D212EF4BC90099B0F9 /* FlagBlob.h */,
-				D2E452D312EF4BC90099B0F9 /* FlagBlob.m */,
 				D21EB32112E8C41E00694EBA /* AresTypes */,
 				D264F8BD12E8EE3A0050BCFB /* Archivers */,
 				D293F65D12EBAAFD00EF1CCA /* Wrappers */,
@@ -293,6 +300,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D2A1911112FE3BE500232914 /* Starmap.png */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Athena-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
@@ -302,6 +310,7 @@
 				D288344912F2642B00A02383 /* ScenarioEditor.xib */,
 				D2C55B4B12F3235E007140A2 /* InitialEditor.xib */,
 				D21E8BC612FDFDEE00769B69 /* TextEditor.xib */,
+				D2A1911C12FE3CB700232914 /* StarmapPicker.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -380,18 +389,14 @@
 		D21EB32112E8C41E00694EBA /* AresTypes */ = {
 			isa = PBXGroup;
 			children = (
+				D23EDD2112EE8129002699A4 /* Color.h */,
+				D2E452D212EF4BC90099B0F9 /* FlagBlob.h */,
+				D2E452D312EF4BC90099B0F9 /* FlagBlob.m */,
 				D28831CC12F21E4E00A02383 /* Actions */,
-				D293F5E712EB82ED00EF1CCA /* BriefPoint.h */,
-				D293F5E812EB82ED00EF1CCA /* BriefPoint.m */,
 				D29510AF12EE770200AE3316 /* BaseObject */,
 				D293F5D612EB78E000EF1CCA /* Race.h */,
 				D293F5D712EB78E000EF1CCA /* Race.m */,
-				D2D7501812F07F5A00B17631 /* Scenario.h */,
-				D2D7501912F07F5A00B17631 /* Scenario.m */,
-				D2E0409812EF3C2B00F77E59 /* ScenarioInitial.h */,
-				D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */,
-				D2882C2412F1D41400A02383 /* Condition.h */,
-				D2882C2512F1D41400A02383 /* Condition.m */,
+				D2A1911F12FE3DC600232914 /* Scenario */,
 			);
 			name = AresTypes;
 			sourceTree = "<group>";
@@ -427,12 +432,7 @@
 			children = (
 				D288339512F24F7000A02383 /* RaceEditor.h */,
 				D288339612F24F7000A02383 /* RaceEditor.m */,
-				D288343E12F263CC00A02383 /* ScenarioEditor.h */,
-				D288343F12F263CC00A02383 /* ScenarioEditor.m */,
-				D2C55B3A12F321E2007140A2 /* InitialEditor.h */,
-				D2C55B3B12F321E2007140A2 /* InitialEditor.m */,
-				D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */,
-				D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */,
+				D2A1911412FE3BEF00232914 /* Scenarios */,
 				D21E8BC812FDFE0C00769B69 /* TextEditor.h */,
 				D21E8BC912FDFE0C00769B69 /* TextEditor.m */,
 			);
@@ -469,6 +469,54 @@
 				D295110512EE7BB700AE3316 /* FrameData.m */,
 			);
 			name = BaseObject;
+			sourceTree = "<group>";
+		};
+		D2A1911412FE3BEF00232914 /* Scenarios */ = {
+			isa = PBXGroup;
+			children = (
+				D288343E12F263CC00A02383 /* ScenarioEditor.h */,
+				D288343F12F263CC00A02383 /* ScenarioEditor.m */,
+				D2A1914C12FE414900232914 /* Starmap */,
+				D2A1911512FE3BFB00232914 /* Initials */,
+			);
+			name = Scenarios;
+			sourceTree = "<group>";
+		};
+		D2A1911512FE3BFB00232914 /* Initials */ = {
+			isa = PBXGroup;
+			children = (
+				D2C55B3A12F321E2007140A2 /* InitialEditor.h */,
+				D2C55B3B12F321E2007140A2 /* InitialEditor.m */,
+				D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */,
+				D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */,
+			);
+			name = Initials;
+			sourceTree = "<group>";
+		};
+		D2A1911F12FE3DC600232914 /* Scenario */ = {
+			isa = PBXGroup;
+			children = (
+				D2D7501812F07F5A00B17631 /* Scenario.h */,
+				D2D7501912F07F5A00B17631 /* Scenario.m */,
+				D2E0409812EF3C2B00F77E59 /* ScenarioInitial.h */,
+				D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */,
+				D293F5E712EB82ED00EF1CCA /* BriefPoint.h */,
+				D293F5E812EB82ED00EF1CCA /* BriefPoint.m */,
+				D2882C2412F1D41400A02383 /* Condition.h */,
+				D2882C2512F1D41400A02383 /* Condition.m */,
+			);
+			name = Scenario;
+			sourceTree = "<group>";
+		};
+		D2A1914C12FE414900232914 /* Starmap */ = {
+			isa = PBXGroup;
+			children = (
+				D2A1911612FE3C0D00232914 /* StarmapPicker.h */,
+				D2A1911712FE3C0D00232914 /* StarmapPicker.m */,
+				D2A1914D12FE415800232914 /* StarmapView.h */,
+				D2A1914E12FE415800232914 /* StarmapView.m */,
+			);
+			name = Starmap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -522,6 +570,8 @@
 				D288344A12F2642B00A02383 /* ScenarioEditor.xib in Resources */,
 				D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */,
 				D21E8BC712FDFDEE00769B69 /* TextEditor.xib in Resources */,
+				D2A1911212FE3BE500232914 /* Starmap.png in Resources */,
+				D2A1911D12FE3CB700232914 /* StarmapPicker.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +641,8 @@
 				D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */,
 				D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */,
 				D21E8BCA12FDFE0C00769B69 /* TextEditor.m in Sources */,
+				D2A1911812FE3C0D00232914 /* StarmapPicker.m in Sources */,
+				D2A1914F12FE415800232914 /* StarmapView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
