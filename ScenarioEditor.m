@@ -14,11 +14,21 @@
 #import "Scenario.h"
 
 @interface ScenarioEditor (Private)
+- (void) startObservingPlayer:(ScenarioPlayer *)player;
+- (void) stopObservingPlayer:(ScenarioPlayer *)player;
+- (void) insertObject:(ScenarioPlayer *)player inPlayersAtIndex:(NSUInteger)index;
+- (void) removeObjectFromPlayersAtIndex:(NSUInteger)index;
+
 - (void) startObservingScenario:(Scenario *)scenario;
 - (void) stopObservingScenario:(Scenario *)scenario;
+- (void) insertObject:(Scenario *)scenario inScenariosAtIndex:(NSUInteger)index;
+- (void) removeObjectFromScenariosAtIndex:(NSUInteger)index;
+
+
+- (void) insertObject:(NSMutableString *)string inScoreStringsAtIndex:(NSUInteger)index;
+- (void) removeObjectFromScoreStringsAtIndex:(NSUInteger)index;
+
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
-- (void) insertObject:(Scenario *)scenario inScenariosAtIndex:(NSInteger)index;
-- (void) removeObjectFromScenariosAtIndex:(NSInteger)index;
 @end
 
 @implementation ScenarioEditor
@@ -36,6 +46,22 @@
     return self;
 }
 
+- (void) startObservingPlayer:(ScenarioPlayer *)player {
+    [player addObserver:self forKeyPath:@"type" options:NSKeyValueObservingOptionOld context:NULL];
+    [player addObserver:self forKeyPath:@"race" options:NSKeyValueObservingOptionOld context:NULL];
+    [player addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionOld context:NULL];
+    [player addObserver:self forKeyPath:@"earningPower" options:NSKeyValueObservingOptionOld context:NULL];
+    [player addObserver:self forKeyPath:@"netRaceFlags" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void) stopObservingPlayer:(ScenarioPlayer *)player {
+    [player removeObserver:self forKeyPath:@"type"];
+    [player removeObserver:self forKeyPath:@"race"];
+    [player removeObserver:self forKeyPath:@"name"];
+    [player removeObserver:self forKeyPath:@"earningPower"];
+    [player removeObserver:self forKeyPath:@"netRaceFlags"];
+}
+
 - (void) startObservingScenario:(Scenario *)scenario {
     [scenario addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionOld context:NULL];
     [scenario addObserver:self forKeyPath:@"netRaceFlags" options:NSKeyValueObservingOptionOld context:NULL];
@@ -50,6 +76,14 @@
     [scenario addObserver:self forKeyPath:@"isTraining" options:NSKeyValueObservingOptionOld context:NULL];
     [scenario addObserver:self forKeyPath:@"songId" options:NSKeyValueObservingOptionOld context:NULL];
     [scenario addObserver:self forKeyPath:@"movie" options:NSKeyValueObservingOptionOld context:NULL];
+
+    for (ScenarioPlayer *player in scenario.players) {
+        [self startObservingPlayer:player];
+    }
+    
+    for (NSMutableString *string in scenario.scoreStrings) {
+        [string addObserver:self forKeyPath:@"string" options:NSKeyValueObservingOptionOld context:NULL];
+    }
 }
 
 - (void) stopObservingScenario:(Scenario *)scenario {
@@ -66,6 +100,14 @@
     [scenario removeObserver:self forKeyPath:@"isTraining"];
     [scenario removeObserver:self forKeyPath:@"songId"];
     [scenario removeObserver:self forKeyPath:@"movie"];
+
+    for (ScenarioPlayer *player in scenario.players) {
+        [self stopObservingPlayer:player];
+    }
+    
+    for (NSMutableString *string in scenario.scoreStrings) {
+        [string removeObserver:self forKeyPath:@"string"];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -83,29 +125,64 @@
     [object setValue:value forKeyPath:keyPath];
 }
 
+- (void) insertObject:(ScenarioPlayer *)player inPlayersAtIndex:(NSUInteger)index {
+    [[[[self document] undoManager]
+      prepareWithInvocationTarget:self]
+     removeObjectFromPlayersAtIndex:index];
+    [self startObservingPlayer:player];
+    [players insertObject:player atIndex:index];
+}
+
+- (void) removeObjectFromPlayersAtIndex:(NSUInteger)index {
+    ScenarioPlayer *player = [players objectAtIndex:index];
+    [[[[self document] undoManager]
+      prepareWithInvocationTarget:self]
+     insertObject:player
+     inPlayersAtIndex:index];
+    [self stopObservingPlayer:player];
+    [players removeObjectAtIndex:index];
+}
+
 - (void) insertObject:(Scenario *)scenario inScenariosAtIndex:(NSUInteger)index {
     [[[[self document] undoManager]
       prepareWithInvocationTarget:self]
      removeObjectFromScenariosAtIndex:index];
-    NSLog(@"INSERTED");
     [self startObservingScenario:scenario];
     [scenarios insertObject:scenario atIndex:index];
 }
 
-- (void) removeObjectFromScenariosAtIndex:(NSInteger)index {
+- (void) removeObjectFromScenariosAtIndex:(NSUInteger)index {
     Scenario *scen = [scenarios objectAtIndex:index];
     [[[[self document] undoManager]
       prepareWithInvocationTarget:self]
      insertObject:scen
      inScenariosAtIndex:index];
-    NSLog(@"REMOVED");
     [self stopObservingScenario:scen];
     [scenarios removeObjectAtIndex:index];
+}
+
+- (void) insertObject:(NSMutableString *)string inScoreStringsAtIndex:(NSUInteger)index {
+    [[[[self document] undoManager]
+      prepareWithInvocationTarget:self]
+     removeObjectFromScoreStringsAtIndex:index];
+    [string addObserver:self forKeyPath:@"string" options:NSKeyValueObservingOptionOld context:NULL];
+    [scoreStrings insertObject:string atIndex:index];
+}
+
+- (void) removeObjectFromScoreStringsAtIndex:(NSUInteger)index {
+    NSMutableString *string = [scoreStrings objectAtIndex:index];
+    [[[[self document] undoManager]
+      prepareWithInvocationTarget:self]
+     insertObject:string inScoreStringsAtIndex:index];
+    [string removeObserver:self forKeyPath:@"string"];
+    [scoreStrings removeObjectAtIndex:index];
 }
 
 - (void) awakeFromNib {
     [scoreStringTable setTarget:self];
     [scoreStringTable setDoubleAction:@selector(scoreStringTableClick:)];
+    [self bind:@"players" toObject:scenarioArray withKeyPath:@"selection.players" options:nil];
+    [self bind:@"scoreStrings" toObject:scenarioArray withKeyPath:@"selection.scoreStrings" options:nil];
 }
 
 - (IBAction) openInitialEditor:(id)sender {
@@ -128,7 +205,6 @@
     [[self document] addWindowController:editor];
     [editor showWindow:self];
     [editor release];
-    NSLog(@"Starmap");
 }
 
 - (IBAction) openEpilogueEditor:(id)sender {

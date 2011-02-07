@@ -16,6 +16,8 @@
     IBOutlet NSArrayController *scoreStringController;
     MainData *data;
     NSMutableArray *scenarios;
+    NSMutableArray *players;
+    NSMutableArray *scoreStrings;
 }
 - (id) initWithMainData:(MainData *)data;
 - (IBAction) openInitialEditor:(id)sender;
