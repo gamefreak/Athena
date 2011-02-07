@@ -15,6 +15,7 @@
     IBOutlet NSTableView *scoreStringTable;
     IBOutlet NSArrayController *scoreStringController;
     MainData *data;
+    NSMutableArray *scenarios;
 }
 - (id) initWithMainData:(MainData *)data;
 - (IBAction) openInitialEditor:(id)sender;

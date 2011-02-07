@@ -1345,22 +1345,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: data.scenarios</string>
-						<reference key="source" ref="580307294"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="580307294"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">contentArray: data.scenarios</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">data.scenarios</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">14</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.name</string>
 						<reference key="source" ref="909915989"/>
 						<reference key="destination" ref="580307294"/>
@@ -1810,6 +1794,70 @@
 						<reference key="destination" ref="955846340"/>
 					</object>
 					<int key="connectionID">200</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">add:</string>
+						<reference key="source" ref="580307294"/>
+						<reference key="destination" ref="396562745"/>
+					</object>
+					<int key="connectionID">201</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">remove:</string>
+						<reference key="source" ref="580307294"/>
+						<reference key="destination" ref="1068613691"/>
+					</object>
+					<int key="connectionID">202</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: canRemove</string>
+						<reference key="source" ref="1068613691"/>
+						<reference key="destination" ref="580307294"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1068613691"/>
+							<reference key="NSDestination" ref="580307294"/>
+							<string key="NSLabel">enabled: canRemove</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">canRemove</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">206</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: canAdd</string>
+						<reference key="source" ref="396562745"/>
+						<reference key="destination" ref="580307294"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="396562745"/>
+							<reference key="NSDestination" ref="580307294"/>
+							<string key="NSLabel">enabled: canAdd</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">canAdd</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">207</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: scenarios</string>
+						<reference key="source" ref="580307294"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="580307294"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">contentArray: scenarios</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">scenarios</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">209</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2593,7 +2641,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">200</int>
+			<int key="maxID">209</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

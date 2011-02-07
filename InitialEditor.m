@@ -13,6 +13,11 @@
 #import "ScenarioInitialView.h"
 #import "XSInteger.h"
 
+@interface InitialEditor (Private)
+- (void) insertObject:(ScenarioInitial *)initial inInitialObjectsAtIndex:(NSInteger)index ;
+- (void) removeObjectFromInitialObjectsAtIndex:(NSInteger)index;
+@end
+
 @implementation InitialEditor
 - (id) initWithMainData:(MainData *)_data scenario:(NSUInteger)scenarioId {
     self = [super initWithWindowNibName:@"InitialEditor"];
