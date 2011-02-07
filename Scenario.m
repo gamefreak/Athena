@@ -44,8 +44,8 @@
 
     angle = 0;
 
-    prologue = @"";
-    epilogue = @"";
+    prologue = [[NSMutableString alloc] init];
+    epilogue = [[NSMutableString alloc] init];
 
     songId = -1;
     movie = @"";
@@ -96,8 +96,12 @@
     startTime = [coder decodeIntegerForKey:@"startTime"];
     isTraining = [coder decodeBoolForKey:@"isTraining"];
 
-    self.prologue = [coder decodeStringForKey:@"prologue"];
-    self.epilogue = [coder decodeStringForKey:@"epilogue"];
+    [prologue release];
+    prologue = [coder decodeStringForKey:@"prologue"];
+    [prologue retain];
+    [epilogue release];
+    epilogue = [coder decodeStringForKey:@"epilogue"];
+    [epilogue retain];
 
     songId = [coder decodeIntegerForKey:@"songId"];
 
@@ -294,6 +298,14 @@
 
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
+}
+
+static NSSet *nameKeyPaths;
++ (NSSet *) keyPathsForValuesAffectingSingleLineName {
+    if (nameKeyPaths == nil) {
+        nameKeyPaths = [[NSSet alloc] initWithObjects:@"name", nil];
+    }
+    return nameKeyPaths;
 }
 @end
 

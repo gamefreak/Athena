@@ -33,8 +33,8 @@
     NSInteger startTime;
     BOOL isTraining;
 
-    NSString *prologue;
-    NSString *epilogue;
+    NSMutableString *prologue;
+    NSMutableString *epilogue;
 
     NSInteger songId;
     NSString *movie;
@@ -54,8 +54,8 @@
 @property (readwrite, assign) NSInteger angle;
 @property (readwrite, assign) NSInteger startTime;
 @property (readwrite, assign) BOOL isTraining;
-@property (readwrite, retain) NSString *prologue;
-@property (readwrite, retain) NSString *epilogue;
+@property (readwrite, retain) NSMutableString *prologue;
+@property (readwrite, retain) NSMutableString *epilogue;
 
 @property (readwrite, assign) NSInteger songId;
 @property (readwrite, retain) NSString *movie;
