@@ -12,13 +12,13 @@
 
 @implementation BriefPoint
 @synthesize title, type, objectId;
-@synthesize isVisible, range, contentId;
+@synthesize isVisible, range, content;
 
 - (id) init {
     self = [super init];
     title = @"Untitled";
     type = BriefTypeNoPoint;
-    contentId = -1;
+    content = @"";
     objectId = -1;
     isVisible = YES;
     range = [[XSPoint alloc] init];
@@ -48,7 +48,9 @@
     [range release];
     range = [[coder decodePointForKey:@"range"] retain];
 
-    contentId = [coder decodeIntegerForKey:@"content"];
+    [content release];
+    content = [coder decodeStringForKey:@"content"];
+    [content retain];
     return self;
 }
 
@@ -74,12 +76,13 @@
             break;
     }
     [coder encodePoint:range forKey:@"range"];
-    [coder encodeInteger:contentId forKey:@"content"];
+    [coder encodeString:content forKey:@"content"];
 }
 
 - (void) dealloc {
     [title release];
     [range release];
+    [content retain];
     [super dealloc];
 }
 
