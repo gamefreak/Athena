@@ -22,8 +22,6 @@
 - (id) initWithMainData:(MainData *)data;
 - (IBAction) openInitialEditor:(id)sender;
 - (IBAction) openStarmapPicker:(id)sender;
-- (IBAction) openPrologueEditor:(id)sender;
-- (IBAction) openEpilogueEditor:(id)sender;
 
 - (IBAction) scoreStringTableClick:(id)sender;
 @end

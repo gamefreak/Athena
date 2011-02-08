@@ -199,22 +199,6 @@
     [picker release];
 }
 
-- (IBAction) openPrologueEditor:(id)sender {
-    NSString *text = [[scenarioArray selection] valueForKey:@"prologue"];
-    TextEditor *editor = [[TextEditor alloc] initWithTitle:@"Prologue" text:text];
-    [[self document] addWindowController:editor];
-    [editor showWindow:self];
-    [editor release];
-}
-
-- (IBAction) openEpilogueEditor:(id)sender {
-    NSString *text = [[scenarioArray selection] valueForKey:@"epilogue"];
-    TextEditor *editor = [[TextEditor alloc] initWithTitle:@"Epilogue" text:text];
-    [[self document] addWindowController:editor];
-    [editor showWindow:self];
-    [editor release];
-}
-
 - (IBAction) scoreStringTableClick:(id)sender {
     NSUInteger row = [scoreStringTable clickedRow];
     if (row == -1) {
