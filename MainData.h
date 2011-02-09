@@ -19,4 +19,6 @@
 @property (readonly) NSMutableArray *objects;
 @property (readonly) NSMutableArray *scenarios;
 @property (readonly) NSMutableArray *races;
+@property (readonly) NSMutableDictionary *sprites;
+@property (readonly) NSMutableDictionary *sounds;
 @end

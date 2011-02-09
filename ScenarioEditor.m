@@ -9,7 +9,6 @@
 #import "ScenarioEditor.h"
 #import "MainData.h"
 #import "InitialEditor.h"
-#import "TextEditor.h"
 #import "StarmapPicker.h"
 #import "Scenario.h"
 

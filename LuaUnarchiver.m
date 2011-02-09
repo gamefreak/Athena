@@ -213,7 +213,7 @@ static void stackDump (lua_State *L) {
         return [NSMutableString string];
     }
 
-    NSMutableString *str = [NSMutableString stringWithUTF8String:lua_tostring(L, -1)];
+    NSMutableString *str = [NSMutableString stringWithCString:lua_tostring(L, -1) encoding:NSMacOSRomanStringEncoding];
     return str;
 }
 

@@ -19,12 +19,15 @@
 
 @implementation MainData
 @synthesize objects, scenarios, races;
+@synthesize sprites, sounds;
 
 - (id) init {
     self = [super init];
     objects = [[NSMutableArray alloc] init];
     scenarios = [[NSMutableArray alloc] init];
     races = [[NSMutableArray alloc] init];
+    sprites = [[NSMutableDictionary alloc] init];
+    sounds = [[NSMutableDictionary alloc] init];
     return self;
 }
 
@@ -33,6 +36,8 @@
     [objects    setArray:[coder decodeArrayOfClass:[BaseObject class]      forKey:@"objects"    zeroIndexed:YES]];
     [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
     [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
+    [sprites setDictionary:[coder decodeDictionaryOfClass:[NSString class] forKey:@"sprites"]];
+    [sounds setDictionary:[coder decodeDictionaryOfClass:[NSString class] forKey:@"sounds"]];
     return self;
 }
 
@@ -40,6 +45,8 @@
     [coder encodeArray:objects    forKey:@"objects"    zeroIndexed:YES];
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
+    [coder encodeDictionary:sprites forKey:@"sprites"];
+    [coder encodeDictionary:sounds forKey:@"sounds"];
 }
 
 
