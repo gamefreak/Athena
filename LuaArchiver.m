@@ -118,7 +118,7 @@
     [self down];
 }
 
-- (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key {
+- (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key asArray:(BOOL)asArray {
     [self up];
     [self indent];
     [data appendString:key];
@@ -127,7 +127,11 @@
     NSArray *keys = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (id key in keys) {
         id<LuaCoding> obj = [dict objectForKey:key];
-        [self encodeObject:obj forKey:key];
+        if (asArray) {
+            [self encodeObject:obj forKey:[NSString stringWithFormat:@"[%@]", key]];
+        } else {
+            [self encodeObject:obj forKey:key];
+        }
     }
     [self indent];
     [data appendString:@"};\n"];
@@ -156,7 +160,7 @@
                             options:NSLiteralSearch
                               range:NSMakeRange(0, [str length])];
     [str replaceOccurrencesOfString:@"]"
-                         withString:@"\\]"
+                         withString:@"\\93"
                             options:NSLiteralSearch
                               range:NSMakeRange(0, [str length])];
     [data appendFormat:@"[[%@]]", str];

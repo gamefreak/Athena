@@ -45,8 +45,8 @@
     [coder encodeArray:objects    forKey:@"objects"    zeroIndexed:YES];
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
-    [coder encodeDictionary:sprites forKey:@"sprites"];
-    [coder encodeDictionary:sounds forKey:@"sounds"];
+    [coder encodeDictionary:sprites forKey:@"sprites" asArray:YES];
+    [coder encodeDictionary:sounds forKey:@"sounds" asArray:YES];
 }
 
 

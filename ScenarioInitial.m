@@ -84,7 +84,7 @@
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:type forKey:@"type"];
     [coder encodeInteger:owner forKey:@"owner"];
-
+    [coder encodeInteger:initialDestination forKey:@"initialDestination"];
     [coder encodeObject:position forKey:@"position"];
 
     [coder encodeFloat:earning forKey:@"earning"];
@@ -93,7 +93,7 @@
     [coder encodeDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
         [XSInteger xsIntegerWithValue:rotation], @"minimum",
         [XSInteger xsIntegerWithValue:rotation], @"range", nil
-                             ] forKey:@"rotation"];
+                             ] forKey:@"rotation" asArray:NO];
 
     [coder encodeInteger:spriteIdOverride forKey:@"spriteIdOverride"];
 

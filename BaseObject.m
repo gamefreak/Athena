@@ -299,7 +299,7 @@
     [coder encodeInteger:initialDirection forKey:@"initialDirection"];
     [coder encodeInteger:initialDirectionRange forKey:@"initialDirectionRange"];
 
-    [coder encodeDictionary:weapons forKey:@"weapons"];
+    [coder encodeDictionary:weapons forKey:@"weapons" asArray:NO];
 
     [coder encodeFloat:friendDefecit forKey:@"friendDefecit"];
     [coder encodeFloat:dangerThreshold forKey:@"dangerThreshold"];
@@ -308,7 +308,7 @@
 
     [coder encodeInteger:arriveActionDistance forKey:@"arriveActionDistance"];
 
-    [coder encodeDictionary:actions forKey:@"actions"];
+    [coder encodeDictionary:actions forKey:@"actions" asArray:NO];
 
     if ([[attributes valueForKey:@"shapeFromDirection"] boolValue] == YES) {
         [coder encodeObject:frame forKey:@"rotation"];

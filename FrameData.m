@@ -200,7 +200,7 @@
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeDictionary:uses forKey:@"uses"];
+    [coder encodeDictionary:uses forKey:@"uses" asArray:NO];
     [coder encodeInteger:energyCost forKey:@"energyCost"];
     [coder encodeInteger:reload forKey:@"reload"];
     [coder encodeInteger:ammo forKey:@"ammo"];

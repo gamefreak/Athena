@@ -18,7 +18,7 @@
 @property (readonly) NSData *data;
 + (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
-- (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key;
+- (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key asArray:(BOOL)asArray;
 
 - (void) encodeString:(NSString *)string;
 - (void) encodeString:(NSString *)string forKey:(NSString *)key;
