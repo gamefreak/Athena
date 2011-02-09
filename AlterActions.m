@@ -261,7 +261,7 @@
             return @"beam weapon";
             break;
         case AlterSpecialWeapon:
-            return @"special";
+            return @"special weapon";
             break;
         case AlterEnergy:
             return @"energy";

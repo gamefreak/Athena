@@ -151,19 +151,14 @@
 
 - (void) encodeString:(NSString *)string {
     NSMutableString *str = [NSMutableString stringWithString:string];
-    [str replaceOccurrencesOfString:@"\\"
-                         withString:@"\\\\"
-                            options:NSLiteralSearch
-                              range:NSMakeRange(0, [str length])];
-    [str replaceOccurrencesOfString:@"\r"
-                         withString:@"\\r"
-                            options:NSLiteralSearch
-                              range:NSMakeRange(0, [str length])];
-    [str replaceOccurrencesOfString:@"]"
-                         withString:@"\\93"
-                            options:NSLiteralSearch
-                              range:NSMakeRange(0, [str length])];
-    [data appendFormat:@"[[%@]]", str];
+    NSRange range = [str rangeOfString:@"]"];
+    NSMutableString *buffer = [NSMutableString string];
+    while (range.location != NSNotFound) {
+        [buffer appendString:@"="];
+        range = [str rangeOfString:[NSString stringWithFormat:@"]%@]", buffer]];
+    }
+
+    [data appendFormat:@"[%@[%@]%@]", buffer, str, buffer];
 }
 
 - (void) encodeString:(NSString *)string forKey:(NSString *)key {
