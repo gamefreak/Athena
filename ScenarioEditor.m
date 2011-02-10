@@ -9,6 +9,7 @@
 #import "ScenarioEditor.h"
 #import "MainData.h"
 #import "InitialEditor.h"
+#import "BriefingEditor.h"
 #import "StarmapPicker.h"
 #import "Scenario.h"
 
@@ -196,6 +197,13 @@
     [[self document] addWindowController:picker];
     [picker showWindow:self];
     [picker release];
+}
+
+- (IBAction) openBriefingEditor:(id)sender {
+    BriefingEditor *editor = [[BriefingEditor alloc] initWithScenario:[scenarioArray selection]];
+    [[self document] addWindowController:editor];
+    [editor showWindow:self];
+    [editor release];
 }
 
 - (IBAction) scoreStringTableClick:(id)sender {

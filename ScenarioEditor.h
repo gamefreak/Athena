@@ -22,6 +22,7 @@
 - (id) initWithMainData:(MainData *)data;
 - (IBAction) openInitialEditor:(id)sender;
 - (IBAction) openStarmapPicker:(id)sender;
+- (IBAction) openBriefingEditor:(id)sender;
 
 - (IBAction) scoreStringTableClick:(id)sender;
 @end
