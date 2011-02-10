@@ -10,3 +10,6 @@
 #import "LuaCoding.h"
 #import "LuaArchiver.h"
 #import "LuaUnarchiver.h"
+
+#import "ResCoding.h"
+#import "ResUnarchiver.h"

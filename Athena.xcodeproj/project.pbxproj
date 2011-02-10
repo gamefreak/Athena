@@ -48,6 +48,8 @@
 		D21EB2DB12E8BDE200694EBA /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB2BA12E8BDE200694EBA /* print.c */; };
 		D21EB31F12E8C41700694EBA /* BaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB31E12E8C41700694EBA /* BaseObject.m */; };
 		D225D5E813035E9A00E75803 /* BriefingEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D225D5E713035E9A00E75803 /* BriefingEditor.xib */; };
+		D225D64513039F0D00E75803 /* ResUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D225D64413039F0D00E75803 /* ResUnarchiver.m */; };
+		D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D225D64613039FC500E75803 /* CoreServices.framework */; };
 		D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */; };
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
 		D2882C2612F1D41400A02383 /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882C2512F1D41400A02383 /* Condition.m */; };
@@ -71,6 +73,8 @@
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
 		D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2C55B4B12F3235E007140A2 /* InitialEditor.xib */; };
+		D2C9D6FB13044E970087EDE4 /* ResSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9D6FA13044E960087EDE4 /* ResSegment.m */; };
+		D2C9D6FE130462020087EDE4 /* StringTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9D6FD130462020087EDE4 /* StringTable.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 		D2D7501A12F07F5A00B17631 /* Scenario.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7501912F07F5A00B17631 /* Scenario.m */; };
 		D2D7502F12F0874500B17631 /* NSString+LuaCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7502E12F0874500B17631 /* NSString+LuaCoding.m */; };
@@ -158,6 +162,10 @@
 		D21EB31D12E8C41700694EBA /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
 		D21EB31E12E8C41700694EBA /* BaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObject.m; sourceTree = "<group>"; };
 		D225D5E713035E9A00E75803 /* BriefingEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BriefingEditor.xib; sourceTree = "<group>"; };
+		D225D64113039D5100E75803 /* ResCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResCoding.h; sourceTree = "<group>"; };
+		D225D64313039F0D00E75803 /* ResUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResUnarchiver.h; sourceTree = "<group>"; };
+		D225D64413039F0D00E75803 /* ResUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResUnarchiver.m; sourceTree = "<group>"; };
+		D225D64613039FC500E75803 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
 		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
@@ -201,6 +209,10 @@
 		D2C55B3A12F321E2007140A2 /* InitialEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialEditor.h; sourceTree = "<group>"; };
 		D2C55B3B12F321E2007140A2 /* InitialEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialEditor.m; sourceTree = "<group>"; };
 		D2C55B4B12F3235E007140A2 /* InitialEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialEditor.xib; sourceTree = "<group>"; };
+		D2C9D6F913044E960087EDE4 /* ResSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResSegment.h; sourceTree = "<group>"; };
+		D2C9D6FA13044E960087EDE4 /* ResSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResSegment.m; sourceTree = "<group>"; };
+		D2C9D6FC130462020087EDE4 /* StringTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTable.h; sourceTree = "<group>"; };
+		D2C9D6FD130462020087EDE4 /* StringTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTable.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
 		D2D7501812F07F5A00B17631 /* Scenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scenario.h; sourceTree = "<group>"; };
@@ -225,6 +237,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+				D225D64613039FC500E75803 /* CoreServices.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -397,19 +411,42 @@
 				D293F5D612EB78E000EF1CCA /* Race.h */,
 				D293F5D712EB78E000EF1CCA /* Race.m */,
 				D2A1911F12FE3DC600232914 /* Scenario */,
+				D2C9D6FC130462020087EDE4 /* StringTable.h */,
+				D2C9D6FD130462020087EDE4 /* StringTable.m */,
 			);
 			name = AresTypes;
+			sourceTree = "<group>";
+		};
+		D225D64013039D2F00E75803 /* Lua */ = {
+			isa = PBXGroup;
+			children = (
+				D2E03F2412EF1B1D00F77E59 /* LuaCoding.h */,
+				D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */,
+				D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */,
+				D216E72F12E9DE1700D17AFB /* LuaArchiver.h */,
+				D216E73012E9DE1700D17AFB /* LuaArchiver.m */,
+			);
+			name = Lua;
+			sourceTree = "<group>";
+		};
+		D225D64213039D5900E75803 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D225D64113039D5100E75803 /* ResCoding.h */,
+				D2C9D6F913044E960087EDE4 /* ResSegment.h */,
+				D2C9D6FA13044E960087EDE4 /* ResSegment.m */,
+				D225D64313039F0D00E75803 /* ResUnarchiver.h */,
+				D225D64413039F0D00E75803 /* ResUnarchiver.m */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		D264F8BD12E8EE3A0050BCFB /* Archivers */ = {
 			isa = PBXGroup;
 			children = (
 				D2802FD412EA572500F1A0B0 /* Archivers.h */,
-				D2E03F2412EF1B1D00F77E59 /* LuaCoding.h */,
-				D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */,
-				D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */,
-				D216E72F12E9DE1700D17AFB /* LuaArchiver.h */,
-				D216E73012E9DE1700D17AFB /* LuaArchiver.m */,
+				D225D64013039D2F00E75803 /* Lua */,
+				D225D64213039D5900E75803 /* Resource */,
 			);
 			name = Archivers;
 			sourceTree = "<group>";
@@ -655,6 +692,9 @@
 				D2A1911812FE3C0D00232914 /* StarmapPicker.m in Sources */,
 				D2A1914F12FE415800232914 /* StarmapView.m in Sources */,
 				D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */,
+				D225D64513039F0D00E75803 /* ResUnarchiver.m in Sources */,
+				D2C9D6FB13044E970087EDE4 /* ResSegment.m in Sources */,
+				D2C9D6FE130462020087EDE4 /* StringTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

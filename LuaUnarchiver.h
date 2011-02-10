@@ -12,9 +12,6 @@
 
 @class XSPoint;
 
-@protocol Alloc + (id) alloc; @end
-@interface NSObject (ALLOC_DO_YOU_SPEAK_IT) <Alloc> @end
-
 @interface LuaUnarchiver : NSCoder {
     lua_State *L;
 }

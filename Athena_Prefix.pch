@@ -3,5 +3,7 @@
 //
 
 #ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
+@protocol Alloc + (id) alloc; @end
+@interface NSObject (ALLOC_DO_YOU_SPEAK_IT) <Alloc> @end
 #endif

@@ -8,6 +8,7 @@
 
 #import "AthenaDocument.h"
 #import "MainData.h"
+#import "StringTable.h"
 #import "Archivers.h"
 
 #import "RaceEditor.h"
@@ -50,17 +51,17 @@
 	return outData;
 }
 
-- (BOOL) readFromData:(NSData *)inData ofType:(NSString *)typeName error:(NSError **)outError {
-    // Insert code here to read your document from the given data of the specified type.  If the given outError != NULL, ensure that you set *outError when returning NO.
-
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead. 
-    
-    // For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
-
+- (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
+    NSLog(@"READ(%@)", type);
     [data release];
-    data = [LuaUnarchiver unarchiveObjectWithData:inData];
-    [data retain];
-
+    if ([type isEqual:@"Xsera Data"]) {
+        data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName]] retain];
+    } else if ([type isEqual:@"Ares Data"]) {
+        data = [[MainData alloc] init];
+        ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
+        [coder registerClass:[StringTable class]];
+        [coder release];
+    }
     return YES;
 }
 
