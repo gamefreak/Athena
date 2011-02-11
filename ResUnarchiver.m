@@ -9,6 +9,7 @@
 #import "ResUnarchiver.h"
 #import "ResCoding.h"
 #import "ResSegment.h"
+#import "StringTable.h"
 
 @implementation ResUnarchiver
 - (id) initWithFilePath:(NSString *)path; {
@@ -21,6 +22,7 @@
         }
         types = [[NSMutableDictionary alloc] init];
         stack = [[NSMutableArray alloc] init];
+        [self registerClass:[StringTable class]];
     }
     
     return self;
@@ -40,17 +42,18 @@
         NSData *data = [NSData dataWithBytes:*dataH length:size];
         HUnlock(dataH);
         ReleaseResource(dataH);
-
-        NSUInteger count = size/[class sizeOfResourceItem];
+        size_t recSize = [class sizeOfResourceItem];
+        NSUInteger count = size/recSize;
         //Dictionary is used because NSArray doesn't handle sparse arrays
         NSMutableDictionary *table = [NSMutableDictionary dictionaryWithCapacity:count];
         
         char *buffer = malloc(size);
         for (NSUInteger k = 0; k < count; k++) {
-            [data getBytes:buffer range:NSMakeRange(size * k, size)];
+            [data getBytes:buffer range:NSMakeRange(recSize * k, recSize)];
             ResSegment *seg = [[ResSegment alloc]
                                initWithClass:class
-                               data:[NSData dataWithBytes:buffer length:size]];
+                               data:[NSData dataWithBytes:buffer length:recSize]
+                               index:k];
             
             [table setObject:seg forKey:[[NSNumber numberWithUnsignedInteger:k] stringValue]];
             [seg release];
@@ -70,7 +73,8 @@
             Size size = GetHandleSize(dataH);
             ResSegment *seg = [[ResSegment alloc]
                                initWithClass:class
-                               data:[NSData dataWithBytes:*dataH length:size]];
+                               data:[NSData dataWithBytes:*dataH length:size]
+                               index:rID];
             [table setObject:seg forKey:[[NSNumber numberWithShort:rID] stringValue]];
             [seg release];
             HUnlock(dataH);
@@ -91,6 +95,10 @@
         table = [types objectForKey:[_class typeKey]];
     }
     return [table count];
+}
+
+- (NSUInteger) currentIndex {
+    return [[stack lastObject] index];
 }
 
 - (void) skip:(NSUInteger)bytes {
@@ -148,6 +156,10 @@
     SInt64 out;
     [[stack lastObject] readBytes:&out length:sizeof(SInt64)];
     return CFSwapInt64BigToHost(out);
+}
+
+- (CGFloat) decodeFixed {
+    return (CGFloat)[self decodeSInt32]/256.0f;
 }
 
 - (id)decodeObjectOfClass:(Class)class atIndex:(NSUInteger)index {

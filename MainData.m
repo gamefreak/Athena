@@ -109,6 +109,12 @@ static NSArray *mainDataKeys;
 
         [flags initWithResArchiver:coder];
         checkSum = [coder decodeUInt32];
+
+        NSUInteger count;
+        count = [coder countOfClass:[Race class]];
+        for (NSUInteger index = 0; index < count; index++) {
+            [races addObject:[coder decodeObjectOfClass:[Race class] atIndex:index]];
+        }
     }
     return self;
 }

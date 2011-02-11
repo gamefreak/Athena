@@ -7,7 +7,7 @@
 //
 
 #import "StringTable.h"
-
+#import "ResUnarchiver.h"
 
 @implementation StringTable
 
@@ -19,15 +19,20 @@
     return self;
 }
 
-- (id)initWithResArchiver:(ResUnarchiver *)unarchiver {
-    self= [self init];
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self= [super init];
     if (self) {
-        
+        SInt16 count = [coder decodeSInt16];
+        count = count << 8 | count >> 8;//Swap? WTF why?
+        strings = [[NSMutableArray alloc] initWithCapacity:count];
+        for (sint16 k = 0; k < count; k++) {
+            [strings addObject:[coder decodePString]];
+        }
     }
     return self;
 }
 
-- (void)encodeResWithCoder:(ResArchiver *)archiver {
+- (void)encodeResWithCoder:(ResArchiver *)coder {
     
 }
 

@@ -8,9 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LuaCoding.h"
+#import "ResCoding.h"
+#import "Color.h"
 
-@interface Race : NSObject <LuaCoding> {
+
+@interface Race : NSObject <LuaCoding, ResCoding> {
     NSInteger raceId;
+    ClutColor apparentColor;
+    NSUInteger illegalColors;
     CGFloat advantage;
     NSString *singular;
     NSString *plural;
@@ -18,6 +23,8 @@
     NSString *homeworld;
 }
 @property (readwrite, assign) NSInteger raceId;
+@property (readwrite, assign) ClutColor apparentColor;
+@property (readwrite, assign) NSUInteger illegalColors;
 @property (readwrite, assign) CGFloat advantage;
 @property (readwrite, retain) NSString *singular;
 @property (readwrite, retain) NSString *plural;

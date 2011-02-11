@@ -10,7 +10,9 @@
 
 
 @implementation ResSegment
-- (id) initWithClass:(Class)_class data:(NSData *)_data {
+@synthesize data, object, dataClass, cursor, index, loaded;
+
+- (id) initWithClass:(Class)_class data:(NSData *)_data index:(NSUInteger)_index{
     self = [super init];
     if (self) {
         data = [_data retain];
@@ -18,6 +20,7 @@
         dataClass = _class;
         cursor = 0;
         loaded = NO;
+        index = _index;
     }
     return self;
 }

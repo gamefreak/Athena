@@ -21,6 +21,7 @@
 - (NSUInteger) countOfClass:(Class<ResCoding>)class;
 
 - (void) skip:(NSUInteger)bytes;
+- (NSUInteger) currentIndex;
 
 - (UInt8) decodeUInt8;
 - (SInt8) decodeSInt8;
@@ -30,6 +31,8 @@
 - (SInt32) decodeSInt32;
 - (UInt64) decodeUInt64;
 - (SInt64) decodeSInt64;
+
+- (CGFloat) decodeFixed;
 
 - (NSString *) decodePString;
 //Length does not include the length byte
