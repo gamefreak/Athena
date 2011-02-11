@@ -57,6 +57,10 @@
     return [strings count] - 1;
 }
 
+- (NSMutableArray *) allStrings {
+    return strings;
+}
+
 - (void)dealloc {
     [strings release];
     [super dealloc];

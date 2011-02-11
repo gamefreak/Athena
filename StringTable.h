@@ -13,5 +13,6 @@
     NSMutableArray *strings;
 }
 - (NSString *)stringAtIndex:(NSUInteger)index;
+- (NSMutableArray *)allStrings;
 - (NSUInteger)addString:(NSString *)string;
 @end
