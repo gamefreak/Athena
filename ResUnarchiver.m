@@ -15,11 +15,12 @@
     self = [super init];
     if (self) {
         FSRef file;
-        if (!FSPathMakeRef([path UTF8String], &file, NULL)) {
+        if (!FSPathMakeRef((UInt8 *)[path cStringUsingEncoding:NSMacOSRomanStringEncoding], &file, NULL)) {
             resFile = FSOpenResFile(&file, fsRdPerm);
             UseResFile(resFile);
         }
         types = [[NSMutableDictionary alloc] init];
+        stack = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -57,8 +58,9 @@
         free(buffer);
         [types setObject:table forKey:[class typeKey]];
     } else {//Use indexed resources
+        NSLog(@"Indexing resources of type: %@", [class typeKey]);
         ResourceCount count = CountResources(type);
-        NSDictionary *table = [NSMutableDictionary dictionaryWithCapacity:count];
+        NSMutableDictionary *table = [NSMutableDictionary dictionaryWithCapacity:count];
         for (ResourceIndex index = 1; index <= count; index++) {
             Handle dataH = GetIndResource(type, index);
             //Pull out the ResId
@@ -69,27 +71,125 @@
             ResSegment *seg = [[ResSegment alloc]
                                initWithClass:class
                                data:[NSData dataWithBytes:*dataH length:size]];
-            HUnlock(dataH);
-            ReleaseResource(dataH);
             [table setObject:seg forKey:[[NSNumber numberWithShort:rID] stringValue]];
             [seg release];
+            HUnlock(dataH);
+            ReleaseResource(dataH);
         }
         [types setObject:table forKey:[class typeKey]];
+        OSErr err = ResError();
+        if (err != 0) {
+            @throw [NSString stringWithFormat:@"Resource error: %d", err];
+        }
     }
 }
 
-//- (UInt8) decodeUInt8;
-//- (SInt8) decodeSInt8;
-//- (UInt16) decodeUInt16;
-//- (SInt16) decodeSInt16;
-//- (UInt32) decodeUInt32;
-//- (SInt32) decodeSInt32;
-//- (UInt64) decodeUInt64;
-//- (SInt64) decodeSInt64;
+- (NSUInteger) countOfClass:(Class<ResCoding>)_class {
+    NSMutableDictionary *table = [types objectForKey:[_class typeKey]];
+    if (table == nil) {
+        [self registerClass:_class];
+        table = [types objectForKey:[_class typeKey]];
+    }
+    return [table count];
+}
 
+- (void) skip:(NSUInteger)bytes {
+    [[stack lastObject] advance:bytes];
+}
+
+- (UInt8) decodeUInt8 {
+    UInt8 out;
+    ResSegment *seg = [stack lastObject];
+    [seg readBytes:&out length:sizeof(UInt8)];
+    return out;
+}
+
+- (SInt8) decodeSInt8 {
+    SInt8 out;
+    [[stack lastObject] readBytes:&out length:sizeof(SInt8)];
+    return out;
+}
+
+- (UInt16) decodeUInt16 {
+    UInt16 out;
+    [[stack lastObject] readBytes:&out length:sizeof(UInt16)];
+    return CFSwapInt16BigToHost(out);
+}
+
+- (SInt16) decodeSInt16 {
+    SInt16 out;
+    [[stack lastObject] readBytes:&out length:sizeof(SInt16)];
+    return CFSwapInt16BigToHost(out);
+}
+
+- (UInt32) decodeUInt32 {
+    UInt32 out;
+    id seg = [stack lastObject];
+    [seg readBytes:&out length:sizeof(UInt32)];
+    return CFSwapInt32BigToHost(out);
+//    out = CFSwapInt32BigToHost(out);
+//    DLog(@"decodeUInt32: %u, %1$x", out);
+//    return out;
+}
+
+- (SInt32) decodeSInt32 {
+    SInt32 out;
+    [[stack lastObject] readBytes:&out length:sizeof(SInt32)];
+    return CFSwapInt32BigToHost(out);
+}
+
+- (UInt64) decodeUInt64 {
+    UInt64 out;
+    [[stack lastObject] readBytes:&out length:sizeof(UInt64)];
+    return CFSwapInt64BigToHost(out);
+}
+
+- (SInt64) decodeSInt64 {
+    SInt64 out;
+    [[stack lastObject] readBytes:&out length:sizeof(SInt64)];
+    return CFSwapInt64BigToHost(out);
+}
+
+- (id)decodeObjectOfClass:(Class)class atIndex:(NSUInteger)index {
+    NSMutableDictionary *table = [types objectForKey:[class typeKey]];
+    if (table == nil) {
+        [self registerClass:class];
+        table = [types objectForKey:[class typeKey]];
+    }
+    ResSegment *seg =  [table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]];
+    [stack addObject:seg];
+    id object = [seg loadObjectWithCoder:self];
+    [stack removeLastObject];
+    return object;
+}
+
+- (NSString *) decodePString {
+    UInt8 length;
+    ResSegment *seg = [stack lastObject];
+    [seg readBytes:&length length:sizeof(UInt8)];
+    char *buffer = malloc(length + 1);
+    [seg readBytes:buffer length:length];
+    buffer[length] = '\0';//Just in case
+    NSString *string = [NSString stringWithCString:buffer encoding:NSMacOSRomanStringEncoding];
+    free(buffer);
+    return string;
+}
+
+- (NSString *) decodePStringOfLength:(UInt8)length {
+    UInt8 sLength;
+    ResSegment *seg = [stack lastObject];
+    [seg readBytes:&sLength length:1];
+    char *buffer = malloc(length + 1);
+    [seg readBytes:buffer length:length];
+    buffer[sLength] = '\0';//Just in case
+    NSString *string = [NSString stringWithCString:buffer encoding:NSMacOSRomanStringEncoding];
+    free(buffer);
+    return string;
+}
 
 - (void)dealloc {
     [types release];
+    [stack release];
     CloseResFile(resFile);
     [super dealloc];
 }

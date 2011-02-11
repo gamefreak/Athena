@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreServices/CoreServices.h>
+#import "ResCoding.h"
 
 @interface ResUnarchiver : NSObject {
     NSMutableDictionary *types;
@@ -16,7 +17,10 @@
 }
 - (id) initWithFilePath:(NSString *)path;
 
-- (void) registerClass:(Class)class;
+- (void) registerClass:(Class<ResCoding>)class;
+- (NSUInteger) countOfClass:(Class<ResCoding>)class;
+
+- (void) skip:(NSUInteger)bytes;
 
 - (UInt8) decodeUInt8;
 - (SInt8) decodeSInt8;
@@ -27,6 +31,10 @@
 - (UInt64) decodeUInt64;
 - (SInt64) decodeSInt64;
 
+- (NSString *) decodePString;
+//Length does not include the length byte
+- (NSString *) decodePStringOfLength:(UInt8)length;
+
 - (void *) decodeStructWithLength:(size_t)length;
-- (id) decodeObjectOfClass:(Class)class atIndex:(NSUInteger)index;
+- (id) decodeObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 @end
