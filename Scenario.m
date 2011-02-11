@@ -10,6 +10,7 @@
 #import "Archivers.h"
 #import "StringTable.h"
 #import "NSString+LuaCoding.h"
+#import "NSString+ResCoding(Text).h"
 #import "XSPoint.h"
 
 #import "BriefPoint.h"
@@ -195,11 +196,20 @@
 //NSMutableArray *conditions;
 //NSMutableArray *briefings;
         [coder skip:2];//initial objects start
-        [coder skip:2];//prologue
+
+        short prologueId = [coder decodeSInt16];
+        if (prologueId > 0) {
+            [prologue release];
+            prologue = [[coder decodeObjectOfClass:[NSString class] atIndex:prologueId] retain];
+        }
         [coder skip:2];//initial objects count
         songId = [coder decodeSInt16];
         [coder skip:2];//conditions start
-        [coder skip:2];//epilogue id
+        short epilogueId = [coder decodeSInt16];
+        if (epilogueId > 0) {
+            [epilogue release];
+            epilogue = [[coder decodeObjectOfClass:[NSString class] atIndex:epilogueId] retain];
+        }
         [coder skip:2];//conditions count
         starmap.x = (CGFloat)[coder decodeSInt16];
         [coder skip:2];//briefings start
@@ -227,11 +237,6 @@
         short startTime_training = [coder decodeSInt16];
         startTime = 0x7FFF & startTime_training;
         isTraining = (0x8000 & startTime_training?YES:NO);
-
-//
-//NSMutableString *prologue;
-//NSMutableString *epilogue;
-//
     }
     return self;
 }
