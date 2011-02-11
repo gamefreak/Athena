@@ -57,9 +57,8 @@
     if ([type isEqual:@"Xsera Data"]) {
         data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName]] retain];
     } else if ([type isEqual:@"Ares Data"]) {
-        data = [[MainData alloc] init];
         ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
-        [coder registerClass:[StringTable class]];
+        data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
         [coder release];
     }
     return YES;
