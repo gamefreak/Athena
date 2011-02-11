@@ -6,7 +6,7 @@
 //  Copyright 2011 Scott McClaugherty. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "LuaCoding.h"
 
 @interface ActionRef : NSObject <LuaCoding> {
