@@ -8,12 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LuaCoding.h"
+#import "ResCoding.h"
 
 @class XSPoint;
 @class ScenarioPar;
 
-@interface Scenario : NSObject <LuaCoding> {
-//    NSInteger scenId;
+@interface Scenario : NSObject <LuaCoding, ResCoding> {
+    NSInteger scenarioId;
     NSString *name;
 
     NSUInteger netRaceFlags;
@@ -39,6 +40,8 @@
     NSInteger songId;
     NSString *movie;
 }
+@property (readwrite) NSInteger scenarioId;
+
 @property (readwrite, retain) NSString *name;
 @property (readonly) NSString *singleLineName;
 
@@ -64,10 +67,11 @@
 typedef enum {
     PlayerTypeSingle,
     PlayerTypeNet,
-    PlayerTypeCpu
+    PlayerTypeCpu,
+    PlayerTypeNull = -1
 } PlayerType;
 
-@interface ScenarioPlayer : NSObject <LuaCoding> {
+@interface ScenarioPlayer : NSObject <LuaCoding, ResCoding> {
     PlayerType type;
     NSInteger race;
     NSString *name;

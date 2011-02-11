@@ -52,7 +52,7 @@
 }
 
 - (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
-    NSLog(@"READ(%@)", type);
+    NSLog(@"Readind Data of type (%@)", type);
     [data release];
     if ([type isEqual:@"Xsera Data"]) {
         data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName]] retain];

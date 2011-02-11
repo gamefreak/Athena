@@ -135,9 +135,6 @@
     id seg = [stack lastObject];
     [seg readBytes:&out length:sizeof(UInt32)];
     return CFSwapInt32BigToHost(out);
-//    out = CFSwapInt32BigToHost(out);
-//    DLog(@"decodeUInt32: %u, %1$x", out);
-//    return out;
 }
 
 - (SInt32) decodeSInt32 {

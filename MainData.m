@@ -115,6 +115,19 @@ static NSArray *mainDataKeys;
         for (NSUInteger index = 0; index < count; index++) {
             [races addObject:[coder decodeObjectOfClass:[Race class] atIndex:index]];
         }
+
+        count = [coder countOfClass:[Scenario class]];
+        for (NSUInteger index = 0; index < count; index++) {
+            [scenarios addObject:[coder decodeObjectOfClass:[Scenario class] atIndex:index]];
+        }
+        [scenarios sortUsingComparator:^(id obj1, id obj2) {
+            if ([obj1 scenarioId] > [obj2 scenarioId]) {
+                return (NSComparisonResult) NSOrderedDescending;
+            } else if ([obj1 scenarioId] < [obj2 scenarioId]) {
+                return (NSComparisonResult) NSOrderedAscending;
+            }
+            return (NSComparisonResult)NSOrderedAscending;
+        }];
     }
     return self;
 }

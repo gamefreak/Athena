@@ -8,6 +8,7 @@
 
 #import "Scenario.h"
 #import "Archivers.h"
+#import "StringTable.h"
 #import "NSString+LuaCoding.h"
 #import "XSPoint.h"
 
@@ -16,7 +17,7 @@
 #import "Condition.h"
 
 @implementation Scenario
-@synthesize name, netRaceFlags;
+@synthesize name, netRaceFlags, scenarioId;
 @synthesize playerNum, players, scoreStrings;
 @synthesize initialObjects, conditions, briefings;
 @synthesize starmap, par, angle, startTime, isTraining;
@@ -24,7 +25,7 @@
 
 - (id) init {
     self = [super init];
-//    scenId = 0;
+    scenarioId = 0;
     name = @"Untitled";
 
     netRaceFlags = 0x00000000;///?
@@ -51,6 +52,23 @@
     movie = @"";
     return self;
 }
+
+- (void) dealloc {
+    [name release];
+    [players release];
+    [scoreStrings release];
+    [initialObjects release];
+    [conditions release];
+    [briefings release];
+    [starmap release];
+    [par release];
+    [prologue release];
+    [epilogue release];
+    [movie release];
+    [super dealloc];
+}
+
+//MARK: Lua Coding
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
@@ -147,21 +165,6 @@
     }
 }
 
-- (void) dealloc {
-    [name release];
-    [players release];
-    [scoreStrings release];
-    [initialObjects release];
-    [conditions release];
-    [briefings release];
-    [starmap release];
-    [par release];
-    [prologue release];
-    [epilogue release];
-    [movie release];
-    [super dealloc];
-}
-
 + (BOOL) isComposite {
     return YES;
 }
@@ -169,6 +172,90 @@
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
 }
+
+//MARK: Res Coding
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        netRaceFlags = [coder decodeSInt16];
+        playerNum = [coder decodeSInt16];
+        for (NSUInteger i = 0; i < playerNum; i++) {
+            [players addObject:[[[ScenarioPlayer alloc] initWithResArchiver:coder] autorelease]];
+        }
+        [coder skip:20u * (4-playerNum)];
+
+        short scoreStringsId = [coder decodeSInt16];
+        if (scoreStringsId > 0) {
+            [scoreStrings release];
+            scoreStrings = [[[coder decodeObjectOfClass:[StringTable class] atIndex:scoreStringsId] allStrings] retain];
+        }
+
+
+//NSMutableArray *initialObjects;
+//NSMutableArray *conditions;
+//NSMutableArray *briefings;
+        [coder skip:2];//initial objects start
+        [coder skip:2];//prologue
+        [coder skip:2];//initial objects count
+        songId = [coder decodeSInt16];
+        [coder skip:2];//conditions start
+        [coder skip:2];//epilogue id
+        [coder skip:2];//conditions count
+        starmap.x = (CGFloat)[coder decodeSInt16];
+        [coder skip:2];//briefings start
+        starmap.y = (CGFloat)[coder decodeSInt16];
+        angle = [coder decodeSInt8];
+        [coder skip:1];//briefings count
+        par.time = [coder decodeSInt16];
+        short movieId = [coder decodeSInt16];
+        if (movieId > -1) {
+            const NSUInteger movieStringTable = 4500;
+            [movie release];
+            movie = [[[coder decodeObjectOfClass:[StringTable class] atIndex:movieStringTable] stringAtIndex:movieId] retain];
+        }
+
+        par.kills = [coder decodeSInt16];
+        scenarioId = [coder decodeSInt16];
+
+        const NSUInteger stringNameTable = 4600;
+        [name release];
+        name = [[[coder decodeObjectOfClass:[StringTable class] atIndex:stringNameTable] stringAtIndex:scenarioId - 1] retain];
+
+        par.ratio = [coder decodeFixed];
+        par.losses = [coder decodeSInt16];
+
+        short startTime_training = [coder decodeSInt16];
+        startTime = 0x7FFF & startTime_training;
+        isTraining = (0x8000 & startTime_training?YES:NO);
+
+//
+//NSMutableString *prologue;
+//NSMutableString *epilogue;
+//
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {
+//
+//}
+
++ (ResType)resType {
+    return 'snro';
+}
+
++ (NSString *)typeKey {
+    return @"snro";
+}
+
++ (BOOL)isPacked {
+    return YES;
+}
+
++ (size_t)sizeOfResourceItem {
+    return 124;
+}
+
 
 @dynamic singleLineName;
 - (NSString *) singleLineName {
@@ -199,6 +286,11 @@
     return self;
 }
 
+- (void) dealloc {
+    [name release];
+    [super dealloc];
+}
+
 - (id) initAsSinglePlayer {
     self = [self init];
     type = PlayerTypeSingle;
@@ -214,8 +306,10 @@
         type = PlayerTypeNet;
     } else if ([typeString isEqual:@"cpu"]) {
         type = PlayerTypeCpu;
+    } else if ([typeString isEqual:@"null"]) {
+        type = PlayerTypeNull;
     }
-    
+
     race = [coder decodeIntegerForKey:@"race"];
     [name release];
     name = [[coder decodeStringForKey:@"name"] retain];
@@ -235,6 +329,9 @@
         case PlayerTypeCpu:
             [coder encodeString:@"cpu" forKey:@"type"];
             break;
+        case PlayerTypeNull:
+            [coder encodeString:@"null" forKey:@"type"];
+            break;
         default:
             @throw @"Invalid Player Type";
             break;
@@ -246,11 +343,6 @@
     [coder encodeInteger:netRaceFlags forKey:@"netRaceFlags"];
 }
 
-- (void) dealloc {
-    [name release];
-    [super dealloc];
-}
-
 + (BOOL) isComposite {
     return YES;
 }
@@ -258,6 +350,33 @@
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        type = [coder decodeSInt16];
+        if (type != PlayerTypeNull) {
+            race = [coder decodeSInt16];
+            short stringSet = [coder decodeSInt16];
+            short stringId = [coder decodeSInt16];
+            if (stringSet != -1 || stringId != -1) {
+                [name release];
+                name = [[[coder decodeObjectOfClass:[StringTable class] atIndex:stringSet] stringAtIndex:stringId] retain];
+            }
+            [coder skip:4];
+            earningPower = [coder decodeFixed];
+            netRaceFlags = [coder decodeSInt16];
+            [coder skip:2];
+        } else {
+            [coder skip:18];
+        }
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {
+//
+//}
 @end
 
 @implementation ScenarioPar
