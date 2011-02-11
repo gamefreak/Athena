@@ -191,7 +191,6 @@ static void stackDump (lua_State *L) {
 
 - (BOOL) decodeBoolForKey:(NSString *)key {
     [self getKey:key];
-    assert(lua_isboolean(L, -1));
     BOOL ret = lua_toboolean(L, -1);
     [self pop];
     return ret;
