@@ -22,6 +22,8 @@
 
 - (void) skip:(NSUInteger)bytes;
 - (NSUInteger) currentIndex;
+- (NSUInteger) currentSize;
+- (NSData *)rawData;
 
 - (UInt8) decodeUInt8;
 - (SInt8) decodeSInt8;
@@ -37,7 +39,5 @@
 - (NSString *) decodePString;
 //Length does not include the length byte
 - (NSString *) decodePStringOfLength:(UInt8)length;
-
-- (void *) decodeStructWithLength:(size_t)length;
 - (id) decodeObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 @end

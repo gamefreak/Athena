@@ -97,12 +97,20 @@
     return [table count];
 }
 
+- (void) skip:(NSUInteger)bytes {
+    [[stack lastObject] advance:bytes];
+}
+
 - (NSUInteger) currentIndex {
     return [[stack lastObject] index];
 }
 
-- (void) skip:(NSUInteger)bytes {
-    [[stack lastObject] advance:bytes];
+- (NSUInteger) currentSize {
+    return [[[stack lastObject] data] length];
+}
+
+- (NSData *)rawData {
+    return [[stack lastObject] data];
 }
 
 - (UInt8) decodeUInt8 {

@@ -8,15 +8,13 @@
 
 #import "ResSegment.h"
 
-
 @implementation ResSegment
 @synthesize data, object, dataClass, cursor, index, loaded;
 
-- (id) initWithClass:(Class)_class data:(NSData *)_data index:(NSUInteger)_index{
+- (id) initWithClass:(Class<ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index{
     self = [super init];
     if (self) {
         data = [_data retain];
-        object = [_class alloc];
         dataClass = _class;
         cursor = 0;
         loaded = NO;
@@ -27,7 +25,7 @@
 
 - (id) loadObjectWithCoder:(ResUnarchiver *)coder {
     if (!loaded) {
-        [object initWithResArchiver:coder];
+        object = [[dataClass alloc] initWithResArchiver:coder];
         loaded = YES;
     }
     return object;
