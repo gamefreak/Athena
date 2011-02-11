@@ -66,4 +66,30 @@ static NSArray *attributeBlobKeys;
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
 }
+
+- (id) initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        NSArray *keys = [[self class] keys];
+        UInt32 hex = [coder decodeUInt32];
+        int position = 0;
+        for (id key in keys) {
+            [self setValue:[NSNumber numberWithBool:hex & 1 << position++] forKey:key];
+        }
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+//    UInt32 hex = 0x00000000;
+//    int ctr = 0;
+//    NSArray *keys = [[self class] keys];
+//    for (id key in keys) {
+//        if (key == [NSNull null]) {
+//            continue;
+//        }
+//        hex |= 1 << ctr++;
+//    }
+//    [coder encodeUInt32:hex];
+}
 @end

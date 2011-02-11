@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LuaCoding.h"
+#import "ResCoding.h"
 
 //Semi-Abstract Class
-@interface FlagBlob : NSObject <LuaCoding> {}
+@interface FlagBlob : NSObject <LuaCoding, ResCoding> {}
 + (NSArray *)keys;
 @end
