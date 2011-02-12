@@ -101,6 +101,10 @@
     [[stack lastObject] advance:bytes];
 }
 
+- (void) readBytes:(void *)buffer length:(NSUInteger)length {
+    [[stack lastObject] readBytes:buffer length:length];
+}
+
 - (NSUInteger) currentIndex {
     return [[stack lastObject] index];
 }
