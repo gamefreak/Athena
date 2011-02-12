@@ -194,7 +194,6 @@
 
 //NSMutableArray *initialObjects;
 //NSMutableArray *conditions;
-//NSMutableArray *briefings;
         [coder skip:2];//initial objects start
 
         short prologueId = [coder decodeSInt16];
@@ -212,10 +211,15 @@
         }
         [coder skip:2];//conditions count
         starmap.x = (CGFloat)[coder decodeSInt16];
-        [coder skip:2];//briefings start
+        short briefingStart = [coder decodeSInt16];
         starmap.y = (CGFloat)[coder decodeSInt16];
         angle = [coder decodeSInt8];
-        [coder skip:1];//briefings count
+        short briefingCount = [coder decodeSInt16];
+
+        for (int k = 0; k < briefingCount; k++) {
+            [briefings addObject:[coder decodeObjectOfClass:[BriefPoint class]  atIndex:briefingStart + k]];
+        }
+
         par.time = [coder decodeSInt16];
         short movieId = [coder decodeSInt16];
         if (movieId > -1) {

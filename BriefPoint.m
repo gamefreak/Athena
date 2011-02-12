@@ -7,6 +7,7 @@
 //
 
 #import "BriefPoint.h"
+#import "StringTable.h"
 #import "Archivers.h"
 #import "XSPoint.h"
 
@@ -24,6 +25,15 @@
     range = [[XSPoint alloc] init];
     return self;
 }
+
+- (void) dealloc {
+    [title release];
+    [range release];
+    [content retain];
+    [super dealloc];
+}
+
+//MARK: Lua Coding
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
@@ -79,18 +89,58 @@
     [coder encodeString:content forKey:@"content"];
 }
 
-- (void) dealloc {
-    [title release];
-    [range release];
-    [content retain];
-    [super dealloc];
-}
-
 + (BOOL) isComposite {
     return YES;
 }
 
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
+}
+
+//MARK: Res Coding
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        type = [coder decodeSInt8];
+        [coder skip:1];
+        if (type == BriefTypeObject) {
+            objectId = [coder decodeSInt32];
+            isVisible = (BOOL)[coder decodeSInt8];
+            [coder skip:3];
+        } else {
+            [coder skip:8];
+        }
+
+        range.y = [coder decodeSInt32];
+        range.x = [coder decodeSInt32];
+        short stringGroup = [coder decodeSInt16];
+        short stringId = [coder decodeSInt16];
+        [title release];
+        title = [[[coder decodeObjectOfClass:[StringTable class] atIndex:stringGroup] stringAtIndex:stringId - 1] retain];
+        short contentId = [coder decodeSInt16];
+        [content release];
+        content = [[coder decodeObjectOfClass:[NSString class] atIndex:contentId] retain];
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {
+//}
+
++ (ResType)resType {
+    return 'snbf';
+}
+
++ (NSString *)typeKey {
+    return @"snbf";
+}
+
++ (BOOL)isPacked {
+    return YES;
+}
+
++ (size_t)sizeOfResourceItem {
+    return 24;
 }
 @end
