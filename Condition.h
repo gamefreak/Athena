@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LuaCoding.h"
+#import "ResCoding.h"
 #import "FlagBlob.h"
 
 typedef enum {
@@ -41,7 +42,7 @@ typedef enum {
 @class XSPoint;
 @class Counter, ConditionFlags;
 
-@interface Condition : NSObject <LuaCoding> {
+@interface Condition : NSObject <LuaCoding, ResCoding> {
     ConditionType type;
     XSPoint *location;
     Counter *counter;
@@ -66,7 +67,7 @@ typedef enum {
 @end
 
 
-@interface Counter : NSObject <LuaCoding> {
+@interface Counter : NSObject <LuaCoding, ResCoding> {
     NSInteger player, counterId, amount;
 }
 @property (readwrite, assign) NSInteger player;

@@ -30,6 +30,17 @@
     return self;
 }
 
+- (void) dealloc {
+    [location release];
+    [counter release];
+    [ddata release];
+    [actions release];
+    [flags release];
+    [super dealloc];
+}
+
+//MARK: Lua Coding
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     type = [Condition typeForString:[coder decodeStringForKey:@"type"]];
@@ -163,15 +174,6 @@
     [coder encodeArray:actions forKey:@"actions" zeroIndexed:YES];
 
     [coder encodeObject:flags forKey:@"flags"];
-}
-
-- (void) dealloc {
-    [location release];
-    [counter release];
-    [ddata release];
-    [actions release];
-    [flags release];
-    [super dealloc];
 }
 
 + (BOOL) isComposite {
@@ -320,6 +322,94 @@
             break;
     }
 }
+
+//Res Coding
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        type = [coder decodeUInt8];
+        [coder skip:1u];
+        switch (type) {
+            case LocationCondition:
+                location.x = [coder decodeSInt32];
+                location.y = [coder decodeSInt32];
+                [coder skip:4u];
+                break;
+            case CounterCondition:
+            case CounterGreaterCondition:
+            case CounterNotCondition:
+                [counter initWithResArchiver:coder];
+                break;
+            case ProximityCondition:
+                intValue = sqrt([coder decodeUInt32]);
+                [coder skip:8u];
+                break;
+            case DistanceGreaterCondition:
+                intValue = [coder decodeUInt32];
+                [coder skip:8u];
+                break;
+            case OwnerCondition:
+            case DestructionCondition:
+            case AgeCondition:
+            case TimeCondition:
+            case VelocityLessThanOrEqualCondition:
+            case NoShipsLeftCondition:
+            case ZoomLevelCondition:
+                intValue = [coder decodeSInt32];
+                [coder skip:8u];
+                break;
+            case CurrentMessageCondition:
+                [ddata setObject:[NSNumber numberWithInt:[coder decodeSInt32]] forKey:@"id"];
+                [ddata setObject:[NSNumber numberWithInt:[coder decodeSInt32]] forKey:@"page"];
+                [coder skip:4u];
+                break;
+            case CurrentComputerSelectionCondition:
+                [ddata setObject:[NSNumber numberWithInt:[coder decodeSInt32]] forKey:@"screen"];
+                [ddata setObject:[NSNumber numberWithInt:[coder decodeSInt32]] forKey:@"line"];
+                [coder skip:4u];
+                break;
+            default:
+            case NoCondition:
+            case RandomCondition:
+            case HalfHealthCondition:
+            case IsAuxiliaryCondition:
+            case IsTargetCondition:
+            case AutopilotCondition:
+            case NotAutopilotCondition:
+            case ObjectBeingBuiltCondition:
+            case DirectIsSubjectTargetCondition:
+            case SubjectIsPlayerCondition:
+                [coder skip:12u];
+                break;
+        }
+        subject = [coder decodeSInt32];
+        direct = [coder decodeSInt32];
+//    NSMutableArray *actions;
+        [coder skip:4u];//actions start
+        [coder skip:4u];//action count
+        [flags initWithResArchiver:coder];
+    }
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+
++ (ResType)resType {
+    return 'sncd';
+}
+
++ (NSString *)typeKey {
+    return @"sncd";
+}
+
++ (size_t)sizeOfResourceItem {
+    return 38;
+}
+
++ (BOOL)isPacked {
+    return YES;
+}
+
 @end
 
 @implementation Counter
@@ -354,6 +444,14 @@
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
 }
+
+- (id) initWithResArchiver:(ResUnarchiver *)coder {
+    player = [coder decodeSInt32];
+    counterId = [coder decodeSInt32];
+    amount = [coder decodeSInt32];
+}
+
+//- (void) encodeResWithCoder:(ResArchiver *)coder {}
 @end
 
 static NSArray *conditionFlagKeys;

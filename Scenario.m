@@ -193,7 +193,6 @@
 
 
 //NSMutableArray *initialObjects;
-//NSMutableArray *conditions;
         [coder skip:2];//initial objects start
 
         short prologueId = [coder decodeSInt16];
@@ -203,13 +202,16 @@
         }
         [coder skip:2];//initial objects count
         songId = [coder decodeSInt16];
-        [coder skip:2];//conditions start
+        short conditionsStart = [coder decodeSInt16];
         short epilogueId = [coder decodeSInt16];
         if (epilogueId > 0) {
             [epilogue release];
             epilogue = [[coder decodeObjectOfClass:[NSString class] atIndex:epilogueId] retain];
         }
-        [coder skip:2];//conditions count
+        short conditionsCount = [coder decodeSInt16];
+        for (int k = 0; k < conditionsCount; k++) {
+            [conditions addObject:[coder decodeObjectOfClass:[Condition class] atIndex:conditionsStart + k]];
+        }
         starmap.x = (CGFloat)[coder decodeSInt16];
         short briefingStart = [coder decodeSInt16];
         starmap.y = (CGFloat)[coder decodeSInt16];
