@@ -214,7 +214,7 @@
         short briefingStart = [coder decodeSInt16];
         starmap.y = (CGFloat)[coder decodeSInt16];
         angle = [coder decodeSInt8];
-        short briefingCount = [coder decodeSInt16];
+        short briefingCount = [coder decodeSInt8];
 
         for (int k = 0; k < briefingCount; k++) {
             [briefings addObject:[coder decodeObjectOfClass:[BriefPoint class]  atIndex:briefingStart + k]];
