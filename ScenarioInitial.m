@@ -11,6 +11,7 @@
 #import "XSPoint.h"
 #import "XSInteger.h"
 #import "XSRange.h"
+#import "StringTable.h"
 
 @implementation ScenarioInitial
 @synthesize type, owner, position, earning;
@@ -44,6 +45,18 @@
     attributes = [[ScenarioInitialAttributes alloc] init];
     return self;
 }
+
+
+- (void) dealloc {
+    [position release];
+    [builds release];
+    [nameOverride release];
+    [attributes release];
+    [base release];
+    [super dealloc];
+}
+
+//MARK: Lua Coding
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     type = [coder decodeIntegerForKey:@"type"];
@@ -110,21 +123,63 @@
     [coder encodeObject:attributes forKey:@"attributes"];
 }
 
-- (void) dealloc {
-    [position release];
-    [builds release];
-    [nameOverride release];
-    [attributes release];
-    [base release];
-    [super dealloc];
-}
-
 + (BOOL) isComposite {
     return YES;
 }
 
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
+}
+
+//MARK: Res Coding
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        type = [coder decodeSInt32];
+        owner = [coder decodeSInt32];
+        [coder skip:8u];
+        position.x = [coder decodeSInt32];
+        position.y = [coder decodeSInt32];
+        earning = [coder decodeFixed];
+        distanceRange = [coder decodeSInt32];
+        rotation = [coder decodeSInt32];
+        rotationRange = [coder decodeSInt32];
+        for (NSUInteger i = 0; i <= 11; i++) {
+            NSInteger tmp = [coder decodeSInt32];
+            if (tmp >= 1) {
+                [builds addObject:[NSNumber numberWithInteger:tmp]];
+            }
+            initialDestination = [coder decodeSInt32];
+        }
+        int nameTable = [coder decodeSInt32];
+        int nameNumber = [coder decodeSInt32];
+        if ([coder hasObjectOfClass:[StringTable class] atIndex:nameTable]) {
+            [nameOverride release];
+            nameOverride = [[[coder decodeObjectOfClass:[StringTable class]
+                                                atIndex:nameTable] stringAtIndex:nameNumber - 1] retain];
+        }
+        [attributes initWithResArchiver:coder];
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+
++ (ResType)resType {
+    return 'snit';
+}
+
++ (NSString *)typeKey {
+    return @"snit";
+}
+
++ (BOOL)isPacked {
+    return YES;
+}
+
++ (size_t)sizeOfResourceItem {
+    return 108;
 }
 
 - (void) findBaseFromArray:(NSArray *)array {

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LuaCoding.h"
+#import "ResCoding.h"
 #import "FlagBlob.h"
 
 @class XSPoint, XSRange;
@@ -26,7 +27,7 @@
 @end
 
 
-@interface ScenarioInitial : NSObject <LuaCoding> {
+@interface ScenarioInitial : NSObject <LuaCoding, ResCoding> {
     NSInteger type;
     NSInteger owner;
     XSPoint *position;
