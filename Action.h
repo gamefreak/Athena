@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LuaCoding.h"
+#import "ResCoding.h"
 
 typedef enum {
     NoActionType,
@@ -36,7 +37,7 @@ typedef enum {
     AssumeInitialObjectActionType
 } ActionType;
 
-@interface Action : NSObject <LuaCoding> {
+@interface Action : NSObject <LuaCoding, ResCoding> {
     ActionType type;
     BOOL reflexive;
     NSUInteger inclusiveFilter, exclusiveFilter;
@@ -53,6 +54,7 @@ typedef enum {
 @property (readwrite, assign) NSInteger owner;
 @property (readwrite, assign) NSInteger delay;
 
++ (Class) classForType:(ActionType)type;
 + (ActionType) typeForString:(NSString *)type;
 + (NSString *) stringForType:(ActionType) type;
 @end

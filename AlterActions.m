@@ -174,6 +174,14 @@
     }
 }
 
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    alterType = [coder decodeUInt8];
+    isRelative = (BOOL)[coder decodeSInt8];
+    minimum = ID = value = [coder decodeSInt32];
+    range = [coder decodeSInt32];
+    [coder skip:14u];
+}
+
 + (ActionAlterType) alterTypeForString:(NSString *)type {
     if ([type isEqual:@"health"]) {
         return AlterHealth;

@@ -9,7 +9,10 @@
 #import "SubActions.h"
 #import "Archivers.h"
 
+//IMPORTANT! DO NOT ADD [super init] TO the -initWithResArchiver METHODS!
+
 @implementation NoAction
+- (id)initWithResArchiver:(ResUnarchiver *)coder {};//safety
 @end
 
 @implementation CreateObjectAction
@@ -46,6 +49,17 @@
     [coder encodeBool:velocityRelative forKey:@"velocityRelative"];
     [coder encodeBool:directionRelative forKey:@"directionRelative"];
     [coder encodeInteger:distanceRange forKey:@"distanceRange"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    baseType = [coder decodeSInt32];
+    min = [coder decodeSInt32];
+    range = [coder decodeSInt32];
+    velocityRelative = (BOOL)[coder decodeSInt8];
+    directionRelative = (BOOL)[coder decodeSInt8];
+    distanceRange = [coder decodeSInt32];
+    [coder skip:6u];
+    return self;
 }
 @end
 
@@ -88,6 +102,19 @@
     [coder encodeInteger:soundId forKey:@"soundId"];
     [coder encodeInteger:soundIdRange forKey:@"soundIdRange"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    priority = [coder decodeUInt8];
+    [coder skip:1u];
+    persistence = [coder decodeSInt32];
+    isAbsolute = (BOOL)[coder decodeSInt8];
+    [coder skip:1u];
+    volume = [coder decodeSInt32];
+    volumeRange = [coder decodeSInt32];
+    soundId = [coder decodeSInt32];
+    soundIdRange = [coder decodeSInt32];
+    return self;
+}
 @end
 
 @implementation MakeSparksAction
@@ -118,6 +145,15 @@
     [coder encodeInteger:velocityRange forKey:@"velocityRange"];
     [coder encodeInteger:color forKey:@"color"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    count = [coder decodeSInt32];
+    velocity = [coder decodeSInt32];
+    velocityRange = [coder decodeSInt32];
+    color = [coder decodeUInt8];
+    [coder skip:11u];
+    return self;
+}
 @end
 
 @implementation ReleaseEnergyAction
@@ -138,6 +174,12 @@
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
     [coder encodeFloat:percent forKey:@"percent"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    percent = [coder decodeFixed];
+    [coder skip:20u];
+    return self;
 }
 @end
 
@@ -160,6 +202,12 @@
     [super encodeLuaWithCoder:coder];
     [coder encodeInteger:speed forKey:@"speed"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    speed = [coder decodeSInt32];
+    [coder skip:20u];
+    return self;
+}
 @end
 
 @implementation EnterWarpAction
@@ -180,6 +228,12 @@
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
     [coder encodeInteger:warpSpeed forKey:@"warpSpeed"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    warpSpeed = [coder decodeSInt32];
+    [coder skip:20u];
+    return self;
 }
 @end
 
@@ -204,6 +258,13 @@
     [super encodeLuaWithCoder:coder];
     [coder encodeInteger:ID forKey:@"id"];
     [coder encodeInteger:page forKey:@"page"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    ID = [coder decodeSInt16];
+    page = [coder decodeSInt16];
+    [coder skip:20u];
+    return self;
 }
 @end
 
@@ -232,6 +293,14 @@
     [coder encodeInteger:score forKey:@"score"];
     [coder encodeInteger:amount forKey:@"amount"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    player = [coder decodeSInt32];
+    score = [coder decodeSInt32];
+    amount = [coder decodeSInt32];
+    [coder skip:12u];
+    return self;
+}
 @end
 
 @implementation DeclareWinnerAction
@@ -245,6 +314,10 @@
     return self;
 }
 
+- (void) dealloc {
+    [text release];
+    [super dealloc];
+}
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
     player = [coder decodeIntegerForKey:@"player"];
@@ -262,9 +335,12 @@
     [coder encodeString:text forKey:@"text"];
 }
 
-- (void) dealloc {
-    [text release];
-    [super dealloc];
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    player = [coder decodeSInt32];
+    nextLevel = [coder decodeSInt32];
+    text = [[NSNumber alloc] initWithInt:[coder decodeSInt32]];
+    [coder skip:12u];
+    return self;
 }
 @end
 
@@ -312,18 +388,40 @@
             break;
     }
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    how = [coder decodeSInt8];
+    [coder skip:23u];
+    return self;
+}
 @end
 
 @implementation SetDestinationAction
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    [coder skip:24u];
+    return self;
+}
 @end
 
 @implementation ActivateSpecialAction
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    [coder skip:24u];
+    return self;
+}
 @end
 
 @implementation ActivatePulseAction
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    [coder skip:24u];
+    return self;
+}
 @end
 
 @implementation ActivateBeamAction
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    [coder skip:24u];
+    return self;
+}
 @end
 
 @implementation ColorFlashAction
@@ -351,12 +449,28 @@
     [coder encodeInteger:color forKey:@"color"];
     [coder encodeInteger:shade forKey:@"shade"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    duration = [coder decodeSInt32];
+    color = [coder decodeUInt8];
+    shade = [coder decodeUInt8];
+    [coder skip:18u];
+    return self;
+}
 @end
 
 @implementation CreateObjectSetDestinationAction
+//- (id)initWithResArchiver:(ResUnarchiver *)coder {
+//    [coder skip:24u];
+//    return self;
+//}
 @end
 
 @implementation NilTargetAction
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    [coder skip:24u];
+    return self;
+}
 @end
 
 @implementation DisableKeysAction
@@ -377,6 +491,12 @@
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
     [coder encodeInteger:keyMask forKey:@"keyMask"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    keyMask = [coder decodeUInt32];
+    [coder skip:20u];
+    return self;
 }
 @end
 
@@ -402,6 +522,12 @@
     [super encodeLuaWithCoder:coder];
     [coder encodeInteger:zoomLevel forKey:@"value"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    zoomLevel = [coder decodeUInt32];
+    [coder skip:20u];
+    return self;
+}
 @end
 
 @implementation ComputerSelectAction
@@ -426,6 +552,12 @@
     [coder encodeInteger:screen forKey:@"screen"];
     [coder encodeInteger:line forKey:@"line"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    screen = [coder decodeSInt32];
+    line = [coder decodeSInt32];
+    [coder skip:16u];
+}
 @end
 
 @implementation AssumeInitialObjectAction
@@ -446,6 +578,12 @@
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
     [coder encodeInteger:ID forKey:@"id"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    ID = [coder decodeUInt32];
+    [coder skip:20u];
+    return self;
 }
 @end
 

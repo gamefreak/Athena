@@ -385,9 +385,12 @@
         }
         subject = [coder decodeSInt32];
         direct = [coder decodeSInt32];
-//    NSMutableArray *actions;
-        [coder skip:4u];//actions start
-        [coder skip:4u];//action count
+
+        int actionsStart = [coder decodeSInt32];
+        int actionsCount = [coder decodeSInt32];
+        for (int k = 0; k < actionsCount; k++) {
+            [actions addObject:[coder decodeObjectOfClass:[Action class] atIndex:actionsStart + k]];
+        }
         [flags initWithResArchiver:coder];
     }
 }

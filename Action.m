@@ -26,6 +26,12 @@
     return self;
 }
 
+- (void) dealloc {
+    [super dealloc];
+}
+
+//MARK: Lua Coding
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     type = [Action typeForString:[coder decodeStringForKey:@"type"]];
@@ -54,16 +60,56 @@
     [coder encodeInteger:delay forKey:@"delay"];
 }
 
-- (void) dealloc {
-    [super dealloc];
-}
-
 + (BOOL) isComposite {
     return YES;
 }
 
+//MARK: Res Coding
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    char type_ = [coder decodeSInt8];
+    [self autorelease];
+    //This is crazy, I can make an object change it's own class!
+    //Remember kids, don't try this at home.
+    self = [[[[self class] classForType:type_] alloc] init];
+    if (self) {
+        type = type_;
+        reflexive = (BOOL)[coder decodeSInt8];
+        inclusiveFilter = [coder decodeUInt32];
+        exclusiveFilter = [coder decodeUInt32];
+        owner = [coder decodeSInt16];
+        delay = [coder decodeSInt32];
+        subjectOverride = [coder decodeSInt16];
+        directOverride = [coder decodeSInt16];
+        [coder skip:4u];
+        self = [self initWithResArchiver:coder];
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+
++ (ResType)resType {
+    return 'obac';
+}
+
++ (NSString *)typeKey {
+    return @"obac";
+}
+
++ (BOOL)isPacked {
+    return YES;
+}
+
++ (size_t)sizeOfResourceItem {
+    return 48;
+}
+
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
-    ActionType type = [self typeForString:[coder decodeStringForKey:@"type"]];
+    return  [self classForType:[self typeForString:[coder decodeStringForKey:@"type"]]];
+}
+
++ (Class) classForType:(ActionType)type {
     switch (type) {
         case NoActionType:
             return [NoAction class];
