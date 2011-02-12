@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "LuaCoding.h"
+#import "ResCoding.h"
 
-@interface ActionRef : NSObject <LuaCoding> {
+@interface ActionRef : NSObject <LuaCoding, ResCoding> {
+    NSInteger first, count;
     NSMutableArray *actions;
 }
 @property (readwrite, retain) NSMutableArray *actions;

@@ -54,6 +54,20 @@
     [coder encodeFloat:turnRate forKey:@"turnRate"];
     [coder encodeFloat:turnAcceleration forKey:@"turnAcceleration"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        offset = [coder decodeSInt32];
+        resolution = [coder decodeSInt32];
+        turnRate = [coder decodeFixed];
+        turnAcceleration = [coder decodeFixed];
+        [coder skip:16u];
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
 @end
 
 @implementation AnimationData
@@ -96,6 +110,23 @@
     [coder encodeInteger:shape forKey:@"shape"];
     [coder encodeInteger:shapeRange forKey:@"shapeRange"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        firstShape = [coder decodeSInt32];
+        lastShape = [coder decodeSInt32];
+        direction = [coder decodeSInt32];
+        directionRange = [coder decodeSInt32];
+        speed = [coder decodeSInt32];
+        speedRange = [coder decodeSInt32];
+        shape = [coder decodeSInt32];
+        shapeRange = [coder decodeSInt32];
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
 @end
 
 @implementation BeamData
@@ -157,6 +188,40 @@
     [coder encodeInteger:accuracy forKey:@"accuracy"];
     [coder encodeFloat:range forKey:@"range"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        color = [coder decodeUInt8];
+        char bt = [coder decodeUInt8];
+        switch (bt) {
+            case 0:
+                type = BeamTypeKinetic;
+                break;
+            case 1:
+                type = BeamTypeDirectStatic;
+                break;
+            case 2:
+                type = BeamTypeRelativeStatic;
+                break;
+            case 3:
+                type = BeamTypeDirectBolt;
+                break;
+            case 4:
+                type = BeamTypeRelativeBolt;
+                break;
+            default:
+                @throw [NSString stringWithFormat:@"Invalid beam type (%hhx)", bt];
+                break;
+        }
+        accuracy = [coder decodeSInt32];
+        range = sqrt([coder decodeSInt32]);
+        [coder skip:22u];
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
 @end
 
 @implementation DeviceData
@@ -165,10 +230,10 @@
 
 - (id) init {
     self = [super init];
-    uses = [[NSMutableDictionary alloc] initWithCapacity:3];
-    [uses setObject:[XSBool no] forKey:@"transportation"];
-    [uses setObject:[XSBool no] forKey:@"attacking"];
-    [uses setObject:[XSBool no] forKey:@"defence"];
+    uses = [[DeviceUses alloc] init];
+    uses.transportation = YES;
+    uses.attacking = YES;
+    uses.defence = YES;
 
     energyCost = 0;
     reload = 1;//Need better default
@@ -179,28 +244,29 @@
     return self;
 }
 
+- (void) dealloc {
+    [uses release];
+    [super dealloc];
+}
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    [uses setObject:[XSBool boolWithBool:[coder decodeBoolForKeyPath:@"uses.transportation"]]
-             forKey:@"transportation"];
+    if (self) {
+        [uses release];
+        uses = [[coder decodeObjectOfClass:[DeviceUses class] forKey:@"uses"] retain];
 
-    [uses setObject:[XSBool boolWithBool:[coder decodeBoolForKeyPath:@"uses.attacking"]]
-             forKey:@"attacking"];
-
-    [uses setObject:[XSBool boolWithBool:[coder decodeBoolForKeyPath:@"uses.defence"]]
-             forKey:@"defence"];
-    
-    energyCost = [coder decodeIntegerForKey:@"energyCost"];
-    reload = [coder decodeIntegerForKey:@"reload"];
-    ammo = [coder decodeIntegerForKey:@"ammo"];
-    range = [coder decodeIntegerForKey:@"range"];
-    inverseSpeed = [coder decodeIntegerForKey:@"inverseSpeed"];
-    restockCost = [coder decodeIntegerForKey:@"restockCost"];
+        energyCost = [coder decodeIntegerForKey:@"energyCost"];
+        reload = [coder decodeIntegerForKey:@"reload"];
+        ammo = [coder decodeIntegerForKey:@"ammo"];
+        range = [coder decodeIntegerForKey:@"range"];
+        inverseSpeed = [coder decodeIntegerForKey:@"inverseSpeed"];
+        restockCost = [coder decodeIntegerForKey:@"restockCost"];
+    }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeDictionary:uses forKey:@"uses" asArray:NO];
+    [coder encodeObject:uses forKey:@"uses"];
     [coder encodeInteger:energyCost forKey:@"energyCost"];
     [coder encodeInteger:reload forKey:@"reload"];
     [coder encodeInteger:ammo forKey:@"ammo"];
@@ -209,9 +275,41 @@
     [coder encodeInteger:restockCost forKey:@"restockCost"];
 } 
 
-- (void) dealloc {
-    [uses release];
-    [super dealloc];
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        [uses initWithResArchiver:coder];
+        energyCost = [coder decodeSInt32];
+        reload = [coder decodeSInt32];
+        ammo = [coder decodeSInt32];
+        range = [coder decodeSInt32];
+        inverseSpeed = [coder decodeSInt32];
+        restockCost = [coder decodeSInt32];
+        [coder skip:4u];
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+@end
+
+static NSArray *deviceUseKeys;
+@implementation DeviceUses
+@synthesize transportation, attacking, defence;
+
++ (NSArray *) keys {
+    if (deviceUseKeys == nil) {
+        deviceUseKeys = [[NSArray alloc] initWithObjects:@"transportation", @"attacking", @"defence", [NSNull null],
+                         [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+                         [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+                         [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+                         [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+                         [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+                         [NSNull null], [NSNull null], [NSNull null], [NSNull null],
+                         [NSNull null], [NSNull null], [NSNull null], [NSNull null], nil];
+        
+    }
+    return deviceUseKeys;
 }
 @end
 

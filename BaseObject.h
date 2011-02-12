@@ -11,17 +11,20 @@
 #import "ActionRefs.h"
 #import "Color.h"
 #import "FrameData.h"
+#import "LuaCoding.h"
+#import "ResCoding.h"
+#import "StringTable.h"
 
 typedef enum {
-    IconShapeNone,//SIGH
-    IconShapeSquare,
-    IconShapeTriangle,
-    IconShapeDiamond,
-    IconShapePlus,
-    IconShapeFramedSquare
+    IconShapeSquare = 0x0,
+    IconShapeTriangle = 0x1,
+    IconShapeDiamond = 0x2,
+    IconShapePlus = 0x3,
+    IconShapeFramedSquare = 0x4,
+    IconShapeNone = 0xf //SIGH
 } IconShape;
 
-@interface Weapon : NSObject <LuaCoding> {
+@interface Weapon : NSObject <LuaCoding, ResCoding> {
     NSInteger ID;//Uppercase because objective-c uses 'id' as a keyword.
     NSInteger positionCount;
     NSMutableArray *positions;
@@ -29,11 +32,14 @@ typedef enum {
 @property (readwrite, assign) NSInteger ID;
 @property (readwrite, assign) NSInteger positionCount;
 @property (readwrite, retain) NSMutableArray *positions;
+
+- (id) initWithResArchiver:(ResUnarchiver *)coder id:(NSInteger)id count:(NSInteger)count;
+
 + (id) weapon;
 @end
 
 //SOOOOO many variables 0_0
-@interface BaseObject : NSObject <LuaCoding> {
+@interface BaseObject : NSObject <LuaCoding, ResCoding> {
     NSString *name;
     NSString *shortName;
     NSString *notes;

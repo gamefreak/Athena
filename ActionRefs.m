@@ -19,6 +19,11 @@
     return self;
 }
 
+- (void) dealloc {
+    [actions release];
+    [super dealloc];
+}
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     [actions setArray:[coder decodeArrayOfClass:[Action class] forKey:@"seq" zeroIndexed:YES]];
@@ -41,10 +46,19 @@
     return self;
 }
 
-- (void) dealloc {
-    [actions release];
-    [super dealloc];
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        first  = [coder decodeSInt32];
+        count = [coder decodeSInt32];
+        for (int k = 0; k < count; k++) {
+            [actions addObject:[coder decodeObjectOfClass:[Action class] atIndex:first + k]];
+        }
+    }
+    return self;
 }
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
 @end
 
 @implementation DestroyActionRef
@@ -66,6 +80,17 @@
     [super encodeLuaWithCoder:coder];
     [coder encodeBool:dontDestroyOnDeath forKey:@"dontDieOnDeath"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        dontDestroyOnDeath = (0x80000000&count?YES:NO);
+        count &= 0x7fffffff;
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
 @end
 
 @implementation ActivateActionRef
@@ -80,8 +105,10 @@
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    interval = [coder decodeIntegerForKey:@"interval"];
-    intervalRange = [coder decodeIntegerForKey:@"intervalRange"];
+    if (self) {
+        interval = [coder decodeIntegerForKey:@"interval"];
+        intervalRange = [coder decodeIntegerForKey:@"intervalRange"];
+    }
     return self;
 }
 
@@ -90,4 +117,16 @@
     [coder encodeInteger:interval forKey:@"interval"];
     [coder encodeInteger:intervalRange forKey:@"intervalRange"];
 }
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        interval = (0xff000000 & count) >> 24;
+        intervalRange = (0x00ff0000 & count) >> 16;
+        count &= 0x0000ffff;
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
 @end

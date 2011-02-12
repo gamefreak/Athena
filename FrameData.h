@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "Color.h"
+#import "FlagBlob.h"
 #import "LuaCoding.h"
+#import "ResCoding.h"
 
-@interface FrameData : NSObject <LuaCoding> {} @end
+@interface FrameData : NSObject <LuaCoding, ResCoding> {} @end
 
 @interface RotationData : FrameData {
     NSInteger offset;
@@ -60,8 +62,18 @@ typedef enum _ {
 @property (readwrite, assign) float range;
 @end
 
+@interface DeviceUses : FlagBlob {
+    BOOL transportation;
+    BOOL attacking;
+    BOOL defence;
+}
+@property (readwrite) BOOL transportation;
+@property (readwrite) BOOL attacking;
+@property (readwrite) BOOL defence;
+@end
+
 @interface DeviceData : FrameData {
-    NSMutableDictionary *uses;
+    DeviceUses *uses;
     NSInteger energyCost;
     NSInteger reload;
     NSInteger ammo;
@@ -69,7 +81,7 @@ typedef enum _ {
     NSInteger inverseSpeed;
     NSInteger restockCost;
 }
-@property (readwrite, retain) NSMutableDictionary *uses;
+@property (readwrite, retain) DeviceUses *uses;
 @property (readwrite, assign) NSInteger energyCost;
 @property (readwrite, assign) NSInteger reload;
 @property (readwrite, assign) NSInteger ammo;

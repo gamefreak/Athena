@@ -105,6 +105,24 @@
     return self;
 }
 
+- (void) dealloc {
+    [name release];
+    [shortName release];
+    [notes release];
+    [staticName release];
+    
+    [attributes release];
+    [buildFlags release];
+    [orderFlags release];
+    
+    [weapons release];
+    [actions release];
+    
+    [frame release];
+    [super dealloc];
+}
+
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     name = [[coder decodeStringForKey:@"name"] retain];
@@ -323,29 +341,152 @@
     [coder encodeInteger:portraitId forKey:@"portraitId"];
 }
 
-- (void) dealloc {
-    [name release];
-    [shortName release];
-    [notes release];
-    [staticName release];
-
-    [attributes release];
-    [buildFlags release];
-    [orderFlags release];
-
-    [weapons release];
-    [actions release];
-
-    [frame release];
-    [super dealloc];
-}
-
 + (BOOL) isComposite {
     return YES;
 }
 
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
+}
+
+//MARK: Res Coding
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        [attributes initWithResArchiver:coder];
+        classNumber = [coder decodeSInt32];
+        race = [coder decodeSInt32];
+        price = [coder decodeSInt32];
+
+        offence = [coder decodeFixed];
+        escortRank = [coder decodeSInt32];
+
+        maxVelocity = [coder decodeFixed];
+        warpSpeed = [coder decodeFixed];
+        warpOutDistance = [coder decodeUInt32];
+
+        initialVelocity = [coder decodeFixed];
+        initialVelocityRange = [coder decodeFixed];
+
+        mass = [coder decodeFixed];
+        if (mass == 0.0f) {
+            mass = 1.0f;
+        }
+        thrust = [coder decodeFixed];
+
+        health = [coder decodeSInt32];
+        energy = [coder decodeSInt32];
+        damage = [coder decodeSInt32];
+        
+        initialAge = [coder decodeSInt32];
+        initialAgeRange = [coder decodeSInt32];
+
+        scale = [coder decodeSInt32];
+        layer = [coder decodeSInt16];
+        spriteId = [coder decodeSInt16];
+        int iconData = [coder decodeUInt32];
+        iconSize = 0xf & iconData;
+        iconShape = (0xf0 & iconData) >> 8;
+        shieldColor = [coder decodeUInt8];
+        [coder skip:1u];
+
+        initialDirection = [coder decodeSInt32];
+        initialDirectionRange = [coder decodeSInt32];
+
+        int pulseId = [coder decodeSInt32];
+        int beamId = [coder decodeSInt32];
+        int specialId = [coder decodeSInt32];
+        int pulseCount = [coder decodeSInt32];
+        int beamCount = [coder decodeSInt32];
+        int specialCount = [coder decodeSInt32];
+        [[weapons objectForKey:@"pulse"]
+         initWithResArchiver:coder id:pulseId count:pulseCount];
+        [[weapons objectForKey:@"beam"]
+         initWithResArchiver:coder id:beamId count:beamCount];
+        [[weapons objectForKey:@"special"]
+         initWithResArchiver:coder id:specialId count:specialCount];
+
+        friendDefecit = [coder decodeFixed];
+        dangerThreshold = [coder decodeFixed];
+
+        [coder skip:4u];
+
+        arriveActionDistance = [coder decodeSInt32];
+
+        [[actions objectForKey:@"destroy"] initWithResArchiver:coder];
+        [[actions objectForKey:@"expire"] initWithResArchiver:coder];
+        [[actions objectForKey:@"create"] initWithResArchiver:coder];
+        [[actions objectForKey:@"collide"] initWithResArchiver:coder];
+        [[actions objectForKey:@"activate"] initWithResArchiver:coder];
+        [[actions objectForKey:@"arrive"] initWithResArchiver:coder];
+
+        [frame release];
+        if (attributes.shapeFromDirection) {
+            frame = [[RotationData alloc] initWithResArchiver:coder];
+        } else if (attributes.isSelfAnimated) {
+            frame = [[AnimationData alloc] initWithResArchiver:coder];
+        } else if (attributes.isBeam) {
+            frame = [[BeamData alloc] initWithResArchiver:coder];
+        } else if (attributes.isDestination) {
+            frame = [[DeviceData alloc] initWithResArchiver:coder];
+        } else {
+            @throw @"Invalid frame type.";
+        }
+        [buildFlags initWithResArchiver:coder];
+        [orderFlags initWithResArchiver:coder];
+
+        buildRatio = [coder decodeFixed];
+        buildTime = [coder decodeUInt32];
+
+        skillNum = [coder decodeUInt8];
+        skillDen = [coder decodeUInt8];
+        skillNumAdj = [coder decodeUInt8];
+        skillDenAdj = [coder decodeUInt8];
+
+        portraitId = [coder decodeSInt16];
+        [coder skip:10u];
+        const int bsobNameTable = 5000;
+        const int bsobShortNameTable = 5001;
+        const int bsobNotesTable = 5002;
+        const int bsobStaticNameTable = 5003;
+        [name release];
+        name = [[[coder decodeObjectOfClass:[StringTable class]
+                                    atIndex:bsobNameTable]
+                 stringAtIndex:[coder currentIndex]] retain];
+        [shortName release];
+        shortName = [[[coder decodeObjectOfClass:[StringTable class]
+                                         atIndex:bsobShortNameTable]
+                      stringAtIndex:[coder currentIndex]] retain];
+        [notes release];
+        notes = [[[coder decodeObjectOfClass:[StringTable class]
+                                     atIndex:bsobNotesTable]
+                  stringAtIndex:[coder currentIndex]] retain];
+        [staticName release];
+        staticName = [[[coder decodeObjectOfClass:[StringTable class]
+                                          atIndex:bsobStaticNameTable]
+                       stringAtIndex:[coder currentIndex]] retain];
+        
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+
++ (ResType)resType {
+    return 'bsob';
+}
+
++ (NSString *)typeKey {
+    return @"bsob";
+}
+
++ (BOOL)isPacked {
+    return YES;
+}
+
++ (size_t)sizeOfResourceItem {
+    return 318;
 }
 @end
 
@@ -359,6 +500,12 @@
     positions = [[NSMutableArray alloc] initWithObjects:[XSPoint point], [XSPoint point], [XSPoint point], nil];
     return self;
 }
+
+- (void) dealloc {
+    [positions release];
+    [super dealloc];
+}
+
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
@@ -378,11 +525,6 @@
     [coder encodeArray:positions forKey:@"positions" zeroIndexed:NO];
 }
 
-- (void) dealloc {
-    [positions release];
-    [super dealloc];
-}
-
 + (id) weapon {
     return [[[Weapon alloc] init] autorelease];
 }
@@ -392,6 +534,20 @@
 }
 
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
+
+- (id) initWithResArchiver:(ResUnarchiver *)coder id:(NSInteger)_id count:(NSInteger)count {
+    self = [self init];
+    if (self) {
+        ID = _id;
+        positionCount = count;
+        for (int k = 0; k < 3; k++) {
+            XSPoint *point = [positions objectAtIndex:k];
+            point.y = [coder decodeFixed];
+            point.x = [coder decodeFixed];
+        }
+    }
     return self;
 }
 @end
