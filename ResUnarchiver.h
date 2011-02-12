@@ -30,6 +30,7 @@
 - (SInt8) decodeSInt8;
 - (UInt16) decodeUInt16;
 - (SInt16) decodeSInt16;
+- (SInt16) decodeSwappedSInt16;
 - (UInt32) decodeUInt32;
 - (SInt32) decodeSInt32;
 - (UInt64) decodeUInt64;
@@ -40,5 +41,7 @@
 - (NSString *) decodePString;
 //Length does not include the length byte
 - (NSString *) decodePStringOfLength:(UInt8)length;
+
+- (BOOL) hasObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 - (id) decodeObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 @end

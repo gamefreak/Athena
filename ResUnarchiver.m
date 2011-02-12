@@ -142,6 +142,12 @@
     return CFSwapInt16BigToHost(out);
 }
 
+- (SInt16) decodeSwappedSInt16 {
+    SInt16 out;
+    [[stack lastObject] readBytes:&out length:sizeof(SInt16)];
+    return out;;
+}
+
 - (UInt32) decodeUInt32 {
     UInt32 out;
     id seg = [stack lastObject];
@@ -171,13 +177,26 @@
     return (CGFloat)[self decodeSInt32]/256.0f;
 }
 
+- (BOOL) hasObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index {
+    NSMutableDictionary *table = [types objectForKey:[class typeKey]];
+    if (table == nil) {
+        [self registerClass:class];
+        table = [types objectForKey:[class typeKey]];
+    }
+    if (table == nil) return NO;
+    ResSegment *seg =  [table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]];
+    return (seg != nil);
+}
+
 - (id)decodeObjectOfClass:(Class)class atIndex:(NSUInteger)index {
     NSMutableDictionary *table = [types objectForKey:[class typeKey]];
     if (table == nil) {
         [self registerClass:class];
         table = [types objectForKey:[class typeKey]];
     }
+    if (table == nil) @throw [NSString stringWithFormat:@"Unable to access objects of type '%@'", [class typeKey]];
     ResSegment *seg =  [table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]];
+    if (seg == nil) @throw [NSString stringWithFormat:@"Failed to load resource of type '%@' at index %ui.", [class typeKey], index];
     [stack addObject:seg];
     id object = [seg loadObjectWithCoder:self];
     [stack removeLastObject];
