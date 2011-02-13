@@ -29,6 +29,7 @@
     FSRef file;
     if (!FSPathMakeRef((UInt8 *)[path cStringUsingEncoding:NSMacOSRomanStringEncoding], &file, NULL)) {
         ResFileRefNum resFile = FSOpenResFile(&file, fsRdPerm);
+        UseResFile(resFile);
         [files addObject:[NSNumber numberWithShort:resFile]];
     }
 }
@@ -38,6 +39,7 @@
 
     
     if ([class isPacked]) {//data is a concatinated array of structs
+        NSLog(@"Unpacking resources of type: %@", [class typeKey]);
         //500 seems to be used for all of ares's packed types
         const ResID packedResourceId = 500u;
         //Pull the data out of resource

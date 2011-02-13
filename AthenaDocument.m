@@ -58,6 +58,10 @@
         data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName]] retain];
     } else if ([type isEqual:@"Ares Data"]) {
         ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
+        if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
+            NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sprites'");
+            [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sprites"]];
+        }
         data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
         [coder release];
     }
