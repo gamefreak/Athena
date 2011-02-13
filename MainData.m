@@ -128,6 +128,11 @@ static NSArray *mainDataKeys;
             }
             return (NSComparisonResult)NSOrderedAscending;
         }];
+
+        count = [coder countOfClass:[BaseObject class]];
+        for (NSUInteger index = 0; index < count; index++) {
+            [objects addObject:[coder decodeObjectOfClass:[BaseObject class] atIndex:index]];
+        }
     }
     return self;
 }

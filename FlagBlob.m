@@ -74,7 +74,9 @@ static NSArray *attributeBlobKeys;
         UInt32 hex = [coder decodeUInt32];
         int position = 0;
         for (id key in keys) {
-            [self setValue:[NSNumber numberWithBool:hex & 1 << position++] forKey:key];
+            if (key != [NSNull null]) {
+                [self setValue:[NSNumber numberWithBool:hex & 1 << position++] forKey:key];
+            }
         }
     }
     return self;

@@ -82,10 +82,15 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    self = [super initWithResArchiver:coder];
+    self = [super init];
     if (self) {
+        first  = [coder decodeSInt32];
+        count = [coder decodeSInt32];
         dontDestroyOnDeath = (0x80000000&count?YES:NO);
         count &= 0x7fffffff;
+        for (int k = 0; k < count; k++) {
+            [actions addObject:[coder decodeObjectOfClass:[Action class] atIndex:first + k]];
+        }
     }
     return self;
 }
@@ -119,11 +124,16 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    self = [super initWithResArchiver:coder];
+    self = [super init];
     if (self) {
+        first  = [coder decodeSInt32];
+        count = [coder decodeSInt32];
         interval = (0xff000000 & count) >> 24;
         intervalRange = (0x00ff0000 & count) >> 16;
         count &= 0x0000ffff;
+        for (int k = 0; k < count; k++) {
+            [actions addObject:[coder decodeObjectOfClass:[Action class] atIndex:first + k]];
+        }
     }
     return self;
 }

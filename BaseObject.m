@@ -430,8 +430,6 @@
             frame = [[BeamData alloc] initWithResArchiver:coder];
         } else if (attributes.isDestination) {
             frame = [[DeviceData alloc] initWithResArchiver:coder];
-        } else {
-            @throw @"Invalid frame type.";
         }
         [buildFlags initWithResArchiver:coder];
         [orderFlags initWithResArchiver:coder];
