@@ -17,6 +17,8 @@
 #import "Condition.h"
 #import "Race.h"
 
+#import "SMIVImage.h"
+
 static NSArray *mainDataKeys;
 @implementation MainDataFlags
 @synthesize isNetworkable, customObjects, customRaces, customScenarios, isUnoptimized;
@@ -133,6 +135,9 @@ static NSArray *mainDataKeys;
         for (NSUInteger index = 0; index < count; index++) {
             [objects addObject:[coder decodeObjectOfClass:[BaseObject class] atIndex:index]];
         }
+
+        [sprites release];
+        sprites = [[coder allObjectsOfClass:[SMIVImage class]] retain];
     }
     return self;
 }
@@ -156,6 +161,14 @@ static NSArray *mainDataKeys;
     [objects release];
     [scenarios release];
     [races release];
+    [sprites release];
+    [sounds release];
+
+    [flags release];
+    [title release];
+    [author release];
+    [authorUrl release];
+    [downloadUrl release];
     [super dealloc];
 }
 @end

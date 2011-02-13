@@ -72,6 +72,7 @@
 		D2A1911D12FE3CB700232914 /* StarmapPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911C12FE3CB700232914 /* StarmapPicker.xib */; };
 		D2A1914F12FE415800232914 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1914E12FE415800232914 /* StarmapView.m */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
+		D2B720BF1308739900008307 /* SMIVImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B720BE1308739900008307 /* SMIVImage.m */; };
 		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
 		D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2C55B4B12F3235E007140A2 /* InitialEditor.xib */; };
 		D2C9D6FB13044E970087EDE4 /* ResSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9D6FA13044E960087EDE4 /* ResSegment.m */; };
@@ -209,6 +210,8 @@
 		D2A1914E12FE415800232914 /* StarmapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarmapView.m; sourceTree = "<group>"; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
+		D2B720BD1308739900008307 /* SMIVImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIVImage.h; sourceTree = "<group>"; };
+		D2B720BE1308739900008307 /* SMIVImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMIVImage.m; sourceTree = "<group>"; };
 		D2C55B3A12F321E2007140A2 /* InitialEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialEditor.h; sourceTree = "<group>"; };
 		D2C55B3B12F321E2007140A2 /* InitialEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialEditor.m; sourceTree = "<group>"; };
 		D2C55B4B12F3235E007140A2 /* InitialEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialEditor.xib; sourceTree = "<group>"; };
@@ -416,6 +419,7 @@
 				D2A1911F12FE3DC600232914 /* Scenario */,
 				D2C9D6FC130462020087EDE4 /* StringTable.h */,
 				D2C9D6FD130462020087EDE4 /* StringTable.m */,
+				D2764FA81307528D00C847E4 /* Media */,
 			);
 			name = AresTypes;
 			sourceTree = "<group>";
@@ -452,6 +456,15 @@
 				D225D64213039D5900E75803 /* Resource */,
 			);
 			name = Archivers;
+			sourceTree = "<group>";
+		};
+		D2764FA81307528D00C847E4 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				D2B720BD1308739900008307 /* SMIVImage.h */,
+				D2B720BE1308739900008307 /* SMIVImage.m */,
+			);
+			name = Media;
 			sourceTree = "<group>";
 		};
 		D28831CC12F21E4E00A02383 /* Actions */ = {
@@ -701,6 +714,7 @@
 				D2C9D6FB13044E970087EDE4 /* ResSegment.m in Sources */,
 				D2C9D6FE130462020087EDE4 /* StringTable.m in Sources */,
 				D214035D1305E47D00C55859 /* NSString+ResCoding(Text).m in Sources */,
+				D2B720BF1308739900008307 /* SMIVImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
