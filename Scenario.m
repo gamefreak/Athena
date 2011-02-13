@@ -192,15 +192,18 @@
         }
 
 
-//NSMutableArray *initialObjects;
-        [coder skip:2];//initial objects start
+        short initialObjectStart = [coder decodeSInt16];
 
         short prologueId = [coder decodeSInt16];
         if (prologueId > 0) {
             [prologue release];
             prologue = [[coder decodeObjectOfClass:[NSString class] atIndex:prologueId] retain];
         }
-        [coder skip:2];//initial objects count
+        short initialObjectCount = [coder decodeSInt16];
+        for (int k = 0; k < initialObjectCount; k++) {
+            [initialObjects addObject:[coder decodeObjectOfClass:[ScenarioInitial class] atIndex:initialObjectStart + k]];
+        }
+
         songId = [coder decodeSInt16];
         short conditionsStart = [coder decodeSInt16];
         short epilogueId = [coder decodeSInt16];

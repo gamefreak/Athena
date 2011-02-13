@@ -35,9 +35,6 @@
     spriteIdOverride = -1;
 
     builds = [[NSMutableArray alloc] initWithCapacity:10];
-    for (int k = 0; k < 10; k++) {
-        [builds addObject:[XSInteger xsIntegerWithValue:-1]];
-    }
 
     initialDestination = -1;
     nameOverride = @"";
@@ -145,16 +142,16 @@
         distanceRange = [coder decodeSInt32];
         rotation = [coder decodeSInt32];
         rotationRange = [coder decodeSInt32];
-        for (NSUInteger i = 0; i <= 11; i++) {
+        for (NSUInteger i = 0; i < 12; i++) {
             NSInteger tmp = [coder decodeSInt32];
             if (tmp >= 1) {
                 [builds addObject:[NSNumber numberWithInteger:tmp]];
             }
-            initialDestination = [coder decodeSInt32];
         }
+        initialDestination = [coder decodeSInt32];
         int nameTable = [coder decodeSInt32];
         int nameNumber = [coder decodeSInt32];
-        if ([coder hasObjectOfClass:[StringTable class] atIndex:nameTable]) {
+        if ([coder hasObjectOfClass:[StringTable class] atIndex:nameTable] && nameNumber != -1) {
             [nameOverride release];
             nameOverride = [[[coder decodeObjectOfClass:[StringTable class]
                                                 atIndex:nameTable] stringAtIndex:nameNumber - 1] retain];
