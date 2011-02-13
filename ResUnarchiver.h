@@ -13,9 +13,10 @@
 @interface ResUnarchiver : NSObject {
     NSMutableDictionary *types;
     NSMutableArray *stack;
-    ResFileRefNum resFile;
+    NSMutableArray *files;
 }
 - (id) initWithFilePath:(NSString *)path;
+- (void) addFile:(NSString *)path;
 
 - (void) registerClass:(Class<ResCoding>)class;
 - (NSUInteger) countOfClass:(Class<ResCoding>)class;

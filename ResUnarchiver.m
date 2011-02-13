@@ -15,17 +15,22 @@
 - (id) initWithFilePath:(NSString *)path; {
     self = [super init];
     if (self) {
-        FSRef file;
-        if (!FSPathMakeRef((UInt8 *)[path cStringUsingEncoding:NSMacOSRomanStringEncoding], &file, NULL)) {
-            resFile = FSOpenResFile(&file, fsRdPerm);
-            UseResFile(resFile);
-        }
         types = [[NSMutableDictionary alloc] init];
         stack = [[NSMutableArray alloc] init];
+        files = [[NSMutableArray alloc] init];
+        [self addFile:path];
         [self registerClass:[StringTable class]];
     }
     
     return self;
+}
+
+- (void) addFile:(NSString *)path {
+    FSRef file;
+    if (!FSPathMakeRef((UInt8 *)[path cStringUsingEncoding:NSMacOSRomanStringEncoding], &file, NULL)) {
+        ResFileRefNum resFile = FSOpenResFile(&file, fsRdPerm);
+        [files addObject:[NSNumber numberWithShort:resFile]];
+    }
 }
 
 - (void) registerClass:(Class <Alloc, ResCoding>)class {
@@ -247,7 +252,9 @@
 - (void)dealloc {
     [types release];
     [stack release];
-    CloseResFile(resFile);
+    for (NSNumber *resRef in files) {
+        CloseResFile([resRef shortValue]);
+    }
     [super dealloc];
 }
 
