@@ -44,4 +44,5 @@
 
 - (BOOL) hasObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 - (id) decodeObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
+- (NSMutableDictionary *)allObjectsOfClass:(Class<ResCoding>)class;
 @end

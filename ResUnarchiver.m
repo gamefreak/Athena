@@ -203,6 +203,23 @@
     return object;
 }
 
+- (NSMutableDictionary *)allObjectsOfClass:(Class<ResCoding>)class {
+    NSMutableDictionary *table = [types objectForKey:[class typeKey]];
+    if (table == nil) {
+        [self registerClass:class];
+        table = [types objectForKey:[class typeKey]];
+    }
+    NSMutableDictionary *outDict = [NSMutableDictionary dictionary];
+    NSArray *indexes = [table allKeys];
+    for (NSString *key in indexes) {
+        ResSegment *seg = [table objectForKey:key];
+        [stack addObject:seg];
+        [outDict setObject:[seg loadObjectWithCoder:self] forKey:key];
+        [stack removeLastObject];
+    }
+    return outDict;
+}
+
 - (NSString *) decodePString {
     UInt8 length;
     ResSegment *seg = [stack lastObject];
