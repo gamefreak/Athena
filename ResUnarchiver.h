@@ -22,6 +22,7 @@
 - (NSUInteger) countOfClass:(Class<ResCoding>)class;
 
 - (void) skip:(NSUInteger)bytes;
+- (void) seek:(NSUInteger)position;
 - (void) readBytes:(void *)buffer length:(NSUInteger)length;
 - (NSUInteger) currentIndex;
 - (NSUInteger) currentSize;

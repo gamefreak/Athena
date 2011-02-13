@@ -30,5 +30,6 @@
 - (id) loadObjectWithCoder:(ResUnarchiver *)unarchiver;
 - (void) readBytes:(void *)bytes length:(NSUInteger)length;
 - (void) advance:(NSUInteger)bytes;
+- (void) seek:(NSUInteger)position;
 @end
 

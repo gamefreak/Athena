@@ -108,6 +108,10 @@
     [[stack lastObject] advance:bytes];
 }
 
+- (void) seek:(NSUInteger)position {
+    [[stack lastObject] seek:position];
+}
+
 - (void) readBytes:(void *)buffer length:(NSUInteger)length {
     [[stack lastObject] readBytes:buffer length:length];
 }

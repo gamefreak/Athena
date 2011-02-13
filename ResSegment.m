@@ -45,4 +45,8 @@
 - (void) advance:(NSUInteger)bytes {
     cursor += bytes;
 }
+
+- (void) seek:(NSUInteger)position {
+    cursor = position;
+}
 @end
