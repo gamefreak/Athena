@@ -11,9 +11,10 @@
 @implementation ResSegment
 @synthesize data, object, dataClass, cursor, index, loaded;
 
-- (id) initWithClass:(Class<ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index{
+- (id) initWithClass:(Class<ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index name:(NSString *)_name {
     self = [super init];
     if (self) {
+        name = [_name retain];
         data = [_data retain];
         dataClass = _class;
         cursor = 0;

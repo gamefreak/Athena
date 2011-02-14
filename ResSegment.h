@@ -13,6 +13,7 @@
 
 @interface ResSegment : NSObject {
     NSData *data;
+    NSString *name;
     id<ResCoding, NSObject> object;
     Class dataClass;
     NSUInteger cursor;
@@ -25,8 +26,9 @@
 @property (readonly) NSUInteger cursor;
 @property (readonly) BOOL loaded;
 @property (readonly) NSUInteger index;
+@property (readwrite, retain) NSString *name;
 
-- (id) initWithClass:(Class)class data:(NSData *)data index:(NSUInteger)index;
+- (id) initWithClass:(Class)class data:(NSData *)data index:(NSUInteger)index name:(NSString *)_name;
 - (id) loadObjectWithCoder:(ResUnarchiver *)unarchiver;
 - (void) readBytes:(void *)bytes length:(NSUInteger)length;
 - (void) advance:(NSUInteger)bytes;

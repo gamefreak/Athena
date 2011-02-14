@@ -26,6 +26,7 @@
 - (void) readBytes:(void *)buffer length:(NSUInteger)length;
 - (NSUInteger) currentIndex;
 - (NSUInteger) currentSize;
+- (NSString *) currentName;
 - (NSData *)rawData;
 
 - (UInt8) decodeUInt8;

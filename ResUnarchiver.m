@@ -53,14 +53,14 @@
         NSUInteger count = size/recSize;
         //Dictionary is used because NSArray doesn't handle sparse arrays
         NSMutableDictionary *table = [NSMutableDictionary dictionaryWithCapacity:count];
-        
         char *buffer = malloc(size);
         for (NSUInteger k = 0; k < count; k++) {
             [data getBytes:buffer range:NSMakeRange(recSize * k, recSize)];
             ResSegment *seg = [[ResSegment alloc]
                                initWithClass:class
                                data:[NSData dataWithBytes:buffer length:recSize]
-                               index:k];
+                               index:k
+                               name:@""];
             
             [table setObject:seg forKey:[[NSNumber numberWithUnsignedInteger:k] stringValue]];
             [seg release];
@@ -75,13 +75,17 @@
             Handle dataH = GetIndResource(type, index);
             //Pull out the ResId
             ResID rID;
-            GetResInfo(dataH, &rID, NULL, NULL);
+            Str255 name;
+            GetResInfo(dataH, &rID, NULL, name);
+            NSString *str = [[NSString alloc] initWithBytes:&name[1] length:*name encoding:NSMacOSRomanStringEncoding];
             HLock(dataH);
             Size size = GetHandleSize(dataH);
             ResSegment *seg = [[ResSegment alloc]
                                initWithClass:class
                                data:[NSData dataWithBytes:*dataH length:size]
-                               index:rID];
+                               index:rID
+                               name:str];
+            [str release];
             [table setObject:seg forKey:[[NSNumber numberWithShort:rID] stringValue]];
             [seg release];
             HUnlock(dataH);
@@ -122,6 +126,10 @@
 
 - (NSUInteger) currentSize {
     return [[[stack lastObject] data] length];
+}
+
+- (NSString *) currentName {
+    return [[stack lastObject] name];
 }
 
 - (NSData *)rawData {
