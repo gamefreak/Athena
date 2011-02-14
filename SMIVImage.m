@@ -31,20 +31,19 @@
         uint32 *bytes = malloc(width * height * 4);
         uint8 *buffer = malloc(width * height);
         [coder readBytes:buffer length:(width * height)];
-        uint32 *byteCursor = bytes;
-        uint8 *bufferCursor = buffer;
-        int ctr = width*height;
-        while (ctr-->0) {
-            *byteCursor++ = CLUT_COLOR(*bufferCursor++);
+        int count = width*height;
+        for (int ctr = 0; ctr < count; ctr++) {
+            bytes[ctr] = (CLUT_COLOR(buffer[ctr]));
         }
-        free(buffer);
+         free(buffer);
 
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, bytes, 4*width*height, NULL);
-        image = CGImageCreate(width, height, 8, 32, 4 * width, colorSpace, kCGImageAlphaLast, provider, NULL, NO, kCGRenderingIntentDefault);
+        image = CGImageCreate(width, height, 8, 32, 4 * width, colorSpace, kCGImageAlphaFirst, provider, NULL, NO, kCGRenderingIntentDefault);
         CGDataProviderRelease(provider);
         CGColorSpaceRelease(colorSpace);
-        free(bytes);
+//        free(bytes); //CGDataProviderCreateWithData does not copy
+        //This could cause some memory issues
     }
     return self;
 }
@@ -76,6 +75,7 @@
     self = [self init];
     if (self) {
         unsigned int size = [coder decodeUInt32];
+#pragma unused(size)
         unsigned int frameCount = [coder decodeUInt32];
         unsigned int offsets[frameCount];
         for (int k = 0; k < frameCount; k++) {
