@@ -180,6 +180,7 @@
     minimum = ID = value = [coder decodeSInt32];
     range = [coder decodeSInt32];
     [coder skip:14u];
+    return self;
 }
 
 + (ActionAlterType) alterTypeForString:(NSString *)type {

@@ -14,7 +14,7 @@
 
 @protocol ResCoding
 - (id) initWithResArchiver:(ResUnarchiver *)unarchiver;
-- (void) encodeResWithCoder:(ResArchiver *)archiver;
+//- (void) encodeResWithCoder:(ResArchiver *)archiver;
 @optional
 + (ResType) resType;
 + (NSString *) typeKey;

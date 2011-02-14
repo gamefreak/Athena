@@ -24,7 +24,7 @@ typedef enum {
     IconShapeNone = 0xf //SIGH
 } IconShape;
 
-@interface Weapon : NSObject <LuaCoding, ResCoding> {
+@interface Weapon : NSObject <LuaCoding> {
     NSInteger ID;//Uppercase because objective-c uses 'id' as a keyword.
     NSInteger positionCount;
     NSMutableArray *positions;
