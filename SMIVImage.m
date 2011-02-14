@@ -10,45 +10,106 @@
 #import "ResUnarchiver.h"
 
 @implementation SMIVFrame
-@synthesize width, height, offsetX, offsetY, image;
+@synthesize width, height, offsetX, offsetY;
+@synthesize bytes, image;
+@dynamic size, offset, length;
 
-- (id)init {
+- (id) init {
     @throw @"DO NOT USE";
 }
 
-- (void)dealloc {
-    CGImageRelease(image);
+- (void) dealloc {
+    [image release];
+    free(bytes);
     [super dealloc];
 }
 
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
+- (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [super init];
     if (self) {
         width = [coder decodeUInt16];
         height = [coder decodeUInt16];
         offsetX = [coder decodeSInt16];
         offsetY = [coder decodeSInt16];
-        uint32 *bytes = malloc(width * height * 4);
+        bytes = malloc(width * height * 4);
         uint8 *buffer = malloc(width * height);
         [coder readBytes:buffer length:(width * height)];
         int count = width*height;
         for (int ctr = 0; ctr < count; ctr++) {
             bytes[ctr] = (CLUT_COLOR(buffer[ctr]));
         }
-         free(buffer);
+        free(buffer);
 
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-        CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, bytes, 4*width*height, NULL);
-        image = CGImageCreate(width, height, 8, 32, 4 * width, colorSpace, kCGImageAlphaFirst, provider, NULL, NO, kCGRenderingIntentDefault);
-        CGDataProviderRelease(provider);
-        CGColorSpaceRelease(colorSpace);
-//        free(bytes); //CGDataProviderCreateWithData does not copy
-        //This could cause some memory issues
+        image = [[NSBitmapImageRep alloc]
+                 initWithBitmapDataPlanes:(uint8**)&bytes
+                 pixelsWide:width
+                 pixelsHigh:height
+                 bitsPerSample:8
+                 samplesPerPixel:4
+                 hasAlpha:YES
+                 isPlanar:NO
+                 colorSpaceName:NSDeviceRGBColorSpace
+                 bitmapFormat:NSAlphaFirstBitmapFormat
+                 bytesPerRow:(4*width)
+                 bitsPerPixel:32];
     }
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+//- (void) encodeResWithCoder:(ResArchiver *)coder {}
+
+- (NSSize) size {
+    return NSMakeSize(width, height);
+}
+
+- (NSPoint) offset {
+    return NSMakePoint(offsetX, offsetY);
+}
+
+- (size_t) length {
+    return width*height + 8;
+}
+
+- (NSRect) frameRect {
+//    CGFloat x = offsetX;
+//    CGFloat y = offsetY;
+//    x -= width/2.0f;
+////    y = height/2 - y;
+////    y = (height - y) - height/2;
+//    y = (height/2.0f - y);
+//    x= y =0;
+//    NSLog(@"OFFSET: %f, %f; SIZE: %hu, %hu", x, y, width, height);
+    return NSMakeRect(0, 0, width, height);
+}
+
+
+- (BOOL) draw {
+    return [image drawInRect:NSMakeRect(0, 0, width, height)
+                    fromRect:[self frameRect]
+                   operation:NSCompositeSourceOver
+                    fraction:1.0f
+              respectFlipped:NO
+                       hints:nil];
+}
+
+- (BOOL) drawAtPoint:(NSPoint)point {
+//    NSMakeRect(point.x-(offsetX-width/2.0f), point.y-(height/2.0f-offsetY), width, height)
+    return [image drawInRect:NSMakeRect(point.x, point.y, width, height)
+                    fromRect:[self frameRect]
+                   operation:NSCompositeSourceOver
+                    fraction:1.0f
+              respectFlipped:NO
+                       hints:nil];
+}
+
+- (BOOL) drawInRect:(NSRect)rect {
+    return [image drawInRect:rect
+                    fromRect:[self frameRect]
+                   operation:NSCompositeSourceOver
+                    fraction:1.0f
+              respectFlipped:NO
+                       hints:nil];
+}
 
 @end
 
@@ -56,26 +117,29 @@
 @implementation SMIVImage
 @synthesize frames;
 @dynamic count;
+@dynamic frame;
 
-- (id)init {
+- (id) init {
     self = [super init];
     if (self) {
         frames = [[NSMutableArray alloc] init];
+        count = 0;
+        currentFrameId = 0;
     }
     
     return self;
 }
 
-- (void)dealloc {
+- (void) dealloc {
     [frames release];
     [super dealloc];
 }
 
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
+- (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
         unsigned int size = [coder decodeUInt32];
-#pragma unused(size)
+        NSAssert(size == [coder currentSize] - 8, @"SMIV resource is invalid");
         unsigned int frameCount = [coder decodeUInt32];
         unsigned int offsets[frameCount];
         for (int k = 0; k < frameCount; k++) {
@@ -86,28 +150,68 @@
             [coder seek:offsets[framex]];
             SMIVFrame *frame = [[SMIVFrame alloc] initWithResArchiver:coder];
             [frames addObject:frame];
+            count++;
             [frame release];
         }
     }
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+//- (void) encodeResWithCoder:(ResArchiver *)coder {}
 
-+ (ResType)resType {
++ (ResType) resType {
     return 'SMIV';
 }
 
-+ (NSString *)typeKey {
++ (NSString *) typeKey {
     return @"SMIV";
 }
 
-+ (BOOL)isPacked {
++ (BOOL) isPacked {
     return NO;
 }
 
-- (NSUInteger) count {
-    return [frames count];
+- (void)setFrame:(NSUInteger)frame {
+    currentFrameId = frame;
 }
 
+- (NSUInteger)frame {
+    return currentFrameId;
+}
+
+- (NSUInteger) nextFrame {
+    return currentFrameId = (currentFrameId+1)%count;
+}
+
+- (NSUInteger) previousFrame {
+    currentFrameId--;
+    if (currentFrameId < 0) {
+        currentFrameId += count;
+    }
+    return currentFrameId;
+}
+
+- (BOOL)draw {
+    return [[frames objectAtIndex:currentFrameId] draw];
+}
+
+- (BOOL)drawAtPoint:(NSPoint)point {
+    return [[frames objectAtIndex:currentFrameId] drawAtPoint:point];
+}
+
+- (BOOL)drawInRect:(NSRect)rect {
+    return [[frames objectAtIndex:currentFrameId] drawInRect:rect];
+}
+
+- (BOOL)drawFrame:(NSUInteger)frame {
+    return [[frames objectAtIndex:frame] draw];
+}
+
+- (BOOL)drawFrame:(NSUInteger)frame atPoint:(NSPoint)point {
+    return [[frames objectAtIndex:frame] drawAtPoint:point];
+}
+
+- (BOOL)drawFrame:(NSUInteger)frame inRect:(NSRect)rect {
+    return [[frames objectAtIndex:frame] drawInRect:rect];
+}
 @end
