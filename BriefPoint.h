@@ -33,4 +33,7 @@ typedef enum {
 @property (readwrite, assign) BOOL isVisible;
 @property (readwrite, retain) XSPoint *range;
 @property (readwrite, assign) NSString *content;
+//Properties for Interface Builder
+@property (readwrite, retain) NSNumber *typeObj;
+@property (readonly) BOOL doesntHaveObject;
 @end

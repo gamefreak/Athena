@@ -7,22 +7,27 @@
 //
 
 #import "BriefingEditor.h"
-
+#import "MainData.h"
+#import "Scenario.h"
+#import "BriefPoint.h"
 
 @implementation BriefingEditor
 
-- (id) initWithScenario:(Scenario *)_scenario {
+- (id) initWithMainData:(MainData *)_data scenario:(NSUInteger)_scenario {
     self = [super initWithWindowNibName:@"BriefingEditor"];
     if (self) {
-        scenario = _scenario;
-        [scenario retain];
+        data = [_data retain];
+        scenario = [[data.scenarios objectAtIndex:_scenario] retain];
+        briefings = [scenario.briefings retain];
     }
     
     return self;
 }
 
 - (void)dealloc {
+    [data release];
     [scenario release];
+    [briefings release];
     [super dealloc];
 }
 

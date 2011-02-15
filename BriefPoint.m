@@ -14,6 +14,7 @@
 @implementation BriefPoint
 @synthesize title, type, objectId;
 @synthesize isVisible, range, content;
+@dynamic typeObj, doesntHaveObject;
 
 - (id) init {
     self = [super init];
@@ -142,5 +143,25 @@
 
 + (size_t)sizeOfResourceItem {
     return 24;
+}
+
+- (NSNumber *)typeObj {
+    return [NSNumber numberWithInt:type];
+}
+
+- (void)setTypeObj:(NSNumber *)typeObj {
+    type = [typeObj intValue];
+}
+
+- (BOOL)doesntHaveObject {
+    return type != BriefTypeObject;
+}
+
+static NSSet *typeKeyPath;
++ (NSSet *) keyPathsForValuesAffectingDoesntHaveObject {
+    if (typeKeyPath == nil) {
+        typeKeyPath = [[NSSet alloc] initWithObjects:@"type", nil];
+    }
+    return typeKeyPath;
 }
 @end

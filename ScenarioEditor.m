@@ -200,7 +200,7 @@
 }
 
 - (IBAction) openBriefingEditor:(id)sender {
-    BriefingEditor *editor = [[BriefingEditor alloc] initWithScenario:[scenarioArray selection]];
+    BriefingEditor *editor = [[BriefingEditor alloc] initWithMainData:data scenario:[scenarioArray selectionIndex]];
     [[self document] addWindowController:editor];
     [editor showWindow:self];
     [editor release];

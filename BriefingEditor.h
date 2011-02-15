@@ -8,10 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class Scenario;
+@class MainData, Scenario;
 
 @interface BriefingEditor : NSWindowController {
+    MainData *data;
     Scenario *scenario;
+    NSMutableArray *briefings;
 }
-- (id) initWithScenario:(Scenario *)scenario;
+- (id) initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
 @end
