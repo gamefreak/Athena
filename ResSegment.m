@@ -9,7 +9,7 @@
 #import "ResSegment.h"
 
 @implementation ResSegment
-@synthesize data, object, dataClass, cursor, index, loaded;
+@synthesize data, object, dataClass, cursor, index, loaded, name;
 
 - (id) initWithClass:(Class<ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index name:(NSString *)_name {
     self = [super init];
@@ -27,6 +27,7 @@
 - (id) loadObjectWithCoder:(ResUnarchiver *)coder {
     if (!loaded) {
         object = [[dataClass alloc] initWithResArchiver:coder];
+        NSAssert(object != nil, @"Unarchived object is nil");
         loaded = YES;
     }
     return object;
@@ -35,6 +36,7 @@
 - (void) dealloc {
     [data release];
     [object release];
+    [name release];
     [super dealloc];
 }
 
