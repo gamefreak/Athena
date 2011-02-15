@@ -185,8 +185,8 @@
 
 - (NSUInteger) previousFrame {
     currentFrameId--;
-    if (currentFrameId < 0) {
-        currentFrameId += count;
+    if (currentFrameId > count) {
+        currentFrameId = count;
     }
     return currentFrameId;
 }
