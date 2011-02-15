@@ -16,4 +16,5 @@
 }
 - (IBAction) openRaceEditor:(id)sender;
 - (IBAction) openScenarioEditor:(id)sender;
+- (IBAction) openSpriteEditor:(id)sender;
 @end

@@ -35,14 +35,18 @@
 @end
 
 //Custom container for SMIV animations.
-@interface SMIVImage : NSObject <ResCoding> {
+//WARNING: Use of NSCopying is a HACK for NSDictionaryController you probably want NSMutableCopying
+@interface SMIVImage : NSObject <ResCoding, NSCopying> {
+    NSString *title;
     NSMutableArray *frames;
     NSUInteger count;
     NSUInteger currentFrameId;
 }
+@property (readwrite, retain)  NSString *title;
 @property (readonly) NSArray *frames;
 @property (readonly) NSUInteger count;
 @property (readwrite) NSUInteger frame;
+@property (readonly) NSSize size;
 
 - (NSUInteger) nextFrame;
 - (NSUInteger) previousFrame;

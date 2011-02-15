@@ -115,13 +115,20 @@
 
 
 @implementation SMIVImage
-@synthesize frames;
+@synthesize title, frames;
 @dynamic count;
 @dynamic frame;
+@dynamic size;
+
+//WARNING: HACK FOR NSDictionaryController you probably want -mutableCopy
+- (id)copyWithZone:(NSZone *)zone {
+    return [self retain];
+}
 
 - (id) init {
     self = [super init];
     if (self) {
+        title = @"";
         frames = [[NSMutableArray alloc] init];
         count = 0;
         currentFrameId = 0;
@@ -131,6 +138,7 @@
 }
 
 - (void) dealloc {
+    [title release];
     [frames release];
     [super dealloc];
 }
@@ -138,6 +146,8 @@
 - (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
+        self.title = [coder currentName];
+
         unsigned int size = [coder decodeUInt32];
         NSAssert(size == [coder currentSize] - 8, @"SMIV resource is invalid");
         unsigned int frameCount = [coder decodeUInt32];
@@ -185,10 +195,14 @@
 
 - (NSUInteger) previousFrame {
     currentFrameId--;
-    if (currentFrameId > count) {
-        currentFrameId = count;
+    if (currentFrameId >= count) {
+        currentFrameId = count - 1;
     }
     return currentFrameId;
+}
+
+- (NSSize) size {
+    return [[frames objectAtIndex:currentFrameId] size];
 }
 
 - (BOOL)draw {

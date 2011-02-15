@@ -13,6 +13,7 @@
 
 #import "RaceEditor.h"
 #import "ScenarioEditor.h"
+#import "SpriteEditor.h"
 
 @implementation AthenaDocument
 - (id) init {
@@ -85,5 +86,12 @@
     [self addWindowController:scenarioEditor];
     [scenarioEditor showWindow:self];
     [scenarioEditor release];
+}
+
+- (IBAction) openSpriteEditor:(id)sender {
+    SpriteEditor *spriteEditor = [[SpriteEditor alloc] initWithMainData:data];
+    [self addWindowController:spriteEditor];
+    [spriteEditor showWindow:self];
+    [spriteEditor release];
 }
 @end
