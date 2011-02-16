@@ -56,7 +56,7 @@ typedef enum {
     float buildRatio;
 
     float offence;
-    NSInteger escortRank;
+    NSInteger escortRank;//Target
 
     float maxVelocity;
     float warpSpeed;
