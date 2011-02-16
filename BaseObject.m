@@ -233,9 +233,9 @@
     } else if ([[attributes valueForKey:@"isSelfAnimated"] boolValue] == YES) {
         frame = [coder decodeObjectOfClass:[AnimationData class] forKey:@"animation"];
     } else if ([[attributes valueForKey:@"isBeam"] boolValue] == YES) {
-        frame = [coder decodeObjectOfClass:[BeamData class] forKey:@"beam"];
+        self.frame = [coder decodeObjectOfClass:[BeamData class] forKey:@"beam"];
     } else {
-        frame = [coder decodeObjectOfClass:[DeviceData class] forKey:@"device"];
+        self.frame = [coder decodeObjectOfClass:[DeviceData class] forKey:@"device"];
     }
     [frame retain];
 
@@ -428,7 +428,7 @@
             frame = [[AnimationData alloc] initWithResArchiver:coder];
         } else if (attributes.isBeam) {
             frame = [[BeamData alloc] initWithResArchiver:coder];
-        } else if (attributes.isDestination) {
+        } else {
             frame = [[DeviceData alloc] initWithResArchiver:coder];
         }
         [buildFlags initWithResArchiver:coder];

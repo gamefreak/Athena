@@ -32,19 +32,23 @@
 
 - (id) init {
     self = [super init];
-    offset = 0;
-    resolution = 15;//24 frames
-    turnRate = 1.0f;
-    turnAcceleration = 1.0f;
+    if (self) {
+        offset = 0;
+        resolution = 15;//24 frames
+        turnRate = 1.0f;
+        turnAcceleration = 1.0f;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    offset = [coder decodeIntegerForKey:@"offset"];
-    resolution = [coder decodeIntegerForKey:@"resolution"];
-    turnRate = [coder decodeFloatForKey:@"turnRate"];
-    turnAcceleration = [coder decodeFloatForKey:@"turnAcceleration"];
+    if (self) {
+        offset = [coder decodeIntegerForKey:@"offset"];
+        resolution = [coder decodeIntegerForKey:@"resolution"];
+        turnRate = [coder decodeFloatForKey:@"turnRate"];
+        turnAcceleration = [coder decodeFloatForKey:@"turnAcceleration"];
+    }
     return self;
 }
 
@@ -76,27 +80,31 @@
 
 - (id) init {
     self = [super init];
-    firstShape = 0;
-    lastShape = 24;
-    direction = 1;
-    directionRange = 0;
-    speed = 30; //NEED BETTER DEFAULT
-    speedRange = 0;
-    shape = 0;
-    shapeRange = 0;
+    if (self) {
+        firstShape = 0;
+        lastShape = 24;
+        direction = 1;
+        directionRange = 0;
+        speed = 30; //NEED BETTER DEFAULT
+        speedRange = 0;
+        shape = 0;
+        shapeRange = 0;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    firstShape = [coder decodeIntegerForKey:@"firstShape"];
-    lastShape = [coder decodeIntegerForKey:@"lastShape"];
-    direction = [coder decodeIntegerForKey:@"direction"];
-    directionRange = [coder decodeIntegerForKey:@"directionRange"];
-    speed = [coder decodeIntegerForKey:@"speed"];
-    speedRange = [coder decodeIntegerForKey:@"speedRange"];
-    shape = [coder decodeIntegerForKey:@"shape"];
-    shapeRange = [coder decodeIntegerForKey:@"shapeRange"];
+    if (self) {
+        firstShape = [coder decodeIntegerForKey:@"firstShape"];
+        lastShape = [coder decodeIntegerForKey:@"lastShape"];
+        direction = [coder decodeIntegerForKey:@"direction"];
+        directionRange = [coder decodeIntegerForKey:@"directionRange"];
+        speed = [coder decodeIntegerForKey:@"speed"];
+        speedRange = [coder decodeIntegerForKey:@"speedRange"];
+        shape = [coder decodeIntegerForKey:@"shape"];
+        shapeRange = [coder decodeIntegerForKey:@"shapeRange"];
+    }
     return self;
 }
 
@@ -134,19 +142,23 @@
 
 - (id) init {
     self = [super init];
-    type = BeamTypeKinetic;
-    color = ClutGray;
-    accuracy = 131072;//??
-    range = 256.0;
+    if (self) {
+        type = BeamTypeKinetic;
+        color = ClutGray;
+        accuracy = 131072;//??
+        range = 256.0;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    type = [coder decodeIntegerForKey:@"hex"];
-    color = [coder decodeIntegerForKey:@"color"];
-    accuracy = [coder decodeIntegerForKey:@"accuracy"];
-    range = [coder decodeFloatForKey:@"range"];
+    if (self) {
+        type = [coder decodeIntegerForKey:@"hex"];
+        color = [coder decodeIntegerForKey:@"color"];
+        accuracy = [coder decodeIntegerForKey:@"accuracy"];
+        range = [coder decodeFloatForKey:@"range"];
+    }
     return self;
 }
 
@@ -230,17 +242,19 @@
 
 - (id) init {
     self = [super init];
-    uses = [[DeviceUses alloc] init];
-    uses.transportation = YES;
-    uses.attacking = YES;
-    uses.defence = YES;
+    if (self) {
+        uses = [[DeviceUses alloc] init];
+        uses.transportation = YES;
+        uses.attacking = YES;
+        uses.defence = YES;
 
-    energyCost = 0;
-    reload = 1;//Need better default
-    ammo = -1;
-    range = 1;//Need better default
-    inverseSpeed = 1;//Need better default
-    restockCost = 0;//Need better default
+        energyCost = 0;
+        reload = 1;//Need better default
+        ammo = -1;
+        range = 1;//Need better default
+        inverseSpeed = 1;//Need better default
+        restockCost = 0;//Need better default
+    }
     return self;
 }
 
