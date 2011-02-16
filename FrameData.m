@@ -12,7 +12,9 @@
 
 @implementation FrameData
 - (id) initWithLuaCoder:(LuaUnarchiver *)aDecoder {
-    self = [self init];
+    self = [super init];
+    if (self) {
+    }
     return self;
 }
 
@@ -25,6 +27,15 @@
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
 }
+
+- (id) initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
+
+//- (void)encodeResWithCoder:(ResArchiver *)coder {}
 @end
 
 @implementation RotationData

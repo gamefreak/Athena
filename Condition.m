@@ -393,6 +393,7 @@
         }
         [flags initWithResArchiver:coder];
     }
+    return self;
 }
 
 //- (void)encodeResWithCoder:(ResArchiver *)coder {}
@@ -420,17 +421,21 @@
 
 - (id) init {
     self = [super init];
-    player = 0;
-    counterId = 0;
-    amount = 0;
+    if (self) {
+        player = 0;
+        counterId = 0;
+        amount = 0;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    player = [coder decodeIntegerForKey:@"player"];
-    counterId = [coder decodeIntegerForKey:@"id"];
-    amount = [coder decodeIntegerForKey:@"amount"];
+    if (self) {
+        player = [coder decodeIntegerForKey:@"player"];
+        counterId = [coder decodeIntegerForKey:@"id"];
+        amount = [coder decodeIntegerForKey:@"amount"];
+    }
     return self;
 }
 
@@ -449,9 +454,13 @@
 }
 
 - (id) initWithResArchiver:(ResUnarchiver *)coder {
-    player = [coder decodeSInt32];
-    counterId = [coder decodeSInt32];
-    amount = [coder decodeSInt32];
+    self = [self init];
+    if (self) {
+        player = [coder decodeSInt32];
+        counterId = [coder decodeSInt32];
+        amount = [coder decodeSInt32];
+    }
+    return self;
 }
 
 //- (void) encodeResWithCoder:(ResArchiver *)coder {}

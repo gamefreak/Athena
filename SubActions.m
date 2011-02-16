@@ -11,7 +11,7 @@
 
 @implementation NoAction
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    self = [super initWithResArchiver:self];
+    self = [super initWithResArchiver:coder];
     if (self) {
         [coder skip:24u];
     }
