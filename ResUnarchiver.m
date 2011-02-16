@@ -166,8 +166,7 @@
 
 - (UInt32) decodeUInt32 {
     UInt32 out;
-    id seg = [stack lastObject];
-    [seg readBytes:&out length:sizeof(UInt32)];
+    [[stack lastObject] readBytes:&out length:sizeof(UInt32)];
     return CFSwapInt32BigToHost(out);
 }
 
