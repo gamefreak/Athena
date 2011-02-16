@@ -11,8 +11,9 @@
 #import "StringTable.h"
 #import "Archivers.h"
 
-#import "RaceEditor.h"
+#import "ObjectEditor.h"
 #import "ScenarioEditor.h"
+#import "RaceEditor.h"
 #import "SpriteEditor.h"
 
 @implementation AthenaDocument
@@ -74,11 +75,11 @@
     [super dealloc];
 }
 
-- (IBAction) openRaceEditor:(id)sender {
-    RaceEditor *raceEditor = [[RaceEditor alloc] initWithMainData:data];
-    [self addWindowController:raceEditor];
-    [raceEditor showWindow:self];
-    [raceEditor release];
+- (IBAction) openObjectEditor:(id)sender {
+    ObjectEditor *objectEditor = [[ObjectEditor alloc] initWithMainData:data];
+    [self addWindowController:objectEditor];
+    [objectEditor showWindow:self];
+    [objectEditor release];
 }
 
 - (IBAction) openScenarioEditor:(id)sender {
@@ -86,6 +87,13 @@
     [self addWindowController:scenarioEditor];
     [scenarioEditor showWindow:self];
     [scenarioEditor release];
+}
+
+- (IBAction) openRaceEditor:(id)sender {
+    RaceEditor *raceEditor = [[RaceEditor alloc] initWithMainData:data];
+    [self addWindowController:raceEditor];
+    [raceEditor showWindow:self];
+    [raceEditor release];
 }
 
 - (IBAction) openSpriteEditor:(id)sender {

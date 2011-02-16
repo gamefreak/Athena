@@ -85,6 +85,8 @@
 		D26B6A25130C154000B461FB /* loslib.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB2A112E8BDE200694EBA /* loslib.c */; };
 		D26B6A26130C154400B461FB /* llimits.h in Headers */ = {isa = PBXBuildFile; fileRef = D21EB29812E8BDE200694EBA /* llimits.h */; };
 		D26B6A33130C15CC00B461FB /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26B69D8130C14CC00B461FB /* liblua.a */; };
+		D26B6A40130C16D700B461FB /* ObjectEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D26B6A3F130C16D700B461FB /* ObjectEditor.m */; };
+		D26B6A42130C170900B461FB /* ObjectEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D26B6A41130C170900B461FB /* ObjectEditor.xib */; };
 		D2882C2612F1D41400A02383 /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882C2512F1D41400A02383 /* Condition.m */; };
 		D2882D3512F1F02D00A02383 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882D3412F1F02D00A02383 /* Action.m */; };
 		D28831CF12F21E7F00A02383 /* SubActions.m in Sources */ = {isa = PBXBuildFile; fileRef = D28831CE12F21E7F00A02383 /* SubActions.m */; };
@@ -221,6 +223,9 @@
 		D253B46A13033B1300F0F66A /* BriefingEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefingEditor.h; sourceTree = "<group>"; };
 		D253B46B13033B1300F0F66A /* BriefingEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefingEditor.m; sourceTree = "<group>"; };
 		D26B69D8130C14CC00B461FB /* liblua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblua.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D26B6A3E130C16D700B461FB /* ObjectEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectEditor.h; sourceTree = "<group>"; };
+		D26B6A3F130C16D700B461FB /* ObjectEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectEditor.m; sourceTree = "<group>"; };
+		D26B6A41130C170900B461FB /* ObjectEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ObjectEditor.xib; sourceTree = "<group>"; };
 		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
 		D2882C2412F1D41400A02383 /* Condition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Condition.h; sourceTree = "<group>"; };
 		D2882C2512F1D41400A02383 /* Condition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Condition.m; sourceTree = "<group>"; };
@@ -386,6 +391,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* AthenaDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				D26B6A41130C170900B461FB /* ObjectEditor.xib */,
 				D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */,
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
 				D2DEECB6130A2A8D004AB731 /* Scenarios */,
@@ -542,6 +548,8 @@
 			isa = PBXGroup;
 			children = (
 				D2E98D16130AED1B0013EBCA /* Sprites */,
+				D26B6A3E130C16D700B461FB /* ObjectEditor.h */,
+				D26B6A3F130C16D700B461FB /* ObjectEditor.m */,
 				D288339512F24F7000A02383 /* RaceEditor.h */,
 				D288339612F24F7000A02383 /* RaceEditor.m */,
 				D2A1911412FE3BEF00232914 /* Scenarios */,
@@ -773,6 +781,7 @@
 				D2A1911D12FE3CB700232914 /* StarmapPicker.xib in Resources */,
 				D225D5E813035E9A00E75803 /* BriefingEditor.xib in Resources */,
 				D2DEECB8130A2AA6004AB731 /* SpriteEditor.xib in Resources */,
+				D26B6A42130C170900B461FB /* ObjectEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,6 +838,7 @@
 				D2B720BF1308739900008307 /* SMIVImage.m in Sources */,
 				D2DEECB5130A2A74004AB731 /* SpriteEditor.m in Sources */,
 				D2E98D19130AED3F0013EBCA /* SpriteView.m in Sources */,
+				D26B6A40130C16D700B461FB /* ObjectEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
