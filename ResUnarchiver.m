@@ -53,19 +53,16 @@
         NSUInteger count = size/recSize;
         //Dictionary is used because NSArray doesn't handle sparse arrays
         NSMutableDictionary *table = [NSMutableDictionary dictionaryWithCapacity:count];
-        char *buffer = malloc(size);
         for (NSUInteger k = 0; k < count; k++) {
-            [data getBytes:buffer range:NSMakeRange(recSize * k, recSize)];
             ResSegment *seg = [[ResSegment alloc]
                                initWithClass:class
-                               data:[NSData dataWithBytes:buffer length:recSize]
+                               data:[data subdataWithRange:NSMakeRange(recSize * k, recSize)]
                                index:k
                                name:@""];
             
             [table setObject:seg forKey:[[NSNumber numberWithUnsignedInteger:k] stringValue]];
             [seg release];
         }
-        free(buffer);
         [types setObject:table forKey:[class typeKey]];
     } else {//Use indexed resources
         NSLog(@"Indexing resources of type: %@", [class typeKey]);
