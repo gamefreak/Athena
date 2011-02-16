@@ -17,12 +17,14 @@
 
 - (id) init {
     self = [super init];
-    reflexive = NO;//Best way?
-    inclusiveFilter = 0x00000000;//best??
-    exclusiveFilter = 0x00000000;//best??
+    if (self) {
+        reflexive = NO;//Best way?
+        inclusiveFilter = 0x00000000;//best??
+        exclusiveFilter = 0x00000000;//best??
 
-    owner = 0;
-    delay = 0;
+        owner = 0;
+        delay = 0;
+    }
     return self;
 }
 
@@ -34,16 +36,18 @@
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    type = [Action typeForString:[coder decodeStringForKey:@"type"]];
-    reflexive = [coder decodeBoolForKey:@"reflexive"];
+    if (self) {
+        type = [Action typeForString:[coder decodeStringForKey:@"type"]];
+        reflexive = [coder decodeBoolForKey:@"reflexive"];
 
-    inclusiveFilter = [coder decodeIntegerForKey:@"inclusiveFilter"];
-    exclusiveFilter = [coder decodeIntegerForKey:@"exclusiveFilter"];
-    subjectOverride = [coder decodeIntegerForKey:@"subjectOverride"];
-    directOverride = [coder decodeIntegerForKey:@"directOverride"];
+        inclusiveFilter = [coder decodeIntegerForKey:@"inclusiveFilter"];
+        exclusiveFilter = [coder decodeIntegerForKey:@"exclusiveFilter"];
+        subjectOverride = [coder decodeIntegerForKey:@"subjectOverride"];
+        directOverride = [coder decodeIntegerForKey:@"directOverride"];
 
-    owner = [coder decodeIntegerForKey:@"owner"];
-    delay = [coder decodeIntegerForKey:@"delay"];
+        owner = [coder decodeIntegerForKey:@"owner"];
+        delay = [coder decodeIntegerForKey:@"delay"];
+    }
     return self;
 }
 
@@ -66,14 +70,25 @@
 
 //MARK: Res Coding
 
+//Because my <s>awesome</s> FAILURE doesn't work 
++ (Class) classForResCoder:(ResUnarchiver *)coder {
+    sint8 type = [coder decodeSInt8];
+    [coder seek:0u];
+    return [self classForType:type];
+}
+
+
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    char type_ = [coder decodeSInt8];
-    [self autorelease];
-    //This is crazy, I can make an object change it's own class!
-    //Remember kids, don't try this at home.
-    self = [[[[self class] classForType:type_] alloc] init];
+    /*
+     * Let this stand as a monument to stupidity
+     * And 6 hours of debugging + 2 downgrades of Xcode
+     * //[self autorelease]
+     * //This is crazy, I can make an object change it's own class!
+     * //Remember kids, don't try this at home.
+     * //    self = [[[[self class] classForType:type_] alloc] init];
+     */
     if (self) {
-        type = type_;
+        type = [coder decodeSInt8];
         reflexive = (BOOL)[coder decodeSInt8];
         inclusiveFilter = [coder decodeUInt32];
         exclusiveFilter = [coder decodeUInt32];
@@ -82,7 +97,6 @@
         subjectOverride = [coder decodeSInt16];
         directOverride = [coder decodeSInt16];
         [coder skip:4u];
-        self = [self initWithResArchiver:coder];
     }
     return self;
 }

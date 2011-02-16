@@ -15,88 +15,91 @@
 
 - (id) init {
     self = [super init];
-    alterType = AlterHealth;
-    isRelative = NO;
-    value = 0;
-    minimum = 0;
-    range = 0;
-    ID = -1;
+    if (self) {
+        alterType = AlterHealth;
+        isRelative = NO;
+        value = 0;
+        minimum = 0;
+        range = 0;
+        ID = -1;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
+    if (self) {
     alterType = [AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]];
 
-    switch (alterType) {
-        case AlterVelocity:
-        case AlterThrust:
-        case AlterLocation:
-        case AlterAge:
-        case AlterAbsoluteLocation:
-            isRelative = [coder decodeBoolForKey:@"relative"];
-            break;
-        case AlterOnwer:
-        case AlterAbsoluteCash:
-            isRelative = [coder decodeBoolForKey:@"useObjectsOwner"];
-            break;
-        case AlterBaseType:
-            isRelative = [coder decodeBoolForKey:@"retainAmmoCount"];
-            break;
-        default:
-            break;
-    }
+        switch (alterType) {
+            case AlterVelocity:
+            case AlterThrust:
+            case AlterLocation:
+            case AlterAge:
+            case AlterAbsoluteLocation:
+                isRelative = [coder decodeBoolForKey:@"relative"];
+                break;
+            case AlterOnwer:
+            case AlterAbsoluteCash:
+                isRelative = [coder decodeBoolForKey:@"useObjectsOwner"];
+                break;
+            case AlterBaseType:
+                isRelative = [coder decodeBoolForKey:@"retainAmmoCount"];
+                break;
+            default:
+                break;
+        }
 
-    switch (alterType) {
-        case AlterHealth:
-        case AlterMaxThrust:
-        case AlterMaxVelocity:
-        case AlterMaxTurnRate:
-        case AlterScale:
-        case AlterEnergy:
-        case AlterOnwer:
-        case AlterOccupation:
-        case AlterAbsoluteCash:
-            value = [coder decodeIntegerForKey:@"value"];
-            break;
-        default:
-            break;
-    }
+        switch (alterType) {
+            case AlterHealth:
+            case AlterMaxThrust:
+            case AlterMaxVelocity:
+            case AlterMaxTurnRate:
+            case AlterScale:
+            case AlterEnergy:
+            case AlterOnwer:
+            case AlterOccupation:
+            case AlterAbsoluteCash:
+                value = [coder decodeIntegerForKey:@"value"];
+                break;
+            default:
+                break;
+        }
 
-    switch (alterType) {
-        case AlterVelocity:
-        case AlterThrust:
-        case AlterLocation:
-        case AlterHidden:
-        case AlterOnwer:
-        case AlterCurrentTurnRate:
-        case AlterActiveCondition:
-        case AlterAge:
-            minimum = [coder decodeIntegerForKey:@"minimum"];
-            range = [coder decodeIntegerForKey:@"range"];
-            break;
-        case AlterAbsoluteLocation:
-            minimum = [coder decodeIntegerForKey:@"x"];
-            range = [coder decodeIntegerForKey:@"y"];
-            break;
-        default:
-            break;
-    }
+        switch (alterType) {
+            case AlterVelocity:
+            case AlterThrust:
+            case AlterLocation:
+            case AlterHidden:
+            case AlterOnwer:
+            case AlterCurrentTurnRate:
+            case AlterActiveCondition:
+            case AlterAge:
+                minimum = [coder decodeIntegerForKey:@"minimum"];
+                range = [coder decodeIntegerForKey:@"range"];
+                break;
+            case AlterAbsoluteLocation:
+                minimum = [coder decodeIntegerForKey:@"x"];
+                range = [coder decodeIntegerForKey:@"y"];
+                break;
+            default:
+                break;
+        }
 
-    switch (alterType) {
-        case AlterPulseWeapon:
-        case AlterBeamWeapon:
-        case AlterSpecialWeapon:
-        case AlterBaseType:
-            ID = [coder decodeIntegerForKey:@"id"];
-            break;
-        case AlterAbsoluteCash:
-            ID = [coder decodeIntegerForKey:@"player"];
-            break;
-        default:
-            break;
+        switch (alterType) {
+            case AlterPulseWeapon:
+            case AlterBeamWeapon:
+            case AlterSpecialWeapon:
+            case AlterBaseType:
+                ID = [coder decodeIntegerForKey:@"id"];
+                break;
+            case AlterAbsoluteCash:
+                ID = [coder decodeIntegerForKey:@"player"];
+                break;
+            default:
+                break;
+        }
     }
-
     return self;
 }
 
@@ -175,11 +178,14 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    alterType = [coder decodeUInt8];
-    isRelative = (BOOL)[coder decodeSInt8];
-    minimum = ID = value = [coder decodeSInt32];
-    range = [coder decodeSInt32];
-    [coder skip:14u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        alterType = [coder decodeUInt8];
+        isRelative = (BOOL)[coder decodeSInt8];
+        minimum = ID = value = [coder decodeSInt32];
+        range = [coder decodeSInt32];
+        [coder skip:14u];
+    }
     return self;
 }
 

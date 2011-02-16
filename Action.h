@@ -53,7 +53,7 @@ typedef enum {
 @property (readwrite, assign) NSInteger directOverride;
 @property (readwrite, assign) NSInteger owner;
 @property (readwrite, assign) NSInteger delay;
-
++ (Class) classForResCoder:(ResUnarchiver *)coder;
 + (Class) classForType:(ActionType)type;
 + (ActionType) typeForString:(NSString *)type;
 + (NSString *) stringForType:(ActionType) type;

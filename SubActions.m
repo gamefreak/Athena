@@ -9,10 +9,14 @@
 #import "SubActions.h"
 #import "Archivers.h"
 
-//IMPORTANT! DO NOT ADD [super init] TO the -initWithResArchiver METHODS!
-
 @implementation NoAction
-- (id)initWithResArchiver:(ResUnarchiver *)coder {};//safety
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:self];
+    if (self) {
+        [coder skip:24u];
+    }
+    return self;
+};
 @end
 
 @implementation CreateObjectAction
@@ -21,23 +25,27 @@
 
 - (id) init {
     self = [super init];
-    baseType = -1;
-    min = 1;
-    range = 0;
-    velocityRelative = YES;//???
-    directionRelative = YES;//???
-    distanceRange = 0;
+    if (self) {
+        baseType = -1;
+        min = 1;
+        range = 0;
+        velocityRelative = YES;//???
+        directionRelative = YES;//???
+        distanceRange = 0;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    baseType = [coder decodeIntegerForKey:@"baseType"];
-    min = [coder decodeIntegerForKey:@"min"];
-    range = [coder decodeIntegerForKey:@"range"];
-    velocityRelative = [coder decodeBoolForKey:@"velocityRelative"];
-    directionRelative = [coder decodeBoolForKey:@"directionRelative"];
-    distanceRange = [coder decodeIntegerForKey:@"distanceRange"];
+    if (self) {
+        baseType = [coder decodeIntegerForKey:@"baseType"];
+        min = [coder decodeIntegerForKey:@"min"];
+        range = [coder decodeIntegerForKey:@"range"];
+        velocityRelative = [coder decodeBoolForKey:@"velocityRelative"];
+        directionRelative = [coder decodeBoolForKey:@"directionRelative"];
+        distanceRange = [coder decodeIntegerForKey:@"distanceRange"];
+    }
     return self;
 }
 
@@ -52,13 +60,16 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    baseType = [coder decodeSInt32];
-    min = [coder decodeSInt32];
-    range = [coder decodeSInt32];
-    velocityRelative = (BOOL)[coder decodeSInt8];
-    directionRelative = (BOOL)[coder decodeSInt8];
-    distanceRange = [coder decodeSInt32];
-    [coder skip:6u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        baseType = [coder decodeSInt32];
+        min = [coder decodeSInt32];
+        range = [coder decodeSInt32];
+        velocityRelative = (BOOL)[coder decodeSInt8];
+        directionRelative = (BOOL)[coder decodeSInt8];
+        distanceRange = [coder decodeSInt32];
+        [coder skip:6u];
+    }
     return self;
 }
 @end
@@ -70,25 +81,29 @@
 
 - (id) init {
     self = [super init];
-    priority = 1;//???
-    persistence = 1;///???
-    isAbsolute = YES;//???
-    volume = 1;//???
-    volumeRange = 0;
-    soundId = -1;//???
-    soundIdRange = 0;
+    if (self) {
+        priority = 1;//???
+        persistence = 1;///???
+        isAbsolute = YES;//???
+        volume = 1;//???
+        volumeRange = 0;
+        soundId = -1;//???
+        soundIdRange = 0;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    priority = [coder decodeIntegerForKey:@"priority"];
-    persistence = [coder decodeIntegerForKey:@"persistence"];
-    isAbsolute = [coder decodeBoolForKey:@"isAbsolute"];
-    volume = [coder decodeIntegerForKey:@"volume"];
-    volumeRange = [coder decodeIntegerForKey:@"volumeRange"];
-    soundId = [coder decodeIntegerForKey:@"soundId"];
-    soundIdRange = [coder decodeIntegerForKey:@"soundIdRange"];
+    if (self) {
+        priority = [coder decodeIntegerForKey:@"priority"];
+        persistence = [coder decodeIntegerForKey:@"persistence"];
+        isAbsolute = [coder decodeBoolForKey:@"isAbsolute"];
+        volume = [coder decodeIntegerForKey:@"volume"];
+        volumeRange = [coder decodeIntegerForKey:@"volumeRange"];
+        soundId = [coder decodeIntegerForKey:@"soundId"];
+        soundIdRange = [coder decodeIntegerForKey:@"soundIdRange"];
+    }
     return self;
 }
 
@@ -104,15 +119,17 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    priority = [coder decodeUInt8];
-    [coder skip:1u];
-    persistence = [coder decodeSInt32];
-    isAbsolute = (BOOL)[coder decodeSInt8];
-    [coder skip:1u];
-    volume = [coder decodeSInt32];
-    volumeRange = [coder decodeSInt32];
-    soundId = [coder decodeSInt32];
-    soundIdRange = [coder decodeSInt32];
+    if (self) {
+        priority = [coder decodeUInt8];
+        [coder skip:1u];
+        persistence = [coder decodeSInt32];
+        isAbsolute = (BOOL)[coder decodeSInt8];
+        [coder skip:1u];
+        volume = [coder decodeSInt32];
+        volumeRange = [coder decodeSInt32];
+        soundId = [coder decodeSInt32];
+        soundIdRange = [coder decodeSInt32];
+    }
     return self;
 }
 @end
@@ -122,19 +139,23 @@
 
 - (id) init {
     self = [super init];
-    count = 1;//???
-    velocity = 1;//???
-    velocityRange = 0;
-    color = 0;//???
+    if (self) {
+        count = 1;//???
+        velocity = 1;//???
+        velocityRange = 0;
+        color = 0;//???
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    count = [coder decodeIntegerForKey:@"count"];
-    velocity = [coder decodeIntegerForKey:@"velocity"];
-    velocityRange = [coder decodeIntegerForKey:@"velocityRange"];
-    color = [coder decodeIntegerForKey:@"color"];
+    if (self) {
+        count = [coder decodeIntegerForKey:@"count"];
+        velocity = [coder decodeIntegerForKey:@"velocity"];
+        velocityRange = [coder decodeIntegerForKey:@"velocityRange"];
+        color = [coder decodeIntegerForKey:@"color"];
+    }
     return self;
 }
 
@@ -147,11 +168,13 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    count = [coder decodeSInt32];
-    velocity = [coder decodeSInt32];
-    velocityRange = [coder decodeSInt32];
-    color = [coder decodeUInt8];
-    [coder skip:11u];
+    if (self) {
+        count = [coder decodeSInt32];
+        velocity = [coder decodeSInt32];
+        velocityRange = [coder decodeSInt32];
+        color = [coder decodeUInt8];
+        [coder skip:11u];
+    }
     return self;
 }
 @end
@@ -161,13 +184,17 @@
 
 - (id) init {
     self = [super init];
-    percent = 100.0f;//???
+    if (self) {
+        percent = 100.0f;//???
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    percent = [coder decodeFloatForKey:@"percent"];
+    if (self) {
+        percent = [coder decodeFloatForKey:@"percent"];
+    }
     return self;
 }
 
@@ -177,8 +204,11 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    percent = [coder decodeFixed];
-    [coder skip:20u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        percent = [coder decodeFixed];
+        [coder skip:20u];
+    }
     return self;
 }
 @end
@@ -188,13 +218,17 @@
 
 - (id) init {
     self = [super init];
-    speed = 1;//???
+    if (self) {
+        speed = 1;//???
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    speed = [coder decodeIntegerForKey:@"speed"];
+    if (self) {
+        speed = [coder decodeIntegerForKey:@"speed"];
+    }
     return self;
 }
 
@@ -204,8 +238,11 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    speed = [coder decodeSInt32];
-    [coder skip:20u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        speed = [coder decodeSInt32];
+        [coder skip:20u];
+    }
     return self;
 }
 @end
@@ -215,13 +252,17 @@
 
 - (id) init {
     self = [super init];
-    warpSpeed = 1;//???
+    if (self) {
+        warpSpeed = 1;//???
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    warpSpeed = [coder decodeIntegerForKey:@"warpSpeed"];
+    if (self) {
+        warpSpeed = [coder decodeIntegerForKey:@"warpSpeed"];
+    }
     return self;
 }
 
@@ -231,8 +272,11 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    warpSpeed = [coder decodeSInt32];
-    [coder skip:20u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        warpSpeed = [coder decodeSInt32];
+        [coder skip:20u];
+    }
     return self;
 }
 @end
@@ -242,15 +286,19 @@
 
 - (id) init {
     self = [super init];
-    ID = -1;
-    page = -1;
+    if (self) {
+        ID = -1;
+        page = -1;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    ID = [coder decodeIntegerForKey:@"id"];
-    page = [coder decodeIntegerForKey:@"page"];
+    if (self) {
+        ID = [coder decodeIntegerForKey:@"id"];
+        page = [coder decodeIntegerForKey:@"page"];
+    }
     return self;
 }
 
@@ -261,9 +309,12 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    ID = [coder decodeSInt16];
-    page = [coder decodeSInt16];
-    [coder skip:20u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        ID = [coder decodeSInt16];
+        page = [coder decodeSInt16];
+        [coder skip:20u];
+    }
     return self;
 }
 @end
@@ -273,17 +324,21 @@
 
 - (id) init {
     self = [super init];
-    player = 0;//???
-    score = 0;//???
-    amount = 0;
+    if (self) {
+        player = 0;//???
+        score = 0;//???
+        amount = 0;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    player = [coder decodeIntegerForKey:@"player"];
-    score = [coder decodeIntegerForKey:@"score"];
-    amount = [coder decodeIntegerForKey:@"amount"];
+    if (self) {
+        player = [coder decodeIntegerForKey:@"player"];
+        score = [coder decodeIntegerForKey:@"score"];
+        amount = [coder decodeIntegerForKey:@"amount"];
+    }
     return self;
 }
 
@@ -295,10 +350,13 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    player = [coder decodeSInt32];
-    score = [coder decodeSInt32];
-    amount = [coder decodeSInt32];
-    [coder skip:12u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        player = [coder decodeSInt32];
+        score = [coder decodeSInt32];
+        amount = [coder decodeSInt32];
+        [coder skip:12u];
+    }
     return self;
 }
 @end
@@ -320,10 +378,12 @@
 }
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    player = [coder decodeIntegerForKey:@"player"];
-    nextLevel = [coder decodeIntegerForKey:@"nextLevel"];
+    if (self) {
+        player = [coder decodeIntegerForKey:@"player"];
+        nextLevel = [coder decodeIntegerForKey:@"nextLevel"];
 
-    [text setString:[coder decodeStringForKey:@"text"]];
+        [text setString:[coder decodeStringForKey:@"text"]];
+    }
 
     return self;
 }
@@ -336,10 +396,13 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    player = [coder decodeSInt32];
-    nextLevel = [coder decodeSInt32];
-    text = [[NSNumber alloc] initWithInt:[coder decodeSInt32]];
-    [coder skip:12u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        player = [coder decodeSInt32];
+        nextLevel = [coder decodeSInt32];
+        text = [[NSNumber alloc] initWithInt:[coder decodeSInt32]];
+        [coder skip:12u];
+    }
     return self;
 }
 @end
@@ -349,25 +412,28 @@
 
 - (id) init {
     self = [super init];
-    how = DieActionNormal;
+    if (self) {
+        how = DieActionNormal;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    NSString *howStr = [coder decodeStringForKey:@"how"];
-    if ([howStr isEqual:@"plain"]) {
-        how = DieActionNormal;
-    } else if ([howStr isEqual:@"expire"]) {
-        how = DieActionExpire;
-    } else if ([howStr isEqual:@"destroy"]){
-        how = DieActionDestroy;
-    } else if ([howStr isEqual:@""]) {//Glitch? set to Normal
-        how = DieActionNormal;
-    } else {
-        @throw [NSString stringWithFormat:@"Invalid die action type: %@", howStr];
+    if (self) {
+        NSString *howStr = [coder decodeStringForKey:@"how"];
+        if ([howStr isEqual:@"plain"]) {
+            how = DieActionNormal;
+        } else if ([howStr isEqual:@"expire"]) {
+            how = DieActionExpire;
+        } else if ([howStr isEqual:@"destroy"]){
+            how = DieActionDestroy;
+        } else if ([howStr isEqual:@""]) {//Glitch? set to Normal
+            how = DieActionNormal;
+        } else {
+            @throw [NSString stringWithFormat:@"Invalid die action type: %@", howStr];
+        }
     }
-
     return self;
 }
 
@@ -390,38 +456,25 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    how = [coder decodeSInt8];
-    [coder skip:23u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        how = [coder decodeSInt8];
+        [coder skip:23u];
+    }
     return self;
 }
 @end
 
 @implementation SetDestinationAction
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
-    [coder skip:24u];
-    return self;
-}
 @end
 
 @implementation ActivateSpecialAction
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
-    [coder skip:24u];
-    return self;
-}
 @end
 
 @implementation ActivatePulseAction
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
-    [coder skip:24u];
-    return self;
-}
 @end
 
 @implementation ActivateBeamAction
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
-    [coder skip:24u];
-    return self;
-}
 @end
 
 @implementation ColorFlashAction
@@ -429,17 +482,21 @@
 
 - (id) init {
     self = [super init];
-    duration = 1;//???
-    color = 0;//??? grey
-    shade = 0;//???
+    if (self) {
+        duration = 1;//???
+        color = 0;//??? grey
+        shade = 0;//???
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    duration = [coder decodeIntegerForKey:@"duration"];
-    color = [coder decodeIntegerForKey:@"color"];
-    shade = [coder decodeIntegerForKey:@"shade"];
+    if (self) {
+        duration = [coder decodeIntegerForKey:@"duration"];
+        color = [coder decodeIntegerForKey:@"color"];
+        shade = [coder decodeIntegerForKey:@"shade"];
+    }
     return self;
 }
 
@@ -451,26 +508,21 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    duration = [coder decodeSInt32];
-    color = [coder decodeUInt8];
-    shade = [coder decodeUInt8];
-    [coder skip:18u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        duration = [coder decodeSInt32];
+        color = [coder decodeUInt8];
+        shade = [coder decodeUInt8];
+        [coder skip:18u];
+    }
     return self;
 }
 @end
 
 @implementation CreateObjectSetDestinationAction
-//- (id)initWithResArchiver:(ResUnarchiver *)coder {
-//    [coder skip:24u];
-//    return self;
-//}
 @end
 
 @implementation NilTargetAction
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
-    [coder skip:24u];
-    return self;
-}
 @end
 
 @implementation DisableKeysAction
@@ -508,13 +560,17 @@
 
 - (id) init {
     self = [super init];
-    zoomLevel = 1;//???
+    if (self) {
+        zoomLevel = 1;//???
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    zoomLevel = [coder decodeIntegerForKey:@"zoomLevel"];
+    if (self) {
+        zoomLevel = [coder decodeIntegerForKey:@"zoomLevel"];
+    }
     return self;
 }
 
@@ -524,8 +580,11 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    zoomLevel = [coder decodeUInt32];
-    [coder skip:20u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        zoomLevel = [coder decodeUInt32];
+        [coder skip:20u];
+    }
     return self;
 }
 @end
@@ -535,15 +594,19 @@
 
 - (id) init {
     self = [super init];
-    screen = 1;//???
-    line = 1;//???
+    if (self) {
+        screen = 1;//???
+        line = 1;//???
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    screen = [coder decodeIntegerForKey:@"screen"];
-    line = [coder decodeIntegerForKey:@"line"];
+    if (self) {
+        screen = [coder decodeIntegerForKey:@"screen"];
+        line = [coder decodeIntegerForKey:@"line"];
+    }
     return self;
 }
 
@@ -554,9 +617,13 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    screen = [coder decodeSInt32];
-    line = [coder decodeSInt32];
-    [coder skip:16u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        screen = [coder decodeSInt32];
+        line = [coder decodeSInt32];
+        [coder skip:16u];
+    }
+    return self;
 }
 @end
 
@@ -565,13 +632,17 @@
 
 - (id) init {
     self = [super init];
-    ID = -1;//???
+    if (self) {
+        ID = -1;//???
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    ID = [coder decodeIntegerForKey:@"id"];
+    if (self) {
+        ID = [coder decodeIntegerForKey:@"id"];
+    }
     return self;
 }
 
@@ -581,8 +652,11 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    ID = [coder decodeUInt32];
-    [coder skip:20u];
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        ID = [coder decodeUInt32];
+        [coder skip:20u];
+    }
     return self;
 }
 @end

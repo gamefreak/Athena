@@ -26,6 +26,10 @@
 
 - (id) loadObjectWithCoder:(ResUnarchiver *)coder {
     if (!loaded) {
+        //Special case
+        if ([dataClass respondsToSelector:@selector(classForResCoder:)]) {
+            dataClass = [dataClass classForResCoder:coder];
+        }
         object = [[dataClass alloc] initWithResArchiver:coder];
         NSAssert(object != nil, @"Unarchived object is nil");
         loaded = YES;
