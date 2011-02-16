@@ -11,6 +11,38 @@
 
 static NSArray *attributeBlobKeys;
 @implementation FlagBlob
+@dynamic hex;
+
+- (NSUInteger) hex {
+    NSUInteger hex = 0x00000000;
+    NSArray *keys = [[self class] keys];
+    NSInteger position = 0;
+    for (id key in keys) {
+        if (key == [NSNull null]) {
+            continue;
+        }
+        hex |= 1 << position;
+        position++;
+    }
+    return hex;
+}
+
+- (void) setHex:(NSUInteger)hex {
+    NSArray *keys = [[self class] keys];
+    NSInteger position = 0;
+    for (id key in keys) {
+        if (key == [NSNull null]) {
+            continue;
+        }
+        if (hex & 1 << position) {
+            [self setValue:[NSNumber numberWithBool:YES] forKey:key];
+        } else {
+            [self setValue:[NSNumber numberWithBool:NO] forKey:key];
+        }
+        position++;
+    }
+}
+
 + (NSArray *) keys {
     if (attributeBlobKeys == nil) {
         attributeBlobKeys = [[NSArray alloc] init];
