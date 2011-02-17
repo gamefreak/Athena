@@ -233,9 +233,9 @@
     } else if ([[attributes valueForKey:@"isSelfAnimated"] boolValue] == YES) {
         frame = [coder decodeObjectOfClass:[AnimationData class] forKey:@"animation"];
     } else if ([[attributes valueForKey:@"isBeam"] boolValue] == YES) {
-        self.frame = [coder decodeObjectOfClass:[BeamData class] forKey:@"beam"];
+        frame = [coder decodeObjectOfClass:[BeamData class] forKey:@"beam"];
     } else {
-        self.frame = [coder decodeObjectOfClass:[DeviceData class] forKey:@"device"];
+        frame = [coder decodeObjectOfClass:[DeviceData class] forKey:@"device"];
     }
     [frame retain];
 
@@ -493,32 +493,37 @@
 
 - (id) init {
     self = [super init];
-    ID = -1;
-    positionCount = 0;
-    positions = [[NSMutableArray alloc] initWithObjects:[XSPoint point], [XSPoint point], [XSPoint point], nil];
+    if (self) {
+        ID = [[Index alloc] init];
+        positionCount = 0;
+        positions = [[NSMutableArray alloc] initWithObjects:[XSPoint point], [XSPoint point], [XSPoint point], nil];
+    }
     return self;
 }
 
 - (void) dealloc {
     [positions release];
+    [ID release];
     [super dealloc];
 }
 
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    ID = [coder decodeIntegerForKey:@"id"];
-    positionCount = [coder decodeIntegerForKey:@"count"];
-    [positions setArray:[coder decodeArrayOfClass:[XSPoint class] forKey:@"positions" zeroIndexed:NO]];
-    NSInteger arrayShortfall = 3 - [positions count];
-    for (NSInteger i = 0; i < arrayShortfall; i++) {
-        [positions addObject:[XSPoint point]];
+    if (self) {
+        self.ID = [coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"id"] forClass:[BaseObject class]];
+        positionCount = [coder decodeIntegerForKey:@"count"];
+        [positions setArray:[coder decodeArrayOfClass:[XSPoint class] forKey:@"positions" zeroIndexed:NO]];
+        NSInteger arrayShortfall = 3 - [positions count];
+        for (NSInteger i = 0; i < arrayShortfall; i++) {
+            [positions addObject:[XSPoint point]];
+        }
     }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeInteger:ID forKey:@"id"];
+    [coder encodeInteger:ID.index forKey:@"id"];
     [coder encodeInteger:positionCount forKey:@"count"];
     [coder encodeArray:positions forKey:@"positions" zeroIndexed:NO];
 }
@@ -538,7 +543,7 @@
 - (id) initWithResArchiver:(ResUnarchiver *)coder id:(NSInteger)_id count:(NSInteger)count {
     self = [self init];
     if (self) {
-        ID = _id;
+        self.ID = [coder getIndexRefWithIndex:_id forClass:[BaseObject class]];
         positionCount = count;
         for (int k = 0; k < 3; k++) {
             XSPoint *point = [positions objectAtIndex:k];

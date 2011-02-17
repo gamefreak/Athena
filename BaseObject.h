@@ -15,6 +15,8 @@
 #import "ResCoding.h"
 #import "StringTable.h"
 
+#import "IndexedObject.h"
+
 typedef enum {
     IconShapeSquare = 0x0,
     IconShapeTriangle = 0x1,
@@ -25,11 +27,11 @@ typedef enum {
 } IconShape;
 
 @interface Weapon : NSObject <LuaCoding> {
-    NSInteger ID;//Uppercase because objective-c uses 'id' as a keyword.
+    Index *ID;//Uppercase because objective-c uses 'id' as a keyword.
     NSInteger positionCount;
     NSMutableArray *positions;
 }
-@property (readwrite, assign) NSInteger ID;
+@property (readwrite, retain) Index *ID;
 @property (readwrite, assign) NSInteger positionCount;
 @property (readwrite, retain) NSMutableArray *positions;
 
@@ -39,7 +41,7 @@ typedef enum {
 @end
 
 //SOOOOO many variables 0_0
-@interface BaseObject : NSObject <LuaCoding, ResCoding> {
+@interface BaseObject : IndexedObject <LuaCoding, ResCoding> {
     NSString *name;
     NSString *shortName;
     NSString *notes;
