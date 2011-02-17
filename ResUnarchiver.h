@@ -10,6 +10,8 @@
 #import <CoreServices/CoreServices.h>
 #import "ResCoding.h"
 
+@class Index;
+
 @interface ResUnarchiver : NSObject {
     NSMutableDictionary *types;
     NSMutableArray *stack;
@@ -48,4 +50,5 @@
 - (BOOL) hasObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 - (id) decodeObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 - (NSMutableDictionary *)allObjectsOfClass:(Class<ResCoding>)class;
+- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<ResCoding>)class;
 @end

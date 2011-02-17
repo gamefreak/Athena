@@ -235,6 +235,16 @@
     return outDict;
 }
 
+- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<ResCoding>)class {
+    NSMutableDictionary *table = [types objectForKey:[class typeKey]];
+    if (table == nil) {
+        [self registerClass:class];
+        table = [types objectForKey:[class typeKey]];
+    }
+    ResSegment *seg = [table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]];
+    return seg.indexRef;
+}
+
 - (NSString *) decodePString {
     UInt8 length;
     ResSegment *seg = [stack lastObject];
