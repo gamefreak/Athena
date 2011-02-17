@@ -15,7 +15,7 @@
     self = [super initWithWindowNibName:@"ObjectEditor"];
     if (self) {
         data = [_data retain];
-        objects = [data.objects retain];
+        objects = [[data mutableArrayValueForKey:@"objects"] retain];
     }
     return self;
 }

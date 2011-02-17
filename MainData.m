@@ -60,6 +60,7 @@ static NSArray *mainDataKeys;
         races = [[NSMutableArray alloc] init];
         sprites = [[NSMutableDictionary alloc] init];
         sounds = [[NSMutableDictionary alloc] init];
+    [self addObserver:self forKeyPath:@"objects" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     }
     return self;
 }
@@ -160,6 +161,7 @@ static NSArray *mainDataKeys;
 }
 
 - (void) dealloc {
+    [self removeObserver:self forKeyPath:@"objects"];
     [objects release];
     [scenarios release];
     [races release];
