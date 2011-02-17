@@ -10,6 +10,25 @@
 #import "Archivers.h"
 #import "StringTable.h"
 
+@implementation IllegalColors
+@synthesize gray, orange, yellow, blue;
+@synthesize green, purple, indigo, salmon;
+@synthesize gold, aqua, pink, paleGreen;
+@synthesize palePurple, skyBlue, tan, red;
++ (NSArray *) keys {
+    static NSArray *colorKeys;
+    if (colorKeys == nil) {
+        colorKeys = [[NSMutableArray alloc] initWithObjects:
+                     @"gray", @"orange", @"yellow", @"blue",
+                     @"green", @"purple", @"indigo", @"salmon",
+                     @"gold", @"aqua", @"pink", @"paleGreen",
+                     @"palePurple", @"skyBlue", @"tan", @"red", nil];
+    }
+    return colorKeys;
+}
+@end
+
+
 const NSUInteger raceStringTableId = 4201u;
 
 @implementation Race
@@ -17,19 +36,22 @@ const NSUInteger raceStringTableId = 4201u;
 @synthesize singular, plural, military, homeworld;
 
 - (id) init {
-    [super init];
-    raceId = 0;
-    apparentColor = ClutGray;
-    illegalColors = 0x00000000;
-    advantage = 1.0f;
-    singular = @"Untitled";
-    plural = @"Untitled";
-    military = @"Untitled";
-    homeworld = @"Untitled";
+    self = [super init];
+    if (self) {
+        raceId = 0;
+        apparentColor = ClutGray;
+        illegalColors = [[IllegalColors alloc] init];;
+        advantage = 1.0f;
+        singular = @"Untitled";
+        plural = @"Untitled";
+        military = @"Untitled";
+        homeworld = @"Untitled";
+    }
     return self;
 }
 
 - (void) dealloc {
+    [illegalColors release];
     [singular release];
     [plural release];
     [military release];
@@ -40,22 +62,24 @@ const NSUInteger raceStringTableId = 4201u;
 //MARK: Lua Coding
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
-    [self init];
-    raceId = [coder decodeIntegerForKey:@"id"];
-    apparentColor = [coder decodeIntegerForKey:@"apparentColor"];
-    illegalColors = [coder decodeIntegerForKey:@"illegalColors"];
-    advantage = [coder decodeFloatForKey:@"advantage"];
-    singular = [[coder decodeStringForKey:@"singular"] retain];
-    plural = [[coder decodeStringForKey:@"plural"] retain];
-    military = [[coder decodeStringForKey:@"military"] retain];
-    homeworld = [[coder decodeStringForKey:@"homeWorld"] retain];
+    self = [self init];
+    if (self) {
+        raceId = [coder decodeIntegerForKey:@"id"];
+        apparentColor = [coder decodeIntegerForKey:@"apparentColor"];
+        illegalColors.hex = [coder decodeIntegerForKey:@"illegalColors"];
+        advantage = [coder decodeFloatForKey:@"advantage"];
+        singular = [[coder decodeStringForKey:@"singular"] retain];
+        plural = [[coder decodeStringForKey:@"plural"] retain];
+        military = [[coder decodeStringForKey:@"military"] retain];
+        homeworld = [[coder decodeStringForKey:@"homeWorld"] retain];
+    }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeInteger:raceId forKey:@"id"];
     [coder encodeInteger:apparentColor forKey:@"apparentColor"];
-    [coder encodeInteger:illegalColors forKey:@"illegalColors"];
+    [coder encodeInteger:illegalColors.hex forKey:@"illegalColors"];
     [coder encodeFloat:advantage forKey:@"advantage"];
     [coder encodeString:singular forKey:@"singular"];
     [coder encodeString:plural forKey:@"plural"];
@@ -79,7 +103,7 @@ const NSUInteger raceStringTableId = 4201u;
         raceId = [coder decodeSInt32];
         apparentColor = [coder decodeUInt8];
         [coder skip:1u];
-        illegalColors = [coder decodeUInt32];
+        illegalColors.hex = [coder decodeUInt32];
         advantage = [coder decodeFixed];
         
         StringTable *strings = [coder decodeObjectOfClass:[StringTable class] atIndex:raceStringTableId];
