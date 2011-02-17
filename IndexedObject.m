@@ -54,6 +54,10 @@
     return index;
 }
 
+- (void) setIndexRef:(Index *)ref {
+    [index release];
+    index = [ref retain];
+}
 @end
 
 @implementation Index

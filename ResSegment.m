@@ -9,20 +9,6 @@
 #import "ResSegment.h"
 #import "IndexedObject.h"
 
-@interface IndexedObject (SetIndexRef)
-- (void) setIndexRef:(Index *)ref;
-@end
-
-@implementation IndexedObject (SetIndexRef)
-- (void) setIndexRef:(Index *)ref {
-    [index release];
-    index = [ref retain];
-}
-@end
-
-
-
-
 @implementation ResSegment
 @synthesize data, object, dataClass, cursor, loaded, name;
 @dynamic index, indexRef;

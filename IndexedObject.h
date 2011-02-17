@@ -15,7 +15,7 @@
     Index *index;
 }
 @property (readwrite, assign) NSUInteger objectIndex;
-@property (readonly) Index *indexRef;
+@property (readwrite, retain) Index *indexRef;
 - (id) initWithIndex:(NSUInteger)index;
 - (void) objectsAddedAtIndexes:(NSIndexSet *)indexes;
 - (void) objectsRemovedAtIndexes:(NSIndexSet *)indexes;
