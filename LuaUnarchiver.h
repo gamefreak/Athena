@@ -10,10 +10,11 @@
 #import "lua.h"
 #import "LuaCoding.h"
 
-@class XSPoint;
+@class XSPoint, Index;
 
 @interface LuaUnarchiver : NSCoder {
     lua_State *L;
+    NSMutableDictionary *refTable;
 }
 + (id) unarchiveObjectWithData:(NSData *)data;
 - (void) loadData:(NSData *)data;
@@ -32,4 +33,5 @@
 - (NSInteger) decodeInteger;
 - (NSInteger) decodeIntegerForKeyPath:(NSString *)keyPath;
 
+- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<LuaCoding>)class;
 @end

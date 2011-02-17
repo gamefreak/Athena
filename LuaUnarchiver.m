@@ -12,6 +12,7 @@
 #import "lualib.h"
 #import "lauxlib.h"
 #import "NSString+LuaCoding.h"
+#import "IndexedObject.h"
 
 static void stackDump (lua_State *L) {
     int i=lua_gettop(L);
@@ -93,8 +94,9 @@ static void stackDump (lua_State *L) {
 }
 
 - (void) dealloc {
-    [super dealloc];
+    [refTable release];
     lua_close(L);
+    [super dealloc];
 }
 
 + (id)unarchiveObjectWithData:(NSData *)data {
@@ -134,6 +136,8 @@ static void stackDump (lua_State *L) {
     [self getKey:key];
     assert(lua_istable(L, -1));
 
+    BOOL useIndexRefs = [[[[_class alloc] init] autorelease] isKindOfClass:[IndexedObject class]];
+
     /*
      Between the behaviour of lua and NSArray there must be no holes
      in the arrays otherwise I predict that bad things may happen.
@@ -147,6 +151,9 @@ static void stackDump (lua_State *L) {
         if(!lua_isnil(L, -1)) {
             Class class = [_class classForLuaCoder:self];
             id object = [[class alloc] initWithLuaCoder:self];
+            if (useIndexRefs) {
+                [object setIndexRef:[self getIndexRefWithIndex:0 forClass:_class]];
+            }
             [array addObject:object];
             [object release];
         }
@@ -158,6 +165,9 @@ static void stackDump (lua_State *L) {
 
         Class class = [_class classForLuaCoder:self];
         id object = [[class alloc] initWithLuaCoder:self];
+        if (useIndexRefs) {
+            [object setIndexRef:[self getIndexRefWithIndex:idx forClass:_class]];
+        }
         [array addObject:object];
         [object release];
         lua_pop(L, 1); //pops value
@@ -260,5 +270,21 @@ static void stackDump (lua_State *L) {
     NSInteger val = lua_tointeger(L, -1);
     [self popN:popCount];
     return val;
+}
+
+- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<LuaCoding>)class {
+    NSMutableDictionary *table = [refTable objectForKey:class];
+    if (table == nil) {
+        table = [NSMutableDictionary dictionary];
+        [refTable setObject:table forKey:class];
+    }
+    NSString *key = [[NSNumber numberWithUnsignedInteger:index] stringValue];
+    Index *indexRef = [table objectForKey:key];
+    if (indexRef == nil) {
+        indexRef = [[Index alloc] initWithIndex:index];
+        [table setObject:indexRef forKey:key];
+        [indexRef autorelease];
+    }
+    return indexRef;
 }
 @end
