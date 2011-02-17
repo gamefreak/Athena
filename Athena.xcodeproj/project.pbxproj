@@ -87,6 +87,7 @@
 		D26B6A33130C15CC00B461FB /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26B69D8130C14CC00B461FB /* liblua.a */; };
 		D26B6A40130C16D700B461FB /* ObjectEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D26B6A3F130C16D700B461FB /* ObjectEditor.m */; };
 		D26B6A42130C170900B461FB /* ObjectEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D26B6A41130C170900B461FB /* ObjectEditor.xib */; };
+		D2781DEC130C7AC100E0CD75 /* IndexedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D2781DEB130C7AC100E0CD75 /* IndexedObject.m */; };
 		D2882C2612F1D41400A02383 /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882C2512F1D41400A02383 /* Condition.m */; };
 		D2882D3512F1F02D00A02383 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882D3412F1F02D00A02383 /* Action.m */; };
 		D28831CF12F21E7F00A02383 /* SubActions.m in Sources */ = {isa = PBXBuildFile; fileRef = D28831CE12F21E7F00A02383 /* SubActions.m */; };
@@ -129,7 +130,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D26B69D7130C14CC00B461FB /* lua */;
+			remoteGlobalIDString = D26B69D7130C14CC00B461FB;
 			remoteInfo = lua;
 		};
 /* End PBXContainerItemProxy section */
@@ -226,6 +227,8 @@
 		D26B6A3E130C16D700B461FB /* ObjectEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectEditor.h; sourceTree = "<group>"; };
 		D26B6A3F130C16D700B461FB /* ObjectEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectEditor.m; sourceTree = "<group>"; };
 		D26B6A41130C170900B461FB /* ObjectEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ObjectEditor.xib; sourceTree = "<group>"; };
+		D2781DEA130C7AC100E0CD75 /* IndexedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexedObject.h; sourceTree = "<group>"; };
+		D2781DEB130C7AC100E0CD75 /* IndexedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexedObject.m; sourceTree = "<group>"; };
 		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
 		D2882C2412F1D41400A02383 /* Condition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Condition.h; sourceTree = "<group>"; };
 		D2882C2512F1D41400A02383 /* Condition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Condition.m; sourceTree = "<group>"; };
@@ -360,6 +363,7 @@
 			children = (
 				D21EB32112E8C41E00694EBA /* AresTypes */,
 				D264F8BD12E8EE3A0050BCFB /* Archivers */,
+				D2781DFC130C884300E0CD75 /* Index support */,
 				D293F65D12EBAAFD00EF1CCA /* Wrappers */,
 				D288339812F24F7600A02383 /* Interface */,
 				D21EB27712E8BAEF00694EBA /* MainData.h */,
@@ -529,6 +533,15 @@
 				D2B720BE1308739900008307 /* SMIVImage.m */,
 			);
 			name = Media;
+			sourceTree = "<group>";
+		};
+		D2781DFC130C884300E0CD75 /* Index support */ = {
+			isa = PBXGroup;
+			children = (
+				D2781DEA130C7AC100E0CD75 /* IndexedObject.h */,
+				D2781DEB130C7AC100E0CD75 /* IndexedObject.m */,
+			);
+			name = "Index support";
 			sourceTree = "<group>";
 		};
 		D28831CC12F21E4E00A02383 /* Actions */ = {
@@ -839,6 +852,7 @@
 				D2DEECB5130A2A74004AB731 /* SpriteEditor.m in Sources */,
 				D2E98D19130AED3F0013EBCA /* SpriteView.m in Sources */,
 				D26B6A40130C16D700B461FB /* ObjectEditor.m in Sources */,
+				D2781DEC130C7AC100E0CD75 /* IndexedObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
