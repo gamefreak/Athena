@@ -43,22 +43,24 @@ static NSArray *mainDataKeys;
 
 - (id) init {
     self = [super init];
-    playerBodyId = 22;
-    energyBlobId = 28;
-    inFlareId = 32;
-    outFlareId = 33;
-    title = @"";
-    downloadUrl = @"";
-    author = @"";
-    authorUrl = @"";
+    if (self) {
+        playerBodyId = 22;
+        energyBlobId = 28;
+        inFlareId = 32;
+        outFlareId = 33;
+        title = @"";
+        downloadUrl = @"";
+        author = @"";
+        authorUrl = @"";
 
-    flags = [[MainDataFlags alloc] init];
+        flags = [[MainDataFlags alloc] init];
 
-    objects = [[NSMutableArray alloc] init];
-    scenarios = [[NSMutableArray alloc] init];
-    races = [[NSMutableArray alloc] init];
-    sprites = [[NSMutableDictionary alloc] init];
-    sounds = [[NSMutableDictionary alloc] init];
+        objects = [[NSMutableArray alloc] init];
+        scenarios = [[NSMutableArray alloc] init];
+        races = [[NSMutableArray alloc] init];
+        sprites = [[NSMutableDictionary alloc] init];
+        sounds = [[NSMutableDictionary alloc] init];
+    }
     return self;
 }
 
@@ -170,5 +172,27 @@ static NSArray *mainDataKeys;
     [authorUrl release];
     [downloadUrl release];
     [super dealloc];
+}
+
+- (void) observeValueForKeyPath:(NSString *)keyPath
+                       ofObject:(id)object
+                         change:(NSDictionary *)change
+                        context:(void *)context {
+    BOOL isPrior = [[change objectForKey:NSKeyValueChangeNotificationIsPriorKey] boolValue];
+    NSInteger kind = [[change objectForKey:NSKeyValueChangeKindKey] integerValue];
+    NSIndexSet *indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
+    if (isPrior) {
+        if (kind == NSKeyValueChangeInsertion) {
+            [[object valueForKeyPath:keyPath] makeObjectsPerformSelector:@selector(objectsAddedAtIndexes:) withObject:indexes];
+        }
+    } else {
+        if (kind == NSKeyValueChangeRemoval) {
+            [[object valueForKeyPath:keyPath] makeObjectsPerformSelector:@selector(objectsRemovedAtIndexes:) withObject:indexes];
+            //TODO: Make the next to calls work if there is more than one change.
+            [[[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0] setObjectIndex:[indexes firstIndex]];
+        } else if (kind == NSKeyValueChangeInsertion) {
+            [[[change objectForKey:NSKeyValueChangeNewKey] objectAtIndex:0] setObjectIndex:[indexes firstIndex]];
+        }
+    }
 }
 @end
