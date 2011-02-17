@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ResCoding.h"
 
-@class ResUnarchiver;
+@class ResUnarchiver, Index;
 
 @interface ResSegment : NSObject {
     NSData *data;
@@ -18,7 +18,7 @@
     Class dataClass;
     NSUInteger cursor;
     BOOL loaded;
-    NSUInteger index;
+    Index *index;
 }
 @property (readonly) NSData *data;
 @property (readonly) id<ResCoding, NSObject> object;
@@ -26,6 +26,7 @@
 @property (readonly) NSUInteger cursor;
 @property (readonly) BOOL loaded;
 @property (readonly) NSUInteger index;
+@property (readonly) Index *indexRef;
 @property (readwrite, retain) NSString *name;
 
 - (id) initWithClass:(Class)class data:(NSData *)data index:(NSUInteger)index name:(NSString *)_name;

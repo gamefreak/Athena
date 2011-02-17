@@ -7,9 +7,25 @@
 //
 
 #import "ResSegment.h"
+#import "IndexedObject.h"
+
+@interface IndexedObject (SetIndexRef)
+- (void) setIndexRef:(Index *)ref;
+@end
+
+@implementation IndexedObject (SetIndexRef)
+- (void) setIndexRef:(Index *)ref {
+    [index release];
+    index = [ref retain];
+}
+@end
+
+
+
 
 @implementation ResSegment
-@synthesize data, object, dataClass, cursor, index, loaded, name;
+@synthesize data, object, dataClass, cursor, loaded, name;
+@dynamic index, indexRef;
 
 - (id) initWithClass:(Class<ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index name:(NSString *)_name {
     self = [super init];
@@ -19,7 +35,7 @@
         dataClass = _class;
         cursor = 0;
         loaded = NO;
-        index = _index;
+        index = [[Index alloc] initWithIndex:_index];
     }
     return self;
 }
@@ -31,6 +47,9 @@
             dataClass = [dataClass classForResCoder:coder];
         }
         object = [[dataClass alloc] initWithResArchiver:coder];
+        if ([object isKindOfClass:[IndexedObject class]]) {
+            [object setIndexRef:index];
+        }
         NSAssert(object != nil, @"Unarchived object is nil");
         loaded = YES;
     }
@@ -38,6 +57,7 @@
 }
 
 - (void) dealloc {
+    [index release];
     [data release];
     [object release];
     [name release];
@@ -55,5 +75,13 @@
 
 - (void) seek:(NSUInteger)position {
     cursor = position;
+}
+
+- (NSUInteger) index {
+    return index.index;
+}
+
+- (Index *) indexRef {
+    return index;
 }
 @end
