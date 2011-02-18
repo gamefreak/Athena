@@ -25,7 +25,7 @@
 @property (readonly) Class dataClass;
 @property (readonly) NSUInteger cursor;
 @property (readonly) BOOL loaded;
-@property (readonly) NSUInteger index;
+@property (readwrite, assign) NSUInteger index;
 @property (readonly) Index *indexRef;
 @property (readwrite, retain) NSString *name;
 

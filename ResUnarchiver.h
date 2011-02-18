@@ -26,6 +26,7 @@
 - (void) skip:(NSUInteger)bytes;
 - (void) seek:(NSUInteger)position;
 - (void) readBytes:(void *)buffer length:(NSUInteger)length;
+- (void) setIndexOverride:(NSUInteger)newIndex;
 - (NSUInteger) currentIndex;
 - (NSUInteger) currentSize;
 - (NSString *) currentName;

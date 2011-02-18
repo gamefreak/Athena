@@ -67,6 +67,10 @@
     return index.index;
 }
 
+- (void) setIndex:(NSUInteger)_index {
+    index.index = _index;
+}
+
 - (Index *) indexRef {
     return index;
 }

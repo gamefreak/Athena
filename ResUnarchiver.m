@@ -10,6 +10,7 @@
 #import "ResCoding.h"
 #import "ResSegment.h"
 #import "StringTable.h"
+#import "Scenario.h"
 
 @implementation ResUnarchiver
 - (id) initWithFilePath:(NSString *)path; {
@@ -115,6 +116,10 @@
 
 - (void) readBytes:(void *)buffer length:(NSUInteger)length {
     [[stack lastObject] readBytes:buffer length:length];
+}
+
+- (void) setIndexOverride:(NSUInteger)newIndex {
+    [[stack lastObject] setIndex:newIndex];
 }
 
 - (NSUInteger) currentIndex {
@@ -235,13 +240,24 @@
     return outDict;
 }
 
-- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<ResCoding>)class {
+- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<Alloc, ResCoding>)class {
     NSMutableDictionary *table = [types objectForKey:[class typeKey]];
     if (table == nil) {
         [self registerClass:class];
         table = [types objectForKey:[class typeKey]];
     }
-    ResSegment *seg = [table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]];
+    ResSegment *seg;
+    if ([[[[class alloc] init] autorelease] isKindOfClass:[Scenario class]]) {
+        //Special case for Scenario
+        for (ResSegment *tmpSeg in table) {
+            if (tmpSeg.index == index) {
+                seg = tmpSeg;
+                break;
+            }
+        }
+    } else {
+        seg = [table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]];
+    }
     return seg.indexRef;
 }
 
