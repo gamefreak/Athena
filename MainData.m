@@ -60,7 +60,8 @@ static NSArray *mainDataKeys;
         races = [[NSMutableArray alloc] init];
         sprites = [[NSMutableDictionary alloc] init];
         sounds = [[NSMutableDictionary alloc] init];
-    [self addObserver:self forKeyPath:@"objects" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+        [self addObserver:self forKeyPath:@"objects" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+        [self addObserver:self forKeyPath:@"scenarios" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     }
     return self;
 }
@@ -125,14 +126,6 @@ static NSArray *mainDataKeys;
         for (NSUInteger index = 0; index < count; index++) {
             [scenarios addObject:[coder decodeObjectOfClass:[Scenario class] atIndex:index]];
         }
-        [scenarios sortUsingComparator:^(id obj1, id obj2) {
-            if ([obj1 objectIndex] > [obj2 objectIndex]) {
-                return (NSComparisonResult) NSOrderedDescending;
-            } else if ([obj1 objectIndex] < [obj2 objectIndex]) {
-                return (NSComparisonResult) NSOrderedAscending;
-            }
-            return (NSComparisonResult)NSOrderedSame;
-        }];
 
         count = [coder countOfClass:[BaseObject class]];
         for (NSUInteger index = 0; index < count; index++) {
@@ -162,6 +155,7 @@ static NSArray *mainDataKeys;
 
 - (void) dealloc {
     [self removeObserver:self forKeyPath:@"objects"];
+    [self removeObserver:self forKeyPath:@"scenarios"];
     [objects release];
     [scenarios release];
     [races release];

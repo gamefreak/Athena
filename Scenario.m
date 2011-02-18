@@ -173,6 +173,13 @@
     return self;
 }
 
++ (NSUInteger) peekAtIndexWithCoder:(ResUnarchiver *)coder {
+    [coder seek:114u];
+    short index = [coder decodeSInt16]-1;
+    [coder seek:0u];
+    return index;
+}
+
 //MARK: Res Coding
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
@@ -234,7 +241,6 @@
 
         par.kills = [coder decodeSInt16];
         short scenarioId = [coder decodeSInt16];
-        [coder setIndexOverride:scenarioId];
 
         const NSUInteger stringNameTable = 4600;
         [name release];
@@ -274,7 +280,7 @@
 @dynamic singleLineName;
 - (NSString *) singleLineName {
     NSMutableString *slName = [NSMutableString stringWithString:name];
-    [slName replaceOccurrencesOfString:@"\n"
+    [slName replaceOccurrencesOfString:@"\r"
                             withString:@" "
                                options:NSCaseInsensitiveSearch
                                  range:NSMakeRange(0, [slName length])];

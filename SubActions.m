@@ -391,12 +391,13 @@
     [text release];
     [super dealloc];
 }
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
     if (self) {
         player = [coder decodeIntegerForKey:@"player"];
         [nextLevel release];
-        nextLevel = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"nextLevel"]
+        nextLevel = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"nextLevel"]-1
                                         forClass:[Scenario class]] retain];
         [text setString:[coder decodeStringForKey:@"text"]];
     }

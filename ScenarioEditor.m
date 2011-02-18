@@ -37,7 +37,7 @@
     if (self) {
         data = _data;
         [data retain];
-        scenarios = data.scenarios;
+        scenarios = [data mutableArrayValueForKey:@"scenarios"];;
         for (Scenario *scen in scenarios) {
             [self startObservingScenario:scen];
         }

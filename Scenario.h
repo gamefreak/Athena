@@ -12,10 +12,11 @@
 
 #import "IndexedObject.h"
 
+@class IndexedObject;
 @class XSPoint;
 @class ScenarioPar;
 
-@interface Scenario : IndexedObject <LuaCoding, ResCoding> {
+@interface Scenario : IndexedObject <LuaCoding, ResCoding, ResIndexOverriding> {
     NSString *name;
 
     NSUInteger netRaceFlags;
