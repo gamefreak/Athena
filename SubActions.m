@@ -8,6 +8,10 @@
 
 #import "SubActions.h"
 #import "Archivers.h"
+#import "IndexedObject.h"
+
+#import "BaseObject.h"
+#import "Scenario.h"
 
 @implementation NoAction
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
@@ -26,7 +30,7 @@
 - (id) init {
     self = [super init];
     if (self) {
-        baseType = -1;
+        baseType = [[Index alloc] init];
         min = 1;
         range = 0;
         velocityRelative = YES;//???
@@ -36,10 +40,17 @@
     return self;
 }
 
+- (void) dealloc {
+    [baseType release];
+    [super dealloc];
+}
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
     if (self) {
-        baseType = [coder decodeIntegerForKey:@"baseType"];
+        [baseType release];
+        baseType = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"baseType"]
+                                       forClass:[BaseObject class]] retain];
         min = [coder decodeIntegerForKey:@"min"];
         range = [coder decodeIntegerForKey:@"range"];
         velocityRelative = [coder decodeBoolForKey:@"velocityRelative"];
@@ -51,7 +62,7 @@
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
-    [coder encodeInteger:baseType forKey:@"baseType"];
+    [coder encodeInteger:baseType.index forKey:@"baseType"];
     [coder encodeInteger:min forKey:@"min"];
     [coder encodeInteger:range forKey:@"range"];
     [coder encodeBool:velocityRelative forKey:@"velocityRelative"];
@@ -62,7 +73,8 @@
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [super initWithResArchiver:coder];
     if (self) {
-        baseType = [coder decodeSInt32];
+        baseType = [[coder getIndexRefWithIndex:[coder decodeSInt32]
+                                       forClass:[BaseObject class]] retain];
         min = [coder decodeSInt32];
         range = [coder decodeSInt32];
         velocityRelative = (BOOL)[coder decodeSInt8];
@@ -366,13 +378,16 @@
 
 - (id) init {
     self = [super init];
-    player = 0;
-    nextLevel = 0;
-    text = [[NSMutableString alloc] init];
+    if (self) {
+        player = 0;
+        nextLevel = [[Index alloc] init];
+        text = [[NSMutableString alloc] init];
+    }
     return self;
 }
 
 - (void) dealloc {
+    [nextLevel release];
     [text release];
     [super dealloc];
 }
@@ -380,8 +395,9 @@
     self = [super initWithLuaCoder:coder];
     if (self) {
         player = [coder decodeIntegerForKey:@"player"];
-        nextLevel = [coder decodeIntegerForKey:@"nextLevel"];
-
+        [nextLevel release];
+        nextLevel = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"nextLevel"]
+                                        forClass:[Scenario class]] retain];
         [text setString:[coder decodeStringForKey:@"text"]];
     }
 
@@ -391,7 +407,7 @@
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
     [coder encodeInteger:player forKey:@"player"];
-    [coder encodeInteger:nextLevel forKey:@"nextLevel"];
+    [coder encodeInteger:nextLevel.index forKey:@"nextLevel"];
     [coder encodeString:text forKey:@"text"];
 }
 
@@ -399,7 +415,9 @@
     self = [super initWithResArchiver:coder];
     if (self) {
         player = [coder decodeSInt32];
-        nextLevel = [coder decodeSInt32];
+        [nextLevel release];
+        nextLevel = [[coder getIndexRefWithIndex:[coder decodeSInt32]
+                                        forClass:[Scenario class]] retain];
         text = [[NSNumber alloc] initWithInt:[coder decodeSInt32]];
         [coder skip:12u];
     }

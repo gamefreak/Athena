@@ -8,10 +8,13 @@
 
 #import "AlterActions.h"
 #import "Archivers.h"
+#import "IndexedObject.h"
+
+#import "BaseObject.h"
 
 @implementation AlterAction
 @synthesize alterType, isRelative, value;
-@synthesize minimum, range, ID;
+@synthesize minimum, range, ID, IDRef;
 
 - (id) init {
     self = [super init];
@@ -22,8 +25,14 @@
         minimum = 0;
         range = 0;
         ID = -1;
+        IDRef = nil;
     }
     return self;
+}
+
+- (void) dealloc {
+    [IDRef release];
+    [super dealloc];
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
@@ -91,7 +100,8 @@
             case AlterBeamWeapon:
             case AlterSpecialWeapon:
             case AlterBaseType:
-                ID = [coder decodeIntegerForKey:@"id"];
+                IDRef = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"id"]
+                                            forClass:[BaseObject class]] retain];
                 break;
             case AlterAbsoluteCash:
                 ID = [coder decodeIntegerForKey:@"player"];
@@ -167,7 +177,7 @@
         case AlterBeamWeapon:
         case AlterSpecialWeapon:
         case AlterBaseType:
-            [coder encodeInteger:ID forKey:@"id"];
+            [coder encodeInteger:IDRef.index forKey:@"id"];
             break;
         case AlterAbsoluteCash:
             [coder encodeInteger:ID forKey:@"player"];
@@ -183,6 +193,17 @@
         alterType = [coder decodeUInt8];
         isRelative = (BOOL)[coder decodeSInt8];
         minimum = ID = value = [coder decodeSInt32];
+        switch (alterType) {
+            case AlterPulseWeapon:
+            case AlterBeamWeapon:
+            case AlterSpecialWeapon:
+            case AlterBaseType:
+                IDRef = [[coder getIndexRefWithIndex:ID
+                                            forClass:[BaseObject class]] retain];
+                break;
+            default:
+                break;
+        }
         range = [coder decodeSInt32];
         [coder skip:14u];
     }

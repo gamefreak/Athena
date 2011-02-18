@@ -9,17 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "Action.h"
 
+@class Index;
+
 @interface NoAction : Action {
 }
 @end
 
 @interface CreateObjectAction : Action {
-    NSInteger baseType;
+    Index *baseType;
     NSInteger min, range;
     BOOL velocityRelative, directionRelative;
     NSInteger distanceRange;
 }
-@property (readwrite, assign) NSInteger baseType;
+@property (readwrite, retain) Index *baseType;
 @property (readwrite, assign) NSInteger min;
 @property (readwrite, assign) NSInteger range;
 @property (readwrite, assign) BOOL velocityRelative;
@@ -87,11 +89,12 @@
 @end
 
 @interface DeclareWinnerAction : Action {
-    NSInteger player, nextLevel;
+    NSInteger player;
+    Index *nextLevel;
     NSMutableString *text;
 }
 @property (readwrite, assign) NSInteger player;
-@property (readwrite, assign) NSInteger nextLevel;
+@property (readwrite, retain) Index *nextLevel;
 @property (readwrite, retain) NSMutableString *text;
 @end
 
