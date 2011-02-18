@@ -21,3 +21,8 @@
 + (BOOL) isPacked;
 + (size_t) sizeOfResourceItem;
 @end
+
+@protocol ResIndexOverriding
++ (NSUInteger) peekAtIndexWithCoder:(ResUnarchiver *)coder;
+@end
+

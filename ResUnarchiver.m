@@ -38,7 +38,7 @@
 - (void) registerClass:(Class <Alloc, ResCoding>)class {
     ResType type = [class resType];
 
-    
+
     if ([class isPacked]) {//data is a concatinated array of structs
         NSLog(@"Unpacking resources of type: %@", [class typeKey]);
         //500 seems to be used for all of ares's packed types
@@ -60,8 +60,13 @@
                                data:[data subdataWithRange:NSMakeRange(recSize * k, recSize)]
                                index:k
                                name:@""];
+            if ([class conformsToProtocol:@protocol(ResIndexOverriding)]) {
+                [stack addObject:seg];
+                seg.index = [(id<ResIndexOverriding>)class peekAtIndexWithCoder:self];
+                [stack removeLastObject];
+            }
             
-            [table setObject:seg forKey:[[NSNumber numberWithUnsignedInteger:k] stringValue]];
+            [table setObject:seg forKey:[[NSNumber numberWithUnsignedInteger:seg.index] stringValue]];
             [seg release];
         }
         [types setObject:table forKey:[class typeKey]];
@@ -116,10 +121,6 @@
 
 - (void) readBytes:(void *)buffer length:(NSUInteger)length {
     [[stack lastObject] readBytes:buffer length:length];
-}
-
-- (void) setIndexOverride:(NSUInteger)newIndex {
-    [[stack lastObject] setIndex:newIndex];
 }
 
 - (NSUInteger) currentIndex {
@@ -216,7 +217,7 @@
     }
     if (table == nil) @throw [NSString stringWithFormat:@"Unable to access objects of type '%@'", [class typeKey]];
     ResSegment *seg =  [table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]];
-    if (seg == nil) @throw [NSString stringWithFormat:@"Failed to load resource of type '%@' at index %ui.", [class typeKey], index];
+    if (seg == nil) @throw [NSString stringWithFormat:@"Failed to load resource of type '%@' at index %lu.", [class typeKey], index];
     [stack addObject:seg];
     id object = [seg loadObjectWithCoder:self];
     [stack removeLastObject];
@@ -246,19 +247,7 @@
         [self registerClass:class];
         table = [types objectForKey:[class typeKey]];
     }
-    ResSegment *seg;
-    if ([[[[class alloc] init] autorelease] isKindOfClass:[Scenario class]]) {
-        //Special case for Scenario
-        for (ResSegment *tmpSeg in table) {
-            if (tmpSeg.index == index) {
-                seg = tmpSeg;
-                break;
-            }
-        }
-    } else {
-        seg = [table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]];
-    }
-    return seg.indexRef;
+    return [[table objectForKey:[[NSNumber numberWithUnsignedInteger:index] stringValue]] indexRef];
 }
 
 - (NSString *) decodePString {
