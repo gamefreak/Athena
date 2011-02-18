@@ -18,7 +18,7 @@
 #import "Condition.h"
 
 @implementation Scenario
-@synthesize name, netRaceFlags, scenarioId;
+@synthesize name, netRaceFlags;
 @synthesize playerNum, players, scoreStrings;
 @synthesize initialObjects, conditions, briefings;
 @synthesize starmap, par, angle, startTime, isTraining;
@@ -26,31 +26,32 @@
 
 - (id) init {
     self = [super init];
-    scenarioId = 0;
-    name = @"Untitled";
+    if (self) {
+        name = @"Untitled";
 
-    netRaceFlags = 0x00000000;///?
-    playerNum = 2;
-    players = [[NSMutableArray alloc] initWithCapacity:2];
-    [players addObject:[[[ScenarioPlayer alloc] initAsSinglePlayer] autorelease]];
-    [players addObject:[[[ScenarioPlayer alloc] init] autorelease]];
-    scoreStrings = [[NSMutableArray alloc] init];
+        netRaceFlags = 0x00000000;///?
+        playerNum = 2;
+        players = [[NSMutableArray alloc] initWithCapacity:2];
+        [players addObject:[[[ScenarioPlayer alloc] initAsSinglePlayer] autorelease]];
+        [players addObject:[[[ScenarioPlayer alloc] init] autorelease]];
+        scoreStrings = [[NSMutableArray alloc] init];
 
-    initialObjects = [[NSMutableArray alloc] init];
-    conditions = [[NSMutableArray alloc] init];
-    briefings = [[NSMutableArray alloc] init];
+        initialObjects = [[NSMutableArray alloc] init];
+        conditions = [[NSMutableArray alloc] init];
+        briefings = [[NSMutableArray alloc] init];
 
-    starmap = [[XSPoint alloc] init];
+        starmap = [[XSPoint alloc] init];
 
-    par = [[ScenarioPar alloc] init];
+        par = [[ScenarioPar alloc] init];
 
-    angle = 0;
+        angle = 0;
 
-    prologue = [[NSMutableString alloc] init];
-    epilogue = [[NSMutableString alloc] init];
+        prologue = [[NSMutableString alloc] init];
+        epilogue = [[NSMutableString alloc] init];
 
-    songId = -1;
-    movie = @"";
+        songId = -1;
+        movie = @"";
+    }
     return self;
 }
 
@@ -73,66 +74,64 @@
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-//    scenId = [coder decodeIntegerForKey:@"id"];
+    if (self) {
+        [name release];
+        name = [coder decodeStringForKey:@"name"];
+        [name retain];
 
-    [name release];
-    name = [coder decodeStringForKey:@"name"];
-    [name retain];
+        netRaceFlags = [coder decodeIntegerForKey:@"netRaceFlags"];
+        playerNum = [coder decodeIntegerForKey:@"playerNum"];
+        [players release];
+        players = [coder decodeArrayOfClass:[ScenarioPlayer class]
+                                     forKey:@"players"
+                                zeroIndexed:NO];
+        [players retain];
 
-    netRaceFlags = [coder decodeIntegerForKey:@"netRaceFlags"];
-    playerNum = [coder decodeIntegerForKey:@"playerNum"];
-    [players release];
-    players = [coder decodeArrayOfClass:[ScenarioPlayer class]
-                                 forKey:@"players"
-                            zeroIndexed:NO];
-    [players retain];
+        [scoreStrings release];
+        scoreStrings = [coder decodeArrayOfClass:[NSMutableString class] forKey:@"scoreString" zeroIndexed:YES];
+        [scoreStrings retain];
 
-    [scoreStrings release];
-    scoreStrings = [coder decodeArrayOfClass:[NSMutableString class] forKey:@"scoreString" zeroIndexed:YES];
-    [scoreStrings retain];
+        [initialObjects release];
+        initialObjects = [coder decodeArrayOfClass:[ScenarioInitial class] forKey:@"initialObjects" zeroIndexed:YES];
+        [initialObjects retain];
 
-    [initialObjects release];
-    initialObjects = [coder decodeArrayOfClass:[ScenarioInitial class] forKey:@"initialObjects" zeroIndexed:YES];
-    [initialObjects retain];
+        [conditions release];
+        conditions = [coder decodeArrayOfClass:[Condition class] forKey:@"conditions" zeroIndexed:YES];
+        [conditions retain];
 
-    [conditions release];
-    conditions = [coder decodeArrayOfClass:[Condition class] forKey:@"conditions" zeroIndexed:YES];
-    [conditions retain];
+        [briefings release];
+        briefings = [coder decodeArrayOfClass:[BriefPoint class] forKey:@"briefing" zeroIndexed:YES];
+        [briefings retain];
 
-    [briefings release];
-    briefings = [coder decodeArrayOfClass:[BriefPoint class] forKey:@"briefing" zeroIndexed:YES];
-    [briefings retain];
+        [starmap release];
+        starmap = [coder decodeObjectOfClass:[XSPoint class] forKey:@"starmap"];
+        [starmap retain];
 
-    [starmap release];
-    starmap = [coder decodeObjectOfClass:[XSPoint class] forKey:@"starmap"];
-    [starmap retain];
+        [par release];
+        par = [coder decodeObjectOfClass:[ScenarioPar class] forKey:@"par"];
+        [par retain];
 
-    [par release];
-    par = [coder decodeObjectOfClass:[ScenarioPar class] forKey:@"par"];
-    [par retain];
+        angle = [coder decodeIntegerForKey:@"angle"];
+        startTime = [coder decodeIntegerForKey:@"startTime"];
+        isTraining = [coder decodeBoolForKey:@"isTraining"];
 
-    angle = [coder decodeIntegerForKey:@"angle"];
-    startTime = [coder decodeIntegerForKey:@"startTime"];
-    isTraining = [coder decodeBoolForKey:@"isTraining"];
+        [prologue release];
+        prologue = [coder decodeStringForKey:@"prologue"];
+        [prologue retain];
+        [epilogue release];
+        epilogue = [coder decodeStringForKey:@"epilogue"];
+        [epilogue retain];
 
-    [prologue release];
-    prologue = [coder decodeStringForKey:@"prologue"];
-    [prologue retain];
-    [epilogue release];
-    epilogue = [coder decodeStringForKey:@"epilogue"];
-    [epilogue retain];
+        songId = [coder decodeIntegerForKey:@"songId"];
 
-    songId = [coder decodeIntegerForKey:@"songId"];
-
-    [movie release];
-    movie = [coder decodeStringForKey:@"movie"];
-    [movie retain];
+        [movie release];
+        movie = [coder decodeStringForKey:@"movie"];
+        [movie retain];
+    }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-//    [coder encodeInteger:scenId forKey:@"id"];
-
     [coder encodeString:name forKey:@"name"];
 
     [coder encodeInteger:netRaceFlags forKey:@"netRaceFlags"];
@@ -234,7 +233,8 @@
         }
 
         par.kills = [coder decodeSInt16];
-        scenarioId = [coder decodeSInt16];
+        short scenarioId = [coder decodeSInt16];
+        [coder setIndexOverride:scenarioId];
 
         const NSUInteger stringNameTable = 4600;
         [name release];
@@ -292,11 +292,13 @@
 
 - (id) init {
     self = [super init];
-    type = PlayerTypeCpu;
-    race = 100;
-    name = @"Untitled";
-    earningPower = 1.0f;
-    netRaceFlags = 0x00000000;
+    if (self) {
+        type = PlayerTypeCpu;
+        race = 100;
+        name = @"Untitled";
+        earningPower = 1.0f;
+        netRaceFlags = 0x00000000;
+    }
     return self;
 }
 
@@ -307,28 +309,32 @@
 
 - (id) initAsSinglePlayer {
     self = [self init];
-    type = PlayerTypeSingle;
+    if (self) {
+        type = PlayerTypeSingle;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    NSString *typeString = [coder decodeStringForKey:@"type"];
-    if ([typeString isEqual:@"single"]) {
-        type = PlayerTypeSingle;
-    } else if ([typeString isEqual:@"net"]) {
-        type = PlayerTypeNet;
-    } else if ([typeString isEqual:@"cpu"]) {
-        type = PlayerTypeCpu;
-    } else if ([typeString isEqual:@"null"]) {
-        type = PlayerTypeNull;
-    }
+    if (self) {
+        NSString *typeString = [coder decodeStringForKey:@"type"];
+        if ([typeString isEqual:@"single"]) {
+            type = PlayerTypeSingle;
+        } else if ([typeString isEqual:@"net"]) {
+            type = PlayerTypeNet;
+        } else if ([typeString isEqual:@"cpu"]) {
+            type = PlayerTypeCpu;
+        } else if ([typeString isEqual:@"null"]) {
+            type = PlayerTypeNull;
+        }
 
-    race = [coder decodeIntegerForKey:@"race"];
-    [name release];
-    name = [[coder decodeStringForKey:@"name"] retain];
-    earningPower = [coder decodeFloatForKey:@"earningPower"];
-    netRaceFlags = [coder decodeIntegerForKey:@"netRaceFlags"];
+        race = [coder decodeIntegerForKey:@"race"];
+        [name release];
+        name = [[coder decodeStringForKey:@"name"] retain];
+        earningPower = [coder decodeFloatForKey:@"earningPower"];
+        netRaceFlags = [coder decodeIntegerForKey:@"netRaceFlags"];
+    }
     return self;
 }
 
@@ -398,19 +404,23 @@
 
 - (id) init {
     self = [super init];
-    time = 0;
-    kills = 0;
-    ratio = 1.0f;
-    losses = 0;
+    if (self) {
+        time = 0;
+        kills = 0;
+        ratio = 1.0f;
+        losses = 0;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    time = [coder decodeIntegerForKey:@"time"];
-    kills = [coder decodeIntegerForKey:@"kills"];
-    ratio = [coder decodeFloatForKey:@"ratio"];
-    losses = [coder decodeIntegerForKey:@"losses"];
+    if (self) {
+        time = [coder decodeIntegerForKey:@"time"];
+        kills = [coder decodeIntegerForKey:@"kills"];
+        ratio = [coder decodeFloatForKey:@"ratio"];
+        losses = [coder decodeIntegerForKey:@"losses"];
+    }
     return self;
 }
 

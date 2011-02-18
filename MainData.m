@@ -126,12 +126,12 @@ static NSArray *mainDataKeys;
             [scenarios addObject:[coder decodeObjectOfClass:[Scenario class] atIndex:index]];
         }
         [scenarios sortUsingComparator:^(id obj1, id obj2) {
-            if ([obj1 scenarioId] > [obj2 scenarioId]) {
+            if ([obj1 objectIndex] > [obj2 objectIndex]) {
                 return (NSComparisonResult) NSOrderedDescending;
-            } else if ([obj1 scenarioId] < [obj2 scenarioId]) {
+            } else if ([obj1 objectIndex] < [obj2 objectIndex]) {
                 return (NSComparisonResult) NSOrderedAscending;
             }
-            return (NSComparisonResult)NSOrderedAscending;
+            return (NSComparisonResult)NSOrderedSame;
         }];
 
         count = [coder countOfClass:[BaseObject class]];

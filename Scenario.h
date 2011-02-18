@@ -10,11 +10,12 @@
 #import "LuaCoding.h"
 #import "ResCoding.h"
 
+#import "IndexedObject.h"
+
 @class XSPoint;
 @class ScenarioPar;
 
-@interface Scenario : NSObject <LuaCoding, ResCoding> {
-    NSInteger scenarioId;
+@interface Scenario : IndexedObject <LuaCoding, ResCoding> {
     NSString *name;
 
     NSUInteger netRaceFlags;
@@ -40,8 +41,6 @@
     NSInteger songId;
     NSString *movie;
 }
-@property (readwrite) NSInteger scenarioId;
-
 @property (readwrite, retain) NSString *name;
 @property (readonly) NSString *singleLineName;
 
