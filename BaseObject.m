@@ -376,8 +376,8 @@
         thrust = [coder decodeFixed];
 
         health = [coder decodeSInt32];
-        energy = [coder decodeSInt32];
         damage = [coder decodeSInt32];
+        energy = [coder decodeSInt32];
         
         initialAge = [coder decodeSInt32];
         initialAgeRange = [coder decodeSInt32];
