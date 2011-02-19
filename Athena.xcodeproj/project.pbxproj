@@ -112,6 +112,7 @@
 		D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2C55B4B12F3235E007140A2 /* InitialEditor.xib */; };
 		D2C9D6FB13044E970087EDE4 /* ResSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9D6FA13044E960087EDE4 /* ResSegment.m */; };
 		D2C9D6FE130462020087EDE4 /* StringTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9D6FD130462020087EDE4 /* StringTable.m */; };
+		D2D2078B13107044000CDCA4 /* ResArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D2078A13107044000CDCA4 /* ResArchiver.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
 		D2D7501A12F07F5A00B17631 /* Scenario.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7501912F07F5A00B17631 /* Scenario.m */; };
 		D2D7502F12F0874500B17631 /* NSString+LuaCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7502E12F0874500B17631 /* NSString+LuaCoding.m */; };
@@ -273,6 +274,8 @@
 		D2C9D6FA13044E960087EDE4 /* ResSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResSegment.m; sourceTree = "<group>"; };
 		D2C9D6FC130462020087EDE4 /* StringTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTable.h; sourceTree = "<group>"; };
 		D2C9D6FD130462020087EDE4 /* StringTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTable.m; sourceTree = "<group>"; };
+		D2D2078913107044000CDCA4 /* ResArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResArchiver.h; sourceTree = "<group>"; };
+		D2D2078A13107044000CDCA4 /* ResArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResArchiver.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
 		D2D7501812F07F5A00B17631 /* Scenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scenario.h; sourceTree = "<group>"; };
@@ -510,6 +513,8 @@
 				D225D64113039D5100E75803 /* ResCoding.h */,
 				D2C9D6F913044E960087EDE4 /* ResSegment.h */,
 				D2C9D6FA13044E960087EDE4 /* ResSegment.m */,
+				D2D2078913107044000CDCA4 /* ResArchiver.h */,
+				D2D2078A13107044000CDCA4 /* ResArchiver.m */,
 				D225D64313039F0D00E75803 /* ResUnarchiver.h */,
 				D225D64413039F0D00E75803 /* ResUnarchiver.m */,
 			);
@@ -853,6 +858,7 @@
 				D2E98D19130AED3F0013EBCA /* SpriteView.m in Sources */,
 				D26B6A40130C16D700B461FB /* ObjectEditor.m in Sources */,
 				D2781DEC130C7AC100E0CD75 /* IndexedObject.m in Sources */,
+				D2D2078B13107044000CDCA4 /* ResArchiver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

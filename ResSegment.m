@@ -7,11 +7,25 @@
 //
 
 #import "ResSegment.h"
+#import "ResCoding.h"
 #import "IndexedObject.h"
 
 @implementation ResSegment
 @synthesize data, object, dataClass, cursor, loaded, name;
 @dynamic index, indexRef;
+
+- (id) initWithObject:(id<ResCoding, NSObject>)_object atIndex:(NSUInteger)_index {
+    self = [super init];
+    if (self) {
+        dataClass = [_object class];
+        data = [[NSMutableData alloc] initWithLength:[dataClass sizeOfResourceItem]];
+        cursor = 0;
+        loaded = NO;
+        index = [[Index alloc] initWithIndex:_index];
+        object = [_object retain];
+    }
+    return self;
+}
 
 - (id) initWithClass:(Class<ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index name:(NSString *)_name {
     self = [super init];
@@ -52,6 +66,11 @@
 
 - (void) readBytes:(void *)bytes length:(NSUInteger)length {
     [data getBytes:bytes range:NSMakeRange(cursor, length)];
+    [self advance:length];
+}
+
+- (void) writeBytes:(void *)bytes length:(size_t)length {
+    [data appendBytes:bytes length:length];
     [self advance:length];
 }
 

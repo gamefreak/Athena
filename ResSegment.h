@@ -7,31 +7,36 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResCoding.h"
 
-@class ResUnarchiver, Index;
+@protocol ResCoding;
+@class ResArchiver, ResUnarchiver, Index;
 
 @interface ResSegment : NSObject {
-    NSData *data;
+    NSMutableData *data;
     NSString *name;
     id<ResCoding, NSObject> object;
-    Class dataClass;
+    Class<ResCoding> dataClass;
     NSUInteger cursor;
     BOOL loaded;
     Index *index;
 }
 @property (readonly) NSData *data;
 @property (readonly) id<ResCoding, NSObject> object;
-@property (readonly) Class dataClass;
+@property (readonly) Class<ResCoding> dataClass;
 @property (readonly) NSUInteger cursor;
 @property (readonly) BOOL loaded;
 @property (readwrite, assign) NSUInteger index;
 @property (readonly) Index *indexRef;
 @property (readwrite, retain) NSString *name;
 
-- (id) initWithClass:(Class)class data:(NSData *)data index:(NSUInteger)index name:(NSString *)_name;
+//For Writing
+- (id) initWithObject:(id<ResCoding, NSObject>)object atIndex:(NSUInteger)index;
+//For Reading
+- (id) initWithClass:(Class<ResCoding>)class data:(NSData *)data index:(NSUInteger)index name:(NSString *)_name;
+
 - (id) loadObjectWithCoder:(ResUnarchiver *)unarchiver;
-- (void) readBytes:(void *)bytes length:(NSUInteger)length;
+- (void) readBytes:(void *)bytes length:(size_t)length;
+- (void) writeBytes:(void *)bytes length:(size_t)length;
 - (void) advance:(NSUInteger)bytes;
 - (void) seek:(NSUInteger)position;
 @end
