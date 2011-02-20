@@ -7,7 +7,7 @@
 //
 
 #import "StringTable.h"
-#import "ResUnarchiver.h"
+#import "Archivers.h"
 
 @implementation StringTable
 
@@ -33,7 +33,12 @@
 }
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
-    
+    short count = [strings count];
+    count = count << 8 | count >> 8;//I still don't know why!
+    [coder encodeSInt16:count];
+    for (NSString *str in strings) {
+        [coder encodePString:str];
+    }
 }
 
 + (ResType)resType {

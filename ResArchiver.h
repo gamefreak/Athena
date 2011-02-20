@@ -14,6 +14,7 @@
 @interface ResArchiver : NSObject {
     NSMutableDictionary *types;
     NSMutableArray *stack;
+    NSMutableDictionary *stringTables;
 }
 - (void) skip:(size_t)length;
 
@@ -33,4 +34,6 @@
 
 - (void) encodePString:(NSString *)string;
 - (void) encodePString:(NSString *)string ofFixedLength:(size_t)length;
+
+- (NSUInteger) addString:(NSString *)string toStringTable:(NSUInteger)table;
 @end

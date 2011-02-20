@@ -9,6 +9,7 @@
 #import "ResArchiver.h"
 #import "ResCoding.h"
 #import "ResSegment.h"
+#import "StringTable.h"
 
 @interface ResArchiver (Private)
 - (NSMutableDictionary *) getTableForClass:(Class<ResCoding>)class;
@@ -42,6 +43,7 @@
     if (self) {
         types = [[NSMutableDictionary alloc] init];
         stack = [[NSMutableArray alloc] init];
+        stringTables = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -49,6 +51,7 @@
 - (void) dealloc {
     [types release];
     [stack release];
+    [stringTables release];
     [super dealloc];
 }
 
@@ -137,5 +140,15 @@
      writeBytes:(void *)[string cStringUsingEncoding:NSMacOSRomanStringEncoding]
      length:length_];
     [[stack lastObject] advance:(length - length_)];
+}
+
+- (NSUInteger) addString:(NSString *)string toStringTable:(NSUInteger)tableId {
+    NSNumber *key = [NSNumber numberWithUnsignedInteger:tableId];
+    StringTable *table = [stringTables objectForKey:key];
+    if (table == nil) {
+        table = [[StringTable alloc] init];
+        [stringTables setObject:table forKey:key];
+    }
+    return [table addString:string];
 }
 @end
