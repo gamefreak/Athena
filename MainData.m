@@ -138,8 +138,25 @@ static NSArray *mainDataKeys;
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)archiver {
-//}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    //ENCODE OTHER OBJECTS AND STUFF!!!
+
+    [coder encodeSInt32:inFlareId];
+    [coder encodeSInt32:outFlareId];
+    [coder encodeSInt32:playerBodyId];
+    [coder encodeSInt32:energyBlobId];
+
+    [coder encodePString:downloadUrl ofFixedLength:255u];
+    [coder encodePString:title ofFixedLength:255u];
+    [coder encodePString:author ofFixedLength:255u];
+    [coder encodePString:authorUrl ofFixedLength:255u];
+
+    [coder encodeUInt32:version];
+    [coder encodeUInt32:minVersion];
+
+    [flags encodeResWithCoder:coder];
+    [coder encodeUInt32:checkSum];//NOT REALLY IMPLEMENTED!!!!!
+}
 
 + (ResType)resType {
     return 'nlAG';
@@ -151,6 +168,10 @@ static NSArray *mainDataKeys;
 
 + (BOOL) isPacked {
     return NO;
+}
+
++ (size_t) sizeOfResourceItem {
+    return 1056;
 }
 
 - (void) dealloc {
