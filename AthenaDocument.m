@@ -66,6 +66,14 @@
         }
         data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
         [coder release];
+
+#if 1
+        NSLog(@"Running Encoder Test");
+        ResArchiver *encoder = [[ResArchiver alloc] init];
+        [encoder encodeObject:data atIndex:128];
+        [encoder release];
+        NSLog(@"Encoder Test Completed");
+#endif
     }
     return YES;
 }
