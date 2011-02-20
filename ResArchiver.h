@@ -36,4 +36,5 @@
 - (void) encodePString:(NSString *)string ofFixedLength:(size_t)length;
 
 - (NSUInteger) addString:(NSString *)string toStringTable:(NSUInteger)table;
+- (NSUInteger) addUniqueString:(NSString *)string toStringTable:(NSUInteger)table;
 @end

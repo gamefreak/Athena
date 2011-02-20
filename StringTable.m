@@ -62,6 +62,16 @@
     return [strings count] - 1;
 }
 
+- (NSUInteger)addUniqueString:(NSString *)string {
+    NSUInteger found = [strings indexOfObject:string];
+    if (found == NSNotFound) {
+        return [self addString:string];
+    } else {
+        return found;
+    }
+
+}
+
 - (NSMutableArray *) allStrings {
     return strings;
 }

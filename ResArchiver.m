@@ -151,4 +151,14 @@
     }
     return [table addString:string];
 }
+
+- (NSUInteger) addUniqueString:(NSString *)string toStringTable:(NSUInteger)tableId {
+    NSNumber *key = [NSNumber numberWithUnsignedInteger:tableId];
+    StringTable *table = [stringTables objectForKey:key];
+    if (table == nil) {
+        table = [[StringTable alloc] init];
+        [stringTables setObject:table forKey:key];
+    }
+    return [table addUniqueString:string];
+}
 @end
