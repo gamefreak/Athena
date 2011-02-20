@@ -115,15 +115,15 @@ static NSArray *attributeBlobKeys;
 }
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
-//    UInt32 hex = 0x00000000;
-//    int ctr = 0;
-//    NSArray *keys = [[self class] keys];
-//    for (id key in keys) {
-//        if (key == [NSNull null]) {
-//            continue;
-//        }
-//        hex |= 1 << ctr++;
-//    }
-//    [coder encodeUInt32:hex];
+    UInt32 hex = 0x00000000;
+    int ctr = 0;
+    NSArray *keys = [[self class] keys];
+    for (id key in keys) {
+        if (key == [NSNull null]) {
+            continue;
+        }
+        hex |= 1 << ctr++;
+    }
+    [coder encodeUInt32:hex];
 }
 @end
