@@ -26,4 +26,7 @@
 - (void) encodeSInt32:(SInt32)value;
 - (void) encodeUInt64:(UInt64)value;
 - (void) encodeSInt64:(SInt64)value;
+
+- (void) encodePString:(NSString *)string;
+- (void) encodePString:(NSString *)string ofFixedLength:(size_t)length;
 @end

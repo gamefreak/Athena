@@ -113,4 +113,21 @@
     value = CFSwapInt64HostToBig(value);
     [[stack lastObject] writeBytes:&value length:sizeof(value)];
 }
+
+- (void) encodePString:(NSString *)string {
+    NSUInteger length = [string length];
+    [self encodeUInt8:(UInt8)length];
+    [[stack lastObject]
+     writeBytes:[string cStringUsingEncoding:NSMacOSRomanStringEncoding]
+     length:length];
+}
+
+- (void) encodePString:(NSString *)string ofFixedLength:(size_t)length {
+    NSUInteger length_ = [string length];
+    [self encodeUInt8:(UInt8)length_];
+    [[stack lastObject]
+     writeBytes:[string cStringUsingEncoding:NSMacOSRomanStringEncoding]
+     length:length_];
+    [[stack lastObject] advance:(length - length_)];
+}
 @end
