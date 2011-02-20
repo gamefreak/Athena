@@ -12,4 +12,5 @@
 #import "LuaUnarchiver.h"
 
 #import "ResCoding.h"
+#import "ResArchiver.h"
 #import "ResUnarchiver.h"
