@@ -140,6 +140,9 @@ static NSArray *mainDataKeys;
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     //ENCODE OTHER OBJECTS AND STUFF!!!
+    for (Race *race in races) {
+        [coder encodeObject:race];
+    }
 
     [coder encodeSInt32:inFlareId];
     [coder encodeSInt32:outFlareId];

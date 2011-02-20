@@ -112,9 +112,22 @@ const NSUInteger raceStringTableId = 4201u;
         plural = [[strings stringAtIndex:4 * idx + 1] retain];
         military = [[strings stringAtIndex:4 * idx  + 2] retain];
         homeworld = [[strings stringAtIndex:4 * idx + 3] retain];
-        
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt32:raceId];
+    [coder encodeUInt8:apparentColor];
+    [coder skip:1u];
+    [coder encodeUInt32:illegalColors.hex];
+
+    [coder encodeFixed:advantage];
+
+    [coder addString:singular toStringTable:raceStringTableId];
+    [coder addString:plural toStringTable:raceStringTableId];
+    [coder addString:military toStringTable:raceStringTableId];
+    [coder addString:homeworld toStringTable:raceStringTableId];
 }
 
 + (ResType)resType {
