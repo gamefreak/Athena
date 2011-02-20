@@ -18,7 +18,11 @@
     self = [super init];
     if (self) {
         dataClass = [_object class];
-        data = [[NSMutableData alloc] initWithLength:[dataClass sizeOfResourceItem]];
+        if ([dataClass isPacked]) {
+            data = [[NSMutableData alloc] initWithLength:[dataClass sizeOfResourceItem]];
+        } else {
+            data = [[NSMutableData alloc] initWithLength:1024u];
+        }
         cursor = 0;
         loaded = NO;
         index = [[Index alloc] initWithIndex:_index];

@@ -7,6 +7,7 @@
 //
 
 #import "NSString+ResCoding(Text).h"
+#import "ResArchiver.h"
 #import "ResUnarchiver.h"
 
 @implementation NSString (NSString_ResCoding_Text)
@@ -15,7 +16,10 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder writeBytes:(void *)[self cStringUsingEncoding:NSMacOSRomanStringEncoding]
+               length:[self lengthOfBytesUsingEncoding:NSMacOSRomanStringEncoding]];
+}
 
 + (ResType)resType {
     return 'TEXT';
@@ -28,4 +32,6 @@
 + (BOOL)isPacked {
     return NO;
 }
+
+
 @end

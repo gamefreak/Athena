@@ -13,24 +13,28 @@
 
 @interface ResArchiver (Private)
 - (NSMutableDictionary *) getTableForClass:(Class<ResCoding>)class;
-- (NSUInteger) getNextIndexOfClass:(Class)class;
+- (NSUInteger) getNextIndexOfClass:(Class<ResCoding>)class;
 @end
 
 @implementation ResArchiver (Private)
 - (NSMutableDictionary *) getTableForClass:(Class<ResCoding>)class {
-    NSMutableDictionary *table = [types objectForKey:class];
+    NSMutableDictionary *table = [types objectForKey:[class typeKey]];
     if (table == nil) {
+        NSLog(@"Begining to encode resources of type '%@'", [class typeKey]);
         table = [[NSMutableDictionary alloc] init];
-        [types setObject:table forKey:class];
+        [types setObject:table forKey:[class typeKey]];
         [table setObject:[NSNumber numberWithUnsignedInt:0u] forKey:@"COUNTER"];
     }
     return table;
 }
 
-- (NSUInteger) getNextIndexOfClass:(Class)class {
+- (NSUInteger) getNextIndexOfClass:(Class<ResCoding>)class {
     NSMutableDictionary *table = [self getTableForClass:class];
     NSUInteger val = [[table objectForKey:@"COUNTER"] unsignedIntegerValue];
     [table setObject:[NSNumber numberWithUnsignedInt:val+1] forKey:@"COUNTER"];
+    if ([class resType] == 'TEXT') {
+        return val + 3000;
+    }
     return val;
 }
 @end
@@ -81,6 +85,10 @@
     [object encodeResWithCoder:self];
     [stack removeLastObject];
     [seg release];
+}
+
+- (void) writeBytes:(void *)bytes length:(size_t)length {
+    [[stack lastObject] writeBytes:bytes length:length];
 }
 
 - (void) encodeUInt8:(UInt8)value {

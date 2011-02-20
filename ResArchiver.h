@@ -21,6 +21,8 @@
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object;
 - (void) encodeObject:(id<ResCoding, NSObject>)object atIndex:(NSUInteger)index;
 
+- (void) writeBytes:(void *)bytes length:(size_t)length;
+
 - (void) encodeUInt8:(UInt8)value;
 - (void) encodeSInt8:(SInt8)value;
 - (void) encodeUInt16:(UInt16)value;
