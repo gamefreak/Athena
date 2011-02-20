@@ -234,17 +234,14 @@
         par.time = [coder decodeSInt16];
         short movieId = [coder decodeSInt16];
         if (movieId > -1) {
-            const NSUInteger movieStringTable = 4500;
             [movie release];
-            movie = [[[coder decodeObjectOfClass:[StringTable class] atIndex:movieStringTable] stringAtIndex:movieId] retain];
+            movie = [[[coder decodeObjectOfClass:[StringTable class] atIndex:STRMovieNames] stringAtIndex:movieId] retain];
         }
 
         par.kills = [coder decodeSInt16];
         short scenarioId = [coder decodeSInt16];
-
-        const NSUInteger stringNameTable = 4600;
         [name release];
-        name = [[[coder decodeObjectOfClass:[StringTable class] atIndex:stringNameTable] stringAtIndex:scenarioId - 1] retain];
+        name = [[[coder decodeObjectOfClass:[StringTable class] atIndex:STRScenarioNames] stringAtIndex:scenarioId - 1] retain];
 
         par.ratio = [coder decodeFixed];
         par.losses = [coder decodeSInt16];
@@ -256,9 +253,59 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {
-//
-//}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt16:netRaceFlags];
+    playerNum = [players count];
+    [coder encodeSInt16:(SInt16)playerNum];
+    for (NSUInteger i = 0; i < playerNum; i++) {
+        [[players objectAtIndex:i] encodeResWithCoder:coder];
+    }
+    [coder skip:20u * (4u-playerNum)];
+    SInt16 statusesId = STRScenarioStatusesStart + self.objectIndex + 1;
+    [coder encodeSInt16:statusesId];
+    for (NSString *str in scoreStrings) {
+        [coder addString:str toStringTable:statusesId];
+    }
+    //ENCODE INITIAL OBJECTS!!!
+    short initialObjectsStart = -1;
+    [coder encodeSInt16:initialObjectsStart];
+    if ([prologue isNotEqualTo:@""]) {
+        [coder encodeSInt16:[coder encodeObject:prologue]];
+    } else {
+        [coder encodeSInt16:-1];
+    }
+    [coder encodeSInt16:[initialObjects count]];
+    [coder encodeSInt16:songId];
+    //ENCODE CONDITIONS!!!
+    short conditionsStart = -1;
+    [coder encodeSInt16:conditionsStart];
+    if ([epilogue isNotEqualTo:@""]) {
+        [coder encodeSInt16:[coder encodeObject:epilogue]];
+    } else {
+        [coder encodeSInt16:-1];
+    }
+    [coder encodeSInt16:[conditions count]];
+    [coder encodeSInt16:(SInt16)starmap.x];
+    //ENCODE BRIEFINGS
+    short briefingsStart = -1;
+    [coder encodeSInt16:briefingsStart];
+    [coder encodeSInt16:(SInt16)starmap.y];
+    [coder encodeSInt8:angle];
+    [coder encodeSInt8:[briefings count]];
+
+    [coder encodeSInt16:par.time];
+    if ([movie isNotEqualTo:@""]) {
+        [coder encodeSInt16:[coder addString:movie toStringTable:STRMovieNames]];
+    } else {
+        [coder encodeSInt16:-1];
+    }
+    [coder encodeSInt16:par.kills];
+    [coder encodeSInt16:self.objectIndex + 1];
+    [coder addString:name toStringTable:STRScenarioNames+self.objectIndex];
+    [coder encodeFixed:par.ratio];
+    [coder encodeSInt16:par.losses];
+    [coder encodeSInt16:((0x7fff & (SInt16)startTime) | (isTraining?0x8000:0x0000))];
+}
 
 + (ResType)resType {
     return 'snro';
@@ -400,9 +447,16 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {
-//
-//}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt16:type];
+    [coder encodeSInt16:race];
+    [coder encodeSInt16:STRPlayerNames];
+    [coder encodeSInt16:[coder addUniqueString:name toStringTable:STRPlayerNames]];
+    [coder skip:4u];
+    [coder encodeFixed:earningPower];
+    [coder encodeSInt16:netRaceFlags];
+    [coder skip:2];
+}
 @end
 
 @implementation ScenarioPar
