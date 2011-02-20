@@ -22,6 +22,11 @@
 + (size_t) sizeOfResourceItem;
 @end
 
+@protocol ResClassOverriding
++ (Class<ResCoding>) classForResCoder:(ResUnarchiver *)coder;
+@end
+
+
 @protocol ResIndexOverriding
 + (NSUInteger) peekAtIndexWithCoder:(ResUnarchiver *)coder;
 @end

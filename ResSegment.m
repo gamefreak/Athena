@@ -43,12 +43,12 @@
 - (id) loadObjectWithCoder:(ResUnarchiver *)coder {
     if (!loaded) {
         //Special case
-        if ([dataClass respondsToSelector:@selector(classForResCoder:)]) {
-            dataClass = [dataClass classForResCoder:coder];
+        if ([dataClass conformsToProtocol:@protocol(ResClassOverriding)]) {
+            dataClass = [(Class<ResClassOverriding>)dataClass classForResCoder:coder];
         }
         object = [[dataClass alloc] initWithResArchiver:coder];
         if ([object isKindOfClass:[IndexedObject class]]) {
-            [object setIndexRef:index];
+            [(IndexedObject *)object setIndexRef:index];
         }
         NSAssert(object != nil, @"Unarchived object is nil");
         loaded = YES;

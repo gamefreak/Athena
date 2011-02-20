@@ -37,7 +37,7 @@ typedef enum {
     AssumeInitialObjectActionType
 } ActionType;
 
-@interface Action : NSObject <LuaCoding, ResCoding> {
+@interface Action : NSObject <LuaCoding, ResCoding, ResClassOverriding> {
     ActionType type;
     BOOL reflexive;
     NSUInteger inclusiveFilter, exclusiveFilter;
@@ -53,7 +53,6 @@ typedef enum {
 @property (readwrite, assign) NSInteger directOverride;
 @property (readwrite, assign) NSInteger owner;
 @property (readwrite, assign) NSInteger delay;
-+ (Class) classForResCoder:(ResUnarchiver *)coder;
 + (Class) classForType:(ActionType)type;
 + (ActionType) typeForString:(NSString *)type;
 + (NSString *) stringForType:(ActionType) type;
