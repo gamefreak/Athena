@@ -15,6 +15,8 @@
     NSMutableDictionary *types;
     NSMutableArray *stack;
 }
+- (void) skip:(size_t)length;
+
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object;
 - (void) encodeObject:(id<ResCoding, NSObject>)object atIndex:(NSUInteger)index;
 
@@ -26,6 +28,8 @@
 - (void) encodeSInt32:(SInt32)value;
 - (void) encodeUInt64:(UInt64)value;
 - (void) encodeSInt64:(SInt64)value;
+
+- (void) encodeFixed:(CGFloat)value;
 
 - (void) encodePString:(NSString *)string;
 - (void) encodePString:(NSString *)string ofFixedLength:(size_t)length;

@@ -52,6 +52,10 @@
     [super dealloc];
 }
 
+- (void) skip:(size_t)length {
+    [[stack lastObject] advance:length];
+}
+
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object {
     Class<ResCoding> class = [object class];
     NSMutableDictionary *table = [self getTableForClass:class];
@@ -114,11 +118,15 @@
     [[stack lastObject] writeBytes:&value length:sizeof(value)];
 }
 
+- (void) encodeFixed:(CGFloat)value {
+    [self encodeSInt32:(SInt32)(value*256.0f)];
+}
+
 - (void) encodePString:(NSString *)string {
     NSUInteger length = [string length];
     [self encodeUInt8:(UInt8)length];
     [[stack lastObject]
-     writeBytes:[string cStringUsingEncoding:NSMacOSRomanStringEncoding]
+     writeBytes:(void *)[string cStringUsingEncoding:NSMacOSRomanStringEncoding]
      length:length];
 }
 
@@ -126,7 +134,7 @@
     NSUInteger length_ = [string length];
     [self encodeUInt8:(UInt8)length_];
     [[stack lastObject]
-     writeBytes:[string cStringUsingEncoding:NSMacOSRomanStringEncoding]
+     writeBytes:(void *)[string cStringUsingEncoding:NSMacOSRomanStringEncoding]
      length:length_];
     [[stack lastObject] advance:(length - length_)];
 }
