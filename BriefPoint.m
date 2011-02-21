@@ -104,13 +104,13 @@
     self = [self init];
     if (self) {
         type = [coder decodeSInt8];
-        [coder skip:1];
+        [coder skip:1u];
         if (type == BriefTypeObject) {
             objectId = [coder decodeSInt32];
             isVisible = (BOOL)[coder decodeSInt8];
-            [coder skip:3];
+            [coder skip:3u];
         } else {
-            [coder skip:8];
+            [coder skip:8u];
         }
 
         range.y = [coder decodeSInt32];
@@ -126,8 +126,22 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {
-//}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt8:type];
+    [coder skip:1u];
+    if (type == BriefTypeObject) {
+        [coder encodeSInt32:objectId];
+        [coder encodeSInt8:(isVisible?1:0)];
+        [coder skip:3u];
+    } else {
+        [coder skip:8u];
+    }
+    [coder encodeSInt32:range.y];
+    [coder encodeSInt32:range.x];
+    [coder encodeSInt16:STRBriefingTitles];
+    [coder encodeSInt16:[coder addString:title toStringTable:STRBriefingTitles]];
+    [coder encodeSInt8:[coder encodeObject:content]];
+}
 
 + (ResType)resType {
     return 'snbf';

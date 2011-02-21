@@ -281,7 +281,7 @@
     }
     [coder encodeSInt16:[initialObjects count]];
     [coder encodeSInt16:songId];
-    //ENCODE CONDITIONS!!!
+    //Conditions
     enumerator = [conditions objectEnumerator];
     short conditionsStart = -1;
     if ([conditions count] > 0) {
@@ -298,9 +298,16 @@
     }
     [coder encodeSInt16:[conditions count]];
     [coder encodeSInt16:(SInt16)starmap.x];
-    //ENCODE BRIEFINGS
+    //Briefings
+    enumerator = [briefings objectEnumerator];
     short briefingsStart = -1;
+    if ([briefings count] > 0) {
+        briefingsStart = [coder encodeObject:[enumerator nextObject]];
+    }
     [coder encodeSInt16:briefingsStart];
+    for (BriefPoint *briefing in enumerator) {
+        [coder encodeObject:briefing];
+    }
     [coder encodeSInt16:(SInt16)starmap.y];
     [coder encodeSInt8:angle];
     [coder encodeSInt8:[briefings count]];
