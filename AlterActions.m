@@ -13,18 +13,17 @@
 #import "BaseObject.h"
 
 @implementation AlterAction
-@synthesize alterType, isRelative, value;
-@synthesize minimum, range, ID, IDRef;
+@synthesize alterType, isRelative;
+@synthesize minimum, range;
+@synthesize IDRef;
 
 - (id) init {
     self = [super init];
     if (self) {
         alterType = AlterHealth;
         isRelative = NO;
-        value = 0;
         minimum = 0;
         range = 0;
-        ID = -1;
         IDRef = nil;
     }
     return self;
@@ -69,7 +68,7 @@
             case AlterOnwer:
             case AlterOccupation:
             case AlterAbsoluteCash:
-                value = [coder decodeIntegerForKey:@"value"];
+                minimum = [coder decodeIntegerForKey:@"value"];
                 break;
             default:
                 break;
@@ -104,7 +103,7 @@
                                             forClass:[BaseObject class]] retain];
                 break;
             case AlterAbsoluteCash:
-                ID = [coder decodeIntegerForKey:@"player"];
+                minimum = [coder decodeIntegerForKey:@"player"];
                 break;
             default:
                 break;
@@ -146,7 +145,7 @@
         case AlterOnwer:
         case AlterOccupation:
         case AlterAbsoluteCash:
-            [coder encodeInteger:value forKey:@"value"];
+            [coder encodeInteger:minimum forKey:@"value"];
             break;
         default:
             break;
@@ -180,7 +179,7 @@
             [coder encodeInteger:IDRef.index forKey:@"id"];
             break;
         case AlterAbsoluteCash:
-            [coder encodeInteger:ID forKey:@"player"];
+            [coder encodeInteger:minimum forKey:@"player"];
             break;
         default:
             break;
@@ -192,13 +191,13 @@
     if (self) {
         alterType = [coder decodeUInt8];
         isRelative = (BOOL)[coder decodeSInt8];
-        minimum = ID = value = [coder decodeSInt32];
+        minimum = [coder decodeSInt32];
         switch (alterType) {
             case AlterPulseWeapon:
             case AlterBeamWeapon:
             case AlterSpecialWeapon:
             case AlterBaseType:
-                IDRef = [[coder getIndexRefWithIndex:ID
+                IDRef = [[coder getIndexRefWithIndex:minimum
                                             forClass:[BaseObject class]] retain];
                 break;
             default:
@@ -208,6 +207,26 @@
         [coder skip:14u];
     }
     return self;
+}
+
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeUInt8:alterType];
+    [coder encodeSInt8:isRelative];
+    switch (alterType) {
+        case AlterPulseWeapon:
+        case AlterBeamWeapon:
+        case AlterSpecialWeapon:
+        case AlterBaseType:
+            [coder encodeSInt32:IDRef.index];
+            break;
+        default:
+            [coder encodeSInt32:minimum];
+            break;
+    }
+    [coder encodeSInt32:range];
+    [coder skip:14u];
 }
 
 + (ActionAlterType) alterTypeForString:(NSString *)type {

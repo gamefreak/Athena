@@ -101,7 +101,17 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt8:type];
+    [coder encodeSInt8:reflexive];
+    [coder encodeUInt32:inclusiveFilter];
+    [coder encodeUInt32:exclusiveFilter];
+    [coder encodeSInt16:owner];
+    [coder encodeSInt32:delay];
+    [coder encodeSInt16:subjectOverride];
+    [coder encodeSInt16:directOverride];
+    [coder skip:4u];
+}
 
 + (ResType)resType {
     return 'obac';

@@ -456,11 +456,11 @@
     [coder encodeSInt32:direct];
     NSEnumerator *enumerator = [actions objectEnumerator];
     int actionsStart = -1;
-//    actionsStart = [coder encodeObject:[enumerator nextObject]];
+    actionsStart = [coder encodeObject:[enumerator nextObject]];
     [coder encodeSInt32:actionsStart];
-//    for (Action *action in enumerator) {
-//        [coder encodeObject:action];
-//    }
+    for (Action *action in enumerator) {
+        [coder encodeObject:action];
+    }
     [coder encodeSInt32:[actions count]];
     [flags encodeResWithCoder:coder];
 }

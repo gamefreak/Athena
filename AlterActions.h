@@ -47,18 +47,14 @@ typedef enum {
         conditionTrue   for alter-active-condion
      */
     BOOL isRelative;
-    NSInteger value;
     NSInteger minimum, range;//becomes x, y for alter-absolute-location
     //ID becomes player for alter-absolute-cash
-    NSInteger ID;
     Index *IDRef;
 }
 @property (readwrite, assign) ActionAlterType alterType;
 @property (readwrite, assign) BOOL isRelative;
-@property (readwrite, assign) NSInteger value;
 @property (readwrite, assign) NSInteger minimum;
 @property (readwrite, assign) NSInteger range;
-@property (readwrite, assign) NSInteger ID;
 @property (readwrite, assign) Index *IDRef;
 
 + (ActionAlterType) alterTypeForString:(NSString *)type;

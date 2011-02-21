@@ -21,6 +21,11 @@
     }
     return self;
 };
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder skip:24u];
+}
 @end
 
 @implementation CreateObjectAction
@@ -84,6 +89,17 @@
     }
     return self;
 }
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt32:baseType.index];
+    [coder encodeSInt32:min];
+    [coder encodeSInt32:range];
+    [coder encodeSInt8:velocityRelative];
+    [coder encodeSInt8:directionRelative];
+    [coder encodeSInt32:distanceRange];
+    [coder skip:6u];
+}
 @end
 
 @implementation PlaySoundAction
@@ -144,6 +160,19 @@
     }
     return self;
 }
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeUInt8:priority];
+    [coder skip:1u];
+    [coder encodeSInt32:persistence];
+    [coder encodeSInt8:isAbsolute];
+    [coder skip:1u];
+    [coder encodeSInt32:volume];
+    [coder encodeSInt32:volumeRange];
+    [coder encodeSInt32:soundId];
+    [coder encodeSInt32:soundIdRange];
+}
 @end
 
 @implementation MakeSparksAction
@@ -189,6 +218,15 @@
     }
     return self;
 }
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt32:count];
+    [coder encodeSInt32:velocity];
+    [coder encodeSInt32:velocityRange];
+    [coder encodeUInt8:color];
+    [coder skip:11u];
+}
 @end
 
 @implementation ReleaseEnergyAction
@@ -222,6 +260,12 @@
         [coder skip:20u];
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeFixed:percent];
+    [coder skip:20u];
 }
 @end
 
@@ -257,6 +301,12 @@
     }
     return self;
 }
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder decodeSInt32:speed];
+    [coder skip:20u];
+}
 @end
 
 @implementation EnterWarpAction
@@ -290,6 +340,12 @@
         [coder skip:20u];
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt32:warpSpeed];
+    [coder skip:20u];
 }
 @end
 
@@ -328,6 +384,13 @@
         [coder skip:20u];
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt16:ID];
+    [coder encodeSInt16:page];
+    [coder skip:20u];
 }
 @end
 
@@ -370,6 +433,14 @@
         [coder skip:12u];
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt32:player];
+    [coder encodeSInt32:score];
+    [coder encodeSInt32:amount];
+    [coder skip:12u];
 }
 @end
 
@@ -423,6 +494,14 @@
         [coder skip:12u];
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt32:player];
+    [coder encodeSInt32:nextLevel.index];
+    [coder encodeSInt32:[text intValue]];
+    [coder skip:12u];
 }
 @end
 
@@ -482,6 +561,12 @@
     }
     return self;
 }
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt8:how];
+    [coder skip:23u];
+}
 @end
 
 @implementation SetDestinationAction
@@ -536,6 +621,14 @@
     }
     return self;
 }
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt32:duration];
+    [coder encodeUInt8:color];
+    [coder encodeUInt8:shade];
+    [coder skip:18u];
+}
 @end
 
 @implementation CreateObjectSetDestinationAction
@@ -568,6 +661,12 @@
     keyMask = [coder decodeUInt32];
     [coder skip:20u];
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeUInt32:keyMask];
+    [coder skip:20u];
 }
 @end
 
@@ -605,6 +704,12 @@
         [coder skip:20u];
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeUInt32:zoomLevel];
+    [coder skip:20u];
 }
 @end
 
@@ -644,6 +749,13 @@
     }
     return self;
 }
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt32:screen];
+    [coder encodeSInt32:line];
+    [coder skip:16u];
+}
 @end
 
 @implementation AssumeInitialObjectAction
@@ -677,6 +789,12 @@
         [coder skip:20u];
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeUInt32:ID];
+    [coder skip:20u];
 }
 @end
 
