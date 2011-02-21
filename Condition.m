@@ -396,7 +396,74 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeUInt8:type];
+    [coder skip:1u];
+    switch (type) {
+        case LocationCondition:
+            [coder encodeSInt32:location.x];
+            [coder encodeSInt32:location.y];
+            [coder skip:4u];
+            break;
+        case CounterCondition:
+        case CounterGreaterCondition:
+        case CounterNotCondition:
+            [counter encodeResWithCoder:coder];
+            break;
+        case ProximityCondition:
+            [coder encodeUInt32:(UInt32)(intValue*intValue)];
+            [coder skip:8u];
+            break;
+        case DistanceGreaterCondition:
+            [coder encodeUInt32:intValue];
+            [coder skip:8u];
+            break;
+        case OwnerCondition:
+        case DestructionCondition:
+        case AgeCondition:
+        case TimeCondition:
+        case VelocityLessThanOrEqualCondition:
+        case NoShipsLeftCondition:
+        case ZoomLevelCondition:
+            [coder encodeSInt32:intValue];
+            [coder skip:8u];
+            break;
+        case CurrentMessageCondition:
+            [coder encodeSInt32:[ddata objectForKey:@"id"]];
+            [coder encodeSInt32:[ddata objectForKey:@"page"]];
+            [coder skip:4u];
+            break;
+        case CurrentComputerSelectionCondition:
+            [coder encodeSInt32:[ddata objectForKey:@"screen"]];
+            [coder encodeSInt32:[ddata objectForKey:@"line"]];
+            [coder skip:4u];
+            break;
+        default:
+        case NoCondition:
+        case RandomCondition:
+        case HalfHealthCondition:
+        case IsAuxiliaryCondition:
+        case IsTargetCondition:
+        case AutopilotCondition:
+        case NotAutopilotCondition:
+        case ObjectBeingBuiltCondition:
+        case DirectIsSubjectTargetCondition:
+        case SubjectIsPlayerCondition:
+            [coder skip:12u];
+            break;
+    }  
+    [coder encodeSInt32:subject];
+    [coder encodeSInt32:direct];
+    NSEnumerator *enumerator = [actions objectEnumerator];
+    int actionsStart = -1;
+//    actionsStart = [coder encodeObject:[enumerator nextObject]];
+    [coder encodeSInt32:actionsStart];
+//    for (Action *action in enumerator) {
+//        [coder encodeObject:action];
+//    }
+    [coder encodeSInt32:[actions count]];
+    [flags encodeResWithCoder:coder];
+}
 
 + (ResType)resType {
     return 'sncd';
@@ -463,7 +530,11 @@
     return self;
 }
 
-//- (void) encodeResWithCoder:(ResArchiver *)coder {}
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt32:player];
+    [coder encodeSInt32:counterId];
+    [coder encodeSInt32:amount];
+}
 @end
 
 static NSArray *conditionFlagKeys;

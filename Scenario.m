@@ -266,8 +266,8 @@
     for (NSString *str in scoreStrings) {
         [coder addString:str toStringTable:statusesId];
     }
-    //ENCODE INITIAL OBJECTS!!!
-    NSEnumerator *enumerator;
+    NSEnumerator *enumerator;//Declared on a separate line for reuse
+    //Using an NSEnumerator object so that the first item can be handled differently
     enumerator = [initialObjects objectEnumerator];
     short initialObjectsStart = [coder encodeObject:[enumerator nextObject]];
     [coder encodeSInt16:initialObjectsStart];
@@ -282,8 +282,15 @@
     [coder encodeSInt16:[initialObjects count]];
     [coder encodeSInt16:songId];
     //ENCODE CONDITIONS!!!
+    enumerator = [conditions objectEnumerator];
     short conditionsStart = -1;
+    if ([conditions count] > 0) {
+        conditionsStart = [coder encodeObject:[enumerator nextObject]];
+    }
     [coder encodeSInt16:conditionsStart];
+    for (Condition *condition in enumerator) {
+        [coder encodeObject:condition];
+    }
     if ([epilogue isNotEqualTo:@""]) {
         [coder encodeSInt16:[coder encodeObject:epilogue]];
     } else {
