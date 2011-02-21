@@ -11,6 +11,7 @@
 #import "XSPoint.h"
 #import "XSInteger.h"
 #import "XSRange.h"
+#import "BaseObject.h"
 #import "StringTable.h"
 
 @implementation ScenarioInitial
@@ -21,7 +22,7 @@
 
 - (id) init {
     self = [super init];
-    type = 0;
+    type = [[Index alloc] init];
     owner = 0;
 
     position = [[XSPoint alloc] init];
@@ -45,6 +46,7 @@
 
 
 - (void) dealloc {
+    [type release];
     [position release];
     [builds release];
     [nameOverride release];
@@ -56,7 +58,8 @@
 //MARK: Lua Coding
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
-    type = [coder decodeIntegerForKey:@"type"];
+    [type release];
+    type = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"type"] forClass:[BaseObject class]] retain];
     owner = [coder decodeIntegerForKey:@"owner"];
 
     [position release];
@@ -92,7 +95,7 @@
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeInteger:type forKey:@"type"];
+    [coder encodeInteger:type.index forKey:@"type"];
     [coder encodeInteger:owner forKey:@"owner"];
     [coder encodeInteger:initialDestination forKey:@"initialDestination"];
     [coder encodeObject:position forKey:@"position"];
@@ -133,7 +136,12 @@
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
-        type = [coder decodeSInt32];
+        int typeId = [coder decodeSInt32];
+        if (typeId != -1) {
+            type = [[coder getIndexRefWithIndex:typeId forClass:[BaseObject class]] retain];
+        } else {
+            type = [[Index alloc] init];
+        }
         owner = [coder decodeSInt32];
         [coder skip:8u];
         position.x = [coder decodeSInt32];
@@ -142,6 +150,7 @@
         distanceRange = [coder decodeSInt32];
         rotation = [coder decodeSInt32];
         rotationRange = [coder decodeSInt32];
+        spriteIdOverride = [coder decodeSInt32];
         for (NSUInteger i = 0; i < 12; i++) {
             NSInteger tmp = [coder decodeSInt32];
             if (tmp >= 1) {
@@ -181,7 +190,7 @@
 
 - (void) findBaseFromArray:(NSArray *)array {
     if (base == nil) {
-        base = [[array objectAtIndex:type] retain];
+        base = [[array objectAtIndex:type.index] retain];
     }
 }
 

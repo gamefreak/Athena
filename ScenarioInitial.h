@@ -11,6 +11,7 @@
 #import "ResCoding.h"
 #import "FlagBlob.h"
 
+@class Index;
 @class XSPoint, XSRange;
 @class BaseObject;
 
@@ -28,7 +29,7 @@
 
 
 @interface ScenarioInitial : NSObject <LuaCoding, ResCoding> {
-    NSInteger type;
+    Index *type;
     NSInteger owner;
     XSPoint *position;
 
@@ -50,7 +51,7 @@
     BaseObject *base;
 }
 @property (readonly) NSString *realName;
-@property (readwrite, assign) NSInteger type;
+@property (readwrite, assign) Index *type;
 @property (readwrite, assign) NSInteger owner;
 @property (readwrite, retain) XSPoint *position;
 @property (readwrite, assign) float earning;
