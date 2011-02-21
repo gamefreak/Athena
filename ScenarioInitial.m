@@ -170,7 +170,38 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    if (type.index == NSUIntegerMax) {
+        [coder encodeSInt32:-1];
+    } else {
+        [coder encodeSInt32:type.index];
+    }
+    [coder skip:8u];
+    [coder encodeSInt32:(int)position.x];
+    [coder encodeSInt32:(int)position.y];
+    [coder encodeFixed:earning];
+    [coder encodeSInt32:distanceRange];
+    [coder encodeSInt32:rotation];
+    [coder encodeSInt32:rotationRange];
+    [coder encodeSInt32:spriteIdOverride];
+    int k = 0;
+    int builtCount = [builds count];
+    for (; k < builtCount; k++) {
+        [coder encodeSInt32:[[builds objectAtIndex:k] intValue]];
+    }
+    for (; k < 12; k++) {
+        [coder encodeSInt32:-1];
+    }
+    [coder encodeSInt32:initialDestination];
+    if ([nameOverride isNotEqualTo:@""]) {
+        [coder encodeSInt32:STRPlanetBaseNames];
+        [coder encodeSInt32:[coder addString:nameOverride toStringTable:STRPlanetBaseNames]];
+    } else {
+        [coder encodeSInt32:-1];
+        [coder encodeSInt32:-1];
+    }
+    [attributes encodeResWithCoder:coder];
+}
 
 + (ResType)resType {
     return 'snit';

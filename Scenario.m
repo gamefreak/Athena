@@ -267,8 +267,13 @@
         [coder addString:str toStringTable:statusesId];
     }
     //ENCODE INITIAL OBJECTS!!!
-    short initialObjectsStart = -1;
+    NSEnumerator *enumerator;
+    enumerator = [initialObjects objectEnumerator];
+    short initialObjectsStart = [coder encodeObject:[enumerator nextObject]];
     [coder encodeSInt16:initialObjectsStart];
+    for (ScenarioInitial *initial in enumerator) {
+        [coder encodeObject:initial];
+    }
     if ([prologue isNotEqualTo:@""]) {
         [coder encodeSInt16:[coder encodeObject:prologue]];
     } else {
