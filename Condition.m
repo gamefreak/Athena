@@ -429,13 +429,13 @@
             [coder skip:8u];
             break;
         case CurrentMessageCondition:
-            [coder encodeSInt32:[[ddata objectForKey:@"id"] intValue]];
-            [coder encodeSInt32:[[ddata objectForKey:@"page"] intValue]];
+            [coder encodeSInt32:[[ddata objectForKey:@"id"] integerValue]];
+            [coder encodeSInt32:[[ddata objectForKey:@"page"] integerValue]];
             [coder skip:4u];
             break;
         case CurrentComputerSelectionCondition:
-            [coder encodeSInt32:[[ddata objectForKey:@"screen"] intValue]];
-            [coder encodeSInt32:[[ddata objectForKey:@"line"] intValue]];
+            [coder encodeSInt32:[[ddata objectForKey:@"screen"] integerValue]];
+            [coder encodeSInt32:[[ddata objectForKey:@"line"] integerValue]];
             [coder skip:4u];
             break;
         default:
