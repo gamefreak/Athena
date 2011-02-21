@@ -215,4 +215,24 @@
         }
     }
 }
+
+- (uint32) checkSumForIndex:(NSInteger)index ofPlane:(NSString *)plane {
+    NSDictionary *table = [planes objectForKey:plane];
+    NSAssert(table != nil, @"Attempt to checksum nonexistant data plane.");
+    NSData *data = [table objectForKey:[NSNumber numberWithUnsignedInt:index]];
+    NSAssert(data != nil, @"Attempt to checksum nonexistant data plane.");
+    //Checksumming code lifted almost verbatim from Hera_Data.c
+    uint32 checkSum = 0x00000000;
+    sint32 l = [data length];
+    sint32 shiftCount = 0;
+    uint8 *c = (uint8 *)[data bytes];
+    while (l > 0) {
+        checkSum ^= ((uint32)*c) << shiftCount;
+        shiftCount += 8;
+        c++;
+        if (shiftCount >= 32) shiftCount = 0;
+        l--;
+    }
+    return checkSum;
+}
 @end

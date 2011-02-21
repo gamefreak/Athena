@@ -43,4 +43,5 @@
 - (NSUInteger) addUniqueString:(NSString *)string toStringTable:(NSUInteger)table;
 
 - (void) flatten;
+- (uint32) checkSumForIndex:(NSInteger)index ofPlane:(NSString *)plane;
 @end

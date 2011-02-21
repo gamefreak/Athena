@@ -168,7 +168,14 @@ static NSArray *mainDataKeys;
     [flags encodeResWithCoder:coder];
 
     [coder flatten];
-    [coder encodeUInt32:checkSum];//NOT REALLY IMPLEMENTED!!!!!
+    //Compile CheckSum
+    checkSum = 0;
+    checkSum ^= [coder checkSumForIndex:500u ofPlane:@"sncd"];
+    checkSum ^= [coder checkSumForIndex:500u ofPlane:@"obac"];
+    checkSum ^= [coder checkSumForIndex:500u ofPlane:@"snit"];
+    checkSum ^= [coder checkSumForIndex:500u ofPlane:@"bsob"];
+    checkSum ^= [coder checkSumForIndex:500u ofPlane:@"snro"];
+    [coder encodeUInt32:checkSum];
 }
 
 + (ResType)resType {
