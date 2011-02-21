@@ -304,7 +304,7 @@
 
 - (void) encodeResWithCoder:(ResArchiver *)coder {
     [super encodeResWithCoder:coder];
-    [coder decodeSInt32:speed];
+    [coder encodeSInt32:speed];
     [coder skip:20u];
 }
 @end
