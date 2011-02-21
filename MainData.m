@@ -148,6 +148,10 @@ static NSArray *mainDataKeys;
         [coder encodeObject:scenario];
     }
 
+    for (BaseObject *object in objects) {
+        [coder encodeObject:object];
+    }
+
     [coder encodeSInt32:inFlareId];
     [coder encodeSInt32:outFlareId];
     [coder encodeSInt32:playerBodyId];

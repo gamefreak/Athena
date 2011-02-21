@@ -15,7 +15,9 @@
 
 - (id) init {
     self = [super init];
-    actions = [[NSMutableArray alloc] init];
+    if (self) {
+        actions = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 
@@ -26,7 +28,9 @@
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    [actions setArray:[coder decodeArrayOfClass:[Action class] forKey:@"seq" zeroIndexed:YES]];
+    if (self) {
+        [actions setArray:[coder decodeArrayOfClass:[Action class] forKey:@"seq" zeroIndexed:YES]];
+    }
     return self;
 }
 
@@ -58,7 +62,18 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    NSEnumerator *enumerator = [actions objectEnumerator];
+    first = -1;
+    if ([actions count] > 0) {
+        first = [coder encodeObject:[enumerator nextObject]];
+    }
+    for (Action *action in enumerator) {
+        [coder encodeObject:action];
+    }
+    [coder encodeSInt32:first];
+    [coder encodeSInt32:[actions count]];
+}
 @end
 
 @implementation DestroyActionRef
@@ -66,13 +81,17 @@
 
 - (id) init {
     self = [super init];
-    dontDestroyOnDeath = NO;
+    if (self) {
+        dontDestroyOnDeath = NO;
+    }
     return self;
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
-    dontDestroyOnDeath = [coder decodeBoolForKey:@"dontDieOnDeath"];
+    if (self) {
+        dontDestroyOnDeath = [coder decodeBoolForKey:@"dontDieOnDeath"];
+    }
     return self;
 }
 
@@ -95,7 +114,18 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    NSEnumerator *enumerator = [actions objectEnumerator];
+    first = -1;
+    if ([actions count] > 0) {
+        first = [coder encodeObject:[enumerator nextObject]];
+    }
+    for (Action *action in enumerator) {
+        [coder encodeObject:action];
+    }
+    [coder encodeSInt32:first];
+    [coder encodeSInt32:([actions count] & 0x7fffffff) | (dontDestroyOnDeath << 31)];
+}
 @end
 
 @implementation ActivateActionRef
@@ -138,5 +168,20 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    NSEnumerator *enumerator = [actions objectEnumerator];
+    first = -1;
+    if ([actions count] > 0) {
+        first = [coder encodeObject:[enumerator nextObject]];
+    }
+    for (Action *action in enumerator) {
+        [coder encodeObject:action];
+    }
+    count = [actions count];
+    count &= 0x0000ffff;
+    count |= (0xff & interval) << 24;
+    count |= (0xff & intervalRange) << 16;
+    [coder encodeSInt32:first];
+    [coder encodeSInt32:[actions count]];
+}
 @end

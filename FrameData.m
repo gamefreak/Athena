@@ -31,11 +31,14 @@
 - (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [super init];
     if (self) {
+        [coder skip:32u];
     }
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder skip:32u];
+}
 @end
 
 @implementation RotationData
@@ -82,7 +85,13 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt32:offset];
+    [coder encodeSInt32:resolution];
+    [coder encodeFixed:turnRate];
+    [coder encodeFixed:turnAcceleration];
+    [coder skip:16];
+}
 @end
 
 @implementation AnimationData
@@ -130,7 +139,7 @@
     [coder encodeInteger:shapeRange forKey:@"shapeRange"];
 }
 
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
+- (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
         firstShape = [coder decodeSInt32];
@@ -145,7 +154,16 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt32:firstShape];
+    [coder encodeSInt32:lastShape];
+    [coder encodeSInt32:direction];
+    [coder encodeSInt32:directionRange];
+    [coder encodeSInt32:speed];
+    [coder encodeSInt32:speedRange];
+    [coder encodeSInt32:shape];
+    [coder encodeSInt32:shapeRange];
+}
 @end
 
 @implementation BeamData
@@ -212,7 +230,7 @@
     [coder encodeFloat:range forKey:@"range"];
 }
 
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
+- (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
         color = [coder decodeUInt8];
@@ -244,7 +262,33 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeUInt8:color];
+    char encType;
+    switch (type) {
+        case BeamTypeKinetic:
+            encType = 0;
+            break;
+        case BeamTypeDirectStatic:
+            encType = 1;
+            break;
+        case BeamTypeRelativeStatic:
+            encType = 2;
+            break;
+        case BeamTypeDirectBolt:
+            encType = 3;
+            break;
+        case BeamTypeRelativeBolt:
+            encType = 4;
+            break;
+        default:
+            @throw [NSString stringWithFormat:@"Invalid beam type (%hhx)", type];
+            break;
+    }
+    [coder encodeSInt32:accuracy];
+    [coder encodeSInt32:range*range];
+    [coder skip:22u];
+}
 @end
 
 @implementation DeviceData
@@ -300,7 +344,7 @@
     [coder encodeInteger:restockCost forKey:@"restockCost"];
 } 
 
-- (id)initWithResArchiver:(ResUnarchiver *)coder {
+- (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
         [uses initWithResArchiver:coder];
@@ -315,7 +359,16 @@
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [uses encodeResWithCoder:coder];
+    [coder encodeSInt32:energyCost];
+    [coder encodeSInt32:reload];
+    [coder encodeSInt32:ammo];
+    [coder encodeSInt32:range];
+    [coder encodeSInt32:inverseSpeed];
+    [coder encodeSInt32:restockCost];
+    [coder skip:4u];
+}
 @end
 
 static NSArray *deviceUseKeys;

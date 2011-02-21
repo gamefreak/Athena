@@ -274,7 +274,11 @@
     [coder encodeFloat:initialVelocity forKey:@"initialVelocity"];
     [coder encodeFloat:initialVelocityRange forKey:@"initialVelocityRange"];
 
-    [coder encodeFloat:mass forKey:@"mass"];
+    if (mass == 0.0f) {
+        [coder encodeFloat:1.0f forKey:@"mass"];
+    } else {
+        [coder encodeFloat:mass forKey:@"mass"];
+    }
     [coder encodeFloat:thrust forKey:@"thrust"];
 
     [coder encodeInteger:health forKey:@"health"];
@@ -370,9 +374,6 @@
         initialVelocityRange = [coder decodeFixed];
 
         mass = [coder decodeFixed];
-        if (mass == 0.0f) {
-            mass = 1.0f;
-        }
         thrust = [coder decodeFixed];
 
         health = [coder decodeSInt32];
@@ -386,7 +387,7 @@
         layer = [coder decodeSInt16];
         spriteId = [coder decodeSInt16];
         int iconData = [coder decodeUInt32];
-        iconSize = 0xf & iconData;
+        iconSize = 0x0f & iconData;
         iconShape = (0xf0 & iconData) >> 8;
         shieldColor = [coder decodeUInt8];
         [coder skip:1u];
@@ -444,32 +445,111 @@
 
         portraitId = [coder decodeSInt16];
         [coder skip:10u];
-        const int bsobNameTable = 5000;
-        const int bsobShortNameTable = 5001;
-        const int bsobNotesTable = 5002;
-        const int bsobStaticNameTable = 5003;
+
         [name release];
         name = [[[coder decodeObjectOfClass:[StringTable class]
-                                    atIndex:bsobNameTable]
+                                    atIndex:STRBaseObjectNames]
                  stringAtIndex:[coder currentIndex]] retain];
         [shortName release];
         shortName = [[[coder decodeObjectOfClass:[StringTable class]
-                                         atIndex:bsobShortNameTable]
+                                         atIndex:STRBaseObjectShortNames]
                       stringAtIndex:[coder currentIndex]] retain];
         [notes release];
         notes = [[[coder decodeObjectOfClass:[StringTable class]
-                                     atIndex:bsobNotesTable]
+                                     atIndex:STRBaseObjectNotes]
                   stringAtIndex:[coder currentIndex]] retain];
         [staticName release];
         staticName = [[[coder decodeObjectOfClass:[StringTable class]
-                                          atIndex:bsobStaticNameTable]
+                                          atIndex:STRBaseObjectStaticNames]
                        stringAtIndex:[coder currentIndex]] retain];
         
     }
     return self;
 }
 
-//- (void)encodeResWithCoder:(ResArchiver *)coder {}
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [attributes encodeResWithCoder:coder];
+    [coder encodeSInt32:classNumber];
+    [coder encodeSInt32:race];
+    [coder encodeSInt32:price];
+
+    [coder encodeFixed:offence];
+    [coder encodeSInt32:escortRank];
+
+    [coder encodeFixed:maxVelocity];
+    [coder encodeFixed:warpSpeed];
+    [coder encodeFixed:warpOutDistance];
+
+    [coder encodeFixed:initialVelocity];
+    [coder encodeFixed:initialVelocityRange];
+
+    [coder encodeFixed:mass];
+    [coder encodeFixed:thrust];
+
+    [coder encodeSInt32:health];
+    [coder encodeSInt32:damage];
+    [coder encodeSInt32:energy];
+
+    [coder encodeSInt32:initialAge];
+    [coder encodeSInt32:initialAgeRange];
+
+    [coder encodeSInt32:scale];
+    [coder encodeSInt16:layer];
+    [coder encodeSInt16:spriteId];
+    [coder encodeUInt32:((0xf0 & (iconShape << 8)) | (0x0f & iconSize))];
+    [coder encodeUInt8:shieldColor];
+    [coder skip:1u];
+
+    [coder encodeSInt32:initialDirection];
+    [coder encodeSInt32:initialDirectionRange];
+
+    Weapon *pulse = [weapons objectForKey:@"pulse"];
+    Weapon *beam = [weapons objectForKey:@"beam"];
+    Weapon *special = [weapons objectForKey:@"special"];
+    [coder encodeSInt32:pulse.ID.index];
+    [coder encodeSInt32:beam.ID.index];
+    [coder encodeSInt32:special.ID.index];
+    [coder encodeSInt32:pulse.positionCount];
+    [coder encodeSInt32:beam.positionCount];
+    [coder encodeSInt32:special.positionCount];
+    [pulse encodeResWithCoder:coder];
+    [beam encodeResWithCoder:coder];
+    [special encodeResWithCoder:coder];
+
+    [coder encodeFixed:friendDefecit];
+    [coder encodeFixed:dangerThreshold];
+
+    [coder skip:4u];
+
+    [coder encodeSInt32:arriveActionDistance];
+    [[actions objectForKey:@"destroy"] encodeResWithCoder:coder];
+    [[actions objectForKey:@"expire"] encodeResWithCoder:coder];
+    [[actions objectForKey:@"create"] encodeResWithCoder:coder];
+    [[actions objectForKey:@"collide"] encodeResWithCoder:coder];
+    [[actions objectForKey:@"activate"] encodeResWithCoder:coder];
+    [[actions objectForKey:@"arrive"] encodeResWithCoder:coder];
+
+    [frame encodeResWithCoder:coder];
+
+    [buildFlags encodeResWithCoder:coder];
+    [orderFlags encodeResWithCoder:coder];
+
+    [coder encodeFixed:buildRatio];
+    [coder encodeUInt32:buildTime];
+
+    [coder encodeUInt8:skillNum];
+    [coder encodeUInt8:skillDen];
+    [coder encodeUInt8:skillNumAdj];
+    [coder encodeUInt8:skillDenAdj];
+
+    [coder encodeSInt16:portraitId];
+    [coder skip:10u];
+
+    [coder addString:name toStringTable:STRBaseObjectNames];
+    [coder addString:shortName toStringTable:STRBaseObjectShortNames];
+    [coder addString:notes toStringTable:STRBaseObjectNotes];
+    [coder addString:staticName toStringTable:STRBaseObjectStaticNames];
+}
 
 + (ResType)resType {
     return 'bsob';
@@ -552,5 +632,15 @@
         }
     }
     return self;
+}
+
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    int max = MIN(3, positionCount);
+    for (int k = 0; k < max; k++) {
+        XSPoint *point = [positions objectAtIndex:k];
+        [coder encodeFixed:point.y];
+        [coder encodeFixed:point.x];
+    }
+    [coder skip:8u * (3 - max)];
 }
 @end

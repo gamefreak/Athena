@@ -36,7 +36,7 @@ typedef enum {
 @property (readwrite, retain) NSMutableArray *positions;
 
 - (id) initWithResArchiver:(ResUnarchiver *)coder id:(NSInteger)id count:(NSInteger)count;
-
+- (void) encodeResWithCoder:(ResArchiver *)coder;
 + (id) weapon;
 @end
 
