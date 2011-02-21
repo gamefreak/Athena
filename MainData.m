@@ -166,6 +166,8 @@ static NSArray *mainDataKeys;
     [coder encodeUInt32:minVersion];
 
     [flags encodeResWithCoder:coder];
+
+    [coder flatten];
     [coder encodeUInt32:checkSum];//NOT REALLY IMPLEMENTED!!!!!
 }
 

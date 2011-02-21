@@ -14,6 +14,7 @@
 @interface ResArchiver (Private)
 - (NSMutableDictionary *) getTableForClass:(Class<ResCoding>)class;
 - (NSUInteger) getNextIndexOfClass:(Class<ResCoding>)class;
+- (void) flattenTableForType:(NSString *)type;
 @end
 
 @implementation ResArchiver (Private)
@@ -37,6 +38,27 @@
     }
     return val;
 }
+
+- (void) flattenTableForType:(NSString *)type {
+    NSMutableDictionary *table = [types objectForKey:type];
+    [table removeObjectForKey:@"COUNTER"];
+    NSArray *keys = [[table allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    Class<ResCoding> class = [[table objectForKey:[keys lastObject]] dataClass];
+    if ([class isPacked]) {
+        size_t size = [class sizeOfResourceItem];
+        NSMutableData *data = [NSMutableData dataWithCapacity:[keys count]*size];
+        for (id key in keys) {
+            [data appendData:[[table objectForKey:key] data]];
+        }
+        [planes setObject:[NSDictionary dictionaryWithObject:data forKey:[NSNumber numberWithInt:500]] forKey:type];
+    } else {
+        NSMutableDictionary *plane = [NSMutableDictionary dictionary];
+        for (id key in keys) {
+            [plane setObject:[[table objectForKey:key] data] forKey:key];
+        }
+        [planes setObject:plane forKey:type];
+    }
+}
 @end
 
 
@@ -45,9 +67,11 @@
 - (id) init {
     self = [super init];
     if (self) {
+        hasBeenFlattened = NO;
         types = [[NSMutableDictionary alloc] init];
         stack = [[NSMutableArray alloc] init];
         stringTables = [[NSMutableDictionary alloc] init];
+        planes = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -56,6 +80,7 @@
     [types release];
     [stack release];
     [stringTables release];
+    [planes release];
     [super dealloc];
 }
 
@@ -64,6 +89,9 @@
 }
 
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object {
+    if (hasBeenFlattened) {
+        @throw @"Cannot encode new object because the data has been flattened.";
+    }
     Class<ResCoding> class = [object class];
     NSMutableDictionary *table = [self getTableForClass:class];
     NSUInteger idx = [self getNextIndexOfClass:class];
@@ -77,6 +105,9 @@
 }
 
 - (void) encodeObject:(id<ResCoding, NSObject>)object atIndex:(NSUInteger)index {
+    if (hasBeenFlattened) {
+        @throw @"Cannot encode new object because the data has been flattened.";
+    }
     Class<ResCoding> class = [object class];
     NSMutableDictionary *table = [self getTableForClass:class];
     ResSegment *seg = [[ResSegment alloc] initWithObject:object atIndex:index];
@@ -85,6 +116,9 @@
     [object encodeResWithCoder:self];
     [stack removeLastObject];
     [seg release];
+    if (hasBeenFlattened) {//For flattening the top level object
+        [self flattenTableForType:[class typeKey]];
+    }
 }
 
 - (void) writeBytes:(void *)bytes length:(size_t)length {
@@ -168,5 +202,17 @@
         [stringTables setObject:table forKey:key];
     }
     return [table addUniqueString:string];
+}
+
+- (void) flatten {
+    NSAssert(!hasBeenFlattened, @"Data has been flattened, no more objects can be encoded.");
+    NSAssert([stack count] <= 1, @"-flatten must be called externally or from the top level object.");
+    hasBeenFlattened = YES;
+    NSString *excludedType = [[[stack lastObject] dataClass] typeKey];
+    for (NSString *type in types) {
+        if ([type isNotEqualTo:excludedType]) {
+            [self flattenTableForType:type];
+        }
+    }
 }
 @end

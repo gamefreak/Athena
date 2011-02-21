@@ -12,9 +12,11 @@
 @protocol ResCoding;
 
 @interface ResArchiver : NSObject {
+    BOOL hasBeenFlattened;
     NSMutableDictionary *types;
     NSMutableArray *stack;
     NSMutableDictionary *stringTables;
+    NSMutableDictionary *planes;
 }
 - (void) skip:(size_t)length;
 
@@ -39,4 +41,6 @@
 
 - (NSUInteger) addString:(NSString *)string toStringTable:(NSUInteger)table;
 - (NSUInteger) addUniqueString:(NSString *)string toStringTable:(NSUInteger)table;
+
+- (void) flatten;
 @end
