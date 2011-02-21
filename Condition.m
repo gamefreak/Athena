@@ -429,13 +429,13 @@
             [coder skip:8u];
             break;
         case CurrentMessageCondition:
-            [coder encodeSInt32:[ddata objectForKey:@"id"]];
-            [coder encodeSInt32:[ddata objectForKey:@"page"]];
+            [coder encodeSInt32:[[ddata objectForKey:@"id"] intValue]];
+            [coder encodeSInt32:[[ddata objectForKey:@"page"] intValue]];
             [coder skip:4u];
             break;
         case CurrentComputerSelectionCondition:
-            [coder encodeSInt32:[ddata objectForKey:@"screen"]];
-            [coder encodeSInt32:[ddata objectForKey:@"line"]];
+            [coder encodeSInt32:[[ddata objectForKey:@"screen"] intValue]];
+            [coder encodeSInt32:[[ddata objectForKey:@"line"] intValue]];
             [coder skip:4u];
             break;
         default:
@@ -456,7 +456,9 @@
     [coder encodeSInt32:direct];
     NSEnumerator *enumerator = [actions objectEnumerator];
     int actionsStart = -1;
-    actionsStart = [coder encodeObject:[enumerator nextObject]];
+    if ([actions count] > 0) {
+        actionsStart = [coder encodeObject:[enumerator nextObject]];
+    }
     [coder encodeSInt32:actionsStart];
     for (Action *action in enumerator) {
         [coder encodeObject:action];
