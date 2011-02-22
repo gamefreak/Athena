@@ -506,9 +506,9 @@
     Weapon *pulse = [weapons objectForKey:@"pulse"];
     Weapon *beam = [weapons objectForKey:@"beam"];
     Weapon *special = [weapons objectForKey:@"special"];
-    [coder encodeSInt32:pulse.ID.index];
-    [coder encodeSInt32:beam.ID.index];
-    [coder encodeSInt32:special.ID.index];
+    [coder encodeSInt32:pulse.ID.orNull];
+    [coder encodeSInt32:beam.ID.orNull];
+    [coder encodeSInt32:special.ID.orNull];
     [coder encodeSInt32:pulse.positionCount];
     [coder encodeSInt32:beam.positionCount];
     [coder encodeSInt32:special.positionCount];
@@ -623,7 +623,11 @@
 - (id) initWithResArchiver:(ResUnarchiver *)coder id:(NSInteger)_id count:(NSInteger)count {
     self = [self init];
     if (self) {
-        self.ID = [coder getIndexRefWithIndex:_id forClass:[BaseObject class]];
+        if (_id == -1) {
+            self.ID = [[Index alloc] init];
+        } else {
+            self.ID = [coder getIndexRefWithIndex:_id forClass:[BaseObject class]];
+        }
         positionCount = count;
         for (int k = 0; k < 3; k++) {
             XSPoint *point = [positions objectAtIndex:k];
