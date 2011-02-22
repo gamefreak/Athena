@@ -107,8 +107,9 @@ static NSArray *attributeBlobKeys;
         int position = 0;
         for (id key in keys) {
             if (key != [NSNull null]) {
-                [self setValue:[NSNumber numberWithBool:hex & 1 << position++] forKey:key];
+                [self setValue:[NSNumber numberWithBool:((hex & 1 << position)?YES:NO)] forKey:key];
             }
+            position++;
         }
     }
     return self;
@@ -119,11 +120,10 @@ static NSArray *attributeBlobKeys;
     int ctr = 0;
     NSArray *keys = [[self class] keys];
     for (id key in keys) {
-        if (key == [NSNull null]) {
-            ctr++;
-            continue;
+        if (key != [NSNull null]) {
+            hex |= [[self valueForKey:key] boolValue] << ctr;
         }
-        hex |= [[self valueForKey:key] boolValue] << ctr++;
+        ctr++;
     }
     [coder encodeUInt32:hex];
 }
