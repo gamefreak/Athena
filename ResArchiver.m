@@ -111,7 +111,7 @@
     ResFileRefNum resFile = FSOpenResFile(&fileRef, fsRdPerm | fsWrPerm);
     UseResFile(resFile);
     for (NSString *key in planes) {
-        ResType type = *(int*)[key cString];
+        ResType type = CFSwapInt32HostToBig(*(int*)[key cString]);
         NSLog(@"Writing resources of type: %@", key);
         NSDictionary *table = [planes objectForKey:key];
         for (NSNumber *index in table) {
