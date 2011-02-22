@@ -62,18 +62,29 @@
 
 @implementation Index
 @synthesize index;
+@dynamic orNull;
+
 - (id) init {
     self = [self initWithIndex:NSUIntegerMax];
     if (self) {
     }
     return self;
 }
+
 - (id) initWithIndex:(NSUInteger)_index {
     self = [super init];
     if (self) {
         index = _index;
     }
     return self;
+}
+
+- (NSInteger) orNull {
+    if (index == NSUIntegerMax) {
+        return -1;
+    } else {
+        return index;
+    }
 }
 @end
 

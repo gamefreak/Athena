@@ -25,5 +25,6 @@
     NSUInteger index;
 }
 @property (readwrite, assign) NSUInteger index;
+@property (readonly) NSInteger orNull;
 - (id) initWithIndex:(NSUInteger)index;
 @end
