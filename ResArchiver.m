@@ -84,6 +84,44 @@
     [super dealloc];
 }
 
+- (BOOL) writeToFile:(NSString *)filePath {
+    FSRef directoryRef;
+    Boolean isDirectory;
+    if (FSPathMakeRef([[filePath stringByDeletingLastPathComponent] cStringUsingEncoding:NSMacOSRomanStringEncoding], &directoryRef, &isDirectory) != noErr) {
+        //Could not make path ref
+        return NO;
+    }
+    NSAssert(isDirectory, @"Path is not directory.");
+    //Get the filename
+    NSString *fileName = [filePath lastPathComponent];
+    HFSUniStr255 file;
+    file.length = [fileName length];
+    [fileName getCharacters:file.unicode];
+    //Prepare the resource file
+    FSRef fileRef;
+    FSCreateResFile(&directoryRef, file.length, file.unicode, kFSCatInfoNone, NULL, &fileRef, NULL);
+
+    //'nlAe' or 'ar12' (optimized)
+    ResFileRefNum resFile = FSOpenResFile(&fileRef, fsRdPerm | fsWrPerm);
+    UseResFile(resFile);
+    for (NSString *key in planes) {
+        ResType type = *(int*)[key cString];
+        NSLog(@"Writing resources of type: %@", key);
+        NSDictionary *table = [planes objectForKey:key];
+        for (NSNumber *index in table) {
+            ResID rId = [index shortValue];
+            NSData *data = [table objectForKey:index];
+            Handle hndl = NewHandle([data length]);
+            HLock(hndl);
+            memcpy(*hndl, [data bytes], [data length]);
+            HUnlock(hndl);
+            AddResource(hndl, type, rId, "\p");
+        }
+    }
+    CloseResFile(resFile);
+    return YES;
+}
+
 - (void) skip:(size_t)length {
     [[stack lastObject] advance:length];
 }

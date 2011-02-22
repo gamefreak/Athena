@@ -68,11 +68,23 @@
         [coder release];
 
 #if 1
+        char tempName[17] = "";
+        strlcpy(tempName, "/tmp/TEST.XXXXXX", 17);
+        mktemp(tempName);
+        NSString *testFname = [NSString stringWithCString:tempName];
         NSLog(@"Running Encoder Test");
         ResArchiver *encoder = [[ResArchiver alloc] init];
         [encoder encodeObject:data atIndex:128];
+        NSLog(@"Encoding Completed");
+        NSLog(@"Writing to temp file: %@", testFname);
+        if ([encoder writeToFile:testFname]) {
+            NSLog(@"Write succeeded.");
+        } else {
+            NSLog(@"Write failed.");
+        }
         [encoder release];
         NSLog(@"Encoder Test Completed");
+        unlink(tempName);
 #endif
     }
     return YES;
