@@ -255,6 +255,9 @@
 - (void) flatten {
     NSAssert(!hasBeenFlattened, @"Data has been flattened, no more objects can be encoded.");
     NSAssert([stack count] <= 1, @"-flatten must be called externally or from the top level object.");
+    for (NSNumber *key in stringTables) {
+        [self encodeObject:[stringTables objectForKey:key] atIndex:[key unsignedIntValue]];
+    }
     hasBeenFlattened = YES;
     NSString *excludedType = [[[stack lastObject] dataClass] typeKey];
     for (NSString *type in types) {
