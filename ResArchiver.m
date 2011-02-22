@@ -99,9 +99,15 @@
     [fileName getCharacters:file.unicode];
     //Prepare the resource file
     FSRef fileRef;
-    FSCreateResFile(&directoryRef, file.length, file.unicode, kFSCatInfoNone, NULL, &fileRef, NULL);
-
+    FSCatalogInfo catInfo;
+    FSCreateResFile(&directoryRef, file.length, file.unicode, kFSCatInfoFinderInfo, &catInfo, &fileRef, NULL);
     //'nlAe' or 'ar12' (optimized)
+    FSGetCatalogInfo(&fileRef, kFSCatInfoNone, NULL, NULL, NULL, NULL);
+    FileInfo *info = (FileInfo*)&catInfo.finderInfo;
+    info->fileCreator = 'ar12';
+    info->fileType = 'rsrc';
+    info->finderFlags = 0;
+    FSSetCatalogInfo(&fileRef, kFSCatInfoFinderInfo, &catInfo);
     ResFileRefNum resFile = FSOpenResFile(&fileRef, fsRdPerm | fsWrPerm);
     UseResFile(resFile);
     for (NSString *key in planes) {
