@@ -12,7 +12,7 @@
 #import "FlagBlob.h"
 
 @class Index;
-@class XSPoint, XSRange;
+@class XSIPoint, XSRange;
 @class BaseObject;
 
 @interface ScenarioInitialAttributes : FlagBlob {
@@ -31,7 +31,7 @@
 @interface ScenarioInitial : NSObject <LuaCoding, ResCoding> {
     Index *type;
     NSInteger owner;
-    XSPoint *position;
+    XSIPoint *position;
 
     float earning;
     NSInteger distanceRange;
@@ -53,7 +53,7 @@
 @property (readonly) NSString *realName;
 @property (readwrite, assign) Index *type;
 @property (readwrite, assign) NSInteger owner;
-@property (readwrite, retain) XSPoint *position;
+@property (readwrite, retain) XSIPoint *position;
 @property (readwrite, assign) float earning;
 @property (readwrite, assign) NSInteger distanceRange;
 @property (readwrite, assign) NSInteger rotation;

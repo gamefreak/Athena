@@ -25,7 +25,7 @@
     type = [[Index alloc] init];
     owner = 0;
 
-    position = [[XSPoint alloc] init];
+    position = [[XSIPoint alloc] init];
 
     earning = 1.0f;
     distanceRange = 0;
@@ -62,9 +62,7 @@
     type = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"type"] forClass:[BaseObject class]] retain];
     owner = [coder decodeIntegerForKey:@"owner"];
 
-    [position release];
-    position = [coder decodePointForKey:@"position"];
-    [position retain];
+    position.point = [coder decodePointForKey:@"position"].point;
 
     earning = [coder decodeFloatForKey:@"earning"];
     distanceRange = [coder decodeIntegerForKey:@"distanceRange"];
