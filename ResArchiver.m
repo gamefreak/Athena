@@ -88,6 +88,10 @@
     [[stack lastObject] advance:length];
 }
 
+- (void) extend:(NSUInteger)bytes {
+    [[stack lastObject] extend:bytes];
+}
+
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object {
     if (hasBeenFlattened) {
         @throw @"Cannot encode new object because the data has been flattened.";
@@ -126,41 +130,41 @@
 }
 
 - (void) encodeUInt8:(UInt8)value {
-    [[stack lastObject] writeBytes:&value length:sizeof(value)];
+    [[stack lastObject] writeBytes:&value length:sizeof(UInt8)];
 }
 
 - (void) encodeSInt8:(SInt8)value {
-    [[stack lastObject] writeBytes:&value length:sizeof(value)];
+    [[stack lastObject] writeBytes:&value length:sizeof(SInt8)];
 }
 
 - (void) encodeUInt16:(UInt16)value {
     value = CFSwapInt16HostToBig(value);
-    [[stack lastObject] writeBytes:&value length:sizeof(value)];
+    [[stack lastObject] writeBytes:&value length:sizeof(UInt16)];
 }
 
 - (void) encodeSInt16:(SInt16)value {
     value = CFSwapInt16HostToBig(value);
-    [[stack lastObject] writeBytes:&value length:sizeof(value)];
+    [[stack lastObject] writeBytes:&value length:sizeof(SInt16)];
 }
 
 - (void) encodeUInt32:(UInt32)value {
     value = CFSwapInt32HostToBig(value);
-    [[stack lastObject] writeBytes:&value length:sizeof(value)];
+    [[stack lastObject] writeBytes:&value length:sizeof(UInt32)];
 }
 
 - (void) encodeSInt32:(SInt32)value {
     value = CFSwapInt32HostToBig(value);
-    [[stack lastObject] writeBytes:&value length:sizeof(value)];
+    [[stack lastObject] writeBytes:&value length:sizeof(SInt32)];
 }
 
 - (void) encodeUInt64:(UInt64)value {
     value = CFSwapInt64HostToBig(value);
-    [[stack lastObject] writeBytes:&value length:sizeof(value)];
+    [[stack lastObject] writeBytes:&value length:sizeof(UInt64)];
 }
 
 - (void) encodeSInt64:(SInt64)value {
     value = CFSwapInt64HostToBig(value);
-    [[stack lastObject] writeBytes:&value length:sizeof(value)];
+    [[stack lastObject] writeBytes:&value length:sizeof(SInt64)];
 }
 
 - (void) encodeFixed:(CGFloat)value {

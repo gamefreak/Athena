@@ -19,6 +19,7 @@
     NSMutableDictionary *planes;
 }
 - (void) skip:(size_t)length;
+- (void) extend:(NSUInteger)bytes;
 
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object;
 - (void) encodeObject:(id<ResCoding, NSObject>)object atIndex:(NSUInteger)index;

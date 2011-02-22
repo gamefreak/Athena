@@ -39,5 +39,6 @@
 - (void) writeBytes:(void *)bytes length:(size_t)length;
 - (void) advance:(NSUInteger)bytes;
 - (void) seek:(NSUInteger)position;
+- (void) extend:(NSUInteger)bytes;
 @end
 

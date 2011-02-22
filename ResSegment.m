@@ -21,7 +21,7 @@
         if ([dataClass isPacked]) {
             data = [[NSMutableData alloc] initWithLength:[dataClass sizeOfResourceItem]];
         } else {
-            data = [[NSMutableData alloc] initWithLength:1024u];
+            data = [[NSMutableData alloc] init];
         }
         cursor = 0;
         loaded = NO;
@@ -74,7 +74,7 @@
 }
 
 - (void) writeBytes:(void *)bytes length:(size_t)length {
-    [data appendBytes:bytes length:length];
+    [data replaceBytesInRange:NSMakeRange(cursor, length) withBytes:bytes];
     [self advance:length];
 }
 
@@ -84,6 +84,10 @@
 
 - (void) seek:(NSUInteger)position {
     cursor = position;
+}
+
+- (void) extend:(NSUInteger)bytes {
+    [data increaseLengthBy:bytes];
 }
 
 - (NSUInteger) index {
