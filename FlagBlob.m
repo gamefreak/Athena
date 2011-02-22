@@ -120,9 +120,10 @@ static NSArray *attributeBlobKeys;
     NSArray *keys = [[self class] keys];
     for (id key in keys) {
         if (key == [NSNull null]) {
+            ctr++;
             continue;
         }
-        hex |= 1 << ctr++;
+        hex |= [[self valueForKey:key] boolValue] << ctr++;
     }
     [coder encodeUInt32:hex];
 }
