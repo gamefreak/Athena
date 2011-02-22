@@ -21,3 +21,17 @@
 
 + (id) point;
 @end
+
+
+@interface XSIPoint : NSObject <LuaCoding> {
+    int x, y;
+}
+@property (readwrite, assign) int x;
+@property (readwrite, assign) int y;
+@property (readwrite, assign) NSPoint point;
+
+- (id) initWithPoint:(NSPoint)point;
+- (id) initWithX:(int)x Y:(int)y;
+
++ (id) point;
+@end
