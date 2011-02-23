@@ -303,7 +303,7 @@
     enumerator = [briefings objectEnumerator];
     short briefingsStart = -1;
     if ([briefings count] > 0) {
-        briefingsStart = [coder encodeObject:[enumerator nextObject]];
+        briefingsStart = [coder encodeObject:[enumerator nextObject]] + 1;//1 indexed WHY NATHAN WHY?
     }
     [coder encodeSInt16:briefingsStart];
     for (BriefPoint *briefing in enumerator) {
