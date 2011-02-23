@@ -18,12 +18,12 @@
 #import "IndexedObject.h"
 
 typedef enum {
-    IconShapeSquare = 0x0,
-    IconShapeTriangle = 0x1,
-    IconShapeDiamond = 0x2,
-    IconShapePlus = 0x3,
-    IconShapeFramedSquare = 0x4,
-    IconShapeNone = 0xf //SIGH
+    IconShapeSquare = 0x00,
+    IconShapeTriangle = 0x10,
+    IconShapeDiamond = 0x20,
+    IconShapePlus = 0x30,
+    IconShapeFramedSquare = 0x40,
+    IconShapeNone = 0xf0 //SIGH
 } IconShape;
 
 @interface Weapon : NSObject <LuaCoding> {

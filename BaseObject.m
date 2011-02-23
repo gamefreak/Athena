@@ -388,7 +388,7 @@
         spriteId = [coder decodeSInt16];
         int iconData = [coder decodeUInt32];
         iconSize = 0x0f & iconData;
-        iconShape = (0xf0 & iconData) >> 8;
+        iconShape = 0xf0 & iconData;
         shieldColor = [coder decodeUInt8];
         [coder skip:1u];
 
@@ -496,7 +496,7 @@
     [coder encodeSInt32:scale];
     [coder encodeSInt16:layer];
     [coder encodeSInt16:spriteId];
-    [coder encodeUInt32:((0xf0 & (iconShape << 8)) | (0x0f & iconSize))];
+    [coder encodeUInt32:((0xf0 & iconShape) | (0x0f & iconSize))];
     [coder encodeUInt8:shieldColor];
     [coder skip:1u];
 
