@@ -75,7 +75,6 @@ const CGFloat iconSizeScale = 2.0f;
 }
 
 - (void) setInitials:(NSMutableArray *)initials {
-    NSLog(@"Setting Initials");
     [initialObjects release];
     initialObjects = initials;
     [initialObjects retain];
@@ -426,7 +425,7 @@ const CGFloat iconSizeScale = 2.0f;
     ScenarioInitial *obj = [initialsController selection];
     if (obj != NSNoSelectionMarker) {
         NSRect bounds = [self bounds];
-        XSPoint *position = [obj valueForKey:@"position"];
+        XSIPoint *position = [obj valueForKey:@"position"];
         if (!NSPointInRect(position.point, bounds)) {
             //Move the cursor if out of view
             center = position.point;
@@ -494,7 +493,7 @@ const CGFloat iconSizeScale = 2.0f;
     id selection = [initialsController selection];
     BOOL willChangeSelection = YES;
     if (selection != NSNoSelectionMarker) {
-        XSPoint *point = [selection valueForKey:@"position"];
+        XSIPoint *point = [selection valueForKey:@"position"];
         NSRect selectedObjectRect = SquareRectWithCenterAndSize(point.point, [[selection valueForKeyPath:@"base.iconSize"] floatValue] * iconSizeScale);
         if (NSPointInRect(clickPoint, selectedObjectRect)) {
             clickedObject = selection;
@@ -522,7 +521,7 @@ const CGFloat iconSizeScale = 2.0f;
 
 - (void) mouseDragged:(NSEvent *)event {
     if (clickedObject != nil) {
-        XSPoint *position = [clickedObject valueForKey:@"position"];
+        XSIPoint *position = [clickedObject valueForKey:@"position"];
         if (!isDragging) {
             NSLog(@"Starting Drag.");
             NSLog(@"Pushing: %@", NSStringFromPoint(position.point));
