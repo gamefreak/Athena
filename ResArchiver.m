@@ -136,6 +136,10 @@
     [[stack lastObject] extend:bytes];
 }
 
+- (void) setName:(NSString *)name {
+    [[stack lastObject] setName:name];
+}
+
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object {
     if (hasBeenFlattened) {
         @throw @"Cannot encode new object because the data has been flattened.";

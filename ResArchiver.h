@@ -22,6 +22,7 @@
 
 - (void) skip:(size_t)length;
 - (void) extend:(NSUInteger)bytes;
+- (void) setName:(NSString *)name;
 
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object;
 - (void) encodeObject:(id<ResCoding, NSObject>)object atIndex:(NSUInteger)index;
