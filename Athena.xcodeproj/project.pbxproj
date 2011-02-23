@@ -150,7 +150,7 @@
 		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		8D15AC360486D014006FF6A4 /* Athena-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Athena-Info.plist"; sourceTree = "<group>"; };
+		8D15AC360486D014006FF6A4 /* Athena-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Athena-Info.plist"; path = "../Athena-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Athena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Athena.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D216E72F12E9DE1700D17AFB /* LuaArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaArchiver.h; sourceTree = "<group>"; };
 		D216E73012E9DE1700D17AFB /* LuaArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaArchiver.m; sourceTree = "<group>"; };
@@ -399,14 +399,9 @@
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Athena-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
-				1DDD58280DA1D0D100B32029 /* AthenaDocument.xib */,
-				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
-				D26B6A41130C170900B461FB /* ObjectEditor.xib */,
-				D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */,
-				D288339112F24F4100A02383 /* RaceEditor.xib */,
-				D2DEECB6130A2A8D004AB731 /* Scenarios */,
+				D2944BBD1315C2E900D1175E /* Nibs */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
@@ -487,15 +482,15 @@
 				D2E452D212EF4BC90099B0F9 /* FlagBlob.h */,
 				D2E452D312EF4BC90099B0F9 /* FlagBlob.m */,
 				D28831CC12F21E4E00A02383 /* Actions */,
-				D29510AF12EE770200AE3316 /* BaseObject */,
+				D29510AF12EE770200AE3316 /* BaseObjects */,
+				D2A1911F12FE3DC600232914 /* Scenario */,
 				D293F5D612EB78E000EF1CCA /* Race.h */,
 				D293F5D712EB78E000EF1CCA /* Race.m */,
-				D2A1911F12FE3DC600232914 /* Scenario */,
 				D2C9D6FC130462020087EDE4 /* StringTable.h */,
 				D2C9D6FD130462020087EDE4 /* StringTable.m */,
-				D2764FA81307528D00C847E4 /* Media */,
+				D2764FA81307528D00C847E4 /* AresTypes */,
 			);
-			name = AresTypes;
+			path = AresTypes;
 			sourceTree = "<group>";
 		};
 		D225D64013039D2F00E75803 /* Lua */ = {
@@ -507,7 +502,7 @@
 				D216E72F12E9DE1700D17AFB /* LuaArchiver.h */,
 				D216E73012E9DE1700D17AFB /* LuaArchiver.m */,
 			);
-			name = Lua;
+			path = Lua;
 			sourceTree = "<group>";
 		};
 		D225D64213039D5900E75803 /* Resource */ = {
@@ -523,7 +518,7 @@
 				D225D64313039F0D00E75803 /* ResUnarchiver.h */,
 				D225D64413039F0D00E75803 /* ResUnarchiver.m */,
 			);
-			name = Resource;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		D264F8BD12E8EE3A0050BCFB /* Archivers */ = {
@@ -533,16 +528,16 @@
 				D225D64013039D2F00E75803 /* Lua */,
 				D225D64213039D5900E75803 /* Resource */,
 			);
-			name = Archivers;
+			path = Archivers;
 			sourceTree = "<group>";
 		};
-		D2764FA81307528D00C847E4 /* Media */ = {
+		D2764FA81307528D00C847E4 /* AresTypes */ = {
 			isa = PBXGroup;
 			children = (
 				D2B720BD1308739900008307 /* SMIVImage.h */,
 				D2B720BE1308739900008307 /* SMIVImage.m */,
 			);
-			name = Media;
+			name = AresTypes;
 			sourceTree = "<group>";
 		};
 		D2781DFC130C884300E0CD75 /* Index support */ = {
@@ -564,7 +559,7 @@
 				D28831CD12F21E7F00A02383 /* SubActions.h */,
 				D28831CE12F21E7F00A02383 /* SubActions.m */,
 			);
-			name = Actions;
+			path = Actions;
 			sourceTree = "<group>";
 		};
 		D288339812F24F7600A02383 /* Interface */ = {
@@ -577,7 +572,7 @@
 				D288339612F24F7000A02383 /* RaceEditor.m */,
 				D2A1911412FE3BEF00232914 /* Scenarios */,
 			);
-			name = Interface;
+			path = Interface;
 			sourceTree = "<group>";
 		};
 		D293F65D12EBAAFD00EF1CCA /* Wrappers */ = {
@@ -596,10 +591,23 @@
 				D2944B081315B29900D1175E /* XSText.h */,
 				D2944B091315B29900D1175E /* XSText.m */,
 			);
-			name = Wrappers;
+			path = Wrappers;
 			sourceTree = "<group>";
 		};
-		D29510AF12EE770200AE3316 /* BaseObject */ = {
+		D2944BBD1315C2E900D1175E /* Nibs */ = {
+			isa = PBXGroup;
+			children = (
+				1DDD58280DA1D0D100B32029 /* AthenaDocument.xib */,
+				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				D26B6A41130C170900B461FB /* ObjectEditor.xib */,
+				D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */,
+				D288339112F24F4100A02383 /* RaceEditor.xib */,
+				D2DEECB6130A2A8D004AB731 /* Scenarios */,
+			);
+			name = Nibs;
+			sourceTree = "<group>";
+		};
+		D29510AF12EE770200AE3316 /* BaseObjects */ = {
 			isa = PBXGroup;
 			children = (
 				D21EB31D12E8C41700694EBA /* BaseObject.h */,
@@ -611,7 +619,7 @@
 				D295110412EE7BB700AE3316 /* FrameData.h */,
 				D295110512EE7BB700AE3316 /* FrameData.m */,
 			);
-			name = BaseObject;
+			path = BaseObjects;
 			sourceTree = "<group>";
 		};
 		D2A1911412FE3BEF00232914 /* Scenarios */ = {

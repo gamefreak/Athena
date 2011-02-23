@@ -10,7 +10,6 @@
 #import "Archivers.h"
 #import "StringTable.h"
 #import "NSString+LuaCoding.h"
-#import "NSString+ResCoding(Text).h"
 #import "XSPoint.h"
 #import "XSText.h"
 
