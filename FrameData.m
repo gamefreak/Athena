@@ -285,6 +285,7 @@
             @throw [NSString stringWithFormat:@"Invalid beam type (%hhx)", type];
             break;
     }
+    [coder encodeUInt8:encType];
     [coder encodeSInt32:accuracy];
     [coder encodeSInt32:range*range];
     [coder skip:22u];
