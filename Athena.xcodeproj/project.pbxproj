@@ -488,7 +488,7 @@
 				D293F5D712EB78E000EF1CCA /* Race.m */,
 				D2C9D6FC130462020087EDE4 /* StringTable.h */,
 				D2C9D6FD130462020087EDE4 /* StringTable.m */,
-				D2764FA81307528D00C847E4 /* AresTypes */,
+				D2764FA81307528D00C847E4 /* Media */,
 			);
 			path = AresTypes;
 			sourceTree = "<group>";
@@ -531,13 +531,13 @@
 			path = Archivers;
 			sourceTree = "<group>";
 		};
-		D2764FA81307528D00C847E4 /* AresTypes */ = {
+		D2764FA81307528D00C847E4 /* Media */ = {
 			isa = PBXGroup;
 			children = (
 				D2B720BD1308739900008307 /* SMIVImage.h */,
 				D2B720BE1308739900008307 /* SMIVImage.m */,
 			);
-			name = AresTypes;
+			name = Media;
 			sourceTree = "<group>";
 		};
 		D2781DFC130C884300E0CD75 /* Index support */ = {
