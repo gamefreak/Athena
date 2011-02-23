@@ -321,7 +321,7 @@
     }
     [coder encodeSInt16:par.kills];
     [coder encodeSInt16:self.objectIndex + 1];
-    [coder addString:name toStringTable:STRScenarioNames+self.objectIndex];
+    [coder addString:name toStringTable:STRScenarioNames];
     [coder encodeFixed:par.ratio];
     [coder encodeSInt16:par.losses];
     [coder encodeSInt16:((0x7fff & (SInt16)startTime) | (isTraining?0x8000:0x0000))];
