@@ -186,6 +186,7 @@
     if (self) {
         netRaceFlags = [coder decodeSInt16];
         playerNum = [coder decodeSInt16];
+        [players removeAllObjects];
         for (NSUInteger i = 0; i < playerNum; i++) {
             [players addObject:[[[ScenarioPlayer alloc] initWithResArchiver:coder] autorelease]];
         }

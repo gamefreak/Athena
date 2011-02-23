@@ -169,14 +169,11 @@
 }
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
-    if (type.index == NSUIntegerMax) {
-        [coder encodeSInt32:-1];
-    } else {
-        [coder encodeSInt32:type.index];
-    }
+    [coder encodeSInt32:type.orNull];
+    [coder encodeSInt32:owner];
     [coder skip:8u];
-    [coder encodeSInt32:(int)position.x];
-    [coder encodeSInt32:(int)position.y];
+    [coder encodeSInt32:position.x];
+    [coder encodeSInt32:position.y];
     [coder encodeFixed:earning];
     [coder encodeSInt32:distanceRange];
     [coder encodeSInt32:rotation];
