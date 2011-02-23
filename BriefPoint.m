@@ -140,7 +140,7 @@
     [coder encodeSInt32:range.x];
     [coder encodeSInt16:STRBriefingTitles];
     [coder encodeSInt16:[coder addString:title toStringTable:STRBriefingTitles]];
-    [coder encodeSInt8:[coder encodeObject:content]];
+    [coder encodeSInt16:[coder encodeObject:content]];
 }
 
 + (ResType)resType {
