@@ -18,10 +18,9 @@ static NSArray *attributeBlobKeys;
     NSArray *keys = [[self class] keys];
     NSInteger position = 0;
     for (id key in keys) {
-        if (key == [NSNull null]) {
-            continue;
+        if (key != [NSNull null]) {
+            hex |= [[self valueForKey:key] boolValue] << position;
         }
-        hex |= 1 << position;
         position++;
     }
     return hex;
@@ -116,15 +115,6 @@ static NSArray *attributeBlobKeys;
 }
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
-    UInt32 hex = 0x00000000;
-    int ctr = 0;
-    NSArray *keys = [[self class] keys];
-    for (id key in keys) {
-        if (key != [NSNull null]) {
-            hex |= [[self valueForKey:key] boolValue] << ctr;
-        }
-        ctr++;
-    }
-    [coder encodeUInt32:hex];
+    [coder encodeUInt32:self.hex];
 }
 @end

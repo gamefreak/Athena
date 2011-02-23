@@ -103,7 +103,7 @@ const NSUInteger raceStringTableId = 4201u;
         raceId = [coder decodeSInt32];
         apparentColor = [coder decodeUInt8];
         [coder skip:1u];
-        illegalColors.hex = [coder decodeUInt32];
+        [illegalColors initWithResArchiver:coder];
         advantage = [coder decodeFixed];
         
         StringTable *strings = [coder decodeObjectOfClass:[StringTable class] atIndex:raceStringTableId];
@@ -120,8 +120,7 @@ const NSUInteger raceStringTableId = 4201u;
     [coder encodeSInt32:raceId];
     [coder encodeUInt8:apparentColor];
     [coder skip:1u];
-    [coder encodeUInt32:illegalColors.hex];
-
+    [illegalColors encodeResWithCoder:coder];
     [coder encodeFixed:advantage];
 
     [coder addString:singular toStringTable:raceStringTableId];
