@@ -9,6 +9,7 @@
 #import "ResArchiver.h"
 #import "ResCoding.h"
 #import "ResSegment.h"
+#import "ResEntry.h"
 #import "StringTable.h"
 
 @interface ResArchiver (Private)
@@ -50,11 +51,16 @@
         for (id key in keys) {
             [data appendData:[[table objectForKey:key] data]];
         }
-        [planes setObject:[NSDictionary dictionaryWithObject:data forKey:[NSNumber numberWithInt:500]] forKey:type];
+        ResEntry *entry = [[ResEntry alloc] initWithResType:[class resType] atId:500 name:[class typeKey] data:data];
+        [planes setObject:[NSDictionary dictionaryWithObject:entry forKey:[NSNumber numberWithInt:500]] forKey:type];
+        [entry release];
     } else {
         NSMutableDictionary *plane = [NSMutableDictionary dictionary];
         for (id key in keys) {
-            [plane setObject:[[table objectForKey:key] data] forKey:key];
+            ResSegment *seg = [table objectForKey:key];
+            ResEntry *entry = [[ResEntry alloc] initWithSegment:seg];
+            [plane setObject:entry forKey:key];
+            [entry release];
         }
         [planes setObject:plane forKey:type];
     }
@@ -111,17 +117,10 @@
     ResFileRefNum resFile = FSOpenResFile(&fileRef, fsRdPerm | fsWrPerm);
     UseResFile(resFile);
     for (NSString *key in planes) {
-        ResType type = CFSwapInt32HostToBig(*(int*)[key cString]);
         NSLog(@"Writing resources of type: %@", key);
         NSDictionary *table = [planes objectForKey:key];
         for (NSNumber *index in table) {
-            ResID rId = [index shortValue];
-            NSData *data = [table objectForKey:index];
-            Handle hndl = NewHandle([data length]);
-            HLock(hndl);
-            memcpy(*hndl, [data bytes], [data length]);
-            HUnlock(hndl);
-            AddResource(hndl, type, rId, "\p");
+            [[table objectForKey:index] save];
         }
     }
     CloseResFile(resFile);
@@ -274,7 +273,7 @@
 - (uint32) checkSumForIndex:(NSInteger)index ofPlane:(NSString *)plane {
     NSDictionary *table = [planes objectForKey:plane];
     NSAssert(table != nil, @"Attempt to checksum nonexistant data plane.");
-    NSData *data = [table objectForKey:[NSNumber numberWithUnsignedInt:index]];
+    NSData *data = [[table objectForKey:[NSNumber numberWithUnsignedInt:index]] data];
     NSAssert(data != nil, @"Attempt to checksum nonexistant data plane.");
     //Checksumming code lifted almost verbatim from Hera_Data.c
     uint32 checkSum = 0x00000000;

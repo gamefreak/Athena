@@ -18,6 +18,7 @@
     self = [super init];
     if (self) {
         dataClass = [_object class];
+        name = [[dataClass typeKey] retain];
         if ([dataClass isPacked]) {
             data = [[NSMutableData alloc] initWithLength:[dataClass sizeOfResourceItem]];
         } else {
