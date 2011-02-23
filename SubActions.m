@@ -13,6 +13,8 @@
 #import "BaseObject.h"
 #import "Scenario.h"
 
+#import "XSText.h"
+
 @implementation NoAction
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [super initWithResArchiver:coder];
@@ -452,7 +454,7 @@
     if (self) {
         player = 0;
         nextLevel = [[Index alloc] init];
-        text = [[NSMutableString alloc] init];
+        text = [[XSText alloc] init];
     }
     return self;
 }
@@ -470,7 +472,7 @@
         [nextLevel release];
         nextLevel = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"nextLevel"]-1
                                         forClass:[Scenario class]] retain];
-        [text setString:[coder decodeStringForKey:@"text"]];
+        [text setText:[coder decodeStringForKey:@"text"]];
     }
 
     return self;
@@ -480,7 +482,7 @@
     [super encodeLuaWithCoder:coder];
     [coder encodeInteger:player forKey:@"player"];
     [coder encodeInteger:nextLevel.index forKey:@"nextLevel"];
-    [coder encodeString:text forKey:@"text"];
+    [coder encodeString:text.text forKey:@"text"];
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
@@ -490,7 +492,7 @@
         [nextLevel release];
         nextLevel = [[coder getIndexRefWithIndex:[coder decodeSInt32]
                                         forClass:[Scenario class]] retain];
-        text = [[NSNumber alloc] initWithInt:[coder decodeSInt32]];
+        text = [coder decodeObjectOfClass:[XSText class] atIndex:[coder decodeSInt32]];
         [coder skip:12u];
     }
     return self;
@@ -500,7 +502,7 @@
     [super encodeResWithCoder:coder];
     [coder encodeSInt32:player];
     [coder encodeSInt32:nextLevel.index];
-    [coder encodeSInt32:[text intValue]];
+    [coder encodeSInt32:[coder encodeObject:text]];
     [coder skip:12u];
 }
 @end

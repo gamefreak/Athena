@@ -11,7 +11,7 @@
 			<string key="NS.object.0">823</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="22"/>
+			<integer value="214"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -210,7 +210,6 @@
 									<string key="NSFrame">{{1, 438}, {250, 15}}</string>
 									<reference key="NSSuperview" ref="916391362"/>
 									<reference key="NSNextKeyView" ref="1068613691"/>
-									<bool key="NSEnabled">YES</bool>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="916391362"/>
 									<string key="NSAction">_doScroller:</string>
@@ -234,7 +233,7 @@
 							<string key="NSFrame">{{20, 61}, {252, 454}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSNextKeyView" ref="177926409"/>
-							<int key="NSsFlags">690</int>
+							<int key="NSsFlags">562</int>
 							<reference key="NSVScroller" ref="888280661"/>
 							<reference key="NSHScroller" ref="773043418"/>
 							<reference key="NSContentView" ref="177926409"/>
@@ -643,7 +642,7 @@
 												<object class="NSTabViewItem" id="680513993">
 													<string key="NSIdentifier">1</string>
 													<object class="NSView" key="NSView" id="712656487">
-														<nil key="NSNextResponder"/>
+														<reference key="NSNextResponder" ref="47547136"/>
 														<int key="NSvFlags">256</int>
 														<array class="NSMutableArray" key="NSSubviews">
 															<object class="NSScrollView" id="683267673">
@@ -801,6 +800,7 @@
 															</object>
 														</array>
 														<string key="NSFrame">{{10, 33}, {569, 242}}</string>
+														<reference key="NSSuperview" ref="47547136"/>
 														<reference key="NSNextKeyView" ref="683267673"/>
 													</object>
 													<string key="NSLabel">Score Strings</string>
@@ -1103,7 +1103,7 @@
 												</object>
 												<object class="NSTabViewItem" id="838850389">
 													<object class="NSView" key="NSView" id="543343266">
-														<reference key="NSNextResponder" ref="47547136"/>
+														<nil key="NSNextResponder"/>
 														<int key="NSvFlags">256</int>
 														<array class="NSMutableArray" key="NSSubviews">
 															<object class="NSScrollView" id="349555724">
@@ -1117,25 +1117,6 @@
 																			<object class="NSTextView" id="561605906">
 																				<reference key="NSNextResponder" ref="188220282"/>
 																				<int key="NSvFlags">2322</int>
-																				<set class="NSMutableSet" key="NSDragTypes">
-																					<string>Apple HTML pasteboard type</string>
-																					<string>Apple PDF pasteboard type</string>
-																					<string>Apple PICT pasteboard type</string>
-																					<string>Apple PNG pasteboard type</string>
-																					<string>Apple URL pasteboard type</string>
-																					<string>CorePasteboardFlavorType 0x6D6F6F76</string>
-																					<string>NSColor pasteboard type</string>
-																					<string>NSFilenamesPboardType</string>
-																					<string>NSStringPboardType</string>
-																					<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
-																					<string>NeXT RTFD pasteboard type</string>
-																					<string>NeXT Rich Text Format v1.0 pasteboard type</string>
-																					<string>NeXT TIFF v4.0 pasteboard type</string>
-																					<string>NeXT font pasteboard type</string>
-																					<string>NeXT ruler pasteboard type</string>
-																					<string>WebURLsWithTitlesPboardType</string>
-																					<string>public.url</string>
-																				</set>
 																				<string key="NSFrameSize">{533, 14}</string>
 																				<reference key="NSSuperview" ref="188220282"/>
 																				<reference key="NSNextKeyView" ref="1053045425"/>
@@ -1240,7 +1221,6 @@
 															</object>
 														</array>
 														<string key="NSFrame">{{10, 33}, {569, 242}}</string>
-														<reference key="NSSuperview" ref="47547136"/>
 														<reference key="NSNextKeyView" ref="349555724"/>
 													</object>
 													<string key="NSLabel">Prologue</string>
@@ -1355,13 +1335,13 @@
 													<reference key="NSTabView" ref="47547136"/>
 												</object>
 											</array>
-											<reference key="NSSelectedTabViewItem" ref="838850389"/>
+											<reference key="NSSelectedTabViewItem" ref="680513993"/>
 											<reference key="NSFont" ref="953720047"/>
 											<int key="NSTvFlags">0</int>
 											<bool key="NSAllowTruncatedLabels">YES</bool>
 											<bool key="NSDrawsBackground">YES</bool>
 											<array class="NSMutableArray" key="NSSubviews">
-												<reference ref="543343266"/>
+												<reference ref="712656487"/>
 											</array>
 										</object>
 										<object class="NSButton" id="787109538">
@@ -1439,6 +1419,8 @@
 					<string>scoreStrings</string>
 					<string>objectId</string>
 					<string>objectIndex</string>
+					<string>prologue.text</string>
+					<string>epilogue.text</string>
 				</array>
 				<string key="NSObjectClassName">Scenario</string>
 				<bool key="NSEditable">YES</bool>
@@ -1991,38 +1973,6 @@
 					<int key="connectionID">213</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.epilogue</string>
-						<reference key="source" ref="532985519"/>
-						<reference key="destination" ref="580307294"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="532985519"/>
-							<reference key="NSDestination" ref="580307294"/>
-							<string key="NSLabel">value: selection.epilogue</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.epilogue</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">231</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.prologue</string>
-						<reference key="source" ref="561605906"/>
-						<reference key="destination" ref="580307294"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="561605906"/>
-							<reference key="NSDestination" ref="580307294"/>
-							<string key="NSLabel">value: selection.prologue</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.prologue</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">232</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">openBriefingEditor:</string>
 						<reference key="source" ref="1001"/>
@@ -2045,6 +1995,38 @@
 						</object>
 					</object>
 					<int key="connectionID">239</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.prologue.text</string>
+						<reference key="source" ref="561605906"/>
+						<reference key="destination" ref="580307294"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="561605906"/>
+							<reference key="NSDestination" ref="580307294"/>
+							<string key="NSLabel">value: selection.prologue.text</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.prologue.text</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">241</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.epilogue.text</string>
+						<reference key="source" ref="532985519"/>
+						<reference key="destination" ref="580307294"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="532985519"/>
+							<reference key="NSDestination" ref="580307294"/>
+							<string key="NSLabel">value: selection.epilogue.text</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.epilogue.text</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">242</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2897,7 +2879,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">240</int>
+			<int key="maxID">242</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -13,7 +13,7 @@
 #import "IndexedObject.h"
 
 @class IndexedObject;
-@class XSPoint;
+@class XSPoint, XSText;
 @class ScenarioPar;
 
 @interface Scenario : IndexedObject <LuaCoding, ResCoding, ResIndexOverriding> {
@@ -36,8 +36,8 @@
     NSInteger startTime;
     BOOL isTraining;
 
-    NSMutableString *prologue;
-    NSMutableString *epilogue;
+    XSText *prologue;
+    XSText *epilogue;
 
     NSInteger songId;
     NSString *movie;
@@ -57,8 +57,8 @@
 @property (readwrite, assign) NSInteger angle;
 @property (readwrite, assign) NSInteger startTime;
 @property (readwrite, assign) BOOL isTraining;
-@property (readwrite, retain) NSMutableString *prologue;
-@property (readwrite, retain) NSMutableString *epilogue;
+@property (readwrite, retain) XSText *prologue;
+@property (readwrite, retain) XSText *epilogue;
 
 @property (readwrite, assign) NSInteger songId;
 @property (readwrite, retain) NSString *movie;

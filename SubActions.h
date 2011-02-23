@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Action.h"
 
-@class Index;
+@class Index, XSText;
 
 @interface NoAction : Action {
 }
@@ -91,11 +91,11 @@
 @interface DeclareWinnerAction : Action {
     NSInteger player;
     Index *nextLevel;
-    NSMutableString *text;
+    XSText *text;
 }
 @property (readwrite, assign) NSInteger player;
 @property (readwrite, retain) Index *nextLevel;
-@property (readwrite, retain) NSMutableString *text;
+@property (readwrite, retain) XSText *text;
 @end
 
 typedef enum {

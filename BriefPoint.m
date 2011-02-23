@@ -10,6 +10,7 @@
 #import "StringTable.h"
 #import "Archivers.h"
 #import "XSPoint.h"
+#import "XSText.h"
 
 @implementation BriefPoint
 @synthesize title, type, objectId;
@@ -18,12 +19,14 @@
 
 - (id) init {
     self = [super init];
-    title = @"Untitled";
-    type = BriefTypeNoPoint;
-    content = @"";
-    objectId = -1;
-    isVisible = YES;
-    range = [[XSPoint alloc] init];
+    if (self) {
+        title = @"Untitled";
+        type = BriefTypeNoPoint;
+        content = [[XSText alloc] init];
+        objectId = -1;
+        isVisible = YES;
+        range = [[XSIPoint alloc] init];
+    }
     return self;
 }
 
@@ -38,31 +41,30 @@
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    [title release];
-    title = [[coder decodeStringForKey:@"title"] retain];
-    
-    NSString *typeName = [coder decodeStringForKey:@"kind"];
-    if ([typeName isEqual:@"no point"]) {
-        type = BriefTypeNoPoint;
-    } else if ([typeName isEqual:@"object"]) {
-        type = BriefTypeObject;
-        objectId = [coder decodeIntegerForKey:@"objectId"];
-        isVisible = [coder decodeBoolForKey:@"visible"];
-    } else if ([typeName isEqual:@"absolute"]) {
-        type = BriefTypeAbsolute;;
-    } else if ([typeName isEqual:@"freestanding"]) {
-        type = BriefTypeFreestanding;
-    } else {
-        @throw @"Invalid Briefing Type";
-    }
-    
-    [range release];
-    range = [[coder decodePointForKey:@"range"] retain];
+    if (self) {
+        [title release];
+        title = [[coder decodeStringForKey:@"title"] retain];
 
-    [content release];
-    content = [coder decodeStringForKey:@"content"];
-    [content retain];
-    return self;
+        NSString *typeName = [coder decodeStringForKey:@"kind"];
+        if ([typeName isEqual:@"no point"]) {
+            type = BriefTypeNoPoint;
+        } else if ([typeName isEqual:@"object"]) {
+            type = BriefTypeObject;
+            objectId = [coder decodeIntegerForKey:@"objectId"];
+            isVisible = [coder decodeBoolForKey:@"visible"];
+        } else if ([typeName isEqual:@"absolute"]) {
+            type = BriefTypeAbsolute;;
+        } else if ([typeName isEqual:@"freestanding"]) {
+            type = BriefTypeFreestanding;
+        } else {
+            @throw @"Invalid Briefing Type";
+        }
+
+        range.point = [coder decodePointForKey:@"range"].point;
+
+        content.text = [coder decodeStringForKey:@"content"];
+        return self;
+    }
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
@@ -87,7 +89,7 @@
             break;
     }
     [coder encodePoint:range forKey:@"range"];
-    [coder encodeString:content forKey:@"content"];
+    [coder encodeString:content.text forKey:@"content"];
 }
 
 + (BOOL) isComposite {
@@ -121,7 +123,7 @@
         title = [[[coder decodeObjectOfClass:[StringTable class] atIndex:stringGroup] stringAtIndex:stringId - 1] retain];
         short contentId = [coder decodeSInt16];
         [content release];
-        content = [[coder decodeObjectOfClass:[NSString class] atIndex:contentId] retain];
+        content = [[coder decodeObjectOfClass:[XSText class] atIndex:contentId] retain];
     }
     return self;
 }

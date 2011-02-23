@@ -10,7 +10,7 @@
 #import "LuaCoding.h"
 #import "ResCoding.h"
 
-@class XSPoint;
+@class XSIPoint, XSText;
 
 typedef enum {
     BriefTypeNoPoint,
@@ -24,15 +24,15 @@ typedef enum {
     BriefingType type;
     NSInteger objectId;
     BOOL isVisible;
-    XSPoint *range;
-    NSString *content;
+    XSIPoint *range;
+    XSText *content;
 }
 @property (readwrite, retain) NSString *title;
 @property (readwrite, assign) BriefingType type;
 @property (readwrite, assign) NSInteger objectId;
 @property (readwrite, assign) BOOL isVisible;
-@property (readwrite, retain) XSPoint *range;
-@property (readwrite, assign) NSString *content;
+@property (readwrite, retain) XSIPoint *range;
+@property (readwrite, assign) XSText *content;
 //Properties for Interface Builder
 @property (readwrite, retain) NSNumber *typeObj;
 @property (readonly) BOOL doesntHaveObject;

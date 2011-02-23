@@ -12,6 +12,7 @@
 #import "NSString+LuaCoding.h"
 #import "NSString+ResCoding(Text).h"
 #import "XSPoint.h"
+#import "XSText.h"
 
 #import "BriefPoint.h"
 #import "ScenarioInitial.h"
@@ -46,8 +47,8 @@
 
         angle = 0;
 
-        prologue = [[NSMutableString alloc] init];
-        epilogue = [[NSMutableString alloc] init];
+        prologue = [[XSText alloc] init];
+        epilogue = [[XSText alloc] init];
 
         songId = -1;
         movie = @"";
@@ -115,12 +116,9 @@
         startTime = [coder decodeIntegerForKey:@"startTime"];
         isTraining = [coder decodeBoolForKey:@"isTraining"];
 
-        [prologue release];
-        prologue = [coder decodeStringForKey:@"prologue"];
-        [prologue retain];
-        [epilogue release];
-        epilogue = [coder decodeStringForKey:@"epilogue"];
-        [epilogue retain];
+        prologue.text = [coder decodeStringForKey:@"prologue"];
+
+        epilogue.text = [coder decodeStringForKey:@"epilogue"];
 
         songId = [coder decodeIntegerForKey:@"songId"];
 
@@ -154,8 +152,8 @@
     [coder encodeInteger:startTime forKey:@"startTime"];
     [coder encodeBool:isTraining forKey:@"isTraining"];
 
-    [coder encodeString:prologue forKey:@"prologue"];
-    [coder encodeString:epilogue forKey:@"epilogue"];
+    [coder encodeString:prologue.text forKey:@"prologue"];
+    [coder encodeString:epilogue.text forKey:@"epilogue"];
     [coder encodeInteger:songId forKey:@"songId"];
 
     if ([movie isEqual:@""]) {
@@ -204,7 +202,7 @@
         short prologueId = [coder decodeSInt16];
         if (prologueId > 0) {
             [prologue release];
-            prologue = [[coder decodeObjectOfClass:[NSString class] atIndex:prologueId] retain];
+            prologue = [[coder decodeObjectOfClass:[XSText class] atIndex:prologueId] retain];
         }
         short initialObjectCount = [coder decodeSInt16];
         for (int k = 0; k < initialObjectCount; k++) {
@@ -216,7 +214,7 @@
         short epilogueId = [coder decodeSInt16];
         if (epilogueId > 0) {
             [epilogue release];
-            epilogue = [[coder decodeObjectOfClass:[NSString class] atIndex:epilogueId] retain];
+            epilogue = [[coder decodeObjectOfClass:[XSText class] atIndex:epilogueId] retain];
         }
         short conditionsCount = [coder decodeSInt16];
         for (int k = 0; k < conditionsCount; k++) {
@@ -275,7 +273,7 @@
     for (ScenarioInitial *initial in enumerator) {
         [coder encodeObject:initial];
     }
-    if ([prologue isNotEqualTo:@""]) {
+    if ([prologue.text isNotEqualTo:@""]) {
         [coder encodeSInt16:[coder encodeObject:prologue]];
     } else {
         [coder encodeSInt16:-1];
@@ -292,7 +290,7 @@
     for (Condition *condition in enumerator) {
         [coder encodeObject:condition];
     }
-    if ([epilogue isNotEqualTo:@""]) {
+    if ([epilogue.text isNotEqualTo:@""]) {
         [coder encodeSInt16:[coder encodeObject:epilogue]];
     } else {
         [coder encodeSInt16:-1];
