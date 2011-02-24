@@ -14,23 +14,21 @@
     short width, height;
     short offsetX, offsetY;
     CGImageRef image;
-    uint32 *bytes;
 }
 @property (readonly) short width;
 @property (readonly) short height;
 @property (readonly) NSSize size;
+
 @property (readonly) short offsetX;
 @property (readonly) short offsetY;
 @property (readonly) NSPoint offset;
-@property (readonly) uint32 *bytes;
+
 @property (readonly) size_t length;//size of smiv frame in bytes 
 @property (readonly) CGImageRef image;
 
-- (NSRect) frameRect;//The offset frame rectangle
-
-- (BOOL)draw;
-- (BOOL)drawAtPoint:(NSPoint)point;
-- (BOOL)drawInRect:(NSRect)rect;
+- (void)draw;
+- (void)drawAtPoint:(NSPoint)point;
+- (void)drawInRect:(NSRect)rect;
 @end
 
 //Custom container for SMIV animations.

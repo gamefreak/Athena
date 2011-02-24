@@ -11,7 +11,7 @@
 
 @implementation SMIVFrame
 @synthesize width, height, offsetX, offsetY;
-@synthesize bytes, image;
+@synthesize image;
 @dynamic size, offset, length;
 
 - (id) init {
@@ -30,7 +30,6 @@
         height = [coder decodeUInt16];
         offsetX = [coder decodeSInt16];
         offsetY = [coder decodeSInt16];
-        bytes = malloc(width * height * 4);
         uint8 *buffer = malloc(width * height);
         [coder readBytes:buffer length:(width * height)];
         CFDataRef data = CFDataCreate(NULL, buffer, width*height);
@@ -61,29 +60,20 @@
     return width*height + 8;
 }
 
-- (NSRect) frameRect {
-//    CGFloat x = offsetX;
-//    CGFloat y = offsetY;
-//    x -= width/2.0f;
-////    y = height/2 - y;
-////    y = (height - y) - height/2;
-//    y = (height/2.0f - y);
-//    x= y =0;
-//    NSLog(@"OFFSET: %f, %f; SIZE: %hu, %hu", x, y, width, height);
-    return NSMakeRect(0, 0, width, height);
-}
-
-
 - (void) draw {
-    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], CGRectMake(0, 0, width, height), image);
+    CGRect rect = CGRectMake(-offsetX+width/2, offsetY-height/2, width, height);
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], rect, image);
 }
 
 - (void) drawAtPoint:(NSPoint)point {
-    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], CGRectMake(point.x, point.y, width, height), image);
+    CGRect rect = CGRectMake(point.x-offsetX+width/2, point.y+offsetY-height/2, width, height);
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], rect, image);
 }
 
 - (void) drawInRect:(NSRect)rect {
-    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], NSRectToCGRect([self frameRect]), image);
+    rect.origin.x -= offsetX - width / 2;
+    rect.origin.y += offsetY - height / 2;
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], rect, image);
 }
 
 @end
