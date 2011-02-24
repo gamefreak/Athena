@@ -74,15 +74,15 @@
 }
 
 
-- (BOOL) draw {
+- (void) draw {
     CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], CGRectMake(0, 0, width, height), image);
 }
 
-- (BOOL) drawAtPoint:(NSPoint)point {
+- (void) drawAtPoint:(NSPoint)point {
     CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], CGRectMake(point.x, point.y, width, height), image);
 }
 
-- (BOOL) drawInRect:(NSRect)rect {
+- (void) drawInRect:(NSRect)rect {
     CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], NSRectToCGRect([self frameRect]), image);
 }
 
@@ -180,27 +180,27 @@
     return [[frames objectAtIndex:currentFrameId] size];
 }
 
-- (BOOL)draw {
-    return [[frames objectAtIndex:currentFrameId] draw];
+- (void)draw {
+    [(SMIVFrame *)[frames objectAtIndex:currentFrameId] draw];
 }
 
-- (BOOL)drawAtPoint:(NSPoint)point {
-    return [[frames objectAtIndex:currentFrameId] drawAtPoint:point];
+- (void)drawAtPoint:(NSPoint)point {
+    [(SMIVFrame *)[frames objectAtIndex:currentFrameId] drawAtPoint:point];
 }
 
-- (BOOL)drawInRect:(NSRect)rect {
-    return [[frames objectAtIndex:currentFrameId] drawInRect:rect];
+- (void)drawInRect:(NSRect)rect {
+    [(SMIVFrame *)[frames objectAtIndex:currentFrameId] drawInRect:rect];
 }
 
-- (BOOL)drawFrame:(NSUInteger)frame {
-    return [[frames objectAtIndex:frame] draw];
+- (void)drawFrame:(NSUInteger)frame {
+    [(SMIVFrame *)[frames objectAtIndex:frame] draw];
 }
 
-- (BOOL)drawFrame:(NSUInteger)frame atPoint:(NSPoint)point {
-    return [[frames objectAtIndex:frame] drawAtPoint:point];
+- (void)drawFrame:(NSUInteger)frame atPoint:(NSPoint)point {
+    [(SMIVFrame *)[frames objectAtIndex:frame] drawAtPoint:point];
 }
 
-- (BOOL)drawFrame:(NSUInteger)frame inRect:(NSRect)rect {
-    return [[frames objectAtIndex:frame] drawInRect:rect];
+- (void)drawFrame:(NSUInteger)frame inRect:(NSRect)rect {
+    [(SMIVFrame *)[frames objectAtIndex:frame] drawInRect:rect];
 }
 @end

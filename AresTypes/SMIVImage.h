@@ -50,11 +50,11 @@
 - (NSUInteger) nextFrame;
 - (NSUInteger) previousFrame;
 
-- (BOOL) draw;
-- (BOOL) drawAtPoint:(NSPoint)point;
-- (BOOL) drawInRect:(NSRect)rect;
+- (void) draw;
+- (void) drawAtPoint:(NSPoint)point;
+- (void) drawInRect:(NSRect)rect;
 
-- (BOOL) drawFrame:(NSUInteger)frame;
-- (BOOL) drawFrame:(NSUInteger)frame atPoint:(NSPoint)point;
-- (BOOL) drawFrame:(NSUInteger)frame inRect:(NSRect)rect;
+- (void) drawFrame:(NSUInteger)frame;
+- (void) drawFrame:(NSUInteger)frame atPoint:(NSPoint)point;
+- (void) drawFrame:(NSUInteger)frame inRect:(NSRect)rect;
 @end

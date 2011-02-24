@@ -41,6 +41,7 @@
 - (void) resetTimer {
     [timer invalidate];
     [timer release];
+    timer = nil;
     if (direction != 0) {
         timer = [[NSTimer scheduledTimerWithTimeInterval:1.0f / (speed) target:self selector:@selector(triggerChange:) userInfo:NULL repeats:YES] retain];
     }
