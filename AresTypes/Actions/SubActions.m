@@ -492,7 +492,7 @@
         [nextLevel release];
         nextLevel = [[coder getIndexRefWithIndex:[coder decodeSInt32]
                                         forClass:[Scenario class]] retain];
-        text = [coder decodeObjectOfClass:[XSText class] atIndex:[coder decodeSInt32]];
+        text = [[coder decodeObjectOfClass:[XSText class] atIndex:[coder decodeSInt32]] retain];
         [coder skip:12u];
     }
     return self;

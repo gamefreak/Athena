@@ -39,6 +39,20 @@
     [aController setShouldCloseDocument:YES];
 }
 
+- (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError {
+    NSString *fileName = [absoluteURL path];
+    NSLog(@"path=%@",fileName);
+    if ([type isEqualTo:@"Ares Data"]) {
+        ResArchiver *coder = [[ResArchiver alloc] init];
+        [coder encodeObject:data atIndex:128];
+        [coder autorelease];
+        return [coder writeToFile:fileName];
+    } else {
+        return [super writeToURL:absoluteURL ofType:type error:outError];
+    }
+    return NO;//This should never be reached.
+}
+
 - (NSData *) dataOfType:(NSString *)typeName error:(NSError **)outError {
     // Insert code here to write your document to data of the specified type. If the given outError != NULL, ensure that you set *outError when returning nil.
 
@@ -54,7 +68,7 @@
 }
 
 - (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
-    NSLog(@"Readind Data of type (%@)", type);
+    NSLog(@"Reading Data of type (%@)", type);
     [data release];
     if ([type isEqual:@"Xsera Data"]) {
         data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName]] retain];
@@ -67,7 +81,7 @@
         data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
         [coder release];
 
-#if 1
+#if 0
         char tempName[17] = "";
         strlcpy(tempName, "/tmp/TEST.XXXXXX", 17);
         mktemp(tempName);
