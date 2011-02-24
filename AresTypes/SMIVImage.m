@@ -19,8 +19,7 @@
 }
 
 - (void) dealloc {
-    [image release];
-    free(bytes);
+    CGImageRelease(image);
     [super dealloc];
 }
 
@@ -34,24 +33,16 @@
         bytes = malloc(width * height * 4);
         uint8 *buffer = malloc(width * height);
         [coder readBytes:buffer length:(width * height)];
-        int count = width*height;
-        for (int ctr = 0; ctr < count; ctr++) {
-            bytes[ctr] = (CLUT_COLOR(buffer[ctr]));
-        }
+        CFDataRef data = CFDataCreate(NULL, buffer, width*height);
+        CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
+        CGColorSpaceRef devRGB = CGColorSpaceCreateDeviceRGB();
+        CGColorSpaceRef cspace = CGColorSpaceCreateIndexed(devRGB, 255, (uint8 *)CLUT);
+        image = CGImageCreate(width, height, 8, 8, width, cspace, 0, provider, NULL, YES, kCGRenderingIntentDefault);
         free(buffer);
-
-        image = [[NSBitmapImageRep alloc]
-                 initWithBitmapDataPlanes:(uint8**)&bytes
-                 pixelsWide:width
-                 pixelsHigh:height
-                 bitsPerSample:8
-                 samplesPerPixel:4
-                 hasAlpha:YES
-                 isPlanar:NO
-                 colorSpaceName:NSDeviceRGBColorSpace
-                 bitmapFormat:NSAlphaFirstBitmapFormat
-                 bytesPerRow:(4*width)
-                 bitsPerPixel:32];
+        CFRelease(data);
+        CFRelease(devRGB);
+        CFRelease(cspace);
+        CFRelease(provider);
     }
     return self;
 }
@@ -84,31 +75,15 @@
 
 
 - (BOOL) draw {
-    return [image drawInRect:NSMakeRect(0, 0, width, height)
-                    fromRect:[self frameRect]
-                   operation:NSCompositeSourceOver
-                    fraction:1.0f
-              respectFlipped:NO
-                       hints:nil];
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], CGRectMake(0, 0, width, height), image);
 }
 
 - (BOOL) drawAtPoint:(NSPoint)point {
-//    NSMakeRect(point.x-(offsetX-width/2.0f), point.y-(height/2.0f-offsetY), width, height)
-    return [image drawInRect:NSMakeRect(point.x, point.y, width, height)
-                    fromRect:[self frameRect]
-                   operation:NSCompositeSourceOver
-                    fraction:1.0f
-              respectFlipped:NO
-                       hints:nil];
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], CGRectMake(point.x, point.y, width, height), image);
 }
 
 - (BOOL) drawInRect:(NSRect)rect {
-    return [image drawInRect:rect
-                    fromRect:[self frameRect]
-                   operation:NSCompositeSourceOver
-                    fraction:1.0f
-              respectFlipped:NO
-                       hints:nil];
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], NSRectToCGRect([self frameRect]), image);
 }
 
 @end

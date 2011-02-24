@@ -13,7 +13,7 @@
 @interface SMIVFrame : NSObject <ResCoding> {
     short width, height;
     short offsetX, offsetY;
-    NSImageRep *image;
+    CGImageRef image;
     uint32 *bytes;
 }
 @property (readonly) short width;
@@ -24,8 +24,7 @@
 @property (readonly) NSPoint offset;
 @property (readonly) uint32 *bytes;
 @property (readonly) size_t length;//size of smiv frame in bytes 
-@property (readonly) NSImageRep *image;
-
+@property (readonly) CGImageRef image;
 
 - (NSRect) frameRect;//The offset frame rectangle
 
