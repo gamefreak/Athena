@@ -165,6 +165,10 @@ static NSArray *mainDataKeys;
     [coder encodeUInt32:version];
     [coder encodeUInt32:minVersion];
 
+    flags.isUnoptimized = YES;
+    flags.customRaces = YES;
+    flags.customObjects = YES;
+    flags.customScenarios = YES;
     [flags encodeResWithCoder:coder];
 
     [coder flatten];
