@@ -39,6 +39,7 @@
     NSUInteger count;
     NSUInteger currentFrameId;
     NSSize masterSize;
+    BOOL isQuantitized;
 }
 @property (readwrite, retain)  NSString *title;
 @property (readonly) NSArray *frames;

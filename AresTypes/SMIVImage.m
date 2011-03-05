@@ -9,10 +9,18 @@
 #import "SMIVImage.h"
 #import "ResUnarchiver.h"
 
+static CGColorSpaceRef CLUTCSpace;
+
 @implementation SMIVFrame
 @dynamic width, height, offsetX, offsetY;
 @synthesize image;
 @dynamic size, paddedSize, offset, length;
+
++ (void) initialize {
+    CGColorSpaceRef devRGB = CGColorSpaceCreateDeviceRGB();
+    CLUTCSpace = CGColorSpaceCreateIndexed(devRGB, 255, (uint8 *)CLUT);
+    CFRelease(devRGB);
+}
 
 - (id) init {
     @throw @"DO NOT USE";
@@ -34,13 +42,9 @@
         [coder readBytes:buffer length:(width * height)];
         CFDataRef data = CFDataCreate(NULL, buffer, width*height);
         CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
-        CGColorSpaceRef devRGB = CGColorSpaceCreateDeviceRGB();
-        CGColorSpaceRef cspace = CGColorSpaceCreateIndexed(devRGB, 255, (uint8 *)CLUT);
-        image = CGImageCreate(width, height, 8, 8, width, cspace, 0, provider, NULL, YES, kCGRenderingIntentDefault);
+        image = CGImageCreate(width, height, 8, 8, width, CLUTCSpace, 0, provider, NULL, YES, kCGRenderingIntentDefault);
         free(buffer);
         CFRelease(data);
-        CFRelease(devRGB);
-        CFRelease(cspace);
         CFRelease(provider);
     }
     return self;
