@@ -193,4 +193,41 @@
 - (void)drawFrame:(NSUInteger)frame inRect:(NSRect)rect {
     [(SMIVFrame *)[frames objectAtIndex:frame] drawInRect:rect];
 }
+
+/*
+ * Calculate the grid that the frames will be layed out on.
+ * The goal is to minimize the difference between the width and height, then
+ * flip it so that the grid is taller than it is wide unless the longest dimension
+ * is less than or equal to 8
+ */
+- (NSSize) gridDistribution {
+    //The width with the lowest difference from the height so far
+    int best = 1;
+    //difference for the previous value
+    int bestDiff = count - best;
+    //We don't need to test past sqrt(count)
+    int max = ceilf(sqrtf(count));
+    for (int width = 1; width <=  max; width++) {
+        if (fmodf(count, width) != 0.0f) {
+            //The grid won't be rectangular for this width
+            continue;//so skip
+        }
+        //width - height
+        int diff = abs(width - count/width);
+        if (diff < bestDiff) {
+            best = width;
+            bestDiff = diff;
+        }
+    }
+    int a = best;
+    int b = count / best;
+    if (a < b) {//swap if a is less than b
+        a ^= b, b ^= a, a ^= b;
+    }
+    if (a <= 8) {
+        return NSMakeSize(a, b);
+    } else {
+        return NSMakeSize(b, a);
+    }
+}
 @end

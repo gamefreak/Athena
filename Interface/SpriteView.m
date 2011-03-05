@@ -35,14 +35,26 @@
     NSRectFill(dirtyRect);
     NSRect frame = [self frame];
     NSSize size = [sprite size];
-    [sprite drawAtPoint:NSMakePoint((frame.size.width - size.width)/2.0f, (frame.size.height - size.height)/2.0f)];
+    if (direction != 2) {
+        [sprite drawAtPoint:NSMakePoint((frame.size.width - size.width)/2.0f, (frame.size.height - size.height)/2.0f)];
+    } else {
+        NSSize gdim = [sprite gridDistribution];
+        int width = gdim.width;
+        int height = gdim.height;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                [sprite drawFrame:x + y * width atPoint:NSMakePoint(x * size.width, y * size.height)];
+            }
+        }
+    }
+
 }
 
 - (void) resetTimer {
     [timer invalidate];
     [timer release];
     timer = nil;
-    if (direction != 0) {
+    if (direction == 1 || direction == -1) {
         timer = [[NSTimer scheduledTimerWithTimeInterval:1.0f / (speed) target:self selector:@selector(triggerChange:) userInfo:NULL repeats:YES] retain];
     }
 }
@@ -50,7 +62,7 @@
 - (IBAction) triggerChange:(id)sender {
     if (direction == 1) {
         [sprite nextFrame];
-    } else {
+    } else if (direction == -1) {
         [sprite previousFrame];
     }
     [self setNeedsDisplay:YES];
@@ -59,6 +71,7 @@
 - (void)setDirection:(NSInteger)_direction {
     direction = _direction;
     [self resetTimer];
+    [self setNeedsDisplay:YES];
 }
 
 - (void)setSpeed:(CGFloat)_speed {
