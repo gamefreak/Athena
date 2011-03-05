@@ -28,6 +28,16 @@
     [super dealloc];
 }
 
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    [spriteController
+     setSortDescriptors:[NSArray
+                         arrayWithObject:[NSSortDescriptor
+                                          sortDescriptorWithKey:@"key"
+                                          ascending:YES
+                                          selector:@selector(numericCompare:)]]];
+}
+
 - (void)windowDidLoad {
     [super windowDidLoad];
     [spriteView bind:@"sprite" toObject:spriteController withKeyPath:@"selection.value" options:nil];
