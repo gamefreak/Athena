@@ -38,14 +38,10 @@
     if (direction != 2) {
         [sprite drawAtPoint:NSMakePoint(frame.size.width/2.0f, frame.size.height/2.0f)];
     } else {
-        NSSize gdim = [sprite gridDistribution];
-        int width = gdim.width;
-        int height = gdim.height;
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                [sprite drawFrame:x + y * width atPoint:NSMakePoint(x * size.width, (height - y) * size.height)];
-            }
-        }
+        NSSize grid = [sprite gridDistribution];
+        [sprite drawSpriteSheetAtPoint:NSMakePoint(
+        (frame.size.width  - size.width  * grid.width )/2.0f,
+        (frame.size.height - size.height * grid.height)/2.0f)];
     }
 
 }

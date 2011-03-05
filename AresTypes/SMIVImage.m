@@ -194,6 +194,18 @@
     [(SMIVFrame *)[frames objectAtIndex:frame] drawInRect:rect];
 }
 
+- (void) drawSpriteSheetAtPoint:(NSPoint)point {
+    NSSize gdim = [self gridDistribution];
+    NSSize size = [self masterSize];
+    int width = gdim.width;
+    int height = gdim.height;
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            [self drawFrame:x + y * width atPoint:NSMakePoint(point.x + x * size.width, point.y + (height - y) * size.height)];
+        }
+    }
+}
+
 /*
  * Calculate the grid that the frames will be layed out on.
  * The goal is to minimize the difference between the width and height, then

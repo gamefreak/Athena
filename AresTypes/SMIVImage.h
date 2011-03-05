@@ -56,5 +56,6 @@
 - (void) drawFrame:(NSUInteger)frame atPoint:(NSPoint)point;
 - (void) drawFrame:(NSUInteger)frame inRect:(NSRect)rect;
 
+- (void) drawSpriteSheetAtPoint:(NSPoint)point;
 - (NSSize) gridDistribution;
 @end
