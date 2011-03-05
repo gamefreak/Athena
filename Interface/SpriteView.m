@@ -43,7 +43,7 @@
         int height = gdim.height;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                [sprite drawFrame:x + y * width atPoint:NSMakePoint(x * size.width, y * size.height)];
+                [sprite drawFrame:x + y * width atPoint:NSMakePoint(x * size.width, (height - y) * size.height)];
             }
         }
     }
