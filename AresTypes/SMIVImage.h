@@ -10,30 +10,19 @@
 #import "Color.h"
 #import "ResCoding.h"
 
-//SMIVRect is not a general purpose tool!
-//It is used for frame alignment calculation.
-typedef struct {
-    CGFloat top, bottom;
-    CGFloat left, right;
-} SMIVRect;
-
-SMIVRect SMIVRectMake(CGFloat centerX, CGFloat centerY, CGFloat width, CGFloat height);
-SMIVRect SMIVUnionRects(SMIVRect a, SMIVRect b);
-NSSize SMIVRectSize(SMIVRect rect);
-
 @interface SMIVFrame : NSObject <ResCoding> {
-    SMIVRect rect;
+    short width, height;
+    short offsetX, offsetY;
     CGImageRef image;
 }
-@property (readonly) CGFloat width;
-@property (readonly) CGFloat height;
+@property (readonly) int width;
+@property (readonly) int height;
 @property (readonly) NSSize size;
+@property (readonly) NSSize paddedSize;
 
-@property (readonly) CGFloat offsetX;
-@property (readonly) CGFloat offsetY;
+@property (readonly) int offsetX;
+@property (readonly) int offsetY;
 @property (readonly) NSPoint offset;
-
-@property (readonly) SMIVRect rect;
 
 @property (readonly) size_t length;//size of smiv frame in bytes 
 @property (readonly) CGImageRef image;
@@ -49,14 +38,14 @@ NSSize SMIVRectSize(SMIVRect rect);
     NSMutableArray *frames;
     NSUInteger count;
     NSUInteger currentFrameId;
-    SMIVRect masterRect;
+    NSSize masterSize;
 }
 @property (readwrite, retain)  NSString *title;
 @property (readonly) NSArray *frames;
 @property (readonly) NSUInteger count;
 @property (readwrite) NSUInteger frame;
 @property (readonly) NSSize size;
-@property (readonly) SMIVRect masterRect;
+@property (readonly) NSSize masterSize;
 
 - (NSUInteger) nextFrame;
 - (NSUInteger) previousFrame;

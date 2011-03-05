@@ -34,9 +34,9 @@
     [[NSColor blackColor] set];
     NSRectFill(dirtyRect);
     NSRect frame = [self frame];
-    NSSize size = SMIVRectSize([sprite masterRect]);
+    NSSize size = [sprite masterSize];
     if (direction != 2) {
-        [sprite drawAtPoint:NSMakePoint((frame.size.width - size.width)/2.0f, (frame.size.height - size.height)/2.0f)];
+        [sprite drawAtPoint:NSMakePoint(frame.size.width/2.0f, frame.size.height/2.0f)];
     } else {
         NSSize gdim = [sprite gridDistribution];
         int width = gdim.width;

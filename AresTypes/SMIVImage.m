@@ -9,28 +9,10 @@
 #import "SMIVImage.h"
 #import "ResUnarchiver.h"
 
-SMIVRect SMIVRectMake(CGFloat centerX, CGFloat centerY, CGFloat width, CGFloat height) {
-    SMIVRect rect = {centerX, width - centerX, centerY, height - centerY};
-    return rect;
-}
-
-
-SMIVRect SMIVUnionRects(SMIVRect a, SMIVRect b) {
-    SMIVRect rect = {
-    MAX(a.top, b.top), MAX(a.bottom, b.bottom),
-    MAX(a.left, b.left), MAX(a.right, b.right)
-    };
-    return rect;
-}
-
-NSSize SMIVRectSize(SMIVRect rect) {
-    return NSMakeSize(rect.top + rect.bottom, rect.left + rect.right);
-}
-
 @implementation SMIVFrame
 @dynamic width, height, offsetX, offsetY;
-@synthesize image , rect;
-@dynamic size, offset, length;
+@synthesize image;
+@dynamic size, paddedSize, offset, length;
 
 - (id) init {
     @throw @"DO NOT USE";
@@ -44,11 +26,10 @@ NSSize SMIVRectSize(SMIVRect rect) {
 - (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [super init];
     if (self) {
-        short width = [coder decodeUInt16];
-        short height = [coder decodeUInt16];
-        short offsetX = [coder decodeSInt16];
-        short offsetY = [coder decodeSInt16];
-        rect = SMIVRectMake(offsetX, height - offsetY, width, height);
+        width = [coder decodeUInt16];
+        height = [coder decodeUInt16];
+        offsetX = [coder decodeSInt16];
+        offsetY = [coder decodeSInt16];
         uint8 *buffer = malloc(width * height);
         [coder readBytes:buffer length:(width * height)];
         CFDataRef data = CFDataCreate(NULL, buffer, width*height);
@@ -67,40 +48,31 @@ NSSize SMIVRectSize(SMIVRect rect) {
 
 //- (void) encodeResWithCoder:(ResArchiver *)coder {}
 
-- (int) offsetX {
-    return (rect.left / 2 - rect.right / 2);
-}
-
-- (int) offsetY {
-    return -(rect.top / 2 - rect.bottom / 2);
-}
-
-- (int) width {
-    return rect.left + rect.right;
-}
-
-- (int) height {
-    return rect.top + rect.bottom;
-}
-
 - (NSSize) size {
-    return SMIVRectSize(rect);
+    return NSMakeSize(width, height);
+}
+
+- (NSSize) paddedSize {
+    return NSMakeSize(MAX(offsetX, width - offsetX) * 2.0f, MAX(offsetY, height - offsetY) * 2.0f);
 }
 
 - (NSPoint) offset {
-    return NSMakePoint(self.offsetX, self.offsetY);
+    return NSMakePoint(offsetX, offsetY);
 }
 
 - (size_t) length {
-    NSSize size = self.size;
-    return size.width*size.height + 8;
+    return width*height + 8;
 }
 
 - (void) drawAtPoint:(NSPoint)point {
     NSPoint offset = self.offset;
     NSSize size = self.size;
-    CGRect rect = CGRectMake(point.x+self.offsetX, point.y+self.offsetY, size.width, size.height);
-    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], rect, image);
+    CGRect nrect = CGRectMake(point.x, point.y, size.width, size.height);
+    nrect.origin.x -= offsetX;
+//    nrect.origin.x += size.width;// / 2.0f;
+    nrect.origin.y -= offsetY;
+//    nrect.origin.y += size.height;// / 2.0f;
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], nrect, image);
 }
 
 - (void) drawInRect:(NSRect)rect {
@@ -115,7 +87,7 @@ NSSize SMIVRectSize(SMIVRect rect) {
 @dynamic count;
 @dynamic frame;
 @dynamic size;
-@synthesize masterRect;
+@synthesize masterSize;
 
 //WARNING: HACK FOR NSDictionaryController you probably want -mutableCopy
 - (id)copyWithZone:(NSZone *)zone {
@@ -129,6 +101,7 @@ NSSize SMIVRectSize(SMIVRect rect) {
         frames = [[NSMutableArray alloc] init];
         count = 0;
         currentFrameId = 0;
+        masterSize = NSMakeSize(0.0f, 0.0f);
     }
     
     return self;
@@ -157,10 +130,9 @@ NSSize SMIVRectSize(SMIVRect rect) {
             [coder seek:offsets[framex]];
             SMIVFrame *frame = [[SMIVFrame alloc] initWithResArchiver:coder];
             [frames addObject:frame];
-            if (framex == 0) {
-                masterRect = frame.rect;
-            }
-            masterRect = SMIVUnionRects(masterRect, frame.rect);
+            NSSize newSize = frame.paddedSize;
+            masterSize.width = MAX(masterSize.width, newSize.width);
+            masterSize.height = MAX(masterSize.height, newSize.height);
             count++;
             [frame release];
         }
@@ -215,7 +187,7 @@ NSSize SMIVRectSize(SMIVRect rect) {
 }
 
 - (void)drawFrame:(NSUInteger)frame atPoint:(NSPoint)point {
-    [(SMIVFrame *)[frames objectAtIndex:frame] drawAtPoint:point];
+    [(SMIVFrame *)[frames objectAtIndex:frame] drawAtPoint:NSMakePoint(point.x + masterSize.width/2.0f, point.y + masterSize.height / 2.0f)];
 }
 
 - (void)drawFrame:(NSUInteger)frame inRect:(NSRect)rect {
