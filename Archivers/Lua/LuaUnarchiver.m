@@ -11,7 +11,7 @@
 #import "XSPoint.h"
 #import "lualib.h"
 #import "lauxlib.h"
-#import "NSString+LuaCoding.h"
+#import "NSStringExtensions.h"
 #import "IndexedObject.h"
 
 static void stackDump (lua_State *L) {

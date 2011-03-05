@@ -9,7 +9,7 @@
 #import "Scenario.h"
 #import "Archivers.h"
 #import "StringTable.h"
-#import "NSString+LuaCoding.h"
+#import "NSStringExtensions.h"
 #import "XSPoint.h"
 #import "XSText.h"
 

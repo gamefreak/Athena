@@ -1,5 +1,5 @@
 //
-//  NSString+LuaCoding.h
+//  NSStringExtensions.h
 //  Athena
 //
 //  Created by Scott McClaugherty on 1/26/11.
@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LuaCoding.h"
 
-@interface NSString (LuaCoding) <LuaCoding>
+@interface NSString (NSStringExtensions) <LuaCoding>
 - (id) string;
+- (NSComparisonResult) numericCompare:(NSString *)string;
 @end

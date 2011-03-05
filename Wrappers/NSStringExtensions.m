@@ -1,15 +1,15 @@
 //
-//  NSString+LuaCoding.m
+//  NSStringExtensions.m
 //  Athena
 //
 //  Created by Scott McClaugherty on 1/26/11.
 //  Copyright 2011 Scott McClaugherty. All rights reserved.
 //
 
-#import "NSString+LuaCoding.h"
+#import "NSStringExtensions.h"
 #import "Archivers.h"
 
-@implementation NSString (LuaCoding)
+@implementation NSString (NSStringExtensions)
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self initWithString:[coder decodeString]];
     return self;
@@ -29,5 +29,9 @@
 
 - (id) string {
     return self;
+}
+
+- (NSComparisonResult) numericCompare:(NSString *)string {
+    return [self compare:string options:NSNumericSearch];
 }
 @end
