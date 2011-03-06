@@ -175,7 +175,7 @@ const CGFloat iconSizeScale = 2.0f;
 - (void) drawScenarioObjects {
     NSUInteger index = [initialsController selectionIndex];
     ScenarioInitial *selection = nil;
-    if (index != NSNotFound) {
+    if (index != NSNotFound && [initialObjects count] != 0) {
         selection = [initialObjects objectAtIndex:index];   
     }
 
@@ -255,6 +255,9 @@ const CGFloat iconSizeScale = 2.0f;
 }
 
 - (NSRect) calculateScenariosBounds {
+    if ([initialObjects count] == 0) {
+        return NSMakeRect(-10000.0f, -10000.0f, 20000.0f, 20000.0f);
+    }
     ScenarioInitial *init = [initialObjects objectAtIndex:0];
     NSPoint lowerLeft = init.position.point;
     NSPoint upperRight = lowerLeft;
