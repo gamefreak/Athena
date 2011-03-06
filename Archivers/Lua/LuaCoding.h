@@ -14,4 +14,7 @@
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder;
 + (BOOL) isComposite;
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder;
+@optional
+//Ugly name
+- (void) finishLoadingFromLuaWithRootData:(id)data;
 @end

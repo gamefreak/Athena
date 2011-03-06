@@ -3,7 +3,7 @@
 //  Athena
 //
 //  Created by Scott McClaugherty on 1/20/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Scott McClaugherty. All rights reserved.
 //
 
 #import "LuaUnarchiver.h"
@@ -100,12 +100,13 @@ static void stackDump (lua_State *L) {
 }
 
 + (id)unarchiveObjectWithData:(NSData *)data {
-    LuaUnarchiver *uarch = [[LuaUnarchiver alloc] init];
-    [uarch loadData:data];
+    LuaUnarchiver *decoder = [[LuaUnarchiver alloc] init];
+    [decoder loadData:data];
     
     //Remember: MainData is hardcoded here
-    MainData *decodedObject = [[MainData alloc] initWithLuaCoder:uarch];
-    [uarch release];
+    MainData *decodedObject = [[MainData alloc] initWithLuaCoder:decoder];
+    [decodedObject finishLoadingFromLuaWithRootData:decodedObject];
+    [decoder release];
     return [decodedObject autorelease];
 }
 
