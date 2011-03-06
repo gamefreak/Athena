@@ -98,6 +98,12 @@
         }
         [encoder release];
         NSLog(@"Encoder Test Completed");
+        NSLog(@"Running re-decode test");
+        ResUnarchiver *decoder = [[ResUnarchiver alloc] initWithFilePath:testFname];
+        [decoder decodeObjectOfClass:[MainData class] atIndex:128];
+        [decoder release];
+        NSLog(@"Completed re-decode test");
+        NSLog(@"Unlinking temp file");
         unlink(tempName);
 #endif
     }
