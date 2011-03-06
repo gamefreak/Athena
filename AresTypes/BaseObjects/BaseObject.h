@@ -26,19 +26,7 @@ typedef enum {
     IconShapeNone = 0xf0 //SIGH
 } IconShape;
 
-@interface Weapon : NSObject <LuaCoding> {
-    Index *ID;//Uppercase because objective-c uses 'id' as a keyword.
-    NSInteger positionCount;
-    NSMutableArray *positions;
-}
-@property (readwrite, retain) Index *ID;
-@property (readwrite, assign) NSInteger positionCount;
-@property (readwrite, retain) NSMutableArray *positions;
-
-- (id) initWithResArchiver:(ResUnarchiver *)coder id:(NSInteger)id count:(NSInteger)count;
-- (void) encodeResWithCoder:(ResArchiver *)coder;
-+ (id) weapon;
-@end
+@class Weapon;
 
 //SOOOOO many variables 0_0
 @interface BaseObject : IndexedObject <LuaCoding, ResCoding> {
@@ -152,4 +140,20 @@ typedef enum {
 @property (readwrite, assign) NSInteger skillNumAdj;
 @property (readwrite, assign) NSInteger skillDenAdj;
 @property (readwrite, assign) NSInteger portraitId;
+@end
+
+@interface Weapon : NSObject <LuaCoding> {
+    BaseObject *device;
+    NSMutableArray *positions;
+@private
+    int ID;//Only used during Lua decoding
+}
+@property (readwrite, retain) BaseObject *device;
+@property (readwrite, retain) NSMutableArray *positions;
+@property (readonly) NSInteger safeID;
+
+
+- (id) initWithResArchiver:(ResUnarchiver *)coder id:(NSInteger)ID count:(NSInteger)count;
+- (void) encodeResWithCoder:(ResArchiver *)coder;
++ (id) weapon;
 @end

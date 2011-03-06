@@ -88,6 +88,10 @@ static NSArray *mainDataKeys;
     [coder encodeDictionary:sounds forKey:@"sounds" asArray:YES];
 }
 
+- (void) finishLoadingFromLuaWithRootData:(id)data {
+    [objects makeObjectsPerformSelector:@selector(finishLoadingFromLuaWithRootData:) withObject:data];
+}
+
 + (BOOL) isComposite {
     return YES;
 }

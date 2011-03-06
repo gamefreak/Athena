@@ -345,6 +345,12 @@
     [coder encodeInteger:portraitId forKey:@"portraitId"];
 }
 
+- (void) finishLoadingFromLuaWithRootData:(id)data {
+    [[weapons objectForKey:@"pulse"] finishLoadingFromLuaWithRootData:data];
+    [[weapons objectForKey:@"beam"] finishLoadingFromLuaWithRootData:data];
+    [[weapons objectForKey:@"special"] finishLoadingFromLuaWithRootData:data];
+}
+
 + (BOOL) isComposite {
     return YES;
 }
@@ -506,12 +512,12 @@
     Weapon *pulse = [weapons objectForKey:@"pulse"];
     Weapon *beam = [weapons objectForKey:@"beam"];
     Weapon *special = [weapons objectForKey:@"special"];
-    [coder encodeSInt32:pulse.ID.orNull];
-    [coder encodeSInt32:beam.ID.orNull];
-    [coder encodeSInt32:special.ID.orNull];
-    [coder encodeSInt32:pulse.positionCount];
-    [coder encodeSInt32:beam.positionCount];
-    [coder encodeSInt32:special.positionCount];
+    [coder encodeSInt32:pulse.safeID];
+    [coder encodeSInt32:beam.safeID];
+    [coder encodeSInt32:special.safeID];
+    [coder encodeSInt32:MAX(pulse.positions.count, 3)];
+    [coder encodeSInt32:MAX(beam.positions.count, 3)];
+    [coder encodeSInt32:MAX(special.positions.count, 3)];
     [pulse encodeResWithCoder:coder];
     [beam encodeResWithCoder:coder];
     [special encodeResWithCoder:coder];
@@ -569,47 +575,72 @@
 @end
 
 @implementation Weapon
-@synthesize ID, positionCount, positions;
+@synthesize device, positions;
+@dynamic safeID;
 
 - (id) init {
     self = [super init];
     if (self) {
-        ID = [[Index alloc] init];
-        positionCount = 0;
-        positions = [[NSMutableArray alloc] initWithObjects:[XSPoint point], [XSPoint point], [XSPoint point], nil];
+        device = nil;
+        positions = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void) dealloc {
     [positions release];
-    [ID release];
+    [device release];
     [super dealloc];
 }
 
++ (id) weapon {
+    return [[[Weapon alloc] init] autorelease];
+}
+
+- (NSInteger) safeID {
+    if (device != nil) {
+        return device.indexRef.orNull;
+    } else {
+        return -1;
+    }
+}
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     if (self) {
-        self.ID = [coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"id"] forClass:[BaseObject class]];
-        positionCount = [coder decodeIntegerForKey:@"count"];
+        ID = [coder decodeIntegerForKey:@"id"];
         [positions setArray:[coder decodeArrayOfClass:[XSPoint class] forKey:@"positions" zeroIndexed:NO]];
-        NSInteger arrayShortfall = 3 - [positions count];
-        for (NSInteger i = 0; i < arrayShortfall; i++) {
-            [positions addObject:[XSPoint point]];
+        if ([coder hasKey:@"count"]) {
+            int positionCount = [coder decodeIntegerForKey:@"count"];
+            int count = positions.count;
+            if (count > positionCount) {
+                //Trim from the back
+                [positions removeObjectsInRange:NSMakeRange(positionCount, count - positionCount)];
+            } else if (count < positionCount) {
+                //Pad the end
+                for (; count < positionCount; count++) {
+                    [positions addObject:[XSPoint point]];
+                }
+            }
         }
     }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeInteger:ID.index forKey:@"id"];
-    [coder encodeInteger:positionCount forKey:@"count"];
+    if (device != nil) {
+        [coder encodeInteger:device.indexRef.orNull];
+    } else {
+        [coder encodeInteger:-1];
+    }
+//    [coder encodeInteger:positionCount forKey:@"count"];//Unnecessary but keep anyway
     [coder encodeArray:positions forKey:@"positions" zeroIndexed:NO];
 }
 
-+ (id) weapon {
-    return [[[Weapon alloc] init] autorelease];
+- (void) finishLoadingFromLuaWithRootData:(id)data {
+    if (ID != -1) {
+        self.device = [[data objects] objectAtIndex:ID];
+    }
 }
 
 + (BOOL) isComposite {
@@ -623,23 +654,22 @@
 - (id) initWithResArchiver:(ResUnarchiver *)coder id:(NSInteger)_id count:(NSInteger)count {
     self = [self init];
     if (self) {
-        if (_id == -1) {
-            self.ID = [[Index alloc] init];
-        } else {
-            self.ID = [coder getIndexRefWithIndex:_id forClass:[BaseObject class]];
+        if (_id != -1) {
+            self.device = [coder decodeObjectOfClass:[BaseObject class] atIndex:_id];
         }
-        positionCount = count;
-        for (int k = 0; k < 3; k++) {
-            XSPoint *point = [positions objectAtIndex:k];
+        for (int k = 0; k < count; k++) {
+            XSPoint *point = [XSPoint point];
             point.y = [coder decodeFixed];
             point.x = [coder decodeFixed];
+            [positions addObject:point];
         }
+        [coder skip:8u * (3 - count)];
     }
     return self;
 }
 
 - (void) encodeResWithCoder:(ResArchiver *)coder {
-    int max = MIN(3, positionCount);
+    int max = MIN(3, positions.count);
     for (int k = 0; k < max; k++) {
         XSPoint *point = [positions objectAtIndex:k];
         [coder encodeFixed:point.y];
