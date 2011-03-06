@@ -85,13 +85,17 @@ static NSSet *pointKeyPaths;
 @end
 
 @implementation XSIPoint
-@synthesize point;
-@dynamic x;
-- (void) setX:(int)_x {x = _x;}
-- (int) x {return x;}
-@dynamic y;
-- (void) setY:(int)_y {y = _y;}
-- (int) y {return y;}
+@dynamic point;
+@synthesize x, y;
+
+- (NSPoint) point {
+    return NSMakePoint(x, y);
+}
+
+- (void) setPoint:(NSPoint)point {
+    x = point.x;
+    y = point.y;
+}
 
 - (id) init {
     self = [super init];
