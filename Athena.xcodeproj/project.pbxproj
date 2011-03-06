@@ -14,6 +14,8 @@
 		8D15AC310486D014006FF6A4 /* AthenaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D216CF66132420D1008E24F0 /* WeaponView.xib */; };
+		D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D216CFF413243027008E24F0 /* WeaponViewController.m */; };
 		D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D216E73012E9DE1700D17AFB /* LuaArchiver.m */; };
 		D21EB27912E8BAEF00694EBA /* MainData.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB27812E8BAEF00694EBA /* MainData.m */; };
 		D21EB2BD12E8BDE200694EBA /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28712E8BDE200694EBA /* lbaselib.c */; };
@@ -152,6 +154,9 @@
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Athena-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Athena-Info.plist"; path = "../Athena-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Athena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Athena.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D216CF66132420D1008E24F0 /* WeaponView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeaponView.xib; sourceTree = "<group>"; };
+		D216CFF413243027008E24F0 /* WeaponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeaponViewController.m; sourceTree = "<group>"; };
+		D216CFF513243027008E24F0 /* WeaponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponViewController.h; sourceTree = "<group>"; };
 		D216E72F12E9DE1700D17AFB /* LuaArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaArchiver.h; sourceTree = "<group>"; };
 		D216E73012E9DE1700D17AFB /* LuaArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaArchiver.m; sourceTree = "<group>"; };
 		D21EB27712E8BAEF00694EBA /* MainData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainData.h; sourceTree = "<group>"; };
@@ -413,6 +418,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D216CF6213241F92008E24F0 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				D26B6A3E130C16D700B461FB /* ObjectEditor.h */,
+				D26B6A3F130C16D700B461FB /* ObjectEditor.m */,
+				D216CFF513243027008E24F0 /* WeaponViewController.h */,
+				D216CFF413243027008E24F0 /* WeaponViewController.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		D216CF68132420DD008E24F0 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				D26B6A41130C170900B461FB /* ObjectEditor.xib */,
+				D216CF66132420D1008E24F0 /* WeaponView.xib */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
 		D21EB28212E8BDE200694EBA /* lua */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,8 +591,7 @@
 			isa = PBXGroup;
 			children = (
 				D2E98D16130AED1B0013EBCA /* Sprites */,
-				D26B6A3E130C16D700B461FB /* ObjectEditor.h */,
-				D26B6A3F130C16D700B461FB /* ObjectEditor.m */,
+				D216CF6213241F92008E24F0 /* Objects */,
 				D288339512F24F7000A02383 /* RaceEditor.h */,
 				D288339612F24F7000A02383 /* RaceEditor.m */,
 				D2A1911412FE3BEF00232914 /* Scenarios */,
@@ -599,7 +623,7 @@
 			children = (
 				1DDD58280DA1D0D100B32029 /* AthenaDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
-				D26B6A41130C170900B461FB /* ObjectEditor.xib */,
+				D216CF68132420DD008E24F0 /* Objects */,
 				D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */,
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
 				D2DEECB6130A2A8D004AB731 /* Scenarios */,
@@ -813,6 +837,7 @@
 				D225D5E813035E9A00E75803 /* BriefingEditor.xib in Resources */,
 				D2DEECB8130A2AA6004AB731 /* SpriteEditor.xib in Resources */,
 				D26B6A42130C170900B461FB /* ObjectEditor.xib in Resources */,
+				D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -873,6 +898,7 @@
 				D2D2078B13107044000CDCA4 /* ResArchiver.m in Sources */,
 				D21FC228131580E700F33E5A /* ResEntry.m in Sources */,
 				D2944B0A1315B29900D1175E /* XSText.m in Sources */,
+				D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

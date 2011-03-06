@@ -9,10 +9,16 @@
 #import <Cocoa/Cocoa.h>
 
 @class MainData;
+@class WeaponViewController;
 
 @interface ObjectEditor : NSWindowController {
     MainData *data;
     NSMutableArray *objects;
+    IBOutlet NSArrayController *objectsController;
+
+    IBOutlet WeaponViewController *pulseViewController;
+    IBOutlet WeaponViewController *beamViewController;
+    IBOutlet WeaponViewController *specialViewController;
 }
 - (id)initWithMainData:(MainData *)data;
 @end
