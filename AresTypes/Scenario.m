@@ -225,10 +225,8 @@
         angle = [coder decodeSInt8];
         short briefingCount = [coder decodeSInt8];
 
-        if (briefingStart > 0) {
-            for (int k = 0; k < briefingCount; k++) {
-                [briefings addObject:[coder decodeObjectOfClass:[BriefPoint class]  atIndex:briefingStart + k - 1]];
-            }
+        for (int k = 0; k < briefingCount; k++) {
+            [briefings addObject:[coder decodeObjectOfClass:[BriefPoint class]  atIndex:briefingStart + k]];
         }
 
         par.time = [coder decodeSInt16];
@@ -306,7 +304,7 @@
     enumerator = [briefings objectEnumerator];
     short briefingsStart = -1;
     if ([briefings count] > 0) {
-        briefingsStart = [coder encodeObject:[enumerator nextObject]] + 1;//1 indexed WHY NATHAN WHY?
+        briefingsStart = [coder encodeObject:[enumerator nextObject]];//WTF? now it isn't 1-indexed?!?!?
     }
     [coder encodeSInt16:briefingsStart];
     for (BriefPoint *briefing in enumerator) {
