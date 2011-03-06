@@ -53,4 +53,8 @@
 + (BOOL)isPacked {
     return NO;
 }
+
+- (NSString *) description {
+    return [NSString stringWithFormat:@"%@\n%@", name, text];
+}
 @end
