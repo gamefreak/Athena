@@ -18,10 +18,16 @@
 }
 + (id) unarchiveObjectWithData:(NSData *)data;
 - (void) loadData:(NSData *)data;
+
+- (BOOL) hasKey:(NSString *)key;
+- (BOOL) hasKeyPath:(NSString *)keyPath;
+
 - (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key;
 - (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKeyPath:(NSString *)keyPath;
+
 - (NSMutableArray *) decodeArrayOfClass:(Class<Alloc, LuaCoding>)_class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
 - (NSMutableDictionary *) decodeDictionaryOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key;
+
 - (BOOL) decodeBool;
 - (BOOL) decodeBoolForKeyPath:(NSString *)keyPath;
 

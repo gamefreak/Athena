@@ -110,6 +110,19 @@ static void stackDump (lua_State *L) {
     return [decodedObject autorelease];
 }
 
+- (BOOL) hasKey:(NSString *)key {
+    [self getKey:key];
+    BOOL result = !lua_isnil(L, -1);
+    [self pop];
+    return result;
+}
+
+ - (BOOL) hasKeyPath:(NSString *)keyPath {
+     int n = [self getKeyPath:keyPath];
+     BOOL result = !lua_isnil(L, -1);
+     [self popN:n];
+     return result;
+ }
 
 - (id) decodeObjectOfClass:(Class<Alloc, NSObject, LuaCoding>)_class forKey:(NSString *)key {
     [self getKey:key];
