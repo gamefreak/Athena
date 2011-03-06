@@ -151,6 +151,11 @@ static NSArray *mainDataKeys;
     for (BaseObject *object in objects) {
         [coder encodeObject:object];
     }
+
+    for (NSString *key in sprites) {
+        [coder encodeObject:[sprites objectForKey:key] atIndex:[key intValue]];
+    }
+
     [coder extend:1056];
     [coder encodeSInt32:inFlareId];
     [coder encodeSInt32:outFlareId];

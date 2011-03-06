@@ -14,6 +14,7 @@
     short width, height;
     short offsetX, offsetY;
     CGImageRef image;
+    BOOL isQuantitized;
 }
 @property (readonly) int width;
 @property (readonly) int height;

@@ -7,7 +7,7 @@
 //
 
 #import "SMIVImage.h"
-#import "ResUnarchiver.h"
+#import "Archivers.h"
 
 static CGColorSpaceRef CLUTCSpace;
 
@@ -46,11 +46,25 @@ static CGColorSpaceRef CLUTCSpace;
         free(buffer);
         CFRelease(data);
         CFRelease(provider);
+        isQuantitized = YES;
     }
     return self;
 }
 
-//- (void) encodeResWithCoder:(ResArchiver *)coder {}
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    if (!isQuantitized) {
+        @throw @"Color Quantization on yet implemented";
+    }
+    [coder encodeUInt16:width];
+    [coder encodeUInt16:height];
+    [coder encodeUInt16:offsetX];
+    [coder encodeUInt16:offsetY];
+
+    CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(image));
+    const uint8 *buffer = CFDataGetBytePtr(data);
+    [coder writeBytes:(void *)buffer length:width * height];
+    CFRelease(data);
+}
 
 - (NSSize) size {
     return NSMakeSize(width, height);
@@ -69,7 +83,6 @@ static CGColorSpaceRef CLUTCSpace;
 }
 
 - (void) drawAtPoint:(NSPoint)point {
-    NSPoint offset = self.offset;
     NSSize size = self.size;
     CGRect nrect = CGRectMake(point.x, point.y, size.width, size.height);
     nrect.origin.x -= offsetX;
@@ -144,7 +157,23 @@ static CGColorSpaceRef CLUTCSpace;
     return self;
 }
 
-//- (void) encodeResWithCoder:(ResArchiver *)coder {}
+- (void) encodeResWithCoder:(ResArchiver *)coder {
+    [coder setName:title];
+    unsigned int frameCount = self.count;
+    NSArray *lengths = [frames valueForKeyPath:@"length"];
+    unsigned int size = [[lengths valueForKeyPath:@"@sum.intValue"] unsignedIntValue];
+    [coder extend:size + frameCount * 4 + 8];
+    [coder encodeUInt32:size + frameCount * 4];
+    [coder encodeUInt32:frameCount];
+    unsigned int acc = 8 + frameCount * 4;
+    for (NSNumber *curr in lengths) {
+        [coder encodeUInt32:acc];
+        acc += [curr unsignedIntValue];
+    }
+    for (SMIVFrame *frame in frames) {
+        [frame encodeResWithCoder:coder];
+    }
+}
 
 + (ResType) resType {
     return 'SMIV';
@@ -156,6 +185,10 @@ static CGColorSpaceRef CLUTCSpace;
 
 + (BOOL) isPacked {
     return NO;
+}
+
+- (NSUInteger) count {
+    return [frames count];
 }
 
 - (void)setFrame:(NSUInteger)frame {
