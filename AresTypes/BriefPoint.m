@@ -122,8 +122,10 @@
         [title release];
         title = [[[coder decodeObjectOfClass:[StringTable class] atIndex:stringGroup] stringAtIndex:stringId - 1] retain];
         short contentId = [coder decodeSInt16];
-        [content release];
-        content = [[coder decodeObjectOfClass:[XSText class] atIndex:contentId] retain];
+        if ([coder hasObjectOfClass:[XSText class] atIndex:contentId]) {
+            [content release];
+            content = [[coder decodeObjectOfClass:[XSText class] atIndex:contentId] retain];
+        }
     }
     return self;
 }
@@ -141,7 +143,7 @@
     [coder encodeSInt32:range.y];
     [coder encodeSInt32:range.x];
     [coder encodeSInt16:STRBriefingTitles];
-    [coder encodeSInt16:[coder addString:title toStringTable:STRBriefingTitles]];
+    [coder encodeSInt16:[coder addString:title toStringTable:STRBriefingTitles] + 1];
     [coder encodeSInt16:[coder encodeObject:content]];
 }
 

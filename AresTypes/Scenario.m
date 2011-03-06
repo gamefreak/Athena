@@ -225,8 +225,10 @@
         angle = [coder decodeSInt8];
         short briefingCount = [coder decodeSInt8];
 
-        for (int k = 0; k < briefingCount; k++) {
-            [briefings addObject:[coder decodeObjectOfClass:[BriefPoint class]  atIndex:briefingStart + k]];
+        if (briefingStart > 0) {
+            for (int k = 0; k < briefingCount; k++) {
+                [briefings addObject:[coder decodeObjectOfClass:[BriefPoint class]  atIndex:briefingStart + k - 1]];
+            }
         }
 
         par.time = [coder decodeSInt16];
@@ -259,10 +261,14 @@
         [[players objectAtIndex:i] encodeResWithCoder:coder];
     }
     [coder skip:20u * (4u-playerNum)];
-    SInt16 statusesId = STRScenarioStatusesStart + self.objectIndex + 1;
-    [coder encodeSInt16:statusesId];
-    for (NSString *str in scoreStrings) {
-        [coder addString:str toStringTable:statusesId];
+    SInt16 statusesId = STRScenarioStatusesStart + self.objectIndex;// + 1;
+    if ([scoreStrings count] > 0) {
+        [coder encodeSInt16:statusesId];
+        for (NSString *str in scoreStrings) {
+            [coder addString:str toStringTable:statusesId];
+        }
+    } else {
+        [coder encodeSInt16:-1];
     }
     NSEnumerator *enumerator;//Declared on a separate line for reuse
     //Using an NSEnumerator object so that the first item can be handled differently

@@ -158,7 +158,7 @@
         initialDestination = [coder decodeSInt32];
         int nameTable = [coder decodeSInt32];
         int nameNumber = [coder decodeSInt32];
-        if ([coder hasObjectOfClass:[StringTable class] atIndex:nameTable] && nameNumber != -1) {
+        if ([coder hasObjectOfClass:[StringTable class] atIndex:nameTable] && nameNumber > 0) {
             [nameOverride release];
             nameOverride = [[[coder decodeObjectOfClass:[StringTable class]
                                                 atIndex:nameTable] stringAtIndex:nameNumber - 1] retain];
@@ -190,7 +190,7 @@
     [coder encodeSInt32:initialDestination];
     if ([nameOverride isNotEqualTo:@""]) {
         [coder encodeSInt32:STRPlanetBaseNames];
-        [coder encodeSInt32:[coder addString:nameOverride toStringTable:STRPlanetBaseNames]];
+        [coder encodeSInt32:[coder addString:nameOverride toStringTable:STRPlanetBaseNames]+1];
     } else {
         [coder encodeSInt32:-1];
         [coder encodeSInt32:-1];
