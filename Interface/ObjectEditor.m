@@ -65,6 +65,7 @@
     selection = newSelection;
     [selection retain];
     [objectsController setSelectionIndex:selection.objectIndex];
+    [objectsTable scrollRowToVisible:selection.objectIndex];
 }
 
 - (NSUInteger) selectionIndex {
@@ -73,7 +74,6 @@
 
 - (void) setSelectionIndex:(NSUInteger)index {
     self.selection = [[data objects] objectAtIndex:index];
-    [objectsController setSelectionIndex:index];
 }
 
 + (NSSet *) keyPathsForValuesAffectingSelectionIndex {

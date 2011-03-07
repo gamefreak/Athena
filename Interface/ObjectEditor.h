@@ -16,6 +16,7 @@
     MainData *data;
     NSMutableArray *objects;
     IBOutlet NSArrayController *objectsController;
+    IBOutlet NSTableView *objectsTable;
 
     IBOutlet WeaponViewController *pulseViewController;
     IBOutlet WeaponViewController *beamViewController;
