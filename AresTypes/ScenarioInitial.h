@@ -11,7 +11,6 @@
 #import "ResCoding.h"
 #import "FlagBlob.h"
 
-@class Index;
 @class XSIPoint, XSRange;
 @class BaseObject;
 

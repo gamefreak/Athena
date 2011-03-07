@@ -15,13 +15,17 @@
 @interface InitialEditor : NSWindowController <NSTokenFieldDelegate> {
     MainData *data;
     Scenario *scenario;
+    ScenarioInitial *currentInitial;//BOUND
     NSMutableArray *initialObjects;
+    IBOutlet NSArrayController *initialObjectsController;
     IBOutlet ScenarioInitialView *initialView;
-
 }
 - (id) initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
 
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
 - (void) startObservingInitial:(ScenarioInitial *)initial;
 - (void) stopObservingInitial:(ScenarioInitial *)initial;
+
+
+- (IBAction) openObjectPicker:(id)sender;
 @end

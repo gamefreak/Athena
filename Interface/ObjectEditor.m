@@ -13,7 +13,7 @@
 #import "WeaponViewController.h"
 
 @implementation ObjectEditor
-@synthesize selection;
+@dynamic selection;
 @dynamic selectionIndex;
 
 - (id)initWithMainData:(MainData *)_data {
@@ -56,16 +56,32 @@
     [super dealloc];
 }
 
+- (BaseObject *) selection {
+    return selection;
+}
+
+- (void) setSelection:(BaseObject *)newSelection {
+    [selection release];
+    selection = newSelection;
+    [selection retain];
+    [objectsController setSelectionIndex:selection.objectIndex];
+}
+
 - (NSUInteger) selectionIndex {
     return [objects indexOfObjectIdenticalTo:selection];
 }
 
 - (void) setSelectionIndex:(NSUInteger)index {
     self.selection = [[data objects] objectAtIndex:index];
+    [objectsController setSelectionIndex:index];
 }
 
 + (NSSet *) keyPathsForValuesAffectingSelectionIndex {
     return [NSSet setWithObject:@"selection"];
+}
+
++ (NSSet *) keyPathsForValuesAffectingSelection {
+    return [NSSet setWithObject:@"selectionIndex"];
 }
 
 @end

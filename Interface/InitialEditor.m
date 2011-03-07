@@ -8,6 +8,7 @@
 
 #import "InitialEditor.h"
 #import "MainData.h"
+#import "BaseObject.h"
 #import "Scenario.h"
 #import "ScenarioInitial.h"
 
@@ -51,6 +52,22 @@
 
 - (void) awakeFromNib {
     [initialView setInitials:initialObjects];
+    [self bind:@"currentInitial"
+      toObject:initialObjectsController
+   withKeyPath:@"selection.self" //HACK!
+       options:nil];
+}
+
+- (IBAction) openObjectPicker:(id)sender {
+    ObjectEditor *editor = [[ObjectEditor alloc]
+                            initAsPickerWithData:data
+                            forDevices:NO];
+    [[[self window] document] addWindowController:editor];
+    [editor showWindow:sender];
+    [editor setSelection:currentInitial.type];
+    [currentInitial bind:@"type" toObject:editor withKeyPath:@"selection" options:nil];
+    editor.selectionIndex = currentInitial.type.objectIndex;
+    [editor release];
 }
 
 #pragma mark Accessors
