@@ -37,6 +37,10 @@
     [editor release];
 }
 
+- (IBAction) removeWeapon:(id)sender {
+    weapon.device = nil;
+}
+
 + (NSSet *) keyPathsForValuesAffectingWeaponTitle {
     return [NSSet setWithObject:@"weapon.device"];
 }

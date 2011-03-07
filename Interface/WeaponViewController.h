@@ -19,4 +19,5 @@
 @property (readwrite, retain) NSString *weaponTitle;
 
 - (IBAction) openObjectPicker:(id)sender;
+- (IBAction) removeWeapon:(id)sender;
 @end
