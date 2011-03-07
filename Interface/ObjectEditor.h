@@ -23,6 +23,10 @@
     IBOutlet WeaponViewController *specialViewController;
 
     BOOL isEditor;
+    //YES=show only devices
+    //NO =inverse
+    //Only applies if isEditor == YES
+    BOOL showDevices;
     BaseObject *selection;
 }
 @property (readwrite, retain) BaseObject *selection;

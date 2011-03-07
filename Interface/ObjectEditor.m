@@ -31,6 +31,7 @@
     self = [self initWithMainData:_data];
     if (self) {
         isEditor = NO;
+        showDevices = forDevices;
     }
     return self;
 }
@@ -45,7 +46,15 @@
     [specialViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.special" options:nil];
 
     assert(objectsController != nil);
-    [self bind:@"selectionIndex" toObject:objectsController withKeyPath:@"selectionIndex" options:nil];
+
+    if (!isEditor) {
+        [self bind:@"selectionIndex" toObject:objectsController withKeyPath:@"selectionIndex" options:nil];
+        if (showDevices) {
+            [objectsController setFilterPredicate:[NSPredicate predicateWithFormat:@"((attributes.isBeam = NO) AND (attributes.shapeFromDirection = NO) AND (attributes.isSelfAnimated = NO))"]];
+        } else {
+            [objectsController setFilterPredicate:[NSPredicate predicateWithFormat:@"NOT ((attributes.isBeam = NO) AND (attributes.shapeFromDirection = NO) AND (attributes.isSelfAnimated = NO))"]];
+        }
+    }
 }
 
 - (void)dealloc {
@@ -64,8 +73,9 @@
     [selection release];
     selection = newSelection;
     [selection retain];
-    [objectsController setSelectionIndex:selection.objectIndex];
-    [objectsTable scrollRowToVisible:selection.objectIndex];
+
+    [objectsController setSelectedObjects:[NSArray arrayWithObject:selection]];
+    [objectsTable scrollRowToVisible:[objectsController selectionIndex]];
 }
 
 - (NSUInteger) selectionIndex {
@@ -73,7 +83,12 @@
 }
 
 - (void) setSelectionIndex:(NSUInteger)index {
-    self.selection = [[data objects] objectAtIndex:index];
+    if (index != NSNotFound) {
+    id proxiedObject = [[objectsController arrangedObjects] objectAtIndex:index];
+        self.selection = [[data objects] objectAtIndex:[proxiedObject objectIndex]];
+    } else {
+        self.selection = nil;
+    }
 }
 
 + (NSSet *) keyPathsForValuesAffectingSelectionIndex {
