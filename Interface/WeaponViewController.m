@@ -7,7 +7,9 @@
 //
 
 #import "WeaponViewController.h"
-
+#import "AthenaDocument.h"
+#import "ObjectEditor.h"
+#import "BaseObject.h"
 
 @implementation WeaponViewController
 @synthesize weaponTitle;
@@ -21,5 +23,21 @@
 - (void) dealloc {
     [weaponTitle release];
     [super dealloc];
+}
+
+- (IBAction) openObjectPicker:(id)sender {
+    ObjectEditor *editor = [[ObjectEditor alloc]
+                            initAsPickerWithData:[[[[self view] window] document] data]
+                            forDevices:YES];
+    [[[[self view] window] document] addWindowController:editor];
+    [editor showWindow:sender];
+
+    [editor setSelection:weapon.device];//So we don't lose the current selection
+    [weapon bind:@"device" toObject:editor withKeyPath:@"selection" options:nil];
+    [editor release];
+}
+
++ (NSSet *) keyPathsForValuesAffectingWeaponTitle {
+    return [NSSet setWithObject:@"weapon.device"];
 }
 @end

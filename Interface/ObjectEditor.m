@@ -13,11 +13,24 @@
 #import "WeaponViewController.h"
 
 @implementation ObjectEditor
+@synthesize selection;
+@dynamic selectionIndex;
+
 - (id)initWithMainData:(MainData *)_data {
     self = [super initWithWindowNibName:@"ObjectEditor"];
     if (self) {
         data = [_data retain];
         objects = [[data mutableArrayValueForKey:@"objects"] retain];
+        isEditor = YES;
+    }
+    return self;
+}
+
+- (id) initAsPickerWithData:(MainData *)_data
+                 forDevices:(BOOL)forDevices {
+    self = [self initWithMainData:_data];
+    if (self) {
+        isEditor = NO;
     }
     return self;
 }
@@ -30,11 +43,29 @@
     [beamViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.beam" options:nil];
     [specialViewController setWeaponTitle:@"Special"];
     [specialViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.special" options:nil];
+
+    assert(objectsController != nil);
+    [self bind:@"selectionIndex" toObject:objectsController withKeyPath:@"selectionIndex" options:nil];
 }
 
 - (void)dealloc {
     [data release];
     [objects release];
+    [selection release];
+    [self unbind:@"selectionIndex"];
     [super dealloc];
 }
+
+- (NSUInteger) selectionIndex {
+    return [objects indexOfObjectIdenticalTo:selection];
+}
+
+- (void) setSelectionIndex:(NSUInteger)index {
+    self.selection = [[data objects] objectAtIndex:index];
+}
+
++ (NSSet *) keyPathsForValuesAffectingSelectionIndex {
+    return [NSSet setWithObject:@"selection"];
+}
+
 @end

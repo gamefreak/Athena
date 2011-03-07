@@ -14,6 +14,8 @@
 @interface AthenaDocument : NSDocument {
     MainData *data;
 }
+@property (readonly) MainData *data;
+
 - (IBAction) openObjectEditor:(id)sender;
 - (IBAction) openScenarioEditor:(id)sender;
 - (IBAction) openRaceEditor:(id)sender;

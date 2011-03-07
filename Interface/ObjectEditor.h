@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class MainData;
+@class BaseObject;
 @class WeaponViewController;
 
 @interface ObjectEditor : NSWindowController {
@@ -19,6 +20,13 @@
     IBOutlet WeaponViewController *pulseViewController;
     IBOutlet WeaponViewController *beamViewController;
     IBOutlet WeaponViewController *specialViewController;
+
+    BOOL isEditor;
+    BaseObject *selection;
 }
-- (id)initWithMainData:(MainData *)data;
+@property (readwrite, retain) BaseObject *selection;
+@property (readwrite, assign) NSUInteger selectionIndex;
+
+- (id) initWithMainData:(MainData *)data;
+- (id) initAsPickerWithData:(MainData *)data forDevices:(BOOL)forDevices;
 @end

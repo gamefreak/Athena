@@ -17,6 +17,8 @@
 #import "SpriteEditor.h"
 
 @implementation AthenaDocument
+@synthesize data;
+
 - (id) init {
     self = [super init];
     if (self) {
