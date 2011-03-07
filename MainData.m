@@ -90,6 +90,7 @@ static NSArray *mainDataKeys;
 
 - (void) finishLoadingFromLuaWithRootData:(id)data {
     [objects makeObjectsPerformSelector:@selector(finishLoadingFromLuaWithRootData:) withObject:data];
+    [scenarios makeObjectsPerformSelector:@selector(finishLoadingFromLuaWithRootData:) withObject:data];
 }
 
 + (BOOL) isComposite {

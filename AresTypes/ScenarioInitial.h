@@ -29,7 +29,8 @@
 
 
 @interface ScenarioInitial : NSObject <LuaCoding, ResCoding> {
-    Index *type;
+    BaseObject *type;
+    int typeId;//For lua unwrapping
     NSInteger owner;
     XSIPoint *position;
 
@@ -48,10 +49,9 @@
 
     ScenarioInitialAttributes *attributes;
 
-    BaseObject *base;
 }
 @property (readonly) NSString *realName;
-@property (readwrite, assign) Index *type;
+@property (readwrite, retain) BaseObject *type;
 @property (readwrite, assign) NSInteger owner;
 @property (readwrite, retain) XSIPoint *position;
 @property (readwrite, assign) float earning;
@@ -63,7 +63,4 @@
 @property (readwrite, assign) NSInteger initialDestination;
 @property (readwrite, retain) NSString *nameOverride;
 @property (readwrite, retain) ScenarioInitialAttributes *attributes;
-@property (readwrite, retain) BaseObject *base;
-
-- (void) findBaseFromArray:(NSArray *)array;
 @end

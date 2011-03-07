@@ -162,6 +162,10 @@
     }
 }
 
+- (void) finishLoadingFromLuaWithRootData:(id)data {
+    [initialObjects makeObjectsPerformSelector:@selector(finishLoadingFromLuaWithRootData:) withObject:data];
+}
+
 + (BOOL) isComposite {
     return YES;
 }
@@ -510,10 +514,6 @@
     [coder encodeInteger:kills forKey:@"kills"];
     [coder encodeFloat:ratio forKey:@"ratio"];
     [coder encodeInteger:losses forKey:@"float"];
-}
-
-- (void) dealloc {
-    [super dealloc];
 }
 
 + (BOOL) isComposite {

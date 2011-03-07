@@ -17,30 +17,32 @@
 @implementation ScenarioInitial
 @synthesize type, owner, position, earning;
 @synthesize distanceRange, rotation, rotationRange, spriteIdOverride, builds;
-@synthesize initialDestination, nameOverride, attributes, base;
+@synthesize initialDestination, nameOverride, attributes;
 @dynamic realName;
 
 - (id) init {
     self = [super init];
-    type = [[Index alloc] init];
-    owner = 0;
+    if (self) {
+        type = nil;
+        owner = 0;
 
-    position = [[XSIPoint alloc] init];
+        position = [[XSIPoint alloc] init];
 
-    earning = 1.0f;
-    distanceRange = 0;
+        earning = 1.0f;
+        distanceRange = 0;
 
-    rotation = 0;
-    rotationRange = 0;
+        rotation = 0;
+        rotationRange = 0;
 
-    spriteIdOverride = -1;
+        spriteIdOverride = -1;
 
-    builds = [[NSMutableArray alloc] initWithCapacity:10];
+        builds = [[NSMutableArray alloc] initWithCapacity:10];
 
-    initialDestination = -1;
-    nameOverride = @"";
+        initialDestination = -1;
+        nameOverride = @"";
 
-    attributes = [[ScenarioInitialAttributes alloc] init];
+        attributes = [[ScenarioInitialAttributes alloc] init];
+    }
     return self;
 }
 
@@ -51,49 +53,41 @@
     [builds release];
     [nameOverride release];
     [attributes release];
-    [base release];
     [super dealloc];
 }
 
 //MARK: Lua Coding
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
-    [type release];
-    type = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"type"] forClass:[BaseObject class]] retain];
-    owner = [coder decodeIntegerForKey:@"owner"];
+    self = [self init];
+    if (self) {
+        typeId = [coder decodeIntegerForKey:@"type"];
+        owner = [coder decodeIntegerForKey:@"owner"];
 
-    position.point = [coder decodePointForKey:@"position"].point;
+        position.point = [coder decodePointForKey:@"position"].point;
 
-    earning = [coder decodeFloatForKey:@"earning"];
-    distanceRange = [coder decodeIntegerForKey:@"distanceRange"];
+        earning = [coder decodeFloatForKey:@"earning"];
+        distanceRange = [coder decodeIntegerForKey:@"distanceRange"];
 
-    rotation = [coder decodeIntegerForKeyPath:@"rotation.minimum"];
-    rotationRange = [coder decodeIntegerForKeyPath:@"rotation.range"];
-    
-    rotation = [coder decodeIntegerForKeyPath:@"rotation.minimum"];
-    rotationRange = [coder decodeIntegerForKeyPath:@"rotation.range"];
+        rotation = [coder decodeIntegerForKeyPath:@"rotation.minimum"];
+        rotationRange = [coder decodeIntegerForKeyPath:@"rotation.range"];
 
-    spriteIdOverride = [coder decodeIntegerForKey:@"spriteIdOverride"];
+        spriteIdOverride = [coder decodeIntegerForKey:@"spriteIdOverride"];
 
-    [builds release];
-    builds = [coder decodeArrayOfClass:[XSInteger class] forKey:@"builds" zeroIndexed:YES];
-    [builds retain];
+        self.builds = [coder decodeArrayOfClass:[XSInteger class] forKey:@"builds" zeroIndexed:YES];
 
-    initialDestination = [coder decodeIntegerForKey:@"initialDestination"];
+        initialDestination = [coder decodeIntegerForKey:@"initialDestination"];
 
-    [nameOverride release];
-    nameOverride = [coder decodeStringForKey:@"nameOverride"];
-    [nameOverride retain];
+        self.nameOverride = [coder decodeStringForKey:@"nameOverride"];
 
-    [attributes release];
-    attributes = [coder decodeObjectOfClass:[ScenarioInitialAttributes class]
-                                     forKey:@"attributes"];
-    [attributes retain];
+        self.attributes = [coder decodeObjectOfClass:[ScenarioInitialAttributes class]
+                                              forKey:@"attributes"];
+    }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeInteger:type.index forKey:@"type"];
+    [coder encodeInteger:(type != nil?type.indexRef.orNull:-1) forKey:@"type"];
     [coder encodeInteger:owner forKey:@"owner"];
     [coder encodeInteger:initialDestination forKey:@"initialDestination"];
     [coder encodeObject:position forKey:@"position"];
@@ -121,6 +115,10 @@
     [coder encodeObject:attributes forKey:@"attributes"];
 }
 
+- (void) finishLoadingFromLuaWithRootData:(id)data {
+    self.type = [[data objects] objectAtIndex:typeId];
+}
+
 + (BOOL) isComposite {
     return YES;
 }
@@ -136,9 +134,9 @@
     if (self) {
         int typeId = [coder decodeSInt32];
         if (typeId != -1) {
-            type = [[coder getIndexRefWithIndex:typeId forClass:[BaseObject class]] retain];
+            self.type = [coder decodeObjectOfClass:[BaseObject class] atIndex:typeId];
         } else {
-            type = [[Index alloc] init];
+            self.type = nil;
         }
         owner = [coder decodeSInt32];
         [coder skip:8u];
@@ -169,7 +167,7 @@
 }
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
-    [coder encodeSInt32:type.orNull];
+    [coder encodeSInt32:(type != nil?type.indexRef.orNull:-1)];
     [coder encodeSInt32:owner];
     [coder skip:8u];
     [coder encodeSInt32:position.x];
@@ -214,39 +212,17 @@
     return 108;
 }
 
-- (void) findBaseFromArray:(NSArray *)array {
-    if (base == nil) {
-        base = [[array objectAtIndex:type.index] retain];
-    }
-}
-
 - (NSString *) realName {
     if ([nameOverride length] > 0) {
         return nameOverride;
-    } else if (base != nil) {
-        return [base valueForKey:@"name"];
+    } else if (type != nil) {
+        return [type valueForKey:@"name"];
     } else {
         return @"-";
     }
 
 }
 
-static NSSet *nameKeys;
-+ (NSSet *) keyPathsForValuesAffectingType {
-    if (nameKeys == nil) {
-        NSLog(@"+keyPathsForValuesAffectingType");
-        nameKeys = [[NSSet alloc] initWithObjects:@"realName", nil];
-    }
-    return nameKeys;
-}
-
-+ (NSSet *) keyPathsForValuesAffectingNameOverride {
-    if (nameKeys == nil) {
-        NSLog(@"+keyPathsForValuesAffectingNameOverride");
-        nameKeys = [[NSSet alloc] initWithObjects:@"realName", nil];
-    }
-    return nameKeys;
-}
 @end
 
 static NSArray *snitAttrKeys;

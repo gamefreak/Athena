@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">788</string>
+		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">788</string>
+			<string key="NS.object.0">823</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -187,7 +187,6 @@
 													</object>
 													<reference key="NSMenuFont" ref="590437405"/>
 												</object>
-												<int key="NSSelectedIndex">-1</int>
 												<bool key="NSPullDown">YES</bool>
 												<int key="NSPreferredEdge">1</int>
 												<bool key="NSUsesItemFromMenu">YES</bool>
@@ -761,6 +760,7 @@
 									</object>
 									<string key="NSFrame">{{1, 1}, {238, 492}}</string>
 									<reference key="NSSuperview" ref="355142257"/>
+									<reference key="NSNextKeyView" ref="447932351"/>
 									<reference key="NSDocView" ref="447932351"/>
 									<reference key="NSBGColor" ref="755720598"/>
 									<int key="NScvFlags">4</int>
@@ -787,6 +787,7 @@
 							</object>
 							<string key="NSFrame">{{20, 49}, {240, 494}}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSNextKeyView" ref="144107914"/>
 							<int key="NSsFlags">562</int>
 							<reference key="NSVScroller" ref="151125564"/>
 							<reference key="NSHScroller" ref="843951383"/>
@@ -860,7 +861,7 @@
 					<string>attributes.initiallyHidden</string>
 					<string>attributes.isPlayerShip</string>
 					<string>attributes.staticDestination</string>
-					<string>base.attributes.canAcceptBuild</string>
+					<string>type.attributes.canAcceptBuild</string>
 					<string>builds</string>
 				</object>
 				<string key="NSObjectClassName">ScenarioInitial</string>
@@ -1227,22 +1228,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: selection.base.attributes.canAcceptBuild</string>
-						<reference key="source" ref="413095138"/>
-						<reference key="destination" ref="889967139"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="413095138"/>
-							<reference key="NSDestination" ref="889967139"/>
-							<string key="NSLabel">enabled: selection.base.attributes.canAcceptBuild</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">selection.base.attributes.canAcceptBuild</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">151</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.builds</string>
 						<reference key="source" ref="413095138"/>
 						<reference key="destination" ref="889967139"/>
@@ -1264,6 +1249,22 @@
 						<reference key="destination" ref="1001"/>
 					</object>
 					<int key="connectionID">154</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: selection.type.attributes.canAcceptBuild</string>
+						<reference key="source" ref="413095138"/>
+						<reference key="destination" ref="889967139"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="413095138"/>
+							<reference key="NSDestination" ref="889967139"/>
+							<string key="NSLabel">enabled: selection.type.attributes.canAcceptBuild</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">selection.type.attributes.canAcceptBuild</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">155</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1929,9 +1930,9 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{0, 4}, {843, 563}}</string>
+					<string>{{-88, -45}, {843, 563}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{0, 4}, {843, 563}}</string>
+					<string>{{-88, -45}, {843, 563}}</string>
 					<integer value="1"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -2033,7 +2034,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">154</int>
+			<int key="maxID">155</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2041,6 +2042,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">InitialEditor</string>
 					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">openObjectPicker:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">openObjectPicker:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">openObjectPicker:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">initialView</string>
 						<string key="NS.object.0">ScenarioInitialView</string>
@@ -2054,14 +2066,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">InitialEditor.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">LuaUnarchiver.h</string>
+						<string key="minorKey">Interface/InitialEditor.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2126,7 +2131,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">ScenarioInitialView.h</string>
+						<string key="minorKey">Interface/ScenarioInitialView.h</string>
 					</object>
 				</object>
 			</object>
@@ -2700,7 +2705,7 @@
 			<integer value="3000" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">Athena.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../Athena.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<bool key="EncodedWithXMLCoder">YES</bool>

@@ -117,8 +117,8 @@ const CGFloat iconSizeScale = 2.0f;
         [attributes setObject:color forKey:NSForegroundColorAttributeName];
         
         NSPoint point = obj.position.point;
-        point.y -= (obj.base.iconSize + 2.0f) / scale;
-        point.x += (obj.base.iconSize + 2.0f) / scale;
+        point.y -= (obj.type.iconSize + 2.0f) / scale;
+        point.x += (obj.type.iconSize + 2.0f) / scale;
         
         [obj.realName drawAtPoint:point withAttributes:attributes];
     }
@@ -198,33 +198,33 @@ const CGFloat iconSizeScale = 2.0f;
         
 
         
-        switch (initial.base.iconShape) {
+        switch (initial.type.iconShape) {
             case IconShapeSquare:
-                [self drawSquareOfSize:initial.base.iconSize * iconSizeScale
+                [self drawSquareOfSize:initial.type.iconSize * iconSizeScale
                                  color:iconColor
                                atPoint:initial.position.point
                            highlighted:shouldHighlight];
                 break;
             case IconShapeFramedSquare:
-                [self drawFramedSquareOfSize:initial.base.iconSize * iconSizeScale
+                [self drawFramedSquareOfSize:initial.type.iconSize * iconSizeScale
                                        color:iconColor
                                      atPoint:initial.position.point
                                  highlighted:shouldHighlight];
                 break;
             case IconShapeTriangle:
-                [self drawTriangleOfSize:initial.base.iconSize * iconSizeScale
+                [self drawTriangleOfSize:initial.type.iconSize * iconSizeScale
                                    color:iconColor
                                  atPoint:initial.position.point
                              highlighted:shouldHighlight];
                 break;
             case IconShapePlus:
-                [self drawPlusOfSize:initial.base.iconSize * iconSizeScale
+                [self drawPlusOfSize:initial.type.iconSize * iconSizeScale
                                color:iconColor
                              atPoint:initial.position.point
                          highlighted:shouldHighlight];
                 break;
             case IconShapeDiamond:
-                [self drawDiamondOfSize:initial.base.iconSize * iconSizeScale
+                [self drawDiamondOfSize:initial.type.iconSize * iconSizeScale
                                   color:iconColor
                                 atPoint:initial.position.point
                             highlighted:shouldHighlight];
@@ -439,7 +439,7 @@ const CGFloat iconSizeScale = 2.0f;
 }
 
 - (void) addInitialObject:(ScenarioInitial *)object {
-    if (object.base.attributes.isDestination) {
+    if (object.type.attributes.isDestination) {
         [destinations addObject:object];
     }
     [self startObservingInitial:object];
@@ -497,7 +497,7 @@ const CGFloat iconSizeScale = 2.0f;
     BOOL willChangeSelection = YES;
     if (selection != NSNoSelectionMarker) {
         XSIPoint *point = [selection valueForKey:@"position"];
-        NSRect selectedObjectRect = SquareRectWithCenterAndSize(point.point, [[selection valueForKeyPath:@"base.iconSize"] floatValue] * iconSizeScale);
+        NSRect selectedObjectRect = SquareRectWithCenterAndSize(point.point, [[selection valueForKeyPath:@"type.iconSize"] floatValue] * iconSizeScale);
         if (NSPointInRect(clickPoint, selectedObjectRect)) {
             clickedObject = selection;
             [clickedObject retain];
@@ -510,7 +510,7 @@ const CGFloat iconSizeScale = 2.0f;
         NSUInteger index = 0;
         for (ScenarioInitial *init in initialObjects) {
             NSPoint point = init.position.point;
-            NSRect testRect = SquareRectWithCenterAndSize(point, init.base.iconSize * iconSizeScale / scale);
+            NSRect testRect = SquareRectWithCenterAndSize(point, init.type.iconSize * iconSizeScale / scale);
             if (NSPointInRect(clickPoint, testRect)) {
                 clickedObject = init;
                 [clickedObject retain];

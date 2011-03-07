@@ -10,7 +10,10 @@
 #import "MainData.h"
 #import "Scenario.h"
 #import "ScenarioInitial.h"
+
+#import "ObjectEditor.h"
 #import "ScenarioInitialView.h"
+
 #import "XSInteger.h"
 
 @interface InitialEditor (Private)
@@ -30,15 +33,10 @@
         [initialObjects retain];
 
         for (ScenarioInitial *initial in initialObjects) {
-            [initial findBaseFromArray:data.objects];
             [self startObservingInitial:initial];
         }
     }
     return self;
-}
-
-- (void) awakeFromNib {
-    [initialView setInitials:initialObjects];
 }
 
 - (void) dealloc {
@@ -51,13 +49,12 @@
     [super dealloc];
 }
 
-+ (BOOL)accessInstanceVariablesDirectly {
-    return YES;
+- (void) awakeFromNib {
+    [initialView setInitials:initialObjects];
 }
 
 #pragma mark Accessors
 - (void) insertObject:(ScenarioInitial *)initial inInitialObjectsAtIndex:(NSInteger)index {
-    [initial findBaseFromArray:data.objects];
     [self startObservingInitial:initial];
     [initialObjects insertObject:initial atIndex:index];
     [initialView addInitialObject:initial];
