@@ -64,7 +64,7 @@
     initialAge = -1;
     initialAgeRange = 0;
 
-    scale = 4096;//DIV by 4096
+    scale = 1.0;//DIV by 4096
     layer = 0;//TODO make this an enum.
     spriteId = -1;
 
@@ -171,7 +171,7 @@
     initialAge = [coder decodeIntegerForKey:@"initialAge"];
     initialAgeRange = [coder decodeIntegerForKey:@"initialAgeRange"];
 
-    scale = [coder decodeIntegerForKey:@"scale"];
+    scale = [coder decodeFloatForKey:@"scale"];
     layer = [coder decodeIntegerForKey:@"layer"];
     spriteId = [coder decodeIntegerForKey:@"spriteId"];
 
@@ -296,7 +296,7 @@
     [coder encodeInteger:initialAge forKey:@"initialAge"];
     [coder encodeInteger:initialAgeRange forKey:@"initialAgeRange"];
 
-    [coder encodeInteger:scale forKey:@"scale"];
+    [coder encodeFloat:scale forKey:@"scale"];
     [coder encodeInteger:layer forKey:@"layer"];
     [coder encodeInteger:spriteId forKey:@"spriteId"];
 
@@ -397,7 +397,7 @@
         initialAge = [coder decodeSInt32];
         initialAgeRange = [coder decodeSInt32];
 
-        scale = [coder decodeSInt32];
+        scale = (double)[coder decodeSInt32] / 4096.0;
         layer = [coder decodeSInt16];
         spriteId = [coder decodeSInt16];
         int iconData = [coder decodeUInt32];
@@ -507,7 +507,7 @@
     [coder encodeSInt32:initialAge];
     [coder encodeSInt32:initialAgeRange];
 
-    [coder encodeSInt32:scale];
+    [coder encodeSInt32:scale * 4096];
     [coder encodeSInt16:layer];
     [coder encodeSInt16:spriteId];
     [coder encodeUInt32:((0xf0 & iconShape) | (0x0f & iconSize))];

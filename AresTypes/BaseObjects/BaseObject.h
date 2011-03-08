@@ -64,7 +64,7 @@ typedef enum {
     NSInteger initialAge;
     NSInteger initialAgeRange;
 
-    NSInteger scale;
+    double scale;
     NSInteger layer;
     NSInteger spriteId;
 
@@ -120,7 +120,7 @@ typedef enum {
 @property (readwrite, assign) NSInteger damage;
 @property (readwrite, assign) NSInteger initialAge;
 @property (readwrite, assign) NSInteger initialAgeRange;
-@property (readwrite, assign) NSInteger scale;
+@property (readwrite, assign) double scale;
 @property (readwrite, assign) NSInteger layer;
 @property (readwrite, assign) NSInteger spriteId;
 @property (readwrite, assign) IconShape iconShape;
