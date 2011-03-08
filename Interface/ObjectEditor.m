@@ -38,17 +38,20 @@
 
 - (void) awakeFromNib {
     [super awakeFromNib];
+
     [pulseViewController setWeaponTitle:@"Pulse"];
     [pulseViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.pulse" options:nil];
+
     [beamViewController setWeaponTitle:@"Beam"];
     [beamViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.beam" options:nil];
+
     [specialViewController setWeaponTitle:@"Special"];
     [specialViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.special" options:nil];
 
     assert(objectsController != nil);
 
+    [self bind:@"selectionIndex" toObject:objectsController withKeyPath:@"selectionIndex" options:nil];
     if (!isEditor) {
-        [self bind:@"selectionIndex" toObject:objectsController withKeyPath:@"selectionIndex" options:nil];
         if (showDevices) {
             [objectsController setFilterPredicate:[NSPredicate predicateWithFormat:@"((attributes.isBeam = NO) AND (attributes.shapeFromDirection = NO) AND (attributes.isSelfAnimated = NO))"]];
         } else {
@@ -84,7 +87,7 @@
 
 - (void) setSelectionIndex:(NSUInteger)index {
     if (index != NSNotFound) {
-    id proxiedObject = [[objectsController arrangedObjects] objectAtIndex:index];
+        id proxiedObject = [[objectsController arrangedObjects] objectAtIndex:index];
         self.selection = [[data objects] objectAtIndex:[proxiedObject objectIndex]];
     } else {
         self.selection = nil;
@@ -99,4 +102,7 @@
     return [NSSet setWithObject:@"selectionIndex"];
 }
 
+- (IBAction) calculateWarpOutDistance:(id)sender {
+    [selection calculateWarpOutDistance];
+}
 @end

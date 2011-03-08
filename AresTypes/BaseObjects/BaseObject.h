@@ -140,6 +140,8 @@ typedef enum {
 @property (readwrite, assign) NSInteger skillNumAdj;
 @property (readwrite, assign) NSInteger skillDenAdj;
 @property (readwrite, assign) NSInteger portraitId;
+
+- (int) calculateWarpOutDistance;
 @end
 
 @interface Weapon : NSObject <LuaCoding> {

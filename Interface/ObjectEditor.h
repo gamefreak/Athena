@@ -34,4 +34,6 @@
 
 - (id) initWithMainData:(MainData *)data;
 - (id) initAsPickerWithData:(MainData *)data forDevices:(BOOL)forDevices;
+
+- (IBAction) calculateWarpOutDistance:(id)sender;
 @end

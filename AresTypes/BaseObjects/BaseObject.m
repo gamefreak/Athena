@@ -123,6 +123,14 @@
 }
 
 
+- (int) calculateWarpOutDistance {
+    double warpTime = warpSpeed * 3.0;
+    double temp = warpSpeed * warpTime - (warpTime * warpTime * thrust / 2.0);
+    self.warpOutDistance = (int)(temp * temp);
+    return warpOutDistance;
+}
+
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     name = [[coder decodeStringForKey:@"name"] retain];
