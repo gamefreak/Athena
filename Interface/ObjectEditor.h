@@ -10,6 +10,7 @@
 
 @class MainData;
 @class BaseObject;
+@class FlagMenuPopulator;
 @class WeaponViewController;
 
 @interface ObjectEditor : NSWindowController {
@@ -17,6 +18,10 @@
     NSMutableArray *objects;
     IBOutlet NSArrayController *objectsController;
     IBOutlet NSTableView *objectsTable;
+
+    IBOutlet FlagMenuPopulator *attributesPopulator;
+    IBOutlet FlagMenuPopulator *buildFlagsPopulator;
+    IBOutlet FlagMenuPopulator *orderFlagsPopulator;
 
     IBOutlet WeaponViewController *pulseViewController;
     IBOutlet WeaponViewController *beamViewController;

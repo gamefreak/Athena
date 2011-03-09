@@ -10,6 +10,7 @@
 #import "MainData.h"
 #import "BaseObject.h"
 
+#import "FlagMenuPopulator.h"
 #import "WeaponViewController.h"
 
 @implementation ObjectEditor
@@ -38,6 +39,10 @@
 
 - (void) awakeFromNib {
     [super awakeFromNib];
+
+    [attributesPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"attributes"];
+    [buildFlagsPopulator setRepresentedClass:[BaseObjectBuildFlags class] andPathComponent:@"buildFlags"];
+    [orderFlagsPopulator setRepresentedClass:[BaseObjectOrderFlags class] andPathComponent:@"orderFlags"];
 
     [pulseViewController setWeaponTitle:@"Pulse"];
     [pulseViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.pulse" options:nil];
