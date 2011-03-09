@@ -50,6 +50,11 @@ static NSArray *attributeBlobKeys;
     
 }
 
++ (NSArray *)names {
+    //To be separeately overridden in a subclass
+    return [self keys];
+}
+
 - (id) init {
     self = [super init];
     NSArray *keys = [[self class] keys];

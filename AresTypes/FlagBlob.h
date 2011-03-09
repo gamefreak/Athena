@@ -14,4 +14,5 @@
 @interface FlagBlob : NSObject <LuaCoding, ResCoding> {}
 @property (readwrite, assign) NSUInteger hex;
 + (NSArray *)keys;
++ (NSArray *)names;
 @end
