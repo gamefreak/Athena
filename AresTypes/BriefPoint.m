@@ -63,8 +63,8 @@
         range.point = [coder decodePointForKey:@"range"].point;
 
         content.text = [coder decodeStringForKey:@"content"];
-        return self;
     }
+    return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
