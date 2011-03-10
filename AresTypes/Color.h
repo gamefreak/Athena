@@ -23,6 +23,7 @@ typedef enum {
     ClutSkyBlue,//13
     ClutTan,//14
     ClutRed,//15
+    ClutNone = 0xff,//for shields
 } ClutColor;
 
 
