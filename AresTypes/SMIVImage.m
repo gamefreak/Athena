@@ -93,7 +93,7 @@ static CGColorSpaceRef CLUTCSpace;
 }
 
 - (void) drawInRect:(NSRect)rect {
-    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], rect, image);
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], NSRectToCGRect(rect), image);
 }
 
 @end
