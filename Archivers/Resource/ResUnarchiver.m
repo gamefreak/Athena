@@ -26,6 +26,16 @@
     return self;
 }
 
+- (void)dealloc {
+    [types release];
+    [stack release];
+    for (NSNumber *resRef in files) {
+        CloseResFile([resRef shortValue]);
+    }
+    [files release];
+    [super dealloc];
+}
+
 - (void) addFile:(NSString *)path {
     FSRef file;
     if (!FSPathMakeRef((UInt8 *)[path cStringUsingEncoding:NSMacOSRomanStringEncoding], &file, NULL)) {
@@ -272,15 +282,6 @@
     NSString *string = [NSString stringWithCString:buffer encoding:NSMacOSRomanStringEncoding];
     free(buffer);
     return string;
-}
-
-- (void)dealloc {
-    [types release];
-    [stack release];
-    for (NSNumber *resRef in files) {
-        CloseResFile([resRef shortValue]);
-    }
-    [super dealloc];
 }
 
 @end

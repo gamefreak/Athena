@@ -47,8 +47,9 @@
     if ([type isEqualTo:@"Ares Data"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder encodeObject:data atIndex:128];
-        [coder autorelease];
-        return [coder writeToFile:fileName];
+        NSString *path = [coder writeToFile:fileName];
+        [coder release];
+        return path;
     } else {
         return [super writeToURL:absoluteURL ofType:type error:outError];
     }
