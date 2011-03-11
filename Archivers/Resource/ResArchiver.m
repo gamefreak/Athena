@@ -241,6 +241,7 @@
     if (table == nil) {
         table = [[StringTable alloc] init];
         [stringTables setObject:table forKey:key];
+        [table autorelease];
     }
     return [table addString:string];
 }
@@ -251,6 +252,7 @@
     if (table == nil) {
         table = [[StringTable alloc] init];
         [stringTables setObject:table forKey:key];
+        [table autorelease];
     }
     return [table addUniqueString:string];
 }

@@ -133,8 +133,10 @@
 
 - (id) init {
     self = [super init];
-    interval = 0;
-    intervalRange = 0;
+    if (self) {
+        interval = 0;
+        intervalRange = 0;
+    }
     return self;
 }
 

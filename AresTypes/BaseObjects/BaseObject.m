@@ -415,12 +415,18 @@
         int pulseCount = [coder decodeSInt32];
         int beamCount = [coder decodeSInt32];
         int specialCount = [coder decodeSInt32];
-        [[weapons objectForKey:@"pulse"]
-         initWithResArchiver:coder id:pulseId count:pulseCount];
-        [[weapons objectForKey:@"beam"]
-         initWithResArchiver:coder id:beamId count:beamCount];
-        [[weapons objectForKey:@"special"]
-         initWithResArchiver:coder id:specialId count:specialCount];
+        [weapons setObject:[[[Weapon alloc] initWithResArchiver:coder
+                                                             id:pulseId
+                                                          count:pulseCount] autorelease]
+                    forKey:@"pulse"];
+        [weapons setObject:[[[Weapon alloc] initWithResArchiver:coder
+                                                             id:beamId
+                                                          count:beamCount] autorelease]
+                    forKey:@"beam"];
+        [weapons setObject:[[[Weapon alloc] initWithResArchiver:coder
+                                                             id:specialId
+                                                          count:specialCount] autorelease]
+                    forKey:@"special"];
 
         friendDefecit = [coder decodeFixed];
         dangerThreshold = [coder decodeFixed];
@@ -429,12 +435,19 @@
 
         arriveActionDistance = [coder decodeSInt32];
 
-        [[actions objectForKey:@"destroy"] initWithResArchiver:coder];
-        [[actions objectForKey:@"expire"] initWithResArchiver:coder];
-        [[actions objectForKey:@"create"] initWithResArchiver:coder];
-        [[actions objectForKey:@"collide"] initWithResArchiver:coder];
-        [[actions objectForKey:@"activate"] initWithResArchiver:coder];
-        [[actions objectForKey:@"arrive"] initWithResArchiver:coder];
+
+        [actions setObject:[[[DestroyActionRef alloc] initWithResArchiver:coder] autorelease]
+                    forKey:@"destroy"];
+        [actions setObject:[[[ActionRef alloc] initWithResArchiver:coder] autorelease]
+                    forKey:@"expire"];
+        [actions setObject:[[[ActionRef alloc] initWithResArchiver:coder] autorelease]
+                    forKey:@"create"];
+        [actions setObject:[[[ActionRef alloc] initWithResArchiver:coder] autorelease]
+                    forKey:@"collide"];
+        [actions setObject:[[[ActivateActionRef alloc] initWithResArchiver:coder] autorelease]
+                    forKey:@"activate"];
+        [actions setObject:[[[ActionRef alloc] initWithResArchiver:coder] autorelease]
+                    forKey:@"arrive"];
 
         [frame release];
         if (attributes.shapeFromDirection) {
