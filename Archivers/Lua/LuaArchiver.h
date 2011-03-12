@@ -9,14 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "LuaCoding.h"
 
-@class XSPoint;
+@protocol XSPoint;
 
-@interface LuaArchiver : NSCoder {
+@interface LuaArchiver : NSObject {
     NSMutableString *data;
     NSUInteger depth;
 }
 @property (readonly) NSData *data;
 + (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name;
+- (void) encodeObject:(id)object forKey:(NSString *)key;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
 - (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key asArray:(BOOL)asArray;
 
@@ -24,7 +25,11 @@
 - (void) encodeString:(NSString *)string forKey:(NSString *)key;
 
 - (void) encodeBool:(BOOL)value;
+- (void) encodeBool:(BOOL)value forKey:(NSString *)key;
+//- (void) encodeFloat
+- (void) encodeFloat:(float)value forKey:(NSString *)key;
 - (void) encodeInteger:(NSInteger)value;
-- (void) encodePoint:(XSPoint *)point forKey:(NSString *)key;
+- (void) encodeInteger:(NSInteger)value forKey:(NSString *)key;
+- (void) encodePoint:(id<XSPoint>)point forKey:(NSString *)key;
 - (void) encodeNilForKey:(NSString *)key;
 @end

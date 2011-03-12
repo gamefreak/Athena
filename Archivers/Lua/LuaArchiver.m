@@ -59,9 +59,11 @@
 @implementation LuaArchiver
 @dynamic data;
 - (id)init {
-    [super init];
-    data = [[NSMutableString alloc] init];
-    depth = 0;
+    self = [super init];
+    if (self) {
+        data = [[NSMutableString alloc] init];
+        depth = 0;
+    }
     return self;
 }
 
@@ -177,7 +179,7 @@
     [self down];
 }
 
-- (void) encodePoint:(XSPoint *)point forKey:(NSString *)key {
+- (void) encodePoint:(id<XSPoint>)point forKey:(NSString *)key {
     [self encodeObject:point forKey:key];
 }
 

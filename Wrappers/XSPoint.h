@@ -9,12 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "LuaCoding.h"
 
-@interface XSPoint : NSObject <LuaCoding> {
+@protocol XSPoint
+@property (readwrite, assign) NSPoint point;
+@end
+
+@interface XSPoint : NSObject <XSPoint, LuaCoding> {
     NSPoint point;
 }
 @property (readwrite, assign) CGFloat x;
 @property (readwrite, assign) CGFloat y;
-@property (readwrite, assign) NSPoint point;
 
 - (id) initWithPoint:(NSPoint)point;
 - (id) initWithX:(CGFloat)x Y:(CGFloat)y;
@@ -23,15 +26,14 @@
 @end
 
 
-@interface XSIPoint : NSObject <LuaCoding> {
+@interface XSIPoint : NSObject <XSPoint, LuaCoding> {
     int x, y;
 }
 @property (readwrite, assign) int x;
 @property (readwrite, assign) int y;
-@property (readwrite, assign) NSPoint point;
 
 - (id) initWithPoint:(NSPoint)point;
-- (id) initWithX:(int)x Y:(int)y;
+- (id) initWithIntegerX:(int)x Y:(int)y;
 
 + (id) point;
 @end

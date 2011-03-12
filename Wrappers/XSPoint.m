@@ -104,12 +104,12 @@ static NSSet *pointKeyPaths;
 }
 
 - (id) initWithPoint:(NSPoint)point {
-    self = [self initWithX:point.x Y:point.y];
+    self = [self initWithIntegerX:point.x Y:point.y];
     if (self) {}
     return self;
 }
 
-- (id) initWithX:(CGFloat)_x Y:(CGFloat)_y {
+- (id) initWithIntegerX:(int)_x Y:(int)_y {
     self = [self init];
     if (self) {
         x = _x;
@@ -128,8 +128,8 @@ static NSSet *pointKeyPaths;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeInt:x forKey:@"x"];
-    [coder encodeInt:y forKey:@"y"];
+    [coder encodeInteger:x forKey:@"x"];
+    [coder encodeInteger:y forKey:@"y"];
 }
 
 + (BOOL) isComposite {
