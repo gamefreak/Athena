@@ -148,16 +148,11 @@
     NSMutableDictionary *table = [self getTableForClass:class];
     NSUInteger idx = [self getNextIndexOfClass:class];
     ResSegment *seg = [[ResSegment alloc] initWithObject:object atIndex:idx];
-    NSLog(@"RCA: %i", [seg retainCount]);
     [table setObject:seg forKey:[NSNumber numberWithUnsignedInteger:idx]];
-    NSLog(@"RCB: %i", [seg retainCount]);
     [stack addObject:seg];
-    NSLog(@"RCC: %i", [seg retainCount]);
     [object encodeResWithCoder:self];
     [stack removeLastObject];
-    NSLog(@"RCD: %i", [seg retainCount]);
     [seg release];
-    NSLog(@"RCE: %i", [seg retainCount]);
     return idx;
 }
 
