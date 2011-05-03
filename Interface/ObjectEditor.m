@@ -16,6 +16,8 @@
 @implementation ObjectEditor
 @dynamic selection;
 @dynamic selectionIndex;
+@dynamic actionTypeKey;
+@dynamic currentActionTab;
 
 - (id)initWithMainData:(MainData *)_data {
     self = [super initWithWindowNibName:@"ObjectEditor"];
@@ -99,6 +101,35 @@
     }
 }
 
+- (NSString *) actionTypeKey {
+    switch (currentActionTab) {
+        case ActivateTab:
+            return @"activate";
+            break;
+        case ArriveTab:
+            return @"arrive";
+            break;
+        case CollideTab:
+            return @"collide";
+            break;
+        case CreateTab:
+            return @"create";
+            break;
+        case ExpireTab:
+            return @"expire";
+            break;
+        case DestroyTab:
+            return @"destroy";            
+            break;
+        default:
+            break;
+    }
+}
+
+- (NSMutableArray *) currentActionsArray {
+    return [[[[objectsController selection] valueForKey:@"actions"] valueForKey:[self actionTypeKey]] valueForKey:@"actions"];
+}
+
 + (NSSet *) keyPathsForValuesAffectingSelectionIndex {
     return [NSSet setWithObject:@"selection"];
 }
@@ -107,7 +138,27 @@
     return [NSSet setWithObject:@"selectionIndex"];
 }
 
++ (NSSet *) keyPathsForValuesAffectingActionTypeKey {
+    return [NSSet setWithObject:@"currentActionTab"];
+}
+
++ (NSSet *) keyPathsForValuesAffectingCurrentActionsArray {
+    return [NSSet setWithObjects: @"selection", @"currentActionTab", nil];
+}
+
 - (IBAction) calculateWarpOutDistance:(id)sender {
     [selection calculateWarpOutDistance];
+}
+
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
+    NSString *identifier = [tabViewItem identifier];
+    NSWindow *window = [self window];
+    NSRect frame = [window frame];
+    if ([identifier isEqualTo:@"actions"]) {
+        frame.size = actionsSize;
+    } else {
+        frame.size = standardSize;
+    }
+    [window setFrame:frame display:YES animate:YES];
 }
 @end

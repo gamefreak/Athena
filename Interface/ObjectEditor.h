@@ -12,8 +12,19 @@
 @class BaseObject;
 @class FlagMenuPopulator;
 @class WeaponViewController;
+typedef enum {
+    ActivateTab = 0,
+    ArriveTab = 1,
+    CollideTab = 2,
+    CreateTab = 3,
+    ExpireTab = 4,
+    DestroyTab = 5,
+} ActionTab;
 
-@interface ObjectEditor : NSWindowController {
+static const NSSize standardSize = {.width = 986, .height = 419};
+static const NSSize actionsSize = {.width = 986, .height = 419};
+
+@interface ObjectEditor : NSWindowController <NSTabViewDelegate> {
     MainData *data;
     NSMutableArray *objects;
     IBOutlet NSArrayController *objectsController;
@@ -27,6 +38,8 @@
     IBOutlet WeaponViewController *beamViewController;
     IBOutlet WeaponViewController *specialViewController;
 
+    ActionTab currentActionTab;
+    
     BOOL isEditor;
     //YES=show only devices
     //NO =inverse
@@ -36,6 +49,9 @@
 }
 @property (readwrite, retain) BaseObject *selection;
 @property (readwrite, assign) NSUInteger selectionIndex;
+@property (readwrite, assign) ActionTab currentActionTab;
+@property (readonly) NSString *actionTypeKey;
+@property (readonly) NSMutableArray *currentActionsArray;
 
 - (id) initWithMainData:(MainData *)data;
 - (id) initAsPickerWithData:(MainData *)data forDevices:(BOOL)forDevices;
