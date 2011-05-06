@@ -106,6 +106,8 @@
 		D2944B0A1315B29900D1175E /* XSText.m in Sources */ = {isa = PBXBuildFile; fileRef = D2944B091315B29900D1175E /* XSText.m */; };
 		D29510B212EE771300AE3316 /* ActionRefs.m in Sources */ = {isa = PBXBuildFile; fileRef = D29510B112EE771300AE3316 /* ActionRefs.m */; };
 		D295110612EE7BB700AE3316 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D295110512EE7BB700AE3316 /* FrameData.m */; };
+		D2971B9A1370727E004EE1E0 /* ActionEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2971B981370727E004EE1E0 /* ActionEditor.xib */; };
+		D2971B9D137072E8004EE1E0 /* ActionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2971B9C137072E8004EE1E0 /* ActionEditor.m */; };
 		D2A1911212FE3BE500232914 /* Starmap.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911112FE3BE500232914 /* Starmap.png */; };
 		D2A1911812FE3C0D00232914 /* StarmapPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1911712FE3C0D00232914 /* StarmapPicker.m */; };
 		D2A1911D12FE3CB700232914 /* StarmapPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911C12FE3CB700232914 /* StarmapPicker.xib */; };
@@ -268,6 +270,9 @@
 		D29510B112EE771300AE3316 /* ActionRefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionRefs.m; sourceTree = "<group>"; };
 		D295110412EE7BB700AE3316 /* FrameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameData.h; sourceTree = "<group>"; };
 		D295110512EE7BB700AE3316 /* FrameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameData.m; sourceTree = "<group>"; };
+		D2971B981370727E004EE1E0 /* ActionEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionEditor.xib; sourceTree = "<group>"; };
+		D2971B9B137072E8004EE1E0 /* ActionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionEditor.h; sourceTree = "<group>"; };
+		D2971B9C137072E8004EE1E0 /* ActionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionEditor.m; sourceTree = "<group>"; };
 		D2A1911112FE3BE500232914 /* Starmap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Starmap.png; sourceTree = "<group>"; };
 		D2A1911612FE3C0D00232914 /* StarmapPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarmapPicker.h; sourceTree = "<group>"; };
 		D2A1911712FE3C0D00232914 /* StarmapPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarmapPicker.m; sourceTree = "<group>"; };
@@ -595,6 +600,8 @@
 			children = (
 				D25A40451327327F0017030B /* FlagMenuPopulator.h */,
 				D25A40461327327F0017030B /* FlagMenuPopulator.m */,
+				D2971B9B137072E8004EE1E0 /* ActionEditor.h */,
+				D2971B9C137072E8004EE1E0 /* ActionEditor.m */,
 				D2E98D16130AED1B0013EBCA /* Sprites */,
 				D216CF6213241F92008E24F0 /* Objects */,
 				D288339512F24F7000A02383 /* RaceEditor.h */,
@@ -633,6 +640,7 @@
 				D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */,
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
 				D2DEECB6130A2A8D004AB731 /* Scenarios */,
+				D2971B981370727E004EE1E0 /* ActionEditor.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -843,6 +851,7 @@
 				D2DEECB8130A2AA6004AB731 /* SpriteEditor.xib in Resources */,
 				D26B6A42130C170900B461FB /* ObjectEditor.xib in Resources */,
 				D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */,
+				D2971B9A1370727E004EE1E0 /* ActionEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,6 +914,7 @@
 				D2944B0A1315B29900D1175E /* XSText.m in Sources */,
 				D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */,
 				D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */,
+				D2971B9D137072E8004EE1E0 /* ActionEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

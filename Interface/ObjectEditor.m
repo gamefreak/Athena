@@ -12,6 +12,7 @@
 
 #import "FlagMenuPopulator.h"
 #import "WeaponViewController.h"
+#import "ActionEditor.h"
 
 @implementation ObjectEditor
 @dynamic selection;
@@ -45,7 +46,7 @@
     [attributesPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"attributes"];
     [buildFlagsPopulator setRepresentedClass:[BaseObjectBuildFlags class] andPathComponent:@"buildFlags"];
     [orderFlagsPopulator setRepresentedClass:[BaseObjectOrderFlags class] andPathComponent:@"orderFlags"];
-
+    
     [pulseViewController setWeaponTitle:@"Pulse"];
     [pulseViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.pulse" options:nil];
 
@@ -54,9 +55,11 @@
 
     [specialViewController setWeaponTitle:@"Special"];
     [specialViewController bind:@"weapon" toObject:objectsController withKeyPath:@"selection.weapons.special" options:nil];
-
+    
+    [actionEditor bind:@"actions" toObject:self withKeyPath:@"currentActionsArray" options:nil];
+    
     assert(objectsController != nil);
-
+    
     [self bind:@"selectionIndex" toObject:objectsController withKeyPath:@"selectionIndex" options:nil];
     if (!isEditor) {
         if (showDevices) {
@@ -154,6 +157,7 @@
     NSString *identifier = [tabViewItem identifier];
     NSWindow *window = [self window];
     NSRect frame = [window frame];
+    NSLog(@"Resizing From: %@", NSStringFromRect(frame));
     if ([identifier isEqualTo:@"actions"]) {
         frame.size = actionsSize;
     } else {

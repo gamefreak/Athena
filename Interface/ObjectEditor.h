@@ -12,6 +12,8 @@
 @class BaseObject;
 @class FlagMenuPopulator;
 @class WeaponViewController;
+@class ActionEditor;
+
 typedef enum {
     ActivateTab = 0,
     ArriveTab = 1,
@@ -22,7 +24,7 @@ typedef enum {
 } ActionTab;
 
 static const NSSize standardSize = {.width = 986, .height = 419};
-static const NSSize actionsSize = {.width = 986, .height = 419};
+static const NSSize actionsSize = {.width = 1063, .height = 514};
 
 @interface ObjectEditor : NSWindowController <NSTabViewDelegate> {
     MainData *data;
@@ -39,6 +41,7 @@ static const NSSize actionsSize = {.width = 986, .height = 419};
     IBOutlet WeaponViewController *specialViewController;
 
     ActionTab currentActionTab;
+    IBOutlet ActionEditor *actionEditor;
     
     BOOL isEditor;
     //YES=show only devices
@@ -55,6 +58,8 @@ static const NSSize actionsSize = {.width = 986, .height = 419};
 
 - (id) initWithMainData:(MainData *)data;
 - (id) initAsPickerWithData:(MainData *)data forDevices:(BOOL)forDevices;
+
+- (IBAction) changeActionSet:(id)sender;
 
 - (IBAction) calculateWarpOutDistance:(id)sender;
 @end
