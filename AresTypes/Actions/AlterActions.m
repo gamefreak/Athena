@@ -13,220 +13,55 @@
 #import "BaseObject.h"
 
 @implementation AlterAction
-@synthesize alterType, isRelative;
-@synthesize minimum, range;
-@synthesize IDRef;
+//@synthesize alterType, isRelative;
+//@synthesize minimum, range;
+//@synthesize IDRef;
 
 - (id) init {
     self = [super init];
     if (self) {
-        alterType = AlterHealth;
-        isRelative = NO;
-        minimum = 0;
-        range = 0;
-        IDRef = nil;
     }
     return self;
 }
 
 - (void) dealloc {
-    [IDRef release];
     [super dealloc];
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
     if (self) {
-    alterType = [AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]];
-
-        switch (alterType) {
-            case AlterVelocity:
-            case AlterThrust:
-            case AlterLocation:
-            case AlterAge:
-            case AlterAbsoluteLocation:
-                isRelative = [coder decodeBoolForKey:@"relative"];
-                break;
-            case AlterOnwer:
-            case AlterAbsoluteCash:
-                isRelative = [coder decodeBoolForKey:@"useObjectsOwner"];
-                break;
-            case AlterBaseType:
-                isRelative = [coder decodeBoolForKey:@"retainAmmoCount"];
-                break;
-            default:
-                break;
-        }
-
-        switch (alterType) {
-            case AlterHealth:
-            case AlterMaxThrust:
-            case AlterMaxVelocity:
-            case AlterMaxTurnRate:
-            case AlterScale:
-            case AlterEnergy:
-            case AlterOnwer:
-            case AlterOccupation:
-            case AlterAbsoluteCash:
-                minimum = [coder decodeIntegerForKey:@"value"];
-                break;
-            default:
-                break;
-        }
-
-        switch (alterType) {
-            case AlterVelocity:
-            case AlterThrust:
-            case AlterLocation:
-            case AlterHidden:
-            case AlterOnwer:
-            case AlterCurrentTurnRate:
-            case AlterActiveCondition:
-            case AlterAge:
-                minimum = [coder decodeIntegerForKey:@"minimum"];
-                range = [coder decodeIntegerForKey:@"range"];
-                break;
-            case AlterAbsoluteLocation:
-                minimum = [coder decodeIntegerForKey:@"x"];
-                range = [coder decodeIntegerForKey:@"y"];
-                break;
-            default:
-                break;
-        }
-
-        switch (alterType) {
-            case AlterPulseWeapon:
-            case AlterBeamWeapon:
-            case AlterSpecialWeapon:
-            case AlterBaseType:
-                IDRef = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"id"]
-                                            forClass:[BaseObject class]] retain];
-                break;
-            case AlterAbsoluteCash:
-                minimum = [coder decodeIntegerForKey:@"player"];
-                break;
-            default:
-                break;
-        }
+//    alterType = [AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]];
     }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
-    [coder encodeString:[AlterAction stringForAlterType:alterType] forKey:@"alterType"];
+    [coder encodeString:[AlterAction stringForAlterType:[AlterAction alterTypeForClass:[self class]]] forKey:@"alterType"];
 
-    switch (alterType) {
-        case AlterVelocity:
-        case AlterThrust:
-        case AlterLocation:
-        case AlterAge:
-        case AlterAbsoluteLocation:
-            [coder encodeBool:isRelative forKey:@"relative"];
-            break;
-        case AlterOnwer:
-        case AlterAbsoluteCash:
-            [coder encodeBool:isRelative forKey:@"useObjectsOwner"];
-            break;
-        case AlterBaseType:
-            [coder encodeBool:isRelative forKey:@"retainAmmoCount"];
-            break;
-        default:
-            break;
-    }
-
-    switch (alterType) {
-        case AlterHealth:
-        case AlterMaxThrust:
-        case AlterMaxVelocity:
-        case AlterMaxTurnRate:
-        case AlterScale:
-        case AlterEnergy:
-        case AlterOnwer:
-        case AlterOccupation:
-        case AlterAbsoluteCash:
-            [coder encodeInteger:minimum forKey:@"value"];
-            break;
-        default:
-            break;
-    }
-
-    switch (alterType) {
-        case AlterVelocity:
-        case AlterThrust:
-        case AlterLocation:
-        case AlterHidden:
-        case AlterOnwer:
-        case AlterCurrentTurnRate:
-        case AlterActiveCondition:
-        case AlterAge:
-            [coder encodeInteger:minimum forKey:@"minimum"];
-            [coder encodeInteger:range forKey:@"range"];
-            break;
-        case AlterAbsoluteLocation:
-            [coder encodeInteger:minimum forKey:@"x"];
-            [coder encodeInteger:range forKey:@"y"];
-            break;
-        default:
-            break;
-    }
-
-    switch (alterType) {
-        case AlterPulseWeapon:
-        case AlterBeamWeapon:
-        case AlterSpecialWeapon:
-        case AlterBaseType:
-            [coder encodeInteger:IDRef.index forKey:@"id"];
-            break;
-        case AlterAbsoluteCash:
-            [coder encodeInteger:minimum forKey:@"player"];
-            break;
-        default:
-            break;
-    }
 }
+
+
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [super initWithResArchiver:coder];
     if (self) {
-        alterType = [coder decodeUInt8];
-        isRelative = (BOOL)[coder decodeSInt8];
-        minimum = [coder decodeSInt32];
-        switch (alterType) {
-            case AlterPulseWeapon:
-            case AlterBeamWeapon:
-            case AlterSpecialWeapon:
-            case AlterBaseType:
-                IDRef = [[coder getIndexRefWithIndex:minimum
-                                            forClass:[BaseObject class]] retain];
-                break;
-            default:
-                break;
-        }
-        range = [coder decodeSInt32];
-        [coder skip:14u];
+        [coder skip:1];//alterType
     }
     return self;
 }
 
-
 - (void) encodeResWithCoder:(ResArchiver *)coder {
     [super encodeResWithCoder:coder];
-    [coder encodeUInt8:alterType];
-    [coder encodeSInt8:isRelative];
-    switch (alterType) {
-        case AlterPulseWeapon:
-        case AlterBeamWeapon:
-        case AlterSpecialWeapon:
-        case AlterBaseType:
-            [coder encodeSInt32:IDRef.index];
-            break;
-        default:
-            [coder encodeSInt32:minimum];
-            break;
-    }
-    [coder encodeSInt32:range];
-    [coder skip:14u];
+    [coder encodeUInt8:[AlterAction alterTypeForClass:[self class]]];
+}
+
++ (Class<ResCoding>) classForResCoder:(ResUnarchiver *)coder {
+    [coder seek:24u];
+    ActionAlterType type = [coder decodeUInt8];
+    [coder seek:0u];
+    return [AlterAction classForType:type];
 }
 
 + (ActionAlterType) alterTypeForString:(NSString *)type {
@@ -360,4 +195,342 @@
     }
     return nil;
 }
+
+
++ (ActionAlterType) alterTypeForClass:(Class)class {
+    if (class == [AlterHealthAction class]) {
+        return AlterHealth;
+    } else if (class == [AlterVelocityAction class]) {
+        return AlterVelocity;
+    } else if (class == [AlterThrustAction class]) {
+        return AlterThrust;
+    } else if (class == [AlterMaxThrustAction class]) {
+        return AlterMaxThrust;
+    } else if (class == [AlterMaxVelocityAction class]) {
+        return AlterMaxVelocity;
+    } else if (class == [AlterMaxTurnRateAction class]) {
+        return AlterMaxTurnRate;
+    } else if (class == [AlterLocationAction class]) {
+        return AlterLocation;
+    } else if (class == [AlterScaleAction class]) {
+        return AlterScale;
+    } else if (class == [AlterPulseWeaponAction class]) {
+        return AlterPulseWeapon;
+    } else if (class == [AlterBeamWeaponAction class]) {
+        return AlterBeamWeapon;
+    } else if (class == [AlterSpecialWeaponAction class]) {
+        return AlterSpecialWeapon;
+    } else if (class == [AlterEnergyAction class]) {
+        return AlterEnergy;
+    } else if (class == [AlterOnwerAction class]) {
+        return AlterOnwer;
+    } else if (class == [AlterHiddenAction class]) {
+        return AlterHidden;
+    } else if (class == [AlterCloakAction class]) {
+        return AlterCloak;
+    } else if (class == [AlterOfflineAction class]) {
+        return AlterOffline;
+    } else if (class == [AlterCurrentTurnRateAction class]) {
+        return AlterCurrentTurnRate;
+    } else if (class == [AlterBaseTypeAction class]) {
+        return AlterBaseType;
+    } else if (class == [AlterActiveConditionAction class]) {
+        return AlterActiveCondition;
+    } else if (class == [AlterOccupationAction class]) {
+        return AlterOccupation;
+    } else if (class == [AlterAbsoluteCashAction class]) {
+        return AlterAbsoluteCash;
+    } else if (class == [AlterAgeAction class]) {
+        return AlterAge;
+    } else if (class == [AlterAbsoluteLocationAction class]) {
+        return AlterAbsoluteLocation;
+    }
+}
+
++ (Class) classForType:(ActionAlterType)type {
+    switch (type) {
+        case AlterHealth:
+            return [AlterHealthAction class];
+            break;
+        case AlterVelocity:
+            return [AlterVelocityAction class];
+            break;
+        case AlterThrust:
+            return [AlterThrustAction class];
+            break;
+        case AlterMaxThrust:
+            return [AlterMaxThrustAction class];
+            break;
+        case AlterMaxVelocity:
+            return [AlterMaxVelocityAction class];
+            break;
+        case AlterMaxTurnRate:
+            return [AlterMaxTurnRateAction class];
+            break;
+        case AlterLocation:
+            return [AlterLocationAction class];
+            break;
+        case AlterScale:
+            return [AlterScaleAction class];
+            break;
+        case AlterPulseWeapon:
+            return [AlterPulseWeaponAction class];
+            break;
+        case AlterBeamWeapon:
+            return [AlterBeamWeaponAction class];
+            break;
+        case AlterSpecialWeapon:
+            return [AlterSpecialWeaponAction class];
+            break;
+        case AlterEnergy:
+            return [AlterEnergyAction class];
+            break;
+        case AlterOnwer:
+            return [AlterOnwerAction class];
+            break;
+        case AlterHidden:
+            return [AlterHiddenAction class];
+            break;
+        case AlterCloak:
+            return [AlterCloakAction class];
+            break;
+        case AlterOffline:
+            return [AlterOfflineAction class];
+            break;
+        case AlterCurrentTurnRate:
+            return [AlterCurrentTurnRateAction class];
+            break;
+        case AlterBaseType:
+            return [AlterBaseTypeAction class];
+            break;
+        case AlterActiveCondition:
+            return [AlterActiveConditionAction class];
+            break;
+        case AlterOccupation:
+            return [AlterOccupationAction class];
+            break;
+        case AlterAbsoluteCash:
+            return [AlterAbsoluteCashAction class];
+            break;
+        case AlterAge:
+            return [AlterAgeAction class];
+            break;
+        case AlterAbsoluteLocation:
+            return [AlterAbsoluteLocationAction class];
+            break;
+        default:
+            @throw [NSString stringWithFormat:@"Invalid alter action type: %@", type];
+
+            break;
+    }
+}
 @end
+
+@implementation AlterActionValueClass
+@synthesize value;
+- (id)init {
+    self = [super init];
+    if (self) {
+        value = 0;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        value = [coder decodeIntegerForKey:@"value"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:value forKey:@"value"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        [coder skip:1u];//relative
+        value = [coder decodeSInt32];
+        [coder skip:18u];//int + 14 byte padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder skip:1u];//relative
+    [coder encodeSInt32:value];
+    [coder skip:18u];//int + 14 byte padding
+}
+@end
+
+@implementation AlterActionRangeClass
+@synthesize min, range;
+- (id)init {
+    self = [super init];
+    if (self) {
+        min = 0;
+        range = 0;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        min = [coder decodeIntegerForKey:@"minimum"];
+        range = [coder decodeIntegerForKey:@"range"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:min forKey:@"minimum"];
+    [coder encodeInteger:range forKey:@"range"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        [coder skip:1u];//relative
+        min = [coder decodeSInt32];
+        range = [coder decodeSInt32];
+        [coder skip:14u];//padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder skip:1u];//relative
+    [coder encodeSInt32:min];
+    [coder encodeSInt32:range];
+    [coder skip:14u];
+}
+@end
+
+@implementation AlterActionRelativeRangeClass
+@synthesize relative, min, range;
+- (id)init {
+    self = [super init];
+    if (self) {
+        relative = YES;
+        min = 0;
+        range = 0;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        relative = [coder decodeBoolForKey:@"relative"];
+        min = [coder decodeIntegerForKey:@"minimum"];
+        range = [coder decodeIntegerForKey:@"range"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeBool:relative forKey:@"relative"];
+    [coder encodeInteger:min forKey:@"minimum"];
+    [coder encodeInteger:range forKey:@"range"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        relative = (BOOL)[coder decodeSInt8];
+        min = [coder decodeSInt32];
+        range = [coder decodeSInt32];
+        [coder skip:14u];//padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt8:relative];
+    [coder encodeSInt32:min];
+    [coder encodeSInt32:range];
+    [coder skip:14u];
+}
+@end
+
+@implementation AlterActionIDRefClass
+@synthesize IDRef;
+- (id)init {
+    self = [super init];
+    if (self) {
+        IDRef = nil;
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [IDRef release];
+    [super dealloc];
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        IDRef = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"id"]
+                                    forClass:[BaseObject class]] retain];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeInteger:[IDRef index] forKey:@"id"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        [coder skip:1u];//relative
+        IDRef = [[coder getIndexRefWithIndex:[coder decodeSInt32]
+                                    forClass:[BaseObject class]] retain];
+        [coder skip:18u];//int + 14 bytes padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder skip:1u];//relative
+    [coder encodeSInt32:[IDRef index]];
+    [coder skip:18u];//int + 14 bytes padding
+}
+@end
+
+@implementation AlterHealthAction @end
+@implementation AlterVelocityAction @end
+@implementation AlterThrustAction @end
+@implementation AlterMaxThrustAction @end
+@implementation AlterMaxVelocityAction @end
+@implementation AlterMaxTurnRateAction @end
+@implementation AlterLocationAction @end
+@implementation AlterScaleAction @end
+@implementation AlterPulseWeaponAction @end
+@implementation AlterBeamWeaponAction @end
+@implementation AlterSpecialWeaponAction @end
+@implementation AlterEnergyAction @end
+@implementation AlterOnwerAction @end
+@implementation AlterHiddenAction @end
+@implementation AlterCloakAction @end
+@implementation AlterOfflineAction @end
+@implementation AlterCurrentTurnRateAction @end
+@implementation AlterBaseTypeAction @end
+@implementation AlterActiveConditionAction @end
+@implementation AlterOccupationAction @end
+@implementation AlterAbsoluteCashAction @end
+@implementation AlterAgeAction @end
+@implementation AlterAbsoluteLocationAction @end
+

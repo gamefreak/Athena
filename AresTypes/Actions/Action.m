@@ -74,7 +74,11 @@
 + (Class) classForResCoder:(ResUnarchiver *)coder {
     sint8 type = [coder decodeSInt8];
     [coder seek:0u];
-    return [self classForType:type];
+    Class actionClass = [self classForType:type];
+    if (actionClass == [AlterAction class]) {
+        actionClass = [AlterAction classForResCoder:coder];
+    }
+    return actionClass;
 }
 
 
@@ -130,7 +134,11 @@
 }
 
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
-    return  [self classForType:[self typeForString:[coder decodeStringForKey:@"type"]]];
+    Class type = [self classForType:[self typeForString:[coder decodeStringForKey:@"type"]]];
+    if (type == [AlterAction class]) {
+        type = [AlterAction classForType:[AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]]];
+    }
+    return type;
 }
 
 + (Class) classForType:(ActionType)type {
@@ -145,6 +153,7 @@
             return [PlaySoundAction class];
             break;
         case AlterActionType:
+            //Intermediate step to trigger another +classFor(Res|Lua)Coder method
             return [AlterAction class];
             break;
         case MakeSparksActionType:
