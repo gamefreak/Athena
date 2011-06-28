@@ -10,6 +10,7 @@
 #import "Action.h"
 
 @class Index;
+@class XSIPoint;
 
 typedef enum {
     AlterHealth,
@@ -73,7 +74,7 @@ typedef enum {
 @interface AlterActionIDRefClass : AlterAction {
     Index *IDRef;
 }
-@property (readwrite, assign) Index *IDRef;
+@property (readwrite, retain) Index *IDRef;
 @end
 
 @interface AlterHealthAction : AlterActionValueClass {} @end
@@ -88,14 +89,59 @@ typedef enum {
 @interface AlterBeamWeaponAction : AlterActionIDRefClass {} @end
 @interface AlterSpecialWeaponAction : AlterActionIDRefClass {} @end
 @interface AlterEnergyAction : AlterActionValueClass {} @end
-    @interface AlterOnwerAction : AlterAction {} @end
+//@interface AlterOnwerAction : AlterAction {} @end
 @interface AlterHiddenAction : AlterActionRangeClass {} @end
 @interface AlterCloakAction : AlterAction {} @end
 @interface AlterOfflineAction : AlterActionRangeClass {} @end
 @interface AlterCurrentTurnRateAction : AlterActionRangeClass {} @end
-    @interface AlterBaseTypeAction : AlterAction {} @end
-    @interface AlterActiveConditionAction : AlterAction {} @end
-    @interface AlterOccupationAction : AlterAction {} @end
-    @interface AlterAbsoluteCashAction : AlterAction {} @end
+//@interface AlterBaseTypeAction : AlterAction {} @end
+//@interface AlterActiveConditionAction : AlterAction {} @end
+@interface AlterOccupationAction : AlterActionValueClass {} @end
+//@interface AlterAbsoluteCashAction : AlterAction {} @end
 @interface AlterAgeAction : AlterActionRangeClass {} @end
-    @interface AlterAbsoluteLocationAction : AlterAction {} @end
+//@interface AlterAbsoluteLocationAction : AlterAction {} @end
+
+@interface AlterOnwerAction : AlterAction {
+    BOOL useObjectsOwner;
+    int value;
+}
+@property (readwrite, assign) BOOL useObjectsOwner;
+@property (readwrite, assign) int value;
+@end
+
+
+@interface AlterBaseTypeAction : AlterAction {
+    BOOL retainAmmoCount;
+    Index *IDRef;
+}
+@property (readwrite, assign) BOOL retainAmmoCount;
+@property (readwrite, retain) Index *IDRef;
+@end
+
+@interface AlterActiveConditionAction : AlterAction {
+    BOOL conditionTrue;
+    int min, range;
+}
+@property (readwrite, assign) BOOL conditionTrue;
+@property (readwrite, assign) int min;
+@property (readwrite, assign) int range;
+@end
+
+@interface AlterAbsoluteCashAction : AlterAction {
+    BOOL useObjectsOwner;
+    int value;
+    int player;
+}
+
+@property (readwrite, assign) BOOL useObjectsOwner;
+@property (readwrite, assign) int value;
+@property (readwrite, assign) int player;
+@end
+
+@interface AlterAbsoluteLocationAction : AlterAction {
+    BOOL relative;
+    XSIPoint *point;
+}
+@property (readwrite, assign) BOOL relative;
+@property (readwrite, retain) XSIPoint *point;
+@end

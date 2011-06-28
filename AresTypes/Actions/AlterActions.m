@@ -9,14 +9,11 @@
 #import "AlterActions.h"
 #import "Archivers.h"
 #import "IndexedObject.h"
+#import "XSPoint.h"
 
 #import "BaseObject.h"
 
 @implementation AlterAction
-//@synthesize alterType, isRelative;
-//@synthesize minimum, range;
-//@synthesize IDRef;
-
 - (id) init {
     self = [super init];
     if (self) {
@@ -31,7 +28,6 @@
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
     if (self) {
-//    alterType = [AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]];
     }
     return self;
 }
@@ -522,15 +518,265 @@
 @implementation AlterBeamWeaponAction @end
 @implementation AlterSpecialWeaponAction @end
 @implementation AlterEnergyAction @end
-@implementation AlterOnwerAction @end
+//@implementation AlterOnwerAction @end
 @implementation AlterHiddenAction @end
 @implementation AlterCloakAction @end
 @implementation AlterOfflineAction @end
 @implementation AlterCurrentTurnRateAction @end
-@implementation AlterBaseTypeAction @end
-@implementation AlterActiveConditionAction @end
+
+@implementation AlterOnwerAction
+@synthesize useObjectsOwner, value;
+- (id)init {
+    self = [super init];
+    if (self) {
+        useObjectsOwner = YES;
+        value = 0;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        useObjectsOwner = [coder decodeBoolForKey:@"useObjectsOwner"];
+        value = [coder decodeIntegerForKey:@"useObjectsOwner"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeBool:useObjectsOwner forKey:@"useObjectsOwner"];
+    [coder encodeInteger:value forKey:@"value"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        useObjectsOwner = (BOOL)[coder decodeSInt8];
+        value = [coder decodeSInt32];
+        [coder skip:18u];//int + 14 bytes padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt8:useObjectsOwner];
+    [coder encodeSInt32:value];
+    [coder skip:18u];//int + 14 bytes padding
+}
+@end
+
+
+@implementation AlterBaseTypeAction
+@synthesize retainAmmoCount, IDRef;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        retainAmmoCount = NO;
+        IDRef = nil;
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [IDRef release];
+    [super dealloc];
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        retainAmmoCount = [coder decodeBoolForKey:@"retainAmmoCount"];
+        IDRef = [[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"id"]
+                                    forClass:[BaseObject class]] retain];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeBool:retainAmmoCount forKey:@"retainAmmoCount"];
+    [coder encodeInteger:[IDRef index]
+                  forKey:@"id"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        retainAmmoCount = (BOOL)[coder decodeSInt8];
+        int id = [coder decodeSInt32];
+        IDRef = [[coder getIndexRefWithIndex:id
+                                    forClass:[BaseObject class]] retain];
+        [coder skip:18u];//int + 14 bytes padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt8:retainAmmoCount];
+    [coder encodeSInt32:[IDRef index]];
+    [coder skip:18u];//int + 14 bytes padding
+}
+@end
+
+@implementation AlterActiveConditionAction
+@synthesize conditionTrue, min, range;
+- (id)init {
+    self = [super init];
+    if (self) {
+        conditionTrue = YES;
+        min = 0;
+        range = 0;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        conditionTrue = [coder decodeBoolForKey:@"conditionTrue"];
+        min = [coder decodeIntegerForKey:@"minimum"];
+        range = [coder decodeIntegerForKey:@"range"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeBool:conditionTrue forKey:@"conditionTrue"];
+    [coder encodeInteger:min forKey:@"minimum"];
+    [coder encodeInteger:range forKey:@"range"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        conditionTrue = (BOOL)[coder decodeSInt8];
+        min = [coder decodeSInt32];
+        range = [coder decodeSInt32];
+        [coder skip:14u];//padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt8:conditionTrue];
+    [coder encodeUInt32:min];
+    [coder encodeSInt32:range];
+    [coder skip:14u];//padding
+}
+@end
+
 @implementation AlterOccupationAction @end
-@implementation AlterAbsoluteCashAction @end
+
+@implementation AlterAbsoluteCashAction
+@synthesize useObjectsOwner, value, player;
+- (id)init {
+    self = [super init];
+    if (self) {
+        useObjectsOwner = NO;
+        value = 0;
+        player = 0;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        useObjectsOwner = [coder decodeBoolForKey:@"useObjectsOwner"];
+        value = [coder decodeIntegerForKey:@"value"];
+        player = [coder decodeIntegerForKey:@"player"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeBool:useObjectsOwner forKey:@"useObjectsOwner"];
+    [coder encodeInteger:value forKey:@"value"];
+    [coder encodeInteger:player forKey:@"player"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        useObjectsOwner = (BOOL)[coder decodeSInt8];
+        value = [coder decodeSInt32];
+        player = [coder decodeSInt32];
+        [coder skip:14];//padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt8:useObjectsOwner];
+    [coder encodeSInt32:value];
+    [coder encodeSInt32:player];
+}
+@end
+
 @implementation AlterAgeAction @end
-@implementation AlterAbsoluteLocationAction @end
+
+@implementation AlterAbsoluteLocationAction
+@synthesize relative, point;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        relative = NO;
+        point = [[XSPoint alloc] init];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [point release];
+    [super dealloc];
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        relative = [coder decodeBoolForKey:@"relative"];
+        int x = [coder decodeIntegerForKey:@"x"];
+        int y = [coder decodeIntegerForKey:@"y"];
+        point = [[XSIPoint alloc] initWithIntegerX:x Y:y];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeBool:relative forKey:@"relative"];
+    [coder encodeInteger:point.x forKey:@"x"];
+    [coder encodeInteger:point.y forKey:@"y"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        relative = [coder decodeSInt8];
+        int x = [coder decodeSInt32];
+        int y = [coder decodeSInt32];
+        point = [[XSPoint alloc] initWithX:x Y:y];
+        [coder skip:14u];//padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt8:relative];
+    [coder encodeSInt32:point.x];
+    [coder encodeSInt32:point.y];
+    [coder skip:14u];//padding
+}
+@end
 
