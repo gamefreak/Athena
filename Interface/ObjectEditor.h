@@ -63,7 +63,5 @@ static const float actionsVerticalBuffer = 56;
 - (id) initWithMainData:(MainData *)data;
 - (id) initAsPickerWithData:(MainData *)data forDevices:(BOOL)forDevices;
 
-- (IBAction) changeActionSet:(id)sender;
-
 - (IBAction) calculateWarpOutDistance:(id)sender;
 @end
