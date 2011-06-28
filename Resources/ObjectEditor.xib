@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -77,6 +77,7 @@
 											<reference key="NSSuperview" ref="958306516"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="210502799"/>
+											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="757791539">
 												<reference key="NSNextResponder" ref="731197908"/>
@@ -85,6 +86,7 @@
 												<reference key="NSSuperview" ref="731197908"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="110745057"/>
+												<int key="NSViewLayerContentsRedrawPolicy">2</int>
 												<reference key="NSTableView" ref="567121052"/>
 											</object>
 											<object class="_NSCornerView" key="NSCornerView" id="110745057">
@@ -94,6 +96,7 @@
 												<reference key="NSSuperview" ref="809278060"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="958306516"/>
+												<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											</object>
 											<array class="NSMutableArray" key="NSTableColumns">
 												<object class="NSTableColumn" id="354948814">
@@ -267,6 +270,7 @@
 									<reference key="NSSuperview" ref="809278060"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="567121052"/>
+									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<reference key="NSDocView" ref="567121052"/>
 									<reference key="NSBGColor" ref="996832796"/>
 									<int key="NScvFlags">4</int>
@@ -278,6 +282,7 @@
 									<reference key="NSSuperview" ref="809278060"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="289877429"/>
+									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<reference key="NSTarget" ref="809278060"/>
 									<string key="NSAction">_doScroller:</string>
 									<double key="NSPercent">0.95161290322580649</double>
@@ -289,6 +294,7 @@
 									<reference key="NSSuperview" ref="809278060"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="367619849"/>
+									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="809278060"/>
 									<string key="NSAction">_doScroller:</string>
@@ -304,6 +310,7 @@
 									<reference key="NSSuperview" ref="809278060"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="757791539"/>
+									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<reference key="NSDocView" ref="757791539"/>
 									<reference key="NSBGColor" ref="996832796"/>
 									<int key="NScvFlags">4</int>
@@ -314,6 +321,7 @@
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="731197908"/>
+							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<int key="NSsFlags">562</int>
 							<reference key="NSVScroller" ref="210502799"/>
 							<reference key="NSHScroller" ref="289877429"/>
@@ -329,6 +337,7 @@
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="135244115"/>
+							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="197111520">
 								<int key="NSCellFlags">-2080244224</int>
@@ -351,6 +360,7 @@
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="916788611"/>
+							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="838535104">
 								<int key="NSCellFlags">-2080244224</int>
@@ -373,6 +383,7 @@
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="388151321"/>
+							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="976966801">
 									<string key="NSIdentifier">basic</string>
@@ -1514,6 +1525,7 @@
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{548, 10}, {96, 22}}</string>
 												<reference key="NSSuperview" ref="593179470"/>
+												<reference key="NSNextKeyView"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="1013405625">
 													<int key="NSCellFlags">-1804468671</int>
@@ -2234,7 +2246,7 @@
 												<int key="NSvFlags">275</int>
 												<string key="NSFrame">{{493, 17}, {228, 402}}</string>
 												<reference key="NSSuperview" ref="217294282"/>
-												<reference key="NSNextKeyView"/>
+												<reference key="NSNextKeyView" ref="916788611"/>
 												<string key="NSClassName">NSView</string>
 											</object>
 										</array>
@@ -2258,6 +2270,7 @@
 												<reference key="NSSuperview" ref="388151321"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="1009772467"/>
+												<int key="NSViewLayerContentsRedrawPolicy">2</int>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSSegmentedCell" key="NSCell" id="77419612">
 													<int key="NSCellFlags">67239424</int>
@@ -2302,11 +2315,17 @@
 											</object>
 											<object class="NSCustomView" id="1009772467">
 												<reference key="NSNextResponder" ref="388151321"/>
-												<int key="NSvFlags">268</int>
+												<int key="NSvFlags">274</int>
 												<string key="NSFrame">{{-3, -98}, {725, 394}}</string>
 												<reference key="NSSuperview" ref="388151321"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView"/>
+												<array key="NSViewBackgroundFilters">
+													<object class="CIColorInvert">
+														<bool key="CIEnabled">YES</bool>
+													</object>
+												</array>
+												<int key="NSViewLayerContentsRedrawPolicy">2</int>
 												<string key="NSClassName">NSView</string>
 											</object>
 										</array>
@@ -2314,6 +2333,7 @@
 										<reference key="NSSuperview" ref="916788611"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="16750542"/>
+										<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									</object>
 									<string key="NSLabel">Actions</string>
 									<reference key="NSColor" ref="427899016"/>
@@ -2345,6 +2365,7 @@
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="809278060"/>
+					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{986, 419}</string>
@@ -5376,6 +5397,10 @@
 				<string key="487.CustomClassName">ActionEditor</string>
 				<string key="487.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="488.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<real value="0.0" key="488.IBViewIntegration.shadowBlurRadius"/>
+				<reference key="488.IBViewIntegration.shadowColor" ref="813756303"/>
+				<real value="0.0" key="488.IBViewIntegration.shadowOffsetHeight"/>
+				<real value="-1" key="488.IBViewIntegration.shadowOffsetWidth"/>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="50.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSAffineTransform" key="50.IBViewBoundsToFrameTransform">

@@ -160,9 +160,12 @@
     NSLog(@"Resizing From: %@", NSStringFromRect(frame));
     if ([identifier isEqualTo:@"actions"]) {
         frame.size = actionsSize;
+        frame.size.height += actionsVerticalBuffer;
     } else {
         frame.size = standardSize;
     }
+    frame.size.width += borderSize.width;
+    frame.size.height += borderSize.height;
     [window setFrame:frame display:YES animate:YES];
 }
 @end

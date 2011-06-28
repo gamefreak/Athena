@@ -23,8 +23,12 @@ typedef enum {
     DestroyTab = 5,
 } ActionTab;
 
-static const NSSize standardSize = {.width = 986, .height = 419};
-static const NSSize actionsSize = {.width = 1063, .height = 514};
+
+//The border size around the subviews
+static const NSSize borderSize = {.width = 261, .height = 25};
+static const NSSize standardSize = {.width = 725, .height = 394};
+static const NSSize actionsSize = {.width = 761, .height = 419+31};//the plus 31 if for the switcher
+static const float actionsVerticalBuffer = 56;
 
 @interface ObjectEditor : NSWindowController <NSTabViewDelegate> {
     MainData *data;
