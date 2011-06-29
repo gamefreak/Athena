@@ -640,7 +640,7 @@
 				D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */,
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
 				D2DEECB6130A2A8D004AB731 /* Scenarios */,
-				D2971B981370727E004EE1E0 /* ActionEditor.xib */,
+				D2C7AD4913BB672E003B941F /* Actions */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -707,6 +707,22 @@
 				D2A1914E12FE415800232914 /* StarmapView.m */,
 			);
 			name = Starmap;
+			sourceTree = "<group>";
+		};
+		D2C7AD4913BB672E003B941F /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				D2971B981370727E004EE1E0 /* ActionEditor.xib */,
+				D2C7AD4A13BB6748003B941F /* SubEditors */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		D2C7AD4A13BB6748003B941F /* SubEditors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SubEditors;
 			sourceTree = "<group>";
 		};
 		D2DEECB6130A2A8D004AB731 /* Scenarios */ = {
@@ -856,7 +872,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
+ 
 /* Begin PBXSourcesBuildPhase section */
 		8D15AC300486D014006FF6A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;

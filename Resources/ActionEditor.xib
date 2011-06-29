@@ -64,7 +64,7 @@
 									<object class="NSTableView" id="256025150">
 										<reference key="NSNextResponder" ref="442484934"/>
 										<int key="NSvFlags">256</int>
-										<string key="NSFrameSize">{138, 377}</string>
+										<string key="NSFrameSize">{188, 377}</string>
 										<reference key="NSSuperview" ref="442484934"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="325296428"/>
@@ -76,7 +76,7 @@
 										</object>
 										<array class="NSMutableArray" key="NSTableColumns">
 											<object class="NSTableColumn" id="629015101">
-												<double key="NSWidth">135</double>
+												<double key="NSWidth">185</double>
 												<double key="NSMinWidth">40</double>
 												<double key="NSMaxWidth">1000</double>
 												<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -160,7 +160,7 @@
 										<int key="NSTableViewDraggingDestinationStyle">0</int>
 									</object>
 								</array>
-								<string key="NSFrame">{{1, 1}, {138, 377}}</string>
+								<string key="NSFrame">{{1, 1}, {188, 377}}</string>
 								<reference key="NSSuperview" ref="693448981"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="256025150"/>
@@ -192,7 +192,7 @@
 								<double key="NSPercent">0.99563318777292575</double>
 							</object>
 						</array>
-						<string key="NSFrame">{{20, 20}, {140, 379}}</string>
+						<string key="NSFrame">{{20, 20}, {190, 379}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="442484934"/>
@@ -436,7 +436,6 @@
 										<string key="NSFrame">{{133, 14}, {155, 22}}</string>
 										<reference key="NSSuperview" ref="544159474"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTextFieldCell" key="NSCell" id="35636159">
 											<int key="NSCellFlags">-1804468671</int>
@@ -674,13 +673,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 										</object>
 									</object>
 								</array>
-								<string key="NSFrame">{{1, 1}, {577, 168}}</string>
+								<string key="NSFrame">{{1, 1}, {527, 168}}</string>
 								<reference key="NSSuperview" ref="394892054"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="738187686"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{165, 16}, {579, 184}}</string>
+						<string key="NSFrame">{{215, 16}, {529, 184}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="544159474"/>
