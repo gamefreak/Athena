@@ -11,6 +11,7 @@
 
 @interface ActionEditor : NSViewController {
     IBOutlet NSView *targetView;
+    IBOutlet NSBox *actionContainer;
     NSMutableArray *actions;
 }
 @property (readwrite, retain) NSMutableArray *actions;

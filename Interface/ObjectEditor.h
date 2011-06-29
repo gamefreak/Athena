@@ -25,7 +25,7 @@ typedef enum {
 
 
 //The border size around the subviews
-static const NSSize borderSize = {.width = 261, .height = 25};
+static const NSSize borderSize = {.width = 261+50, .height = 25};
 static const NSSize standardSize = {.width = 725, .height = 394};
 //static const NSSize actionsSize = {.width = 761, .height = 419+31};//the plus 31 if for the switcher
 static const NSSize actionsSize = {.width = 761, .height = 419};

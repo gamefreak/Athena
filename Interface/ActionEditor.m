@@ -18,8 +18,9 @@
 
 - (void) awakeFromNib {
     [super awakeFromNib];
-    [[self view] setFrameSize:actionsSize];
     [[[self view] superview] setFrameSize:actionsSize];
+    [[self view] setFrameSize:actionsSize];
+//    [[[self view] superview] setFrameSize:actionsSize];
     [[[self view] superview] setFrameOrigin:NSZeroPoint];
     [targetView addSubview:[self view]];
 }
