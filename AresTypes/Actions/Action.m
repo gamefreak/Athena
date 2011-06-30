@@ -14,7 +14,7 @@
 @implementation Action
 @synthesize type, reflexive, inclusiveFilter, exclusiveFilter;
 @synthesize subjectOverride, directOverride, owner, delay;
-
+@dynamic nibName;
 - (id) init {
     self = [super init];
     if (self) {
@@ -359,4 +359,7 @@
     return nil;
 }
 
+- (NSString *)nibName {
+    return @"NoAction";
+}
 @end

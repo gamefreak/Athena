@@ -53,6 +53,8 @@ typedef enum {
 @property (readwrite, assign) NSInteger directOverride;
 @property (readwrite, assign) NSInteger owner;
 @property (readwrite, assign) NSInteger delay;
+
+@property (readonly) NSString *nibName;
 + (Class) classForType:(ActionType)type;
 + (ActionType) typeForString:(NSString *)type;
 + (NSString *) stringForType:(ActionType) type;

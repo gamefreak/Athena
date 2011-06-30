@@ -32,7 +32,7 @@ static const NSSize actionsSize = {.width = 761, .height = 419};
 
 static const float actionsVerticalBuffer = 56+31;
 
-@interface ObjectEditor : NSWindowController <NSTabViewDelegate> {
+@interface ObjectEditor : NSWindowController <NSTabViewDelegate, NSTableViewDelegate> {
     MainData *data;
     NSMutableArray *objects;
     IBOutlet NSArrayController *objectsController;
@@ -66,4 +66,5 @@ static const float actionsVerticalBuffer = 56+31;
 - (id) initAsPickerWithData:(MainData *)data forDevices:(BOOL)forDevices;
 
 - (IBAction) calculateWarpOutDistance:(id)sender;
+- (IBAction) changeActionType:(id)sender;
 @end

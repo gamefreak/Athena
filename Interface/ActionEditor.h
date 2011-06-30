@@ -9,10 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface ActionEditor : NSViewController {
+@interface ActionEditor : NSViewController <NSTableViewDelegate> {
     IBOutlet NSView *targetView;
     IBOutlet NSBox *actionContainer;
     NSMutableArray *actions;
+    NSMutableDictionary *editorControllers;
 }
 @property (readwrite, retain) NSMutableArray *actions;
+- (void) actionParametersDidChange:(NSNotification *)notification;
 @end

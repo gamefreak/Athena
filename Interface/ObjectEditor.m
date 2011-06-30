@@ -168,4 +168,14 @@
     frame.size.height += borderSize.height;
     [window setFrame:frame display:YES animate:YES];
 }
+
+- (IBAction) changeActionType:(id)sender {
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
+    [NSApp postNotificationName:@"ActionParametersChanged" object:nil];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    //Action selection changed
+    [NSApp postNotificationName:@"ActionParametersChanged" object:nil];
+}
 @end

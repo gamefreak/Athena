@@ -28,6 +28,10 @@
     [super encodeResWithCoder:coder];
     [coder skip:24u];
 }
+
+- (NSString *)description {
+    return @"No Action";
+}
 @end
 
 @implementation CreateObjectAction

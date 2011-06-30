@@ -11,8 +11,16 @@
 
 @implementation ActionEditor
 @synthesize actions;
+- (id)init {
+    self = [super init];
+    if (self) {
+        editorControllers = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
 
 - (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -23,6 +31,18 @@
 //    [[[self view] superview] setFrameSize:actionsSize];
     [[[self view] superview] setFrameOrigin:NSZeroPoint];
     [targetView addSubview:[self view]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(actionParametersDidChange:)
+                                                 name:@"ActionParametersChanged"
+                                               object:nil];
 }
 
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    //Action selection changed
+    [NSApp postNotificationName:@"ActionParametersChanged" object:nil];
+}
+
+- (void) actionParametersDidChange:(NSNotification *)notification {
+    
+}
 @end
