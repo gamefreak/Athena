@@ -11,7 +11,11 @@
 
 @interface ActionEditor : NSViewController <NSTableViewDelegate> {
     IBOutlet NSView *targetView;
-    IBOutlet NSBox *actionContainer;
+    IBOutlet NSTableView *actionTable;
+    
+    IBOutlet NSView *innerEditorView;
+    NSView *lastInnerView;
+    
     NSMutableArray *actions;
     NSMutableDictionary *editorControllers;
 }

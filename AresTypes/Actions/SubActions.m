@@ -106,6 +106,10 @@
     [coder encodeSInt32:distanceRange];
     [coder skip:6u];
 }
+
+- (NSString *)nibName {
+    return @"CreateObject";
+}
 @end
 
 @implementation PlaySoundAction

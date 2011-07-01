@@ -90,6 +90,7 @@
 		D26B6A33130C15CC00B461FB /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26B69D8130C14CC00B461FB /* liblua.a */; };
 		D26B6A40130C16D700B461FB /* ObjectEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D26B6A3F130C16D700B461FB /* ObjectEditor.m */; };
 		D26B6A42130C170900B461FB /* ObjectEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D26B6A41130C170900B461FB /* ObjectEditor.xib */; };
+		D27153D513BD401800F0C920 /* CreateObject.xib in Resources */ = {isa = PBXBuildFile; fileRef = D27153D413BD401800F0C920 /* CreateObject.xib */; };
 		D2781DEC130C7AC100E0CD75 /* IndexedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D2781DEB130C7AC100E0CD75 /* IndexedObject.m */; };
 		D2882C2612F1D41400A02383 /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882C2512F1D41400A02383 /* Condition.m */; };
 		D2882D3512F1F02D00A02383 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882D3412F1F02D00A02383 /* Action.m */; };
@@ -240,6 +241,7 @@
 		D26B6A3E130C16D700B461FB /* ObjectEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectEditor.h; sourceTree = "<group>"; };
 		D26B6A3F130C16D700B461FB /* ObjectEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectEditor.m; sourceTree = "<group>"; };
 		D26B6A41130C170900B461FB /* ObjectEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ObjectEditor.xib; sourceTree = "<group>"; };
+		D27153D413BD401800F0C920 /* CreateObject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateObject.xib; sourceTree = "<group>"; };
 		D2781DEA130C7AC100E0CD75 /* IndexedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexedObject.h; sourceTree = "<group>"; };
 		D2781DEB130C7AC100E0CD75 /* IndexedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexedObject.m; sourceTree = "<group>"; };
 		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
@@ -724,6 +726,7 @@
 			isa = PBXGroup;
 			children = (
 				D2FE01B013BBC5AD005C3127 /* NoAction.xib */,
+				D27153D413BD401800F0C920 /* CreateObject.xib */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -873,6 +876,7 @@
 				D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */,
 				D2971B9A1370727E004EE1E0 /* ActionEditor.xib in Resources */,
 				D2FE01B113BBC5AD005C3127 /* NoAction.xib in Resources */,
+				D27153D513BD401800F0C920 /* CreateObject.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

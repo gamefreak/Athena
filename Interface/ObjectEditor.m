@@ -171,11 +171,12 @@
 
 - (IBAction) changeActionType:(id)sender {
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
-    [NSApp postNotificationName:@"ActionParametersChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     //Action selection changed
-    [NSApp postNotificationName:@"ActionParametersChanged" object:nil];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"ActionParametersChanged" object:nil];
 }
 @end
