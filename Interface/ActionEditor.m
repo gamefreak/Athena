@@ -11,21 +11,16 @@
 
 @implementation ActionEditor
 @synthesize actions;
-- (id)init {
-    self = [super init];
-    if (self) {
-        editorControllers = [[NSMutableDictionary alloc] init];
-    }
-    return self;
-}
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [editorControllers release];
     [super dealloc];
 }
 
 - (void) awakeFromNib {
     [super awakeFromNib];
+    editorControllers = [[NSMutableDictionary alloc] init];
     [[[self view] superview] setFrameSize:actionsSize];
     [[self view] setFrameSize:actionsSize];
 //    [[[self view] superview] setFrameSize:actionsSize];
@@ -50,7 +45,6 @@
     } else {
         nib = @"NoAction";
     }
-//[[actionTable selection] nibName];
     
     NSViewController *controller;
     controller = [editorControllers objectForKey:nib];
@@ -58,7 +52,7 @@
         NSLog(@"Loading new nib %@", nib);
         controller = [[NSViewController alloc] initWithNibName:nib bundle:nil];
         [editorControllers setObject:controller forKey:nib];
-        [editorControllers autorelease];
+        [controller autorelease];
     }
 //    [[controller view] setFrame:[innerEditorView frame]];
     NSView *newInnerView = [controller view];
