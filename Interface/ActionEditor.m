@@ -30,6 +30,7 @@
                                              selector:@selector(actionParametersDidChange:)
                                                  name:@"ActionParametersChanged"
                                                object:nil];
+    [self actionParametersDidChange:nil];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
@@ -57,7 +58,11 @@
 //    [[controller view] setFrame:[innerEditorView frame]];
     NSView *newInnerView = [controller view];
     [newInnerView setFrame:[innerEditorView frame]];
-    [innerEditorView replaceSubview:lastInnerView with:newInnerView];
+    if (lastInnerView == nil) {
+        [innerEditorView addSubview:newInnerView];
+    } else {
+        [innerEditorView replaceSubview:lastInnerView with:newInnerView];
+    }
 //    [[innerEditorView superview] replaceSubview:innerEditorView with:[controller view]];
     [lastInnerView release];
     lastInnerView = [newInnerView retain];
