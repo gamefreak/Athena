@@ -57,7 +57,9 @@
     }
 //    [[controller view] setFrame:[innerEditorView frame]];
     NSView *newInnerView = [controller view];
+    //Resize and embed the view
     [newInnerView setFrame:[innerEditorView frame]];
+    //This is split up because the initial replacement involves nil (and that doesn't work)
     if (lastInnerView == nil) {
         [innerEditorView addSubview:newInnerView];
     } else {
