@@ -605,12 +605,8 @@
 		D288339812F24F7600A02383 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				D25A40451327327F0017030B /* FlagMenuPopulator.h */,
-				D25A40461327327F0017030B /* FlagMenuPopulator.m */,
-				D2971B9B137072E8004EE1E0 /* ActionEditor.h */,
-				D2971B9C137072E8004EE1E0 /* ActionEditor.m */,
-				D251766713C279CC007F296E /* ObjectTypeSelector.h */,
-				D251766813C279CC007F296E /* ObjectTypeSelector.m */,
+				D29595FB13C3C398002BC25C /* Reusable */,
+				D29595FA13C3C386002BC25C /* Actions */,
 				D2E98D16130AED1B0013EBCA /* Sprites */,
 				D216CF6213241F92008E24F0 /* Objects */,
 				D288339512F24F7000A02383 /* RaceEditor.h */,
@@ -667,6 +663,26 @@
 				D295110512EE7BB700AE3316 /* FrameData.m */,
 			);
 			path = BaseObjects;
+			sourceTree = "<group>";
+		};
+		D29595FA13C3C386002BC25C /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				D2971B9B137072E8004EE1E0 /* ActionEditor.h */,
+				D2971B9C137072E8004EE1E0 /* ActionEditor.m */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		D29595FB13C3C398002BC25C /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				D25A40451327327F0017030B /* FlagMenuPopulator.h */,
+				D25A40461327327F0017030B /* FlagMenuPopulator.m */,
+				D251766713C279CC007F296E /* ObjectTypeSelector.h */,
+				D251766813C279CC007F296E /* ObjectTypeSelector.m */,
+			);
+			name = Reusable;
 			sourceTree = "<group>";
 		};
 		D2A1911412FE3BEF00232914 /* Scenarios */ = {
