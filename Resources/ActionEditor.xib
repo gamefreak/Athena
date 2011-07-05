@@ -886,6 +886,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 					<int key="connectionID">60</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">actionsArrayController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="35059526"/>
+					</object>
+					<int key="connectionID">61</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -1240,7 +1248,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">60</int>
+			<int key="maxID">61</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1249,6 +1257,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="actionTable">NSTableView</string>
+						<string key="actionsArrayController">NSArrayController</string>
 						<string key="innerEditorView">NSView</string>
 						<string key="targetView">NSView</string>
 					</dictionary>
@@ -1256,6 +1265,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="IBToOneOutletInfo" key="actionTable">
 							<string key="name">actionTable</string>
 							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="actionsArrayController">
+							<string key="name">actionsArrayController</string>
+							<string key="candidateClassName">NSArrayController</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="innerEditorView">
 							<string key="name">innerEditorView</string>

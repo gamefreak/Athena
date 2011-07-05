@@ -8,12 +8,16 @@
 
 #import "ActionEditor.h"
 #import "ObjectEditor.h"
+#import "ActionViewController.h"
 
 @implementation ActionEditor
 @synthesize actions;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    for (ActionViewController *controller in editorControllers) {
+        [controller unbind:@"action"];
+    }
     [editorControllers release];
     [super dealloc];
 }
@@ -51,7 +55,11 @@
     controller = [editorControllers objectForKey:nib];
     if (controller == nil) {
         NSLog(@"Loading new nib %@", nib);
-        controller = [[NSViewController alloc] initWithNibName:nib bundle:nil];
+        controller = [[ActionViewController alloc] initWithNibName:nib bundle:nil];
+        [controller bind:@"action"
+                toObject:actionsArrayController
+             withKeyPath:@"selection"
+                 options:nil];
         [editorControllers setObject:controller forKey:nib];
         [controller autorelease];
     }
