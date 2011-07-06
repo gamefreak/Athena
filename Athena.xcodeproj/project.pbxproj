@@ -32,7 +32,6 @@
 		D225D64513039F0D00E75803 /* ResUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D225D64413039F0D00E75803 /* ResUnarchiver.m */; };
 		D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D225D64613039FC500E75803 /* CoreServices.framework */; };
 		D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */; };
-		D251766913C279CC007F296E /* ObjectTypeSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = D251766813C279CC007F296E /* ObjectTypeSelector.m */; };
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
 		D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = D25A40461327327F0017030B /* FlagMenuPopulator.m */; };
 		D26B69DB130C14EB00B461FB /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28312E8BDE200694EBA /* lapi.c */; };
@@ -235,8 +234,6 @@
 		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
 		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
-		D251766713C279CC007F296E /* ObjectTypeSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectTypeSelector.h; path = ../AresTypes/Actions/ObjectTypeSelector.h; sourceTree = "<group>"; };
-		D251766813C279CC007F296E /* ObjectTypeSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectTypeSelector.m; path = ../AresTypes/Actions/ObjectTypeSelector.m; sourceTree = "<group>"; };
 		D253B46A13033B1300F0F66A /* BriefingEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefingEditor.h; sourceTree = "<group>"; };
 		D253B46B13033B1300F0F66A /* BriefingEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefingEditor.m; sourceTree = "<group>"; };
 		D25A40451327327F0017030B /* FlagMenuPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlagMenuPopulator.h; path = ../AresTypes/BaseObjects/FlagMenuPopulator.h; sourceTree = "<group>"; };
@@ -684,8 +681,6 @@
 			children = (
 				D25A40451327327F0017030B /* FlagMenuPopulator.h */,
 				D25A40461327327F0017030B /* FlagMenuPopulator.m */,
-				D251766713C279CC007F296E /* ObjectTypeSelector.h */,
-				D251766813C279CC007F296E /* ObjectTypeSelector.m */,
 			);
 			name = Reusable;
 			sourceTree = "<group>";
@@ -966,7 +961,6 @@
 				D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */,
 				D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */,
 				D2971B9D137072E8004EE1E0 /* ActionEditor.m in Sources */,
-				D251766913C279CC007F296E /* ObjectTypeSelector.m in Sources */,
 				D29595FF13C3C42B002BC25C /* ActionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
