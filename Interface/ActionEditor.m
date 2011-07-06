@@ -15,9 +15,6 @@
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    for (ActionViewController *controller in editorControllers) {
-        [controller unbind:@"action"];
-    }
     [editorControllers release];
     [super dealloc];
 }
@@ -34,7 +31,8 @@
                                              selector:@selector(actionParametersDidChange:)
                                                  name:@"ActionParametersChanged"
                                                object:nil];
-    [self actionParametersDidChange:nil];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
@@ -56,14 +54,13 @@
     if (controller == nil) {
         NSLog(@"Loading new nib %@", nib);
         controller = [[ActionViewController alloc] initWithNibName:nib bundle:nil];
-        [controller bind:@"action"
-                toObject:actionsArrayController
-             withKeyPath:@"selection"
-                 options:nil];
+
         [editorControllers setObject:controller forKey:nib];
         [controller autorelease];
     }
-//    [[controller view] setFrame:[innerEditorView frame]];
+
+    [controller setActionObj:[actionsArrayController selection]];
+
     NSView *newInnerView = [controller view];
     //Resize and embed the view
     [newInnerView setFrame:[innerEditorView frame]];

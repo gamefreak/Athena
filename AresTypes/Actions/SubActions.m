@@ -110,6 +110,26 @@
 - (NSString *)nibName {
     return @"CreateObject";
 }
+
+- (NSString *)description {
+    if (range > 0) {
+        return [NSString stringWithFormat:@"Create %i to %i of %@", min, min + range, [[baseType object] name]];
+    } else {
+        return [NSString stringWithFormat:@"Create %i of %@", min, [[baseType object] name]];
+    }
+}
+
+- (NSString *)pickerLabel {
+    return [NSString stringWithFormat:@"%i %@", [baseType index], [[baseType object] shortName]];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"baseType", @"min", @"range", nil];
+}
+
++ (NSSet *)keyPathsForValuesAffectingPickerLabel {
+    return [NSSet setWithObjects:@"index", nil];
+}
 @end
 
 @implementation PlaySoundAction

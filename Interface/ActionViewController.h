@@ -12,9 +12,9 @@
 
 @interface ActionViewController : NSViewController {
 @private
-    Action *action;
+    Action *actionObj;
 }
-@property (readwrite, retain) Action *action;
+@property (readwrite, retain) Action *actionObj;
 @property (readwrite, retain) BaseObject *type;
 - (IBAction)openObjectPicker:(id)sender;
 @end

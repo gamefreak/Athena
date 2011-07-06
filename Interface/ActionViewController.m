@@ -11,10 +11,10 @@
 #import "BaseObject.h"
 #import "ObjectEditor.h"
 @implementation ActionViewController
-@synthesize action;
+@synthesize actionObj;
 @dynamic type;
 - (void)dealloc {
-    [action release];
+    [actionObj release];
     [super dealloc];
 }
 
@@ -25,17 +25,17 @@
                             forDevices:NO];
     [[[[self view] window] document] addWindowController:editor];
     [editor showWindow:sender];
-    [editor setSelection:[action valueForKeyPath:@"baseType.object"]];
+    [editor setSelection:[actionObj valueForKeyPath:@"baseType.object"]];
     [self bind:@"type" toObject:editor withKeyPath:@"objectsController.selection" options:nil];
     [editor release];
 }
 
 
 - (BaseObject *)type {
-    return [action valueForKeyPath:@"baseType.object"];
+    return [actionObj valueForKeyPath:@"baseType.object"];
 }
 
 -  (void)setType:(BaseObject *)type {
-    [action setValue:[type valueForKey:@"index"] forKeyPath:@"baseType"];
+    [actionObj setValue:[type valueForKey:@"index"] forKeyPath:@"baseType"];
 }
 @end
