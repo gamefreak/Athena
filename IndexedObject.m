@@ -57,12 +57,16 @@
 - (void) setIndexRef:(Index *)ref {
     [index release];
     index = [ref retain];
+    NSAssert([index object] == nil, @"Assigning index with existing object.");
+    [index setObject:self];
 }
+
 @end
 
 @implementation Index
 @synthesize index;
 @dynamic orNull;
+@synthesize object;
 
 - (id) init {
     self = [self initWithIndex:NSUIntegerMax];

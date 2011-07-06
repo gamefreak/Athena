@@ -23,8 +23,10 @@
 
 @interface Index : NSObject {
     NSUInteger index;
+    id object;//do not release/retain
 }
 @property (readwrite, assign) NSUInteger index;
 @property (readonly) NSInteger orNull;
+@property (readwrite, assign) id object;
 - (id) initWithIndex:(NSUInteger)index;
 @end
