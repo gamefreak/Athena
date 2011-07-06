@@ -7,13 +7,24 @@
 //
 
 #import "ActionViewController.h"
-
+#import "ObjectTypeSelector.h"
 
 @implementation ActionViewController
-@synthesize action;
+@dynamic action, baseObjectType;
+- (void)awakeFromNib {
+    //Protected by nil messaging
+    [objectPickerView preformDelayedBinding];
+}
 - (void)dealloc {
     [action release];
     [super dealloc];
 }
 
+- (void)setBaseObjectType:(Index *)baseObjectType {
+    [action setValue:baseObjectType forKey:@"baseType"];
+}
+
+- (Index *)baseObjectType {
+    return [action valueForKey:@"baseType"];
+}
 @end

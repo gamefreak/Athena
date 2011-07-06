@@ -108,6 +108,7 @@
 		D2944B0A1315B29900D1175E /* XSText.m in Sources */ = {isa = PBXBuildFile; fileRef = D2944B091315B29900D1175E /* XSText.m */; };
 		D29510B212EE771300AE3316 /* ActionRefs.m in Sources */ = {isa = PBXBuildFile; fileRef = D29510B112EE771300AE3316 /* ActionRefs.m */; };
 		D295110612EE7BB700AE3316 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D295110512EE7BB700AE3316 /* FrameData.m */; };
+		D29595FF13C3C42B002BC25C /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D29595FD13C3C42B002BC25C /* ActionViewController.m */; };
 		D2971B9A1370727E004EE1E0 /* ActionEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2971B981370727E004EE1E0 /* ActionEditor.xib */; };
 		D2971B9D137072E8004EE1E0 /* ActionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2971B9C137072E8004EE1E0 /* ActionEditor.m */; };
 		D2A1911212FE3BE500232914 /* Starmap.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911112FE3BE500232914 /* Starmap.png */; };
@@ -276,6 +277,8 @@
 		D29510B112EE771300AE3316 /* ActionRefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionRefs.m; sourceTree = "<group>"; };
 		D295110412EE7BB700AE3316 /* FrameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameData.h; sourceTree = "<group>"; };
 		D295110512EE7BB700AE3316 /* FrameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameData.m; sourceTree = "<group>"; };
+		D29595FC13C3C42B002BC25C /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
+		D29595FD13C3C42B002BC25C /* ActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
 		D2971B981370727E004EE1E0 /* ActionEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionEditor.xib; sourceTree = "<group>"; };
 		D2971B9B137072E8004EE1E0 /* ActionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionEditor.h; sourceTree = "<group>"; };
 		D2971B9C137072E8004EE1E0 /* ActionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionEditor.m; sourceTree = "<group>"; };
@@ -670,6 +673,8 @@
 			children = (
 				D2971B9B137072E8004EE1E0 /* ActionEditor.h */,
 				D2971B9C137072E8004EE1E0 /* ActionEditor.m */,
+				D29595FC13C3C42B002BC25C /* ActionViewController.h */,
+				D29595FD13C3C42B002BC25C /* ActionViewController.m */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -962,6 +967,7 @@
 				D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */,
 				D2971B9D137072E8004EE1E0 /* ActionEditor.m in Sources */,
 				D251766913C279CC007F296E /* ObjectTypeSelector.m in Sources */,
+				D29595FF13C3C42B002BC25C /* ActionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

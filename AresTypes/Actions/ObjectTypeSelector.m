@@ -14,10 +14,9 @@
 
 @implementation ObjectTypeSelector
 @dynamic type, index;
-@synthesize targetKeyPath;
+@synthesize keyPath, targetKeyPath;
 
-- (id)initWithFrame:(NSRect)frame
-{
+- (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         const static CGFloat pixelSpacing = 8.0f;
@@ -42,6 +41,7 @@
         [openButton setAction:@selector(openObjectPicker:)];
         [self addSubview:openButton];
     
+
     }
     
     return self;
@@ -49,13 +49,19 @@
 
 - (void)dealloc {
     [self unbind:@"index"];
+    [target unbind:targetKeyPath];
     [openButton release];
     [displayField release];
     [index release];
+    [keyPath release];
     [targetKeyPath release];
     [super dealloc];
 }
 
+- (void)preformDelayedBinding {
+    [self setValue:[target valueForKeyPath:targetKeyPath] forKey:keyPath];
+    [target bind:targetKeyPath toObject:self withKeyPath:keyPath options:nil];
+}
 
 - (void)openObjectPicker:(id)sender {
     MainData *data = [[[self window] document] data];
@@ -64,19 +70,15 @@
                             forDevices:NO];
     [[[self window] document] addWindowController:editor];
     [editor showWindow:sender];
-//    [editor setSelection:currentInitial.type];
     [editor setSelection:[[data objects] objectAtIndex:[index index]]];
-//    [currentInitial bind:@"type" toObject:editor withKeyPath:@"selection" options:nil];
-    [self bind:@"type" toObject:editor withKeyPath:@"selection" options:nil];
-//    editor.selectionIndex = currentInitial.type.objectIndex;
-    editor.selectionIndex = [index index];
+    [self bind:@"type" toObject:editor withKeyPath:@"objectsController.selection" options:nil];
 
     [editor release];
 }
 
 - (void)setType:(BaseObject *)type {
     [self willChangeValueForKey:@"index"];
-    [self setIndex:[type indexRef]];
+    [self setIndex:[type valueForKey:@"indexRef"]];
     [self didChangeValueForKey:@"index"];
 }
 
@@ -91,5 +93,7 @@
     [self didChangeValueForKey:@"type"];
 }
 
-
+- (Index *)index {
+    return index;
+}
 @end

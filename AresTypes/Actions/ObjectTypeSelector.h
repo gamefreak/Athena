@@ -15,11 +15,17 @@
     NSTextField *displayField;
     NSButton *openButton;
     Index *index;
-    NSString *targetKeyPath;//Configure with IB User Defined Runtime Attributes
+
+    IBOutlet id target;
+    //Configure next two with IB User Defined Runtime Attributes
+    NSString *targetKeyPath;
+    NSString *keyPath;
 }
 
 @property (readwrite, retain) BaseObject *type;
 @property (readwrite, retain) Index *index;
+@property (readwrite, retain) NSString *keyPath;
 @property (readwrite, retain) NSString *targetKeyPath;
 - (void)openObjectPicker:(id)sender;
+- (void)preformDelayedBinding;
 @end

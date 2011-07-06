@@ -51,7 +51,7 @@
         nib = @"NoAction";
     }
     
-    NSViewController *controller;
+    ActionViewController *controller;
     controller = [editorControllers objectForKey:nib];
     if (controller == nil) {
         NSLog(@"Loading new nib %@", nib);
