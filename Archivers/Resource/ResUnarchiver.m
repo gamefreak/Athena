@@ -174,6 +174,12 @@
     return CFSwapInt16BigToHost(out);
 }
 
+- (UInt16) decodeSwappedUInt16 {
+    UInt16 out;
+    [[stack lastObject] readBytes:&out length:sizeof(UInt16)];
+    return out;;
+}
+
 - (SInt16) decodeSwappedSInt16 {
     SInt16 out;
     [[stack lastObject] readBytes:&out length:sizeof(SInt16)];
@@ -190,6 +196,18 @@
     SInt32 out;
     [[stack lastObject] readBytes:&out length:sizeof(SInt32)];
     return CFSwapInt32BigToHost(out);
+}
+
+- (UInt32) decodeSwappedUInt32 {
+    UInt32 out;
+    [[stack lastObject] readBytes:&out length:sizeof(UInt32)];
+    return out;
+}
+
+- (SInt32) decodeSwappedSInt32 {
+    SInt32 out;
+    [[stack lastObject] readBytes:&out length:sizeof(SInt32)];
+    return out;
 }
 
 - (UInt64) decodeUInt64 {
@@ -240,9 +258,11 @@
         [self registerClass:class];
         table = [types objectForKey:[class typeKey]];
     }
+    NSLog(@"%@", [class typeKey]);
     NSMutableDictionary *outDict = [NSMutableDictionary dictionary];
     NSArray *indexes = [table allKeys];
     for (NSString *key in indexes) {
+        NSLog(@"%@[%@]", [class typeKey], key);
         ResSegment *seg = [table objectForKey:key];
         [stack addObject:seg];
         [outDict setObject:[seg loadObjectWithCoder:self] forKey:key];

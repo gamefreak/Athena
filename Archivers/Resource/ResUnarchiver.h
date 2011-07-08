@@ -35,9 +35,12 @@
 - (SInt8) decodeSInt8;
 - (UInt16) decodeUInt16;
 - (SInt16) decodeSInt16;
+- (UInt16) decodeSwappedUInt16;
 - (SInt16) decodeSwappedSInt16;
 - (UInt32) decodeUInt32;
 - (SInt32) decodeSInt32;
+- (UInt32) decodeSwappedUInt32;
+- (SInt32) decodeSwappedSInt32;
 - (UInt64) decodeUInt64;
 - (SInt64) decodeSInt64;
 
