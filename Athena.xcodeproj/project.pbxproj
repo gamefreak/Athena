@@ -144,6 +144,48 @@
 			remoteGlobalIDString = D26B69D7130C14CC00B461FB;
 			remoteInfo = lua;
 		};
+		D2A347BF13C90D9A000378B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 730F23F1091827B100AB638C;
+			remoteInfo = Vorbis;
+		};
+		D2A347C113C90D9A000378B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 738835E40B18F870005C7A69;
+			remoteInfo = "libvorbis (static)";
+		};
+		D2A347C313C90D9A000378B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 738836130B190488005C7A69;
+			remoteInfo = "libvorbisenc (static)";
+		};
+		D2A347C513C90D9A000378B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 738836220B1905E5005C7A69;
+			remoteInfo = "libvorbisfile (static)";
+		};
+		D2A347CF13C90E99000378B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2A347C713C90E98000378B8 /* Ogg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D07F2C80486CC7A007CD1D0;
+			remoteInfo = Ogg;
+		};
+		D2A347D113C90E99000378B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2A347C713C90E98000378B8 /* Ogg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 734FB2E50B18B33E00D561D7;
+			remoteInfo = "libogg (static)";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -288,6 +330,8 @@
 		D2A1911C12FE3CB700232914 /* StarmapPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarmapPicker.xib; sourceTree = "<group>"; };
 		D2A1914D12FE415800232914 /* StarmapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarmapView.h; sourceTree = "<group>"; };
 		D2A1914E12FE415800232914 /* StarmapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarmapView.m; sourceTree = "<group>"; };
+		D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = libvorbis/macosx/Vorbis.xcodeproj; sourceTree = "<group>"; };
+		D2A347C713C90E98000378B8 /* Ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Ogg.xcodeproj; path = libogg/macosx/Ogg.xcodeproj; sourceTree = "<group>"; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2B720BD1308739900008307 /* SMIVImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIVImage.h; sourceTree = "<group>"; };
@@ -408,6 +452,8 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D2A347C713C90E98000378B8 /* Ogg.xcodeproj */,
+				D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */,
 				D21EB28212E8BDE200694EBA /* lua */,
 				2564AD2C0F5327BB00F57823 /* Athena_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
@@ -739,6 +785,26 @@
 			name = Starmap;
 			sourceTree = "<group>";
 		};
+		D2A347B613C90D9A000378B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2A347C013C90D9A000378B8 /* Vorbis.framework */,
+				D2A347C213C90D9A000378B8 /* libvorbis.a */,
+				D2A347C413C90D9A000378B8 /* libvorbisenc.a */,
+				D2A347C613C90D9A000378B8 /* libvorbisfile.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D2A347C813C90E98000378B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2A347D013C90E99000378B8 /* Ogg.framework */,
+				D2A347D213C90E99000378B8 /* libogg.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D2C7AD4913BB672E003B941F /* Actions */ = {
 			isa = PBXGroup;
 			children = (
@@ -874,6 +940,16 @@
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Athena */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D2A347C813C90E98000378B8 /* Products */;
+					ProjectRef = D2A347C713C90E98000378B8 /* Ogg.xcodeproj */;
+				},
+				{
+					ProductGroup = D2A347B613C90D9A000378B8 /* Products */;
+					ProjectRef = D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* Athena */,
@@ -881,6 +957,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D2A347C013C90D9A000378B8 /* Vorbis.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Vorbis.framework;
+			remoteRef = D2A347BF13C90D9A000378B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2A347C213C90D9A000378B8 /* libvorbis.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libvorbis.a;
+			remoteRef = D2A347C113C90D9A000378B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2A347C413C90D9A000378B8 /* libvorbisenc.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libvorbisenc.a;
+			remoteRef = D2A347C313C90D9A000378B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2A347C613C90D9A000378B8 /* libvorbisfile.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libvorbisfile.a;
+			remoteRef = D2A347C513C90D9A000378B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2A347D013C90E99000378B8 /* Ogg.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Ogg.framework;
+			remoteRef = D2A347CF13C90E99000378B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2A347D213C90E99000378B8 /* libogg.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libogg.a;
+			remoteRef = D2A347D113C90E99000378B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D15AC2B0486D014006FF6A4 /* Resources */ = {
