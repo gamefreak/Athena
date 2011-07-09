@@ -21,7 +21,12 @@
 #define SQUAREWAVESYNTH 1
 #define WAVETABLESYNTH 3
 
+#define INITMONO 0x80
+
 #define kMiddleC 60
+
+//Because the encoder will always write to the same spot this is being hardcoded
+#define SOUNDHEADERLOC 20
 
 
 @interface XSSound : NSObject <ResCoding> {

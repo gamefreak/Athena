@@ -61,7 +61,7 @@
     }
     unsigned int initOpts = [coder decodeSwappedSInt32] & 0xffffffdf;
     //Assume either nothing or mono and discard the 0x20 flag
-    if (!(initOpts == 0 || initOpts == 0x80) ) {
+    if (!(initOpts == 0 || initOpts == INITMONO) ) {
         @throw @"Unhandled initialization options";
     }
     short commandCount = [coder decodeSwappedSInt16];
@@ -127,6 +127,7 @@
     [coder seek:headerLocation];
     
     unsigned int bufferOffset = [coder decodeUInt32];
+
     bufferLength = [coder decodeSwappedUInt32];
     sampleRate = [coder decodeSwappedUInt32];
 //    unsigned int sampleRate = [coder decodeUInt32];
@@ -154,6 +155,26 @@
 
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder encodeSInt16:1];//format 1
+    [coder encodeSInt16:1];//1 data type encoded
+    [coder encodeSInt16:SAMPLEDSYNTH];//data format
+    [coder encodeUInt32:INITMONO];//initialization options
+    [coder encodeSInt16:1];//1 command
+    [coder encodeUInt16:0x8051];//bufferCommand
+    [coder skip:2];//skip param 1
+    [coder encodeUInt32:SOUNDHEADERLOC];//param 2 (the location of the sound header)
+    [coder encodeUInt32:0];//no offset
+    
+    [coder encodeUInt32:bufferLength];
+    [coder encodeUInt32:sampleRate];
+    
+    //I don't know what to do here
+    [coder encodeSInt32:1];//loop start
+    [coder encodeSInt32:2];//loop end
+    
+    [coder encodeSInt8:0];//sample encoding I dunno what it does
+    [coder encodeUInt8:kMiddleC];//base frequency
+    [coder writeBytes:buffer length:bufferLength];
 }
 
 + (NSString *)typeKey {
