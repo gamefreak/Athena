@@ -18,6 +18,7 @@
 #import "Race.h"
 
 #import "SMIVImage.h"
+#import "XSSound.h"
 
 static NSArray *mainDataKeys;
 @implementation MainDataFlags
@@ -139,6 +140,9 @@ static NSArray *mainDataKeys;
 
         [sprites release];
         sprites = [[coder allObjectsOfClass:[SMIVImage class]] retain];
+
+        [sounds release];
+        sounds = [[coder allObjectsOfClass:[XSSound class]] retain];
     }
     return self;
 }
