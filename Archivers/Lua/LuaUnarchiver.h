@@ -15,8 +15,10 @@
 @interface LuaUnarchiver : NSCoder {
     lua_State *L;
     NSMutableDictionary *refTable;
+    NSString *baseDir;
 }
-+ (id) unarchiveObjectWithData:(NSData *)data;
+@property (readwrite, retain) NSString *baseDir;
++ (id) unarchiveObjectWithData:(NSData *)data baseDirectory:(NSString *)baseDir;
 - (void) loadData:(NSData *)data;
 
 - (BOOL) hasKey:(NSString *)key;

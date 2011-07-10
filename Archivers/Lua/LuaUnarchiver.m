@@ -71,10 +71,14 @@ static void stackDump (lua_State *L) {
 
 
 @implementation LuaUnarchiver
+@synthesize baseDir;
 - (id) init {
-    [super init];
-    L = luaL_newstate();
-    if (L == NULL) @throw @"Failed to open lua state.";
+    self = [super init];
+    if (self) {
+        baseDir = @"/";
+        L = luaL_newstate();
+        if (L == NULL) @throw @"Failed to open lua state.";
+    }
     return self;
 }
 
@@ -95,12 +99,14 @@ static void stackDump (lua_State *L) {
 
 - (void) dealloc {
     [refTable release];
+    [baseDir release];
     lua_close(L);
     [super dealloc];
 }
 
-+ (id)unarchiveObjectWithData:(NSData *)data {
++ (id) unarchiveObjectWithData:(NSData *)data baseDirectory:(NSString *)baseDir {
     LuaUnarchiver *decoder = [[LuaUnarchiver alloc] init];
+    [decoder setBaseDir:baseDir];
     [decoder loadData:data];
     
     //Remember: MainData is hardcoded here
