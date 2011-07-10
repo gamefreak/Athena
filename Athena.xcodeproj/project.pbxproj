@@ -115,6 +115,7 @@
 		D2A1911812FE3C0D00232914 /* StarmapPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1911712FE3C0D00232914 /* StarmapPicker.m */; };
 		D2A1911D12FE3CB700232914 /* StarmapPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911C12FE3CB700232914 /* StarmapPicker.xib */; };
 		D2A1914F12FE415800232914 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1914E12FE415800232914 /* StarmapView.m */; };
+		D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A347D313C92117000378B8 /* AudioToolbox.framework */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2B720BF1308739900008307 /* SMIVImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B720BE1308739900008307 /* SMIVImage.m */; };
 		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
@@ -332,6 +333,7 @@
 		D2A1914E12FE415800232914 /* StarmapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarmapView.m; sourceTree = "<group>"; };
 		D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = libvorbis/macosx/Vorbis.xcodeproj; sourceTree = "<group>"; };
 		D2A347C713C90E98000378B8 /* Ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Ogg.xcodeproj; path = libogg/macosx/Ogg.xcodeproj; sourceTree = "<group>"; };
+		D2A347D313C92117000378B8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2B720BD1308739900008307 /* SMIVImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIVImage.h; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */,
 				D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				D26B6A33130C15CC00B461FB /* liblua.a in Frameworks */,
@@ -394,6 +397,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2A347D313C92117000378B8 /* AudioToolbox.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				D225D64613039FC500E75803 /* CoreServices.framework */,
 			);

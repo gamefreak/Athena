@@ -8,6 +8,9 @@
 
 #import "XSSound.h"
 #import "Archivers.h"
+#import <AudioToolbox/AudioQueue.h>
+
+void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer) {}
 
 @interface XSSound (Private)
 - (void) decodeType1SndFromCoder:(ResUnarchiver *)coder;
@@ -25,15 +28,68 @@
 }
 
 - (void)dealloc {
-    [sound release];
     free(buffer);
     [super dealloc];
 }
 
+
+- (void)play {
+    AudioStreamBasicDescription streamDesc;
+
+    switch (sampleRate) {
+        case RATE32KHZ:
+            streamDesc.mSampleRate = 32000.0;
+            break;
+        case RATE22050HZ:
+            streamDesc.mSampleRate = 22050.0;
+            break;
+        case RATE22KHZ:
+            streamDesc.mSampleRate = 22000.0;
+            break;
+        case RATE16KHZ:
+            streamDesc.mSampleRate = 16000.0;
+            break;
+        case RATE11KHZ:
+            streamDesc.mSampleRate = 11000.0;
+            break;
+        case RATE11025HZ:
+            streamDesc.mSampleRate = 11025.0;
+            break;
+        case RATE8KHZ:
+            streamDesc.mSampleRate = 8000.0;
+            break;
+        default:
+            @throw @"Bad sample rate";
+            break;
+    }
+
+    streamDesc.mFormatID = kAudioFormatLinearPCM;
+    streamDesc.mFormatFlags = 0;
+    streamDesc.mBytesPerPacket = 1;
+    streamDesc.mFramesPerPacket = 1;
+    streamDesc.mBytesPerFrame = 1;
+    streamDesc.mChannelsPerFrame = 1;
+    streamDesc.mBitsPerChannel = 8;
+
+    AudioQueueRef queue;
+    AudioQueueNewOutput(&streamDesc, &doNothing, buffer, NULL, NULL, 0, &queue);
+    AudioQueueBufferRef aBuffer;
+    OSStatus error = AudioQueueAllocateBuffer(queue, bufferLength, &aBuffer);
+    memcpy(aBuffer->mAudioData, buffer,bufferLength);
+    aBuffer->mAudioDataByteSize = bufferLength;
+    assert(!error);
+    AudioQueueEnqueueBuffer(queue, aBuffer, 0, NULL);
+    AudioQueueFreeBuffer(queue, buffer);
+    AudioQueueSetParameter(queue, kAudioQueueParam_Volume, 1.0);
+    AudioQueuePrime(queue, 0, NULL);
+    AudioQueueStart(queue, NULL);
+    AudioQueueDispose(queue, false);
+}
+
+
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [super init];
     if (self) {
-        sound = [[NSSound alloc] initWithData:[coder rawData]];
         short formatType = [coder decodeSwappedSInt16];
         switch (formatType) {
             case 1:
@@ -176,6 +232,7 @@
     [coder encodeUInt8:kMiddleC];//base frequency
     [coder writeBytes:buffer length:bufferLength];
 }
+
 
 + (NSString *)typeKey {
     return @"snd";

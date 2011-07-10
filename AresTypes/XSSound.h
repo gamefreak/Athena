@@ -31,10 +31,9 @@
 
 @interface XSSound : NSObject <ResCoding> {
 @private
-    NSSound *sound;
     uint32 bufferLength;
     uint32 sampleRate;
     void *buffer;
 }
-
+- (void) play;
 @end
