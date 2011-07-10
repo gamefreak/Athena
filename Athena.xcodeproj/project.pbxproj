@@ -116,6 +116,8 @@
 		D2A1911D12FE3CB700232914 /* StarmapPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911C12FE3CB700232914 /* StarmapPicker.xib */; };
 		D2A1914F12FE415800232914 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1914E12FE415800232914 /* StarmapView.m */; };
 		D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A347D313C92117000378B8 /* AudioToolbox.framework */; };
+		D2A3484613C9E263000378B8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A3484513C9E263000378B8 /* Ogg.framework */; };
+		D2A3484D13C9E3E6000378B8 /* Vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A3484C13C9E3E6000378B8 /* Vorbis.framework */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2B720BF1308739900008307 /* SMIVImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B720BE1308739900008307 /* SMIVImage.m */; };
 		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
@@ -186,6 +188,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 734FB2E50B18B33E00D561D7;
 			remoteInfo = "libogg (static)";
+		};
+		D2A3484713C9E26B000378B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2A347C713C90E98000378B8 /* Ogg.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D07F2BC0486CC7A007CD1D0;
+			remoteInfo = Ogg;
+		};
+		D2A3484A13C9E3CB000378B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 730F23A1091827B100AB638C;
+			remoteInfo = Vorbis;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -334,6 +350,8 @@
 		D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = libvorbis/macosx/Vorbis.xcodeproj; sourceTree = "<group>"; };
 		D2A347C713C90E98000378B8 /* Ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Ogg.xcodeproj; path = libogg/macosx/Ogg.xcodeproj; sourceTree = "<group>"; };
 		D2A347D313C92117000378B8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D2A3484513C9E263000378B8 /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2A3484C13C9E3E6000378B8 /* Vorbis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Vorbis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2B720BD1308739900008307 /* SMIVImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIVImage.h; sourceTree = "<group>"; };
@@ -380,6 +398,8 @@
 				D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */,
 				D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				D2A3484613C9E263000378B8 /* Ogg.framework in Frameworks */,
+				D2A3484D13C9E3E6000378B8 /* Vorbis.framework in Frameworks */,
 				D26B6A33130C15CC00B461FB /* liblua.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,6 +420,8 @@
 				D2A347D313C92117000378B8 /* AudioToolbox.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				D225D64613039FC500E75803 /* CoreServices.framework */,
+				D2A3484513C9E263000378B8 /* Ogg.framework */,
+				D2A3484C13C9E3E6000378B8 /* Vorbis.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -905,6 +927,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				D2A3484813C9E26B000378B8 /* PBXTargetDependency */,
+				D2A3484B13C9E3CB000378B8 /* PBXTargetDependency */,
 				D26B6A2B130C15AC00B461FB /* PBXTargetDependency */,
 			);
 			name = Athena;
@@ -1140,6 +1164,16 @@
 			isa = PBXTargetDependency;
 			target = D26B69D7130C14CC00B461FB /* lua */;
 			targetProxy = D26B6A2A130C15AC00B461FB /* PBXContainerItemProxy */;
+		};
+		D2A3484813C9E26B000378B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Ogg;
+			targetProxy = D2A3484713C9E26B000378B8 /* PBXContainerItemProxy */;
+		};
+		D2A3484B13C9E3CB000378B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Vorbis;
+			targetProxy = D2A3484A13C9E3CB000378B8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
