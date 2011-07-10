@@ -19,10 +19,17 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 @end
 
 @implementation XSSound
+@synthesize name, sampleRate;
+@synthesize bufferLength;
+@dynamic buffer;
 
 - (id)init {
     self = [super init];
     if (self) {
+        name = @"Untitled";
+        sampleRate = 22000;
+        bufferLength = 0;
+        buffer = NULL;
     }
     
     return self;
@@ -30,6 +37,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 
 - (void)dealloc {
     free(buffer);
+    [name release];
     [super dealloc];
 }
 
@@ -62,11 +70,21 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     assert(!error);
     AudioQueueDispose(queue, false);
 }
+- (void)setBuffer:(void *)buffer_ {
+    if (buffer != NULL) {
+        free(buffer);
+    }
+    buffer = buffer_;
+}
 
+- (void *)buffer {
+    return buffer;
+}
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [super init];
     if (self) {
+        name = [[coder currentName] retain];
         short formatType = [coder decodeSwappedSInt16];
         switch (formatType) {
             case 1:
@@ -113,8 +131,8 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     unsigned int headerLocation = [coder decodeSwappedUInt32];
     [coder seek:headerLocation];
     
-    
     unsigned int bufferOffset = [coder decodeUInt32];
+#pragma unused(bufferOffset)
     bufferLength = [coder decodeSwappedUInt32];
 
     unsigned int sampleRateIn = [coder decodeSwappedUInt32];
@@ -149,6 +167,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     int loopEnd = [coder decodeSwappedSInt32];
     char sampleEncoding = [coder decodeSInt8];
     char baseFreq = [coder decodeSInt8];
+    #pragma unused(loopStart, loopEnd, sampleEncoding, baseFreq)
     //#define kMiddleC 60
     buffer = malloc(bufferLength);
     [coder readBytes:buffer length:bufferLength];
@@ -174,7 +193,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     [coder seek:headerLocation];
     
     unsigned int bufferOffset = [coder decodeUInt32];
-
+#pragma unused(bufferOffset)
     bufferLength = [coder decodeSwappedUInt32];
     unsigned int sampleRateIn = [coder decodeSwappedUInt32];
 
@@ -208,6 +227,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     int loopEnd = [coder decodeSwappedSInt32];
     char sampleEncoding = [coder decodeSInt8];
     char baseFreq = [coder decodeSInt8];
+    #pragma unused(loopStart, loopEnd, sampleEncoding, baseFreq)
 //#define kMiddleC 60
     buffer = malloc(bufferLength);
     [coder readBytes:buffer length:bufferLength];
@@ -215,6 +235,8 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
+    [coder setName:name];
+
     [coder encodeSInt16:1];//format 1
     [coder encodeSInt16:1];//1 data type encoded
     [coder encodeSInt16:SAMPLEDSYNTH];//data format
@@ -275,7 +297,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     self = [super init];
     if (self) {
         //Work out the file path
-        NSString *name = [coder decodeString];
+        name = [[coder decodeString] retain];
         NSString *fileName = [coder baseDir];
         fileName = [fileName stringByAppendingPathComponent:@"Sounds"];
         fileName = [fileName stringByAppendingPathComponent:name];
@@ -292,6 +314,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         char *rbuffer;
         int byteCount;
         const int bufferSize = 4096;
+        int totalLength = 0;
         ogg_sync_state oy;
         ogg_stream_state os;
         ogg_page og;
@@ -401,10 +424,13 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
                                     //TODO: make AudioConverter do this
                                     while ((samples = vorbis_synthesis_pcmout(&v, &pcm)) > 0) {
                                         int bout = (samples<convSize?samples:convSize);
+                                        totalLength += bout;
                                         unsigned char *tbuffer = malloc(bout);
                                         for (int j = 0; j < bout; j++) {
+                                            //convert range to 0-255
                                             int tmp = (int)floor(pcm[0][j] * 128.0f);
                                             tmp += 128;
+                                            //fix clipping
                                             if (tmp < 0) tmp = 0;
                                             if (tmp >= 255) tmp = 255;
                                             tbuffer[j] = (unsigned char)tmp;
@@ -439,8 +465,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         ogg_sync_clear(&oy);
         fclose(file);
 
-        int totalLength = [[pcmBlocks valueForKeyPath:@"@sum.length"] intValue];
-        buffer = malloc(totalLength);
+        [self setBuffer:malloc(totalLength)];
         int cursor = 0;
         for (NSData *block in pcmBlocks) {
             [block getBytes:buffer+cursor];

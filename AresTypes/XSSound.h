@@ -32,9 +32,14 @@
 
 @interface XSSound : NSObject <ResCoding, LuaCoding> {
 @private
+    NSString *name;
     uint32 bufferLength;
     uint32 sampleRate;
     void *buffer;
 }
+@property (readwrite, retain) NSString *name;
+@property (readwrite, assign) uint32 bufferLength;
+@property (readwrite, assign) uint32 sampleRate;
+@property (readwrite) void *buffer;
 - (void) play;
 @end
