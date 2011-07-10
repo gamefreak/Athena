@@ -372,7 +372,6 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 //                NSLog(@"Multiple audio channels found in stream [%i]. All additional channels will be discarded", vi.channels);
 //            }
             int convSize = 4096 / vi.channels;
-            int safety = 0;
             if (vorbis_synthesis_init(&v, &vi) == 0) {
                 vorbis_block_init(&v, &vb);
                 int eos = 0;
@@ -402,12 +401,15 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
                                     //TODO: make AudioConverter do this
                                     while ((samples = vorbis_synthesis_pcmout(&v, &pcm)) > 0) {
                                         int bout = (samples<convSize?samples:convSize);
-                                        char *tbuffer = malloc(bout);
+                                        unsigned char *tbuffer = malloc(bout);
                                         for (int j = 0; j < bout; j++) {
-                                            tbuffer[j] = floor(pcm[1][j] * 128.0f + 128.0f);
+                                            int tmp = (int)floor(pcm[0][j] * 128.0f);
+                                            tmp += 128;
+                                            if (tmp < 0) tmp = 0;
+                                            if (tmp >= 255) tmp = 255;
+                                            tbuffer[j] = (unsigned char)tmp;
                                         }
                                         [pcmBlocks addObject:[NSData dataWithBytes:tbuffer length:bout]];
-//                                        NSLog(@"Added block");
                                         free(tbuffer);
                                         vorbis_synthesis_read(&v, bout);
                                     }
