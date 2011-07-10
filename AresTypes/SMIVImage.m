@@ -14,7 +14,7 @@ static CGColorSpaceRef CLUTCSpace;
 @implementation SMIVFrame
 @dynamic width, height, offsetX, offsetY;
 @synthesize image;
-@dynamic size, paddedSize, offset, length;
+@dynamic size, paddedSize, offsetPoint, length;
 
 + (void) initialize {
     CGColorSpaceRef devRGB = CGColorSpaceCreateDeviceRGB();
@@ -74,7 +74,7 @@ static CGColorSpaceRef CLUTCSpace;
     return NSMakeSize(MAX(offsetX, width - offsetX) * 2.0f, MAX(offsetY, height - offsetY) * 2.0f);
 }
 
-- (NSPoint) offset {
+- (NSPoint) offsetPoint {
     return NSMakePoint(offsetX, offsetY);
 }
 
@@ -220,8 +220,8 @@ static CGColorSpaceRef CLUTCSpace;
 - (void)drawAtPoint:(NSPoint)point {
     SMIVFrame *first = [frames objectAtIndex:0];
     SMIVFrame *curr = [frames objectAtIndex:currentFrameId];
-    CGPoint foff = first.offset;
-    CGPoint coff = curr.offset;
+    CGPoint foff = first.offsetPoint;
+    CGPoint coff = curr.offsetPoint;
     point.x += (foff.x - coff.x);
     point.y += (foff.y - coff.y);
     [curr drawAtPoint:point];

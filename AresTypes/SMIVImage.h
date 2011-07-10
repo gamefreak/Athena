@@ -23,7 +23,7 @@
 
 @property (readonly) int offsetX;
 @property (readonly) int offsetY;
-@property (readonly) NSPoint offset;
+@property (readonly) NSPoint offsetPoint;
 
 @property (readonly) size_t length;//size of smiv frame in bytes 
 @property (readonly) CGImageRef image;
