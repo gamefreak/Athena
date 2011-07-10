@@ -35,34 +35,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 
 - (void)play {
     AudioStreamBasicDescription streamDesc;
-
-    switch (sampleRate) {
-        case RATE32KHZ:
-            streamDesc.mSampleRate = 32000.0;
-            break;
-        case RATE22050HZ:
-            streamDesc.mSampleRate = 22050.0;
-            break;
-        case RATE22KHZ:
-            streamDesc.mSampleRate = 22000.0;
-            break;
-        case RATE16KHZ:
-            streamDesc.mSampleRate = 16000.0;
-            break;
-        case RATE11KHZ:
-            streamDesc.mSampleRate = 11000.0;
-            break;
-        case RATE11025HZ:
-            streamDesc.mSampleRate = 11025.0;
-            break;
-        case RATE8KHZ:
-            streamDesc.mSampleRate = 8000.0;
-            break;
-        default:
-            @throw @"Bad sample rate";
-            break;
-    }
-
+    streamDesc.mSampleRate = sampleRate;
     streamDesc.mFormatID = kAudioFormatLinearPCM;
     streamDesc.mFormatFlags = 0;
     streamDesc.mBytesPerPacket = 1;
@@ -139,16 +112,30 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     
     unsigned int bufferOffset = [coder decodeUInt32];
     bufferLength = [coder decodeSwappedUInt32];
-    sampleRate = [coder decodeSwappedUInt32];
-    //    unsigned int sampleRate = [coder decodeUInt32];
-    switch (sampleRate) {
-        case RATE32KHZ: 
+
+    unsigned int sampleRateIn = [coder decodeSwappedUInt32];
+
+    switch (sampleRateIn) {
+        case RATE32KHZ:
+            sampleRate = 32000;
+            break;
         case RATE22050HZ:
+            sampleRate = 22050;
+            break;
         case RATE22KHZ:
+            sampleRate = 22000;
+            break;
         case RATE16KHZ:
+            sampleRate = 16000;
+            break;
         case RATE11KHZ:
+            sampleRate = 11000;
+            break;
         case RATE11025HZ:
+            sampleRate = 11025;
+            break;
         case RATE8KHZ:
+            sampleRate = 8000;
             break;
         default:
             @throw [NSString stringWithFormat:@"Unsupported rate 0x%08x", sampleRate];
@@ -185,16 +172,29 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     unsigned int bufferOffset = [coder decodeUInt32];
 
     bufferLength = [coder decodeSwappedUInt32];
-    sampleRate = [coder decodeSwappedUInt32];
-//    unsigned int sampleRate = [coder decodeUInt32];
-    switch (sampleRate) {
-        case RATE32KHZ: 
+    unsigned int sampleRateIn = [coder decodeSwappedUInt32];
+
+    switch (sampleRateIn) {
+        case RATE32KHZ:
+            sampleRate = 32000;
+            break;
         case RATE22050HZ:
+            sampleRate = 22050;
+            break;
         case RATE22KHZ:
+            sampleRate = 22000;
+            break;
         case RATE16KHZ:
+            sampleRate = 16000;
+            break;
         case RATE11KHZ:
+            sampleRate = 11000;
+            break;
         case RATE11025HZ:
+            sampleRate = 11025;
+            break;
         case RATE8KHZ:
+            sampleRate = 8000;
             break;
         default:
             @throw [NSString stringWithFormat:@"Unsupported rate 0x%08x", sampleRate];
@@ -222,7 +222,27 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     [coder encodeUInt32:0];//no offset
     
     [coder encodeUInt32:bufferLength];
-    [coder encodeUInt32:sampleRate];
+
+    switch (sampleRate) {
+        case 32000:
+            [coder encodeUInt32:RATE32KHZ];
+        case 22050:
+            [coder encodeUInt32:RATE22050HZ];
+        case 22000:
+            [coder encodeUInt32:RATE22KHZ];
+        case 16000:
+            [coder encodeUInt32:RATE16KHZ];
+        case 11000:
+            [coder encodeUInt32:RATE11KHZ];
+        case 11025:
+            [coder encodeUInt32:RATE11025HZ];
+        case 8000:
+            [coder encodeUInt32:RATE8KHZ];
+            break;
+        default:
+            @throw [NSString stringWithFormat:@"Unsupported rate %i", sampleRate];
+            break;
+    }
     
     //I don't know what to do here
     [coder encodeSInt32:1];//loop start
