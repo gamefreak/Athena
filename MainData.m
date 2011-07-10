@@ -74,7 +74,7 @@ static NSArray *mainDataKeys;
     [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
     [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
     [sprites setDictionary:[coder decodeDictionaryOfClass:[NSString class] forKey:@"sprites"]];
-    [sounds setDictionary:[coder decodeDictionaryOfClass:[NSString class] forKey:@"sounds"]];
+    [sounds setDictionary:[coder decodeDictionaryOfClass:[XSSound class] forKey:@"sounds"]];
 
     [flags initWithLuaCoder:coder];
     return self;

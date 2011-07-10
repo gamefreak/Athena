@@ -74,7 +74,9 @@
     NSLog(@"Reading Data of type (%@)", type);
     [data release];
     if ([type isEqual:@"Xsera Data"]) {
-        data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName]] retain];
+        //ughh
+        NSString *baseDir = [[[fileName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByDeletingLastPathComponent];
+        data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir] retain];
     } else if ([type isEqual:@"Ares Data"]) {
         ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
         if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {

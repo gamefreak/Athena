@@ -9,6 +9,7 @@
 #import "XSSound.h"
 #import "Archivers.h"
 #import <AudioToolbox/AudioQueue.h>
+#import <vorbis/codec.h>
 
 void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer) {}
 
@@ -34,6 +35,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 
 
 - (void)play {
+    NSLog(@"Playing");
     AudioStreamBasicDescription streamDesc;
     streamDesc.mSampleRate = sampleRate;
     streamDesc.mFormatID = kAudioFormatLinearPCM;
@@ -54,8 +56,10 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     AudioQueueEnqueueBuffer(queue, aBuffer, 0, NULL);
     AudioQueueFreeBuffer(queue, buffer);
     AudioQueueSetParameter(queue, kAudioQueueParam_Volume, 1.0);
-    AudioQueuePrime(queue, 0, NULL);
-    AudioQueueStart(queue, NULL);
+    error = AudioQueuePrime(queue, 0, NULL);
+    assert(!error);
+    error = AudioQueueStart(queue, NULL);
+    assert(!error);
     AudioQueueDispose(queue, false);
 }
 
@@ -264,5 +268,195 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 
 + (BOOL)isPacked {
     return NO;
+}
+
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super init];
+    if (self) {
+        //Work out the file path
+        NSString *name = [coder decodeString];
+        NSString *fileName = [coder baseDir];
+        fileName = [fileName stringByAppendingPathComponent:@"Sounds"];
+        fileName = [fileName stringByAppendingPathComponent:name];
+        fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
+
+        FILE *file = fopen([fileName UTF8String], "rb");
+        if (file == NULL) {
+            @throw @"File could not be opened";
+        }
+        //A bunch of NSDatas go here
+        ///they will be mushed together at the end
+        NSMutableArray *pcmBlocks = [NSMutableArray array];
+
+        char *rbuffer;
+        int byteCount;
+        const int bufferSize = 4096;
+        ogg_sync_state oy;
+        ogg_stream_state os;
+        ogg_page og;
+        ogg_packet op;
+
+        vorbis_info vi;
+        vorbis_comment vc;
+        vorbis_dsp_state v;
+        vorbis_block vb;
+
+        //begin ogg
+        ogg_sync_init(&oy);
+        while (1) {//Read through the data in blocks
+            rbuffer = ogg_sync_buffer(&oy, bufferSize);
+            byteCount = fread(rbuffer, 1, bufferSize, file);
+            ogg_sync_wrote(&oy, byteCount);
+
+            if (ogg_sync_pageout(&oy, &og) != 1) {
+                if (byteCount < bufferSize) break;//out of data, end the loop
+                //else
+                @throw @"An error has occured with the ogg decoder";
+            }
+
+            //set up the stream
+            ogg_stream_init(&os, ogg_page_serialno(&og));
+
+            //begin vorbis
+            vorbis_info_init(&vi);
+            vorbis_comment_init(&vc);
+            if (ogg_stream_pagein(&os, &og) < 0) {
+                @throw @"Ogg Stream Error";
+            }
+
+            if (ogg_stream_packetout(&os, &op) != 1) {
+                @throw @"Error reading ogg header packet";
+            }
+
+            if (vorbis_synthesis_headerin(&vi, &vc, &op) < 0) {
+                @throw @"Stream does not contain vorbis data";
+            }
+
+            //read the other vorbis headers
+            int i = 0;
+            while (i < 2) {
+                while (i < 2) {
+                    int result = ogg_sync_pageout(&oy, &og);
+                    if (result == 0) break;//get more data
+                    if (result == 1) {
+                        ogg_stream_pagein(&os, &og);
+                        while (i < 2) {
+                            result = ogg_stream_packetout(&os, &op);
+                            if (result == 0) break;
+                            if (result < 0) {
+                                @throw @"Corrupt secondary header";
+                            }
+                            result = vorbis_synthesis_headerin(&vi, &vc, &op);
+                            if (result < 0) {
+                                @throw @"Corrupt secondary header";
+                            }
+                            i++;
+                        }
+                    }
+                }
+                //get more data
+                rbuffer = ogg_sync_buffer(&oy, bufferSize);
+                byteCount = fread(rbuffer, 1, byteCount, file);
+                if (byteCount == 0 && i < 2) {
+                    @throw @"Missing vorbis headers";
+                }
+                ogg_sync_wrote(&oy, byteCount);
+
+            }
+
+            assert(sampleRate == 0 || sampleRate == vi.rate);
+            sampleRate = vi.rate;
+
+//            if (vi.channels > 1) {
+//                NSLog(@"Multiple audio channels found in stream [%i]. All additional channels will be discarded", vi.channels);
+//            }
+            int convSize = 4096 / vi.channels;
+            int safety = 0;
+            if (vorbis_synthesis_init(&v, &vi) == 0) {
+                vorbis_block_init(&v, &vb);
+                int eos = 0;
+                //The REAL decode loop
+                while (!eos) {
+                    while (!eos) {
+                        int result = ogg_sync_pageout(&oy, &og);
+                        if (result == 0) break;//get more data
+                        if (result < 0) {
+//                            NSLog(@"ERROR: Corrupt bitstream data, will continue...");
+                        } else {
+                            ogg_stream_pagein(&os, &og);
+                            while (1) {
+                                result = ogg_stream_packetout(&os, &op);
+                                if (result == 0) break;//more data
+                                if (result < 0) {
+                                    //corrupt data
+                                    //ignore
+                                    NSLog(@"Skipping corrupt data");
+                                } else {
+                                    float **pcm;
+                                    int samples;
+                                    if (vorbis_synthesis(&vb, &op) == 0) {//read
+                                        vorbis_synthesis_blockin(&v, &vb);
+                                    }
+                                    //read samples and convert to unsigned 8bit integer
+                                    //TODO: make AudioConverter do this
+                                    while ((samples = vorbis_synthesis_pcmout(&v, &pcm)) > 0) {
+                                        int bout = (samples<convSize?samples:convSize);
+                                        char *tbuffer = malloc(bout);
+                                        for (int j = 0; j < bout; j++) {
+                                            tbuffer[j] = floor(pcm[1][j] * 128.0f + 128.0f);
+                                        }
+                                        [pcmBlocks addObject:[NSData dataWithBytes:tbuffer length:bout]];
+//                                        NSLog(@"Added block");
+                                        free(tbuffer);
+                                        vorbis_synthesis_read(&v, bout);
+                                    }
+                                }
+                            }
+                            if (ogg_page_eos(&og)) eos = 1;
+                        }
+                    }
+                    if (!eos) {
+                        rbuffer = ogg_sync_buffer(&oy, bufferSize);
+                        byteCount = fread(rbuffer, 1, bufferSize, file);
+                        ogg_sync_wrote(&oy, byteCount);
+                        if (byteCount == 0) eos = 1;
+                    }
+                }
+                vorbis_block_clear(&vb);
+                vorbis_dsp_clear(&v);
+            } else {
+                @throw @"Corrupt vorbis header";
+            }
+
+
+            ogg_stream_clear(&os);
+            vorbis_comment_clear(&vc);
+            vorbis_info_clear(&vi);
+        }
+        ogg_sync_clear(&oy);
+        fclose(file);
+
+        int totalLength = [[pcmBlocks valueForKeyPath:@"@sum.length"] intValue];
+        buffer = malloc(totalLength);
+        int cursor = 0;
+        for (NSData *block in pcmBlocks) {
+            [block getBytes:buffer+cursor];
+            cursor += [block length];
+        }
+        bufferLength = cursor;
+        assert(bufferLength > 0);
+    }
+    return self;
+}
+
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {}
+
++ (BOOL) isComposite {
+    return NO;
+}
+
++ (Class) classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
 }
 @end
