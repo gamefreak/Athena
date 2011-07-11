@@ -14,7 +14,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
 			<key>CFBundleTypeName</key>
-			<string>Xsera Data</string>
+			<string>Xsera Lua</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>NSDocumentClass</key>
@@ -29,6 +29,22 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>NSDocumentClass</key>
+			<string>AthenaDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>xsscenario</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Xsera Data</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.brainpen.XseraData</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>AthenaDocument</string>
 		</dict>

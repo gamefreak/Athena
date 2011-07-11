@@ -9,32 +9,6 @@
 #import "LuaArchiver.h"
 #import "NSStringExtensions.h"
 
-@interface NSNumber (StringEncoding)
-- (NSString *) encodedValue;
-@end
-
-@implementation NSNumber (StringEncoding)
-- (NSString *) encodedValue {
-    char code = *@encode(char);
-    switch (code) {
-        case 'c'://char forced to bool
-            return ([self boolValue]?@"YES":@"NO");
-            break;
-        case 'i'://int
-            return [NSString stringWithFormat:@"%d", [self intValue]];
-            break;
-        case 'f':
-            return [NSString stringWithFormat:@"%f", [self floatValue]];
-            break;
-        default:
-            @throw @"Unsupported NSNumber type";
-            break;
-    }
-}
-@end
-
-
-
 @interface LuaArchiver (Private)
 - (NSUInteger) up;
 - (NSUInteger) down;
@@ -58,9 +32,12 @@
 
 @implementation LuaArchiver
 @dynamic data;
+@synthesize baseDir;
+
 - (id)init {
     self = [super init];
     if (self) {
+        baseDir = @"";
         data = [[NSMutableString alloc] init];
         depth = 0;
     }
@@ -72,13 +49,26 @@
     [super dealloc];
 }
 
+- (BOOL)isNewFormat {
+    return [baseDir isNotEqualTo:@""];
+}
+
 - (NSData *) data {
     if (depth > 0) @throw @"Stack not empty";
     return [data dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-+ (NSData *) archivedDataWithRootObject:(id)object withName:(NSString *)name {
++ (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name {
     LuaArchiver *arch = [[LuaArchiver alloc] init];
+    [arch encodeObject:object forKey:name];
+    NSData *dat = [arch data];
+    [arch release];
+    return dat;
+}
+
++ (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name baseDirectory:(NSString *)baseDir {
+    LuaArchiver *arch = [[LuaArchiver alloc] init];
+    [arch setBaseDir:baseDir];
     [arch encodeObject:object forKey:name];
     NSData *dat = [arch data];
     [arch release];

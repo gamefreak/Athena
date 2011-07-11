@@ -43,26 +43,59 @@
 
 - (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError {
     NSString *fileName = [absoluteURL path];
-    NSLog(@"path=%@",fileName);
     if ([type isEqualTo:@"Ares Data"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder encodeObject:data atIndex:128];
         BOOL success = [coder writeToFile:fileName];
         [coder release];
         return success;
+    } else if ([type isEqualTo:@"org.brainpen.XseraData"]) {
+        NSString *fullName = [absoluteURL path];
+        NSString *localRoot = [fullName stringByDeletingLastPathComponent];
+        NSString *baseDir = [localRoot stringByAppendingPathComponent:@"data/"];
+        //Set up the directories.
+        chdir([localRoot UTF8String]);
+        mkdir("data", 0777);
+        chdir("./data");
+        mkdir("Sounds", 0777);
+        mkdir("Sprites", 0777);
+        mkdir("Images", 0777);
+        mkdir("Videos", 0777);
+        chdir("..");
+
+        NSData *outData = [LuaArchiver archivedDataWithRootObject:data withName:@"data" baseDirectory:baseDir];
+        [outData writeToFile:[baseDir stringByAppendingPathComponent:@"data.lua"] atomically:YES];
+
+        //tar/gzip it
+        NSTask *gzipTask = [[NSTask alloc] init];
+        [gzipTask setLaunchPath:@"/usr/bin/tar"];
+        [gzipTask setArguments:[NSArray arrayWithObjects:@"cfz", [fullName lastPathComponent], @"./data/", nil]];
+        [gzipTask setCurrentDirectoryPath:localRoot];
+        [gzipTask launch];
+        [gzipTask waitUntilExit];
+        [gzipTask release];
+        //clean up the directories
+
+        NSTask *rmTask = [[NSTask alloc] init];
+        [rmTask setLaunchPath:@"/bin/rm"];
+        [rmTask setArguments:[NSArray arrayWithObjects:@"-r", @"./data/", nil]];
+        [rmTask setCurrentDirectoryPath:localRoot];
+        [rmTask launch];
+        [rmTask waitUntilExit];
+        [rmTask release];
+
+        if (outError != NULL) {
+            *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+        }
+        return YES;
     } else {
+        NSAssert([type isEqualTo:@"Xsera Lua"], @"Bad data type: \"%@\"", type);
         return [super writeToURL:absoluteURL ofType:type error:outError];
     }
     return NO;//This should never be reached.
 }
 
 - (NSData *) dataOfType:(NSString *)typeName error:(NSError **)outError {
-    // Insert code here to write your document to data of the specified type. If the given outError != NULL, ensure that you set *outError when returning nil.
-
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-
-    // For applications targeted for Panther or earlier systems, you should use the deprecated API -dataRepresentationOfType:. In this case you can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
-
     NSData *outData = [LuaArchiver archivedDataWithRootObject:data withName:@"data"];
     if (outError != NULL) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -73,10 +106,13 @@
 - (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
     NSLog(@"Reading Data of type (%@)", type);
     [data release];
-    if ([type isEqual:@"Xsera Data"]) {
+    if ([type isEqual:@"Xsera Lua"]) {
         //ughh
         NSString *baseDir = [[[fileName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByDeletingLastPathComponent];
         data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir] retain];
+    } else if ([type isEqualTo:@"Xsera Data"]) {
+        NSString *baseDir = [fileName stringByDeletingLastPathComponent];
+        @throw @"Unimplemented";
     } else if ([type isEqual:@"Ares Data"]) {
         ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
         if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
