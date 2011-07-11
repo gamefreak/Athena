@@ -150,7 +150,7 @@
         for (NSUInteger i = 0; i < 12; i++) {
             NSInteger tmp = [coder decodeSInt32];
             if (tmp >= 1) {
-                [builds addObject:[NSNumber numberWithInteger:tmp]];
+                [builds addObject:[XSInteger xsIntegerWithValue:tmp]];
             }
         }
         initialDestination = [coder decodeSInt32];
@@ -180,7 +180,7 @@
     int k = 0;
     int builtCount = [builds count];
     for (; k < builtCount; k++) {
-        [coder encodeSInt32:[[builds objectAtIndex:k] intValue]];
+        [coder encodeSInt32:[[builds objectAtIndex:k] value]];
     }
     for (; k < 12; k++) {
         [coder encodeSInt32:-1];

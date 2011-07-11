@@ -360,13 +360,13 @@
                 [coder skip:8u];
                 break;
             case CurrentMessageCondition:
-                [ddata setObject:[NSNumber numberWithInt:[coder decodeSInt32]] forKey:@"id"];
-                [ddata setObject:[NSNumber numberWithInt:[coder decodeSInt32]] forKey:@"page"];
+                [ddata setObject:[XSInteger xsIntegerWithValue:[coder decodeSInt32]] forKey:@"id"];
+                [ddata setObject:[XSInteger xsIntegerWithValue:[coder decodeSInt32]] forKey:@"page"];
                 [coder skip:4u];
                 break;
             case CurrentComputerSelectionCondition:
-                [ddata setObject:[NSNumber numberWithInt:[coder decodeSInt32]] forKey:@"screen"];
-                [ddata setObject:[NSNumber numberWithInt:[coder decodeSInt32]] forKey:@"line"];
+                [ddata setObject:[XSInteger xsIntegerWithValue:[coder decodeSInt32]] forKey:@"screen"];
+                [ddata setObject:[XSInteger xsIntegerWithValue:[coder decodeSInt32]] forKey:@"line"];
                 [coder skip:4u];
                 break;
             default:
@@ -429,13 +429,13 @@
             [coder skip:8u];
             break;
         case CurrentMessageCondition:
-            [coder encodeSInt32:[[ddata objectForKey:@"id"] integerValue]];
-            [coder encodeSInt32:[[ddata objectForKey:@"page"] integerValue]];
+            [coder encodeSInt32:[[ddata objectForKey:@"id"] value]];
+            [coder encodeSInt32:[[ddata objectForKey:@"page"] value]];
             [coder skip:4u];
             break;
         case CurrentComputerSelectionCondition:
-            [coder encodeSInt32:[[ddata objectForKey:@"screen"] integerValue]];
-            [coder encodeSInt32:[[ddata objectForKey:@"line"] integerValue]];
+            [coder encodeSInt32:[[ddata objectForKey:@"screen"] value]];
+            [coder encodeSInt32:[[ddata objectForKey:@"line"] value]];
             [coder skip:4u];
             break;
         default:

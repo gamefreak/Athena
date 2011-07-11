@@ -587,6 +587,16 @@
     self = [super initWithResArchiver:coder];
     if (self) {
         how = [coder decodeSInt8];
+        switch (how) {
+            case DieActionNormal:
+            case DieActionExpire:
+            case DieActionDestroy:
+                //bypass
+                break;
+            default:
+                how = DieActionNormal;
+                break;
+        }
         [coder skip:23u];
     }
     return self;
