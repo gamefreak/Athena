@@ -100,6 +100,9 @@
 		D288339712F24F7000A02383 /* RaceEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D288339612F24F7000A02383 /* RaceEditor.m */; };
 		D288344012F263CC00A02383 /* ScenarioEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D288343F12F263CC00A02383 /* ScenarioEditor.m */; };
 		D288344A12F2642B00A02383 /* ScenarioEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D288344912F2642B00A02383 /* ScenarioEditor.xib */; };
+		D291AAA113CCC73800F49AA2 /* Ogg.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D2A3484513C9E263000378B8 /* Ogg.framework */; };
+		D291AAA213CCC74700F49AA2 /* Vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A3484C13C9E3E6000378B8 /* Vorbis.framework */; };
+		D291AAA313CCC82B00F49AA2 /* Vorbis.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D2A3484C13C9E3E6000378B8 /* Vorbis.framework */; };
 		D293F5D812EB78E000EF1CCA /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5D712EB78E000EF1CCA /* Race.m */; };
 		D293F5E912EB82ED00EF1CCA /* BriefPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F5E812EB82ED00EF1CCA /* BriefPoint.m */; };
 		D293F65C12EBAAF600EF1CCA /* XSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D293F65B12EBAAF600EF1CCA /* XSPoint.m */; };
@@ -117,7 +120,6 @@
 		D2A1914F12FE415800232914 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1914E12FE415800232914 /* StarmapView.m */; };
 		D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A347D313C92117000378B8 /* AudioToolbox.framework */; };
 		D2A3484613C9E263000378B8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A3484513C9E263000378B8 /* Ogg.framework */; };
-		D2A3484D13C9E3E6000378B8 /* Vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A3484C13C9E3E6000378B8 /* Vorbis.framework */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2B720BF1308739900008307 /* SMIVImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B720BE1308739900008307 /* SMIVImage.m */; };
 		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
@@ -205,6 +207,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D291AAA013CCC73000F49AA2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D291AAA113CCC73800F49AA2 /* Ogg.framework in CopyFiles */,
+				D291AAA313CCC82B00F49AA2 /* Vorbis.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -290,7 +306,7 @@
 		D225D64113039D5100E75803 /* ResCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResCoding.h; sourceTree = "<group>"; };
 		D225D64313039F0D00E75803 /* ResUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResUnarchiver.h; sourceTree = "<group>"; };
 		D225D64413039F0D00E75803 /* ResUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResUnarchiver.m; sourceTree = "<group>"; };
-		D225D64613039FC500E75803 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		D225D64613039FC500E75803 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = ../../../../../../../../../../Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
 		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
@@ -398,8 +414,8 @@
 				D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */,
 				D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				D291AAA213CCC74700F49AA2 /* Vorbis.framework in Frameworks */,
 				D2A3484613C9E263000378B8 /* Ogg.framework in Frameworks */,
-				D2A3484D13C9E3E6000378B8 /* Vorbis.framework in Frameworks */,
 				D26B6A33130C15CC00B461FB /* liblua.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -922,6 +938,7 @@
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
+				D291AAA013CCC73000F49AA2 /* CopyFiles */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 			);
 			buildRules = (
@@ -1218,6 +1235,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = ../Frameworks;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = core2;
@@ -1236,6 +1254,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = ../Frameworks;
 				GCC_MODEL_TUNING = core2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Athena_Prefix.pch;
@@ -1249,7 +1268,7 @@
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1263,7 +1282,7 @@
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
