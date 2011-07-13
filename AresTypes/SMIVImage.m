@@ -236,8 +236,8 @@ static CGColorSpaceRef CLUTCSpace;
 
     CGPoint foff = NSPointToCGPoint(first.offsetPoint);
     CGPoint coff = NSPointToCGPoint(curr.offsetPoint);
-    point.x += (foff.x - coff.x);
-    point.y += (foff.y - coff.y);
+    point.x += (foff.x - coff.x) - masterSize.width / 2;
+    point.y += (foff.y - coff.y) - masterSize.height / 2;
     [curr drawAtPoint:point];
 }
 
