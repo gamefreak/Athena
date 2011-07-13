@@ -82,6 +82,19 @@ static CGColorSpaceRef CLUTCSpace;
     return width*height + 8;
 }
 
+- (id)initWithImage:(CGImageRef)inImage inRect:(CGRect)rect {
+    self = [super init];
+    if (self) {
+        width = rect.size.width;
+        height = rect.size.height;
+        offsetX = height / 2;
+        offsetY = width / 2;
+        image = CGImageCreateWithImageInRect(inImage, rect);
+        isQuantitized = NO;
+    }
+    return self;
+}
+
 - (void) drawAtPoint:(NSPoint)point {
     NSSize size = self.size;
     CGRect nrect = CGRectMake(point.x, point.y, size.width, size.height);
@@ -220,8 +233,9 @@ static CGColorSpaceRef CLUTCSpace;
 - (void)drawAtPoint:(NSPoint)point {
     SMIVFrame *first = [frames objectAtIndex:0];
     SMIVFrame *curr = [frames objectAtIndex:currentFrameId];
-    CGPoint foff = first.offsetPoint;
-    CGPoint coff = curr.offsetPoint;
+
+    CGPoint foff = NSPointToCGPoint(first.offsetPoint);
+    CGPoint coff = NSPointToCGPoint(curr.offsetPoint);
     point.x += (foff.x - coff.x);
     point.y += (foff.y - coff.y);
     [curr drawAtPoint:point];
@@ -286,5 +300,76 @@ static CGColorSpaceRef CLUTCSpace;
     } else {
         return NSMakeSize(b, a);
     }
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [self init];
+    if (self) {
+        [self setTitle:[coder decodeString]];
+        NSString *baseDir = [coder baseDir];
+        NSString *spriteDir = [baseDir stringByAppendingPathComponent:@"Sprites"];
+        NSString *spriteName;
+        if (![coder isPlugin]) {
+            spriteDir = [spriteDir stringByAppendingPathComponent:@"Id"];
+            spriteName = [coder topKey];
+        } else {
+            spriteName = title;
+        }
+
+        //Retrieve the xml config (only contains the dimensions) and that will be moved into lua anyway.
+        NSData *xmlData = [NSData dataWithContentsOfFile:[spriteDir stringByAppendingFormat:@"/%@.xml", spriteName]];
+        NSError *err = nil;
+        NSXMLDocument *configData = [[NSXMLDocument alloc] initWithData:xmlData options:0 error:&err];
+        NSXMLElement *dimElem = [[[configData rootElement] elementsForName:@"dimensions"] lastObject];
+        int xDim = [[[dimElem attributeForName:@"x"] stringValue] intValue];
+        int yDim = [[[dimElem attributeForName:@"y"] stringValue] intValue];
+        [configData release];
+
+        //Get the PNG
+        NSString *pngName= [spriteDir stringByAppendingFormat:@"/%@.png", spriteName];
+        CGDataProviderRef provider = CGDataProviderCreateWithFilename([pngName UTF8String]);
+        CGImageRef baseImage = CGImageCreateWithPNGDataProvider(provider, NULL, YES, kCGRenderingIntentDefault);
+        CGDataProviderRelease(provider);
+
+        CGSize imageSize = {
+            .width = CGImageGetWidth(baseImage),
+            .height = CGImageGetHeight(baseImage)
+        };
+
+        masterSize = NSMakeSize(imageSize.width / xDim, imageSize.height / yDim);
+        //Split it into frames
+        count = xDim * yDim;
+        for (int i = 0; i < count; i++) {
+            int x = i % xDim;
+            int y = i / xDim;
+            CGRect rect = {
+                .origin = {
+                    .x = x * masterSize.width,
+                    .y = y * masterSize.height
+                },
+                .size = masterSize
+            };
+
+            SMIVFrame *frame = [[SMIVFrame alloc] initWithImage:baseImage inRect:rect];
+            [frames addObject:frame];
+            [frame release];
+        }
+
+        CGImageRelease(baseImage);
+        isQuantitized = NO;
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+//    [coder encodeStr
+}
+
++ (BOOL)isComposite {
+    return NO;
+}
+
++ (Class)classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
 }
 @end

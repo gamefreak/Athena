@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Color.h"
 #import "ResCoding.h"
+#import "LuaCoding.h"
 
 @interface SMIVFrame : NSObject <ResCoding> {
     short width, height;
@@ -28,13 +29,15 @@
 @property (readonly) size_t length;//size of smiv frame in bytes 
 @property (readonly) CGImageRef image;
 
+- (id)initWithImage:(CGImageRef)image inRect:(CGRect)rect;
+
 - (void)drawAtPoint:(NSPoint)point;
 - (void)drawInRect:(NSRect)rect;
 @end
 
 //Custom container for SMIV animations.
 //WARNING: Use of NSCopying is a HACK for NSDictionaryController you probably want NSMutableCopying
-@interface SMIVImage : NSObject <ResCoding, NSCopying> {
+@interface SMIVImage : NSObject <ResCoding, LuaCoding, NSCopying> {
     NSString *title;
     NSMutableArray *frames;
     NSUInteger count;

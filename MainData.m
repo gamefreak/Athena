@@ -73,7 +73,7 @@ static NSArray *mainDataKeys;
     [objects    setArray:[coder decodeArrayOfClass:[BaseObject class]      forKey:@"objects"    zeroIndexed:YES]];
     [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
     [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
-    [sprites setDictionary:[coder decodeDictionaryOfClass:[NSString class] forKey:@"sprites"]];
+    [sprites setDictionary:[coder decodeDictionaryOfClass:[SMIVImage class] forKey:@"sprites"]];
     [sounds setDictionary:[coder decodeDictionaryOfClass:[XSSound class] forKey:@"sounds"]];
 
     [flags initWithLuaCoder:coder];
