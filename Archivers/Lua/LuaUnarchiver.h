@@ -42,4 +42,6 @@
 - (NSInteger) decodeIntegerForKeyPath:(NSString *)keyPath;
 
 - (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<LuaCoding>)class;
+
+- (NSString *) topKey;
 @end

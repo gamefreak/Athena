@@ -307,4 +307,11 @@ static void stackDump (lua_State *L) {
     }
     return indexRef;
 }
+
+- (NSString *)topKey {
+    lua_pushvalue(L, -2);
+    NSString *str = [NSString stringWithCString:lua_tostring(L, -1) encoding:NSUTF8StringEncoding];
+    lua_pop(L, 1);
+    return str;
+}
 @end
