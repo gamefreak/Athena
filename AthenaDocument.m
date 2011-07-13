@@ -106,14 +106,15 @@
 - (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
     NSLog(@"Reading Data of type (%@)", type);
     [data release];
-    if ([type isEqual:@"Xsera Lua"]) {
+    if ([type isEqual:@"org.brainpen.xseralua"]) {
         //ughh
         NSString *baseDir = [[[fileName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByDeletingLastPathComponent];
         data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir fromPlugin:NO] retain];
-    } else if ([type isEqualTo:@"Xsera Data"]) {
+
+    } else if ([type isEqualTo:@"org.brainpen.xseradata"]) {
         NSString *baseDir = [fileName stringByDeletingLastPathComponent];
         @throw @"Unimplemented";
-    } else if ([type isEqual:@"Ares Data"]) {
+    } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
         ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
         if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
             NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sprites'");
@@ -149,6 +150,9 @@
         NSLog(@"Unlinking temp file");
         unlink(tempName);
 #endif
+    } else {
+        NSLog(@"ERROR: Type not found. aborting");
+        return NO;
     }
     return YES;
 }

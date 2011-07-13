@@ -29,6 +29,10 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.biggerplanet.AresData</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>AthenaDocument</string>
 		</dict>
@@ -78,8 +82,53 @@
 	<key>NSServices</key>
 	<array/>
 	<key>UTExportedTypeDeclarations</key>
-	<array/>
+	<array>
+		<dict>
+			<key>UTTypeDescription</key>
+			<string>Xsera Plugin</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.brainpen.XseraData</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xsscenario</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeDescription</key>
+			<string>Xsera Lua</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.brainpen.XseraLua</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>lua</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>UTImportedTypeDeclarations</key>
-	<array/>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Ares Data</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.biggerplanet.AresData</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>rsrc</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
