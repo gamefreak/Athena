@@ -43,7 +43,7 @@
 
 - (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError {
     NSString *fileName = [absoluteURL path];
-    if ([type isEqualTo:@"Ares Data"]) {
+    if ([type isEqualTo:@"com.biggerplanet.aresdata"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder encodeObject:data atIndex:128];
         BOOL success = [coder writeToFile:fileName];
@@ -88,9 +88,11 @@
             *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
         }
         return YES;
+    } else if ([type isEqualTo:@"org.brainpen.xseralua"]) {
+            return [super writeToURL:absoluteURL ofType:type error:outError];
     } else {
-        NSAssert([type isEqualTo:@"Xsera Lua"], @"Bad data type: \"%@\"", type);
-        return [super writeToURL:absoluteURL ofType:type error:outError];
+        //BAD!!!
+        return NO;
     }
     return NO;//This should never be reached.
 }
