@@ -21,6 +21,8 @@
 			<string>AthenaDocument</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>AresData</string>
 			<key>CFBundleTypeName</key>
 			<string>Ares Data</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -119,6 +121,8 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Ares Data</string>
+			<key>UTTypeIconFile</key>
+			<string>AresData</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.biggerplanet.AresData</string>
 			<key>UTTypeTagSpecification</key>
