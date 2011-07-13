@@ -173,6 +173,7 @@ static CGColorSpaceRef CLUTCSpace;
 }
 
 - (void) encodeResWithCoder:(ResArchiver *)coder {
+    if (!isQuantitized) @throw @"Attempted to encode unquantitized frame.";
     [coder setName:title];
     unsigned int frameCount = self.count;
     NSArray *lengths = [frames valueForKeyPath:@"length"];
@@ -362,7 +363,38 @@ static CGColorSpaceRef CLUTCSpace;
 }
 
 - (void)encodeLuaWithCoder:(LuaArchiver *)coder {
-//    [coder encodeStr
+    [coder encodeString:title];
+    if (![coder isPluginFormat]) return;
+    NSString *baseDir = [coder baseDir];
+    NSString *spriteDir = [baseDir stringByAppendingPathComponent:@"Sprites"];
+    NSString *spriteName = title;
+    spriteName = [title stringByReplacingOccurrencesOfString:@"/" withString:@":"];
+
+    NSSize grid = [self gridDistribution];
+    NSSize fullSize = NSMakeSize(grid.width * masterSize.width, grid.height * masterSize.height);
+    NSImage *outImage = [[NSImage alloc] initWithSize:fullSize];
+    [outImage lockFocus];
+    [self drawSpriteSheetAtPoint:NSZeroPoint];
+    [outImage unlockFocus];
+    //This seems SO silly!
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithData:[outImage TIFFRepresentation]];
+    [outImage release];
+    BOOL err;
+    NSData *pngData = [rep representationUsingType:NSPNGFileType properties:nil];
+    NSString *destPath  = [[spriteDir stringByAppendingPathComponent:spriteName] stringByAppendingPathExtension:@"png"];
+    err = [pngData writeToFile:destPath atomically:NO];
+    assert(err);
+    [rep release];
+
+    NSXMLElement *dimElem = [NSXMLElement elementWithName:@"dimensions"];
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionaryWithCapacity:2];
+    [attrs setObject:[NSNumber numberWithInt:(int)grid.width] forKey:@"x"];
+    [attrs setObject:[NSNumber numberWithInt:(int)grid.height] forKey:@"y"];
+    [dimElem setAttributesAsDictionary:attrs];
+    NSXMLElement *rootElem = [NSXMLElement elementWithName:@"sprite"];
+    [rootElem addChild:dimElem];
+    NSXMLDocument *doc = [NSXMLDocument documentWithRootElement:rootElem];
+    [[doc XMLData] writeToFile:[spriteDir stringByAppendingFormat:@"/%@.xml", spriteName] atomically:NO];
 }
 
 + (BOOL)isComposite {
