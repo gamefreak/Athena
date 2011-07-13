@@ -13,8 +13,8 @@
 
 @interface LuaArchiver : NSObject {
     NSMutableString *data;
-    NSUInteger depth;
     NSString *baseDir;
+    NSMutableArray *keyStack;
 }
 @property (readwrite, retain) NSString *baseDir;
 @property (readonly) NSData *data;
@@ -22,7 +22,8 @@
 + (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name;
 //Xsera Data version
 + (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name baseDirectory:(NSString *)baseDir;
-- (BOOL) isNewFormat;
+- (BOOL) isPluginFormat;
+- (NSString *)topKey;
 
 - (void) encodeObject:(id)object forKey:(NSString *)key;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;

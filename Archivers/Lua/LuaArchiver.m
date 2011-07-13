@@ -10,21 +10,12 @@
 #import "NSStringExtensions.h"
 
 @interface LuaArchiver (Private)
-- (NSUInteger) up;
-- (NSUInteger) down;
 - (void) indent;
 @end
 
 @implementation LuaArchiver (Private)
-- (NSUInteger) up {
-    depth++;
-    return depth;
-}
-- (NSUInteger) down {
-    depth--;
-    return depth;
-}
 - (void) indent {
+    int depth = [keyStack count];
     for (int i = 1; i < depth; i++) [data appendString:@"\t"];
 }
 @end
@@ -39,22 +30,28 @@
     if (self) {
         baseDir = @"";
         data = [[NSMutableString alloc] init];
-        depth = 0;
+        keyStack = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void) dealloc {
+    [keyStack release];
+    [baseDir release];
     [data release];
     [super dealloc];
 }
 
-- (BOOL)isNewFormat {
+- (BOOL)isPluginFormat {
     return [baseDir isNotEqualTo:@""];
 }
 
+- (NSString *)topKey {
+    return [keyStack lastObject];
+}
+
 - (NSData *) data {
-    if (depth > 0) @throw @"Stack not empty";
+    if ([keyStack count] > 0) @throw @"Stack not empty";
     return [data dataUsingEncoding:NSUTF8StringEncoding];
 }
 
@@ -76,7 +73,7 @@
 }
 
 - (void) encodeObject:(id <NSObject, LuaCoding>)obj forKey:(NSString *)key {
-    [self up];
+    [keyStack addObject:key];
     [self indent];
     [data appendString:key];
     if ([[obj class] isComposite]) {
@@ -91,11 +88,11 @@
     } else {
         [data appendString:@";\n"];
     }
-    [self down];
+    [keyStack removeLastObject];
 }
 
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed {
-    [self up];
+    [keyStack addObject:key];
     [self indent];
     [data appendString:key];
     [data appendString:@" = {\n"];
@@ -107,11 +104,11 @@
     }
     [self indent];
     [data appendString:@"};\n"];
-    [self down];
+    [keyStack removeLastObject];
 }
 
 - (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key asArray:(BOOL)asArray {
-    [self up];
+    [keyStack addObject:key];
     [self indent];
     [data appendString:key];
     [data appendString:@" = {\n"];
@@ -127,7 +124,7 @@
     }
     [self indent];
     [data appendString:@"};\n"];
-    [self down];
+    [keyStack removeLastObject];
 }
 
 - (void) encodeBool:(BOOL)value {
@@ -135,10 +132,10 @@
 }
 
 - (void) encodeBool:(BOOL)value forKey:(NSString *)key {
-    [self up];
+    [keyStack addObject:key];
     [self indent];
     [data appendFormat:@"%@ = %@;\n", key, (value?@"true":@"false")];
-    [self down];
+    [keyStack removeLastObject];
 }
 
 - (void) encodeString:(NSString *)string {
@@ -154,19 +151,19 @@
 }
 
 - (void) encodeString:(NSString *)string forKey:(NSString *)key {
-    [self up];
+    [keyStack addObject:key];
     [self indent];
     [data appendFormat:@"%@ = ", key];
     [self encodeString:string];
     [data appendString:@";\n"];
-    [self down];
+    [keyStack removeLastObject];
 }
 
 - (void) encodeFloat:(float)value forKey:(NSString *)key {
-    [self up];
+    [keyStack addObject:key];
     [self indent];
     [data appendFormat:@"%@ = %f;\n", key, value];
-    [self down];
+    [keyStack removeLastObject];
 }
 
 - (void) encodePoint:(id<XSPoint>)point forKey:(NSString *)key {
@@ -174,23 +171,24 @@
 }
 
 - (void) encodeInteger:(NSInteger)value {
-    [self up];
-    [self indent];
+    //Why did I do that?? (remove if I give up on that)
+//    [self up];
+//    [self indent];
     [data appendFormat:@"%d"];
-    [self down];
+//    [self down];
 }
 
 - (void) encodeInteger:(NSInteger)value forKey:(NSString *)key {
-    [self up];
+    [keyStack addObject:key];
     [self indent];
     [data appendFormat:@"%@ = %d;\n", key, value];
-    [self down];
+    [keyStack removeLastObject];
 }
 
 - (void) encodeNilForKey:(NSString *)key {
-    [self up];
+    [keyStack addObject:key];
     [self indent];
     [data appendFormat:@"%@ = nil;\n", key];
-    [self down];
+    [keyStack removeLastObject];
 }
 @end

@@ -71,7 +71,7 @@ static void stackDump (lua_State *L) {
 
 
 @implementation LuaUnarchiver
-@synthesize baseDir, isPlugin;
+@synthesize baseDir, isPluginFormat;
 - (id) init {
     self = [super init];
     if (self) {
@@ -109,7 +109,7 @@ static void stackDump (lua_State *L) {
                     fromPlugin:(BOOL)isPlugin_ {
     LuaUnarchiver *decoder = [[LuaUnarchiver alloc] init];
     [decoder setBaseDir:baseDir];
-    [decoder setIsPlugin:isPlugin_];
+    [decoder setIsPluginFormat:isPlugin_];
     [decoder loadData:data];
     
     //Remember: MainData is hardcoded here

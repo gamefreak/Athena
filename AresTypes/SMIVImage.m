@@ -309,7 +309,7 @@ static CGColorSpaceRef CLUTCSpace;
         NSString *baseDir = [coder baseDir];
         NSString *spriteDir = [baseDir stringByAppendingPathComponent:@"Sprites"];
         NSString *spriteName;
-        if (![coder isPlugin]) {
+        if (![coder isPluginFormat]) {
             spriteDir = [spriteDir stringByAppendingPathComponent:@"Id"];
             spriteName = [coder topKey];
         } else {
