@@ -16,9 +16,11 @@
     lua_State *L;
     NSMutableDictionary *refTable;
     NSString *baseDir;
+    BOOL isPlugin;
 }
 @property (readwrite, retain) NSString *baseDir;
-+ (id) unarchiveObjectWithData:(NSData *)data baseDirectory:(NSString *)baseDir;
+@property (readwrite, assign) BOOL isPlugin;
++ (id) unarchiveObjectWithData:(NSData *)data baseDirectory:(NSString *)baseDir fromPlugin:(BOOL)isPlugin;
 - (void) loadData:(NSData *)data;
 
 - (BOOL) hasKey:(NSString *)key;

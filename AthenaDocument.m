@@ -109,7 +109,7 @@
     if ([type isEqual:@"Xsera Lua"]) {
         //ughh
         NSString *baseDir = [[[fileName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByDeletingLastPathComponent];
-        data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir] retain];
+        data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir fromPlugin:NO] retain];
     } else if ([type isEqualTo:@"Xsera Data"]) {
         NSString *baseDir = [fileName stringByDeletingLastPathComponent];
         @throw @"Unimplemented";

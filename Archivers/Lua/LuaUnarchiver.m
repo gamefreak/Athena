@@ -71,7 +71,7 @@ static void stackDump (lua_State *L) {
 
 
 @implementation LuaUnarchiver
-@synthesize baseDir;
+@synthesize baseDir, isPlugin;
 - (id) init {
     self = [super init];
     if (self) {
@@ -104,9 +104,12 @@ static void stackDump (lua_State *L) {
     [super dealloc];
 }
 
-+ (id) unarchiveObjectWithData:(NSData *)data baseDirectory:(NSString *)baseDir {
++ (id) unarchiveObjectWithData:(NSData *)data
+                 baseDirectory:(NSString *)baseDir
+                    fromPlugin:(BOOL)isPlugin_ {
     LuaUnarchiver *decoder = [[LuaUnarchiver alloc] init];
     [decoder setBaseDir:baseDir];
+    [decoder setIsPlugin:isPlugin_];
     [decoder loadData:data];
     
     //Remember: MainData is hardcoded here
