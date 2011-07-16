@@ -114,8 +114,34 @@
         data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir fromPlugin:NO] retain];
 
     } else if ([type isEqualTo:@"org.brainpen.xseradata"]) {
-        NSString *baseDir = [fileName stringByDeletingLastPathComponent];
-        @throw @"Unimplemented";
+        NSString *workingDir = NSTemporaryDirectory();
+        char *safepath = tempnam([workingDir UTF8String], "savedirectory");
+        mkdir(safepath, 0777);
+        chdir(safepath);
+        NSString *destPath = [NSString stringWithUTF8String:safepath];
+
+        NSTask *unzipTask = [[NSTask alloc] init];
+        [unzipTask setLaunchPath:@"/usr/bin/tar"];
+        [unzipTask setCurrentDirectoryPath:destPath];
+        NSArray *taskArgs = [NSArray arrayWithObjects:@"xfz", fileName, @"-C", destPath, nil];
+        [unzipTask setArguments:taskArgs];
+        [unzipTask launch];
+        [unzipTask waitUntilExit];
+        [unzipTask release];
+        NSString *baseDir = [destPath stringByAppendingPathComponent:@"data"];
+        NSString *dataFile = [baseDir stringByAppendingPathComponent:@"data.lua"];
+        NSData *df = [NSData dataWithContentsOfFile:dataFile];
+        data = [[LuaUnarchiver unarchiveObjectWithData:df baseDirectory:baseDir fromPlugin:YES] retain];
+
+        NSTask *rmTask = [[NSTask alloc] init];
+        [rmTask setLaunchPath:@"/bin/rm"];
+        [rmTask setArguments:[NSArray arrayWithObjects:@"-r", @"./data/", nil]];
+        [rmTask setCurrentDirectoryPath:destPath];
+        [rmTask launch];
+        [rmTask waitUntilExit];
+        [rmTask release];
+
+        free(safepath);
     } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
         ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
         if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
