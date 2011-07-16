@@ -301,10 +301,10 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         name = [[coder decodeString] retain];
         NSString *fileName = [coder baseDir];
         fileName = [fileName stringByAppendingPathComponent:@"Sounds"];
-        fileName = [fileName stringByAppendingPathComponent:name];
+        fileName = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
         fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
 
-        FILE *file = fopen([fileName UTF8String], "rb");
+        FILE *file = fopen([fileName cStringUsingEncoding:NSMacOSRomanStringEncoding], "rb");
         if (file == NULL) {
             @throw @"File could not be opened";
         }
@@ -488,7 +488,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     fileName = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
     fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
 
-    FILE *file = fopen([fileName UTF8String], "wb");
+    FILE *file = fopen([fileName cStringUsingEncoding:NSMacOSRomanStringEncoding], "wb");
     if (file == NULL) {
         @throw @"Could not open file for writing.";
     }
