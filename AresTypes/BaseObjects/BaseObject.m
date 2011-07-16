@@ -650,9 +650,9 @@
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     if (device != nil) {
-        [coder encodeInteger:device.indexRef.orNull];
+        [coder encodeInteger:device.indexRef.orNull forKey:@"id"];
     } else {
-        [coder encodeInteger:-1];
+        [coder encodeInteger:-1 forKey:@"id"];
     }
 //    [coder encodeInteger:positionCount forKey:@"count"];//Unnecessary but keep anyway
     [coder encodeArray:positions forKey:@"positions" zeroIndexed:NO];
