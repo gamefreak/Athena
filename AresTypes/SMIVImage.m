@@ -98,17 +98,18 @@ static CGColorSpaceRef CLUTCSpace;
 - (void) drawAtPoint:(NSPoint)point {
     NSSize size = self.size;
     CGRect nrect = CGRectMake(point.x, point.y, size.width, size.height);
-//    nrect.origin.x -= offsetX;
-//    nrect.origin.x += size.width;// / 2.0f;
-//    nrect.origin.y -= offsetY;
-//    nrect.origin.y += size.height;// / 2.0f;
+    nrect.origin.x -= offsetX;
+    nrect.origin.y -= (size.height - offsetY);
     CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], nrect, image);
-//    [[NSColor yellowColor] setStroke];
-//    CGContextStrokeRect([[NSGraphicsContext currentContext] graphicsPort], nrect);
 }
 
 - (void) drawInRect:(NSRect)rect {
-    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], NSRectToCGRect(rect), image);
+    CGRect newRect;
+    newRect.origin.x = rect.origin.x;
+    newRect.origin.y = rect.origin.y;
+    newRect.size.width = rect.size.width;
+    newRect.size.height = rect.size.height;
+    CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], newRect, image);
 }
 
 @end
@@ -232,13 +233,15 @@ static CGColorSpaceRef CLUTCSpace;
 }
 
 - (void)drawAtPoint:(NSPoint)point {
-    SMIVFrame *first = [frames objectAtIndex:0];
+//    SMIVFrame *first = [frames objectAtIndex:0];
+//    SMIVFrame *curr = [frames objectAtIndex:currentFrameId];
+//
+//    CGPoint foff = NSPointToCGPoint(first.offsetPoint);
+//    CGPoint coff = NSPointToCGPoint(curr.offsetPoint);
+//    point.x += (foff.x - coff.x) - masterSize.width / 2;
+//    point.y += (foff.y - coff.y) - masterSize.height / 2;
+//    [curr drawAtPoint:point];
     SMIVFrame *curr = [frames objectAtIndex:currentFrameId];
-
-    CGPoint foff = NSPointToCGPoint(first.offsetPoint);
-    CGPoint coff = NSPointToCGPoint(curr.offsetPoint);
-    point.x += (foff.x - coff.x) - masterSize.width / 2;
-    point.y += (foff.y - coff.y) - masterSize.height / 2;
     [curr drawAtPoint:point];
 }
 
