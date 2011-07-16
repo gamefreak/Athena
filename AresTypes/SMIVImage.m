@@ -103,8 +103,8 @@ static CGColorSpaceRef CLUTCSpace;
 //    nrect.origin.y -= offsetY;
 //    nrect.origin.y += size.height;// / 2.0f;
     CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], nrect, image);
-    [[NSColor yellowColor] setStroke];
-    CGContextStrokeRect([[NSGraphicsContext currentContext] graphicsPort], nrect);
+//    [[NSColor yellowColor] setStroke];
+//    CGContextStrokeRect([[NSGraphicsContext currentContext] graphicsPort], nrect);
 }
 
 - (void) drawInRect:(NSRect)rect {
