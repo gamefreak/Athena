@@ -377,7 +377,7 @@ static CGColorSpaceRef CLUTCSpace;
     NSSize fullSize = NSMakeSize(grid.width * masterSize.width, grid.height * masterSize.height);
     NSImage *outImage = [[NSImage alloc] initWithSize:fullSize];
     [outImage lockFocus];
-    [self drawSpriteSheetAtPoint:NSZeroPoint];
+    [self drawSpriteSheetAtPoint:NSMakePoint(masterSize.width * 0.5f, masterSize.height * 0.5f)];
     [outImage unlockFocus];
     //This seems SO silly!
     NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithData:[outImage TIFFRepresentation]];
