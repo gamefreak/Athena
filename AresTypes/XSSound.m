@@ -10,6 +10,7 @@
 #import "Archivers.h"
 #import <AudioToolbox/AudioQueue.h>
 #import <vorbis/codec.h>
+#import <vorbis/vorbisenc.h>
 
 void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer) {}
 
@@ -477,7 +478,125 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     return self;
 }
 
-- (void) encodeLuaWithCoder:(LuaArchiver *)coder {}
+- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [coder encodeString:name];
+    //Can't really write the files out with the old format, so skip.
+    if (![coder isPluginFormat]) return;
+
+    NSString *fileName = [coder baseDir];
+    fileName = [fileName stringByAppendingPathComponent:@"Sounds"];
+    fileName = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
+    fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
+
+    FILE *file = fopen([fileName UTF8String], "wb");
+    if (file == NULL) {
+        @throw @"Could not open file for writing.";
+    }
+
+    vorbis_info vi;
+    vorbis_comment vc;
+    vorbis_dsp_state vd;
+    vorbis_block vb;
+    ogg_stream_state os;
+    ogg_page og;
+    ogg_packet op;
+
+    int eos = 0, ret;
+    @try {
+        vorbis_info_init(&vi);
+        //Because the other supported format is lossless I see no reason not to go for max quality
+        ret = vorbis_encode_init_vbr(&vi, 1, sampleRate, 1.0f);
+        if (ret) @throw @"Bad Mode";
+
+        vorbis_comment_init(&vc);
+        vorbis_comment_add_tag(&vc, "ENCODER", "Athena");
+
+        vorbis_analysis_init(&vd, &vi);
+        vorbis_block_init(&vd, &vb);
+
+        srand(time(NULL));
+        ogg_stream_init(&os, rand());
+
+        {
+            ogg_packet header;
+            ogg_packet header_comm;
+            ogg_packet header_code;
+
+            vorbis_analysis_headerout(&vd, &vc, &header, &header_comm, &header_code);
+            ogg_stream_packetin(&os, &header);
+            ogg_stream_packetin(&os, &header_comm);
+            ogg_stream_packetin(&os, &header_code);
+
+            while (!eos) {
+                int result = ogg_stream_flush(&os, &og);
+                if (result == 0) break;
+                fwrite(og.header, 1, og.header_len, file);
+                fwrite(og.body, 1, og.body_len, file);
+            }
+        }
+
+        const long READ_LENGTH = 4096;
+        void *cursor = buffer;
+        long counter = 0;
+        while (!eos) {
+//            long i;
+            long bytes;
+            //advance the cursor
+            if (counter + READ_LENGTH <= bufferLength) {
+                cursor = buffer + counter;
+                counter += READ_LENGTH;
+                bytes = READ_LENGTH;
+            } else if (counter == bufferLength) {
+                bytes = 0;
+            } else if (counter + READ_LENGTH > bufferLength) {
+                cursor = buffer+counter;
+                bytes = bufferLength - counter;
+                counter = bufferLength;
+            }
+
+            if (bytes == 0) {
+                vorbis_analysis_wrote(&vd, 0);
+            } else {
+                float **floatbuffer = vorbis_analysis_buffer(&vd, READ_LENGTH);
+
+                int i;
+                for (i = 0; i < bytes; i++) {
+                    floatbuffer[0][i] = (((unsigned char *)cursor)[i])/128.0f - 1.0f;
+                }
+                vorbis_analysis_wrote(&vd, i);
+            }
+
+            while (vorbis_analysis_blockout(&vd, &vb) == 1) {
+                vorbis_analysis(&vb, NULL);
+                vorbis_bitrate_addblock(&vb);
+
+                while (vorbis_bitrate_flushpacket(&vd, &op)) {
+                    ogg_stream_packetin(&os, &op);
+                    while (!eos) {
+                        int result = ogg_stream_pageout(&os, &og);
+                        if (result == 0) break;
+                        fwrite(og.header, 1, og.header_len, file);
+                        fwrite(og.body, 1, og.body_len, file);
+                        if (ogg_page_eos(&og)) eos = 1;
+                    }
+                }
+            }
+        }
+    }
+    @catch (NSString *exception) {
+        NSLog(@"Exception: %@", exception);
+        @throw @"Encoding Error";
+    }
+    @finally {
+        ogg_stream_clear(&os);
+        vorbis_block_clear(&vb);
+        vorbis_dsp_clear(&vd);
+        vorbis_comment_clear(&vc);
+        vorbis_info_clear(&vi);
+        fclose(file);
+    }
+
+}
 
 + (BOOL) isComposite {
     return NO;
