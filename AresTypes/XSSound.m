@@ -488,7 +488,8 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     fileName = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
     fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
 
-    FILE *file = fopen([fileName cStringUsingEncoding:NSMacOSRomanStringEncoding], "wb");
+//    FILE *file = fopen([fileName cStringUsingEncoding:NSMacOSRomanStringEncoding], "wb");
+    FILE *file = fopen([fileName UTF8String], "wb");
     if (file == NULL) {
         @throw @"Could not open file for writing.";
     }
