@@ -261,7 +261,7 @@ static CGColorSpaceRef CLUTCSpace;
     int height = gdim.height;
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            [self drawFrame:x + y * width atPoint:NSMakePoint(point.x + x * size.width, point.y + (height - y) * size.height)];
+            [self drawFrame:x + y * width atPoint:NSMakePoint(point.x + x * size.width - 0.5*size.width, point.y + (height - y - 1) * size.height - 0.5*size.height)];
         }
     }
 }
