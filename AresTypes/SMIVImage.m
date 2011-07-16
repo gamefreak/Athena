@@ -318,7 +318,7 @@ static CGColorSpaceRef CLUTCSpace;
         }
 
         //Retrieve the xml config (only contains the dimensions) and that will be moved into lua anyway.
-        NSData *xmlData = [NSData dataWithContentsOfFile:[spriteDir stringByAppendingFormat:@"/%@.xml", spriteName]];
+        NSData *xmlData = [NSData dataWithContentsOfFile:[spriteDir stringByAppendingFormat:@"/%@.xml", [spriteName stringByReplacingOccurrencesOfString:@"/" withString:@":"]]];
         NSError *err = nil;
         NSXMLDocument *configData = [[NSXMLDocument alloc] initWithData:xmlData options:0 error:&err];
         NSXMLElement *dimElem = [[[configData rootElement] elementsForName:@"dimensions"] lastObject];
