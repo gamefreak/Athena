@@ -16,6 +16,35 @@ static uint32 dequantitize_pixel(uint8 pixel) {
     return *(uint32*)CLUT4[pixel];
 }
 
+static int pixel_magnitude(uint32 pixel) {
+    int sum = 0;
+    int r = (pixel & 0xff000000) >> 24;
+    sum += r * r;
+    int g = (pixel & 0x00ff0000) >> 16;
+    sum += g * g;
+    int b = (pixel & 0x0000ff00) >> 8;
+    sum += b * b;
+    return sum;
+}
+
+static uint8 quantitize_pixel(uint32 pixel) {
+    short alpha = (pixel & 0x000000ff) >> 0;
+    if (alpha < 0xf0) return 0;//transparent
+    int sum = pixel_magnitude(pixel);
+    int bestIdx = 0;
+    int bestDiff = UINT32_MAX;
+    for (int i = 1; i <= 256; i++) {
+        int cmag = pixel_magnitude(*CLUT4[i]);
+        int diff = ABS(cmag - sum);
+        if (diff == 0) return i;
+        if (diff < bestDiff) {
+            bestDiff = diff;
+            bestIdx = i;
+        }
+    }
+    return bestIdx;
+}
+
 @implementation SMIVFrame
 @dynamic width, height, offsetX, offsetY;
 @synthesize image;
@@ -48,31 +77,38 @@ static uint32 dequantitize_pixel(uint8 pixel) {
         for (int i = 0; i < width * height; i++) {
             buffer[i] = dequantitize_pixel(preBuffer[i]);
         }
-        CFDataRef data = CFDataCreate(NULL, buffer, width*height*4);
+        CFDataRef data = CFDataCreate(NULL, (void *)buffer, width*height*4);
         CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
         image = CGImageCreate(width, height, 8, 32, 4*width, devRGB, kCGBitmapByteOrderDefault | kCGImageAlphaLast, provider, NULL, YES, kCGRenderingIntentDefault);
         free(preBuffer);
         free(buffer);
         CFRelease(data);
         CFRelease(provider);
-        isQuantitized = YES;
     }
     return self;
 }
 
 - (void) encodeResWithCoder:(ResArchiver *)coder {
-    if (!isQuantitized) {
-        @throw @"Color Quantization on yet implemented";
-    }
     [coder encodeUInt16:width];
     [coder encodeUInt16:height];
     [coder encodeUInt16:offsetX];
     [coder encodeUInt16:offsetY];
 
-    CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(image));
-    const uint8 *buffer = CFDataGetBytePtr(data);
+    uint8 *buffer = [self quantitize];
     [coder writeBytes:(void *)buffer length:width * height];
+    free(buffer);
+}
+
+- (uint8 *)quantitize {
+    CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(image));
+    assert(CGImageGetBitsPerPixel(image)==32);
+    const uint32 *buffer = (uint32 *)CFDataGetBytePtr(data);
+    uint8 *qbuffer = malloc(width * height);
+    for (int i = 0; i < width * height; i++) {
+        qbuffer[i] = quantitize_pixel(buffer[i]);
+    }
     CFRelease(data);
+    return qbuffer;
 }
 
 - (NSSize) size {
@@ -99,7 +135,6 @@ static uint32 dequantitize_pixel(uint8 pixel) {
         offsetX = height / 2;
         offsetY = width / 2;
         image = CGImageCreateWithImageInRect(inImage, rect);
-        isQuantitized = NO;
     }
     return self;
 }
@@ -120,7 +155,6 @@ static uint32 dequantitize_pixel(uint8 pixel) {
     newRect.size.height = rect.size.height;
     CGContextDrawImage([[NSGraphicsContext currentContext] graphicsPort], newRect, image);
 }
-
 @end
 
 
@@ -183,7 +217,6 @@ static uint32 dequantitize_pixel(uint8 pixel) {
 }
 
 - (void) encodeResWithCoder:(ResArchiver *)coder {
-    if (!isQuantitized) @throw @"Attempted to encode unquantitized frame.";
     [coder setName:title];
     unsigned int frameCount = self.count;
     NSArray *lengths = [frames valueForKeyPath:@"length"];
@@ -369,7 +402,6 @@ static uint32 dequantitize_pixel(uint8 pixel) {
         }
 
         CGImageRelease(baseImage);
-        isQuantitized = NO;
     }
     return self;
 }

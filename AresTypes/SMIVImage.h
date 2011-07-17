@@ -15,7 +15,6 @@
     short width, height;
     short offsetX, offsetY;
     CGImageRef image;
-    BOOL isQuantitized;
 }
 @property (readonly) int width;
 @property (readonly) int height;
@@ -33,6 +32,8 @@
 
 - (void)drawAtPoint:(NSPoint)point;
 - (void)drawInRect:(NSRect)rect;
+
+- (uint8 *)quantitize;
 @end
 
 //Custom container for SMIV animations.
@@ -43,7 +44,6 @@
     NSUInteger count;
     NSUInteger currentFrameId;
     NSSize masterSize;
-    BOOL isQuantitized;
 }
 @property (readwrite, retain)  NSString *title;
 @property (readonly) NSArray *frames;
