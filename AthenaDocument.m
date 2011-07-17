@@ -42,11 +42,13 @@
 }
 
 - (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError {
+    NSLog(@"Saving data of type: %@", type);
     NSString *fileName = [absoluteURL path];
-    if ([type isEqualTo:@"com.biggerplanet.aresdata"]) {
+    if ([type isEqualTo:@"com.biggerplanet.AresData"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder encodeObject:data atIndex:128];
         BOOL success = [coder writeToFile:fileName];
+        assert(success==YES);
         [coder release];
         return success;
     } else if ([type isEqualTo:@"org.brainpen.XseraData"]) {
@@ -88,7 +90,7 @@
             *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
         }
         return YES;
-    } else if ([type isEqualTo:@"org.brainpen.xseralua"]) {
+    } else if ([type isEqualTo:@"org.brainpen.XseraLua"]) {
             return [super writeToURL:absoluteURL ofType:type error:outError];
     } else {
         //BAD!!!
