@@ -10,6 +10,11 @@
 #import "Archivers.h"
 
 static CGColorSpaceRef CLUTCSpace;
+static CGColorSpaceRef devRGB;
+
+static uint32 dequantitize_pixel(uint8 pixel) {
+    return *(uint32*)CLUT4[pixel];
+}
 
 @implementation SMIVFrame
 @dynamic width, height, offsetX, offsetY;
@@ -17,9 +22,8 @@ static CGColorSpaceRef CLUTCSpace;
 @dynamic size, paddedSize, offsetPoint, length;
 
 + (void) initialize {
-    CGColorSpaceRef devRGB = CGColorSpaceCreateDeviceRGB();
+    devRGB = CGColorSpaceCreateDeviceRGB();
     CLUTCSpace = CGColorSpaceCreateIndexed(devRGB, 255, (uint8 *)CLUT);
-    CFRelease(devRGB);
 }
 
 - (id) init {
@@ -38,11 +42,16 @@ static CGColorSpaceRef CLUTCSpace;
         height = [coder decodeUInt16];
         offsetX = [coder decodeSInt16];
         offsetY = [coder decodeSInt16];
-        uint8 *buffer = malloc(width * height);
-        [coder readBytes:buffer length:(width * height)];
-        CFDataRef data = CFDataCreate(NULL, buffer, width*height);
+        uint8 *preBuffer = malloc(width * height);
+        uint32 *buffer = malloc(width * height * 4);
+        [coder readBytes:preBuffer length:(width * height)];
+        for (int i = 0; i < width * height; i++) {
+            buffer[i] = dequantitize_pixel(preBuffer[i]);
+        }
+        CFDataRef data = CFDataCreate(NULL, buffer, width*height*4);
         CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
-        image = CGImageCreate(width, height, 8, 8, width, CLUTCSpace, 0, provider, NULL, YES, kCGRenderingIntentDefault);
+        image = CGImageCreate(width, height, 8, 32, 4*width, devRGB, kCGBitmapByteOrderDefault | kCGImageAlphaLast, provider, NULL, YES, kCGRenderingIntentDefault);
+        free(preBuffer);
         free(buffer);
         CFRelease(data);
         CFRelease(provider);
