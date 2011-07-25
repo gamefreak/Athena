@@ -258,11 +258,9 @@
         [self registerClass:class];
         table = [types objectForKey:[class typeKey]];
     }
-    NSLog(@"%@", [class typeKey]);
     NSMutableDictionary *outDict = [NSMutableDictionary dictionary];
     NSArray *indexes = [table allKeys];
     for (NSString *key in indexes) {
-        NSLog(@"%@[%@]", [class typeKey], key);
         ResSegment *seg = [table objectForKey:key];
         [stack addObject:seg];
         [outDict setObject:[seg loadObjectWithCoder:self] forKey:key];
