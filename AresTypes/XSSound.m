@@ -304,9 +304,9 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         fileName = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
         fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
 
-        FILE *file = fopen([fileName cStringUsingEncoding:NSMacOSRomanStringEncoding], "rb");
+        FILE *file = fopen([fileName cStringUsingEncoding:NSUTF8StringEncoding], "rb");
         if (file == NULL) {
-            @throw @"File could not be opened";
+            @throw [NSString stringWithFormat:@"File \"%@\" could not be opened", fileName];
         }
         //A bunch of NSDatas go here
         ///they will be mushed together at the end
@@ -479,10 +479,13 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeString:name];
     //Can't really write the files out with the old format, so skip.
-    if (![coder isPluginFormat]) return;
-
+    if (![coder isPluginFormat]) {
+        [coder encodeString:name];
+        return;
+    }
+    NSString *fixedName = [name stringByReplacingOccurrencesOfString:@"/" withString:@":"];
+    [coder encodeString:fixedName];
     NSString *fileName = [coder baseDir];
     fileName = [fileName stringByAppendingPathComponent:@"Sounds"];
     fileName = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
