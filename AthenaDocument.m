@@ -110,78 +110,86 @@
 - (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
     NSLog(@"Reading Data of type (%@)", type);
     [data release];
-    if ([type isEqual:@"org.brainpen.xseralua"]) {
-        //ughh
-        NSString *baseDir = [[[fileName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByDeletingLastPathComponent];
-        data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir fromPlugin:NO] retain];
+    data = nil;
+    @try {
+        if ([type isEqual:@"org.brainpen.xseralua"]) {
+            //ughh
+            NSString *baseDir = [[[fileName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByDeletingLastPathComponent];
+            data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir fromPlugin:NO] retain];
 
-    } else if ([type isEqualTo:@"org.brainpen.xseradata"]) {
-        NSString *workingDir = NSTemporaryDirectory();
-        char *safepath = tempnam([workingDir UTF8String], "savedirectory");
-        mkdir(safepath, 0777);
-        chdir(safepath);
-        NSString *destPath = [NSString stringWithUTF8String:safepath];
+        } else if ([type isEqualTo:@"org.brainpen.xseradata"]) {
+            NSString *workingDir = NSTemporaryDirectory();
+            char *safepath = tempnam([workingDir UTF8String], "savedirectory");
+            mkdir(safepath, 0777);
+            chdir(safepath);
+            NSString *destPath = [NSString stringWithUTF8String:safepath];
 
-        NSTask *unzipTask = [[NSTask alloc] init];
-        [unzipTask setLaunchPath:@"/usr/bin/tar"];
-        [unzipTask setCurrentDirectoryPath:destPath];
-        NSArray *taskArgs = [NSArray arrayWithObjects:@"xfz", fileName, @"-C", destPath, nil];
-        [unzipTask setArguments:taskArgs];
-        [unzipTask launch];
-        [unzipTask waitUntilExit];
-        [unzipTask release];
-        NSString *baseDir = [destPath stringByAppendingPathComponent:@"data"];
-        NSString *dataFile = [baseDir stringByAppendingPathComponent:@"data.lua"];
-        NSData *df = [NSData dataWithContentsOfFile:dataFile];
-        data = [[LuaUnarchiver unarchiveObjectWithData:df baseDirectory:baseDir fromPlugin:YES] retain];
+            NSTask *unzipTask = [[NSTask alloc] init];
+            [unzipTask setLaunchPath:@"/usr/bin/tar"];
+            [unzipTask setCurrentDirectoryPath:destPath];
+            NSArray *taskArgs = [NSArray arrayWithObjects:@"xfz", fileName, @"-C", destPath, nil];
+            [unzipTask setArguments:taskArgs];
+            [unzipTask launch];
+            [unzipTask waitUntilExit];
+            [unzipTask release];
+            NSString *baseDir = [destPath stringByAppendingPathComponent:@"data"];
+            NSString *dataFile = [baseDir stringByAppendingPathComponent:@"data.lua"];
+            NSData *df = [NSData dataWithContentsOfFile:dataFile];
+            data = [[LuaUnarchiver unarchiveObjectWithData:df baseDirectory:baseDir fromPlugin:YES] retain];
 
-        NSTask *rmTask = [[NSTask alloc] init];
-        [rmTask setLaunchPath:@"/bin/rm"];
-        [rmTask setArguments:[NSArray arrayWithObjects:@"-r", @"./data/", nil]];
-        [rmTask setCurrentDirectoryPath:destPath];
-        [rmTask launch];
-        [rmTask waitUntilExit];
-        [rmTask release];
+            NSTask *rmTask = [[NSTask alloc] init];
+            [rmTask setLaunchPath:@"/bin/rm"];
+            [rmTask setArguments:[NSArray arrayWithObjects:@"-r", @"./data/", nil]];
+            [rmTask setCurrentDirectoryPath:destPath];
+            [rmTask launch];
+            [rmTask waitUntilExit];
+            [rmTask release];
 
-        free(safepath);
-    } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
-        ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
-        if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
-            NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sprites'");
-            [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sprites"]];
-            NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sounds'");
-            [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sounds"]];
-        }
-        data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
-        [coder release];
+            free(safepath);
+            NSLog(@"Save complete.");
+        } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
+            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
+            if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
+                NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sprites'");
+                [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sprites"]];
+                NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sounds'");
+                [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sounds"]];
+            }
+            data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
+            [coder release];
 
 #if 0
-        char tempName[17] = "";
-        strlcpy(tempName, "/tmp/TEST.XXXXXX", 17);
-        mktemp(tempName);
-        NSString *testFname = [NSString stringWithCString:tempName];
-        NSLog(@"Running Encoder Test");
-        ResArchiver *encoder = [[ResArchiver alloc] init];
-        [encoder encodeObject:data atIndex:128];
-        NSLog(@"Encoding Completed");
-        NSLog(@"Writing to temp file: %@", testFname);
-        if ([encoder writeToFile:testFname]) {
-            NSLog(@"Write succeeded.");
-        } else {
-            NSLog(@"Write failed.");
-        }
-        [encoder release];
-        NSLog(@"Encoder Test Completed");
-        NSLog(@"Running re-decode test");
-        ResUnarchiver *decoder = [[ResUnarchiver alloc] initWithFilePath:testFname];
-        [decoder decodeObjectOfClass:[MainData class] atIndex:128];
-        [decoder release];
-        NSLog(@"Completed re-decode test");
-        NSLog(@"Unlinking temp file");
-        unlink(tempName);
+            char tempName[17] = "";
+            strlcpy(tempName, "/tmp/TEST.XXXXXX", 17);
+            mktemp(tempName);
+            NSString *testFname = [NSString stringWithCString:tempName];
+            NSLog(@"Running Encoder Test");
+            ResArchiver *encoder = [[ResArchiver alloc] init];
+            [encoder encodeObject:data atIndex:128];
+            NSLog(@"Encoding Completed");
+            NSLog(@"Writing to temp file: %@", testFname);
+            if ([encoder writeToFile:testFname]) {
+                NSLog(@"Write succeeded.");
+            } else {
+                NSLog(@"Write failed.");
+            }
+            [encoder release];
+            NSLog(@"Encoder Test Completed");
+            NSLog(@"Running re-decode test");
+            ResUnarchiver *decoder = [[ResUnarchiver alloc] initWithFilePath:testFname];
+            [decoder decodeObjectOfClass:[MainData class] atIndex:128];
+            [decoder release];
+            NSLog(@"Completed re-decode test");
+            NSLog(@"Unlinking temp file");
+            unlink(tempName);
 #endif
-    } else {
-        NSLog(@"ERROR: Type not found. aborting");
+        } else {
+            NSLog(@"ERROR: Type not found. aborting");
+            return NO;
+        }
+    }
+    @catch (id exception) {
+        NSLog(@"Error while opening:\n%@", exception);
         return NO;
     }
     return YES;
