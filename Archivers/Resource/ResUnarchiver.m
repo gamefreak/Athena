@@ -142,7 +142,13 @@
 }
 
 - (NSString *) currentName {
-    return [[stack lastObject] name];
+    NSString *name = [[stack lastObject] name];
+    /*
+     Fucking fancy quotes...
+    The resource name for the audmedon assault transport's sound inexplicably contains a fancy quote mark.
+     This messes up fopen so this fix is being hard coded for now.
+    */
+    return [name stringByReplacingOccurrencesOfString:@"\x2019" withString:@"'"];
 }
 
 - (NSData *)rawData {
