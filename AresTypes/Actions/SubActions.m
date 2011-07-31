@@ -177,6 +177,7 @@
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
     if (self) {
         priority = [coder decodeUInt8];
         [coder skip:1u];
@@ -202,6 +203,22 @@
     [coder encodeSInt32:volumeRange];
     [coder encodeSInt32:soundId];
     [coder encodeSInt32:soundIdRange];
+}
+
+- (NSString *)nibName {
+    return @"PlaySound";
+}
+
+- (NSString *)description {
+    if (soundIdRange == 0) {
+        return [NSString stringWithFormat:@"Play sound %i", soundId];
+    } else {
+        return [NSString stringWithFormat:@"Play sound in range %i - %i", soundId, soundId + soundIdRange];
+    }
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"soundId", @"soundIdRange", nil];
 }
 @end
 
