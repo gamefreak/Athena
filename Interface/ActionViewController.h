@@ -11,7 +11,6 @@
 @class BaseObject;
 
 @interface ActionViewController : NSViewController {
-@private
     Action *actionObj;
 }
 @property (readwrite, retain) Action *actionObj;

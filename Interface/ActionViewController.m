@@ -10,6 +10,7 @@
 #import "Action.h"
 #import "BaseObject.h"
 #import "ObjectEditor.h"
+
 @implementation ActionViewController
 @synthesize actionObj;
 @dynamic type;
@@ -18,6 +19,7 @@
     [super dealloc];
 }
 
+//For CreateObjectAction
 - (IBAction)openObjectPicker:(id)sender {
     MainData *data = [[[[self view] window] document] data];
     ObjectEditor *editor = [[ObjectEditor alloc]
@@ -29,7 +31,6 @@
     [self bind:@"type" toObject:editor withKeyPath:@"objectsController.selection" options:nil];
     [editor release];
 }
-
 
 - (BaseObject *)type {
     return [actionObj valueForKeyPath:@"baseType.object"];
