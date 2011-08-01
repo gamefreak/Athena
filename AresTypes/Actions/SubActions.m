@@ -274,6 +274,22 @@
     [coder encodeUInt8:color];
     [coder skip:11u];
 }
+
+- (NSString *)description {
+    if (count == 1) {
+        return [NSString stringWithFormat:@"Make 1 %i-colored spark", color];
+    } else {
+        return [NSString stringWithFormat:@"Make %i %i-colored sparks", count, color];
+    }
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"color", @"count", nil];
+}
+
+- (NSString *)nibName {
+    return @"CreateSparks";
+}
 @end
 
 @implementation ReleaseEnergyAction
