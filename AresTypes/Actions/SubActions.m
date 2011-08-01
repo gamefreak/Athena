@@ -330,6 +330,18 @@
     [coder encodeFixed:percent];
     [coder skip:20u];
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Release %g%% of object's energy.", percent];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"percent", nil];
+}
+
+- (NSString *)nibName {
+    return @"ReleaseEnergy";
+}
 @end
 
 @implementation LandAtAction

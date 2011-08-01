@@ -133,6 +133,7 @@
 		D2D7501A12F07F5A00B17631 /* Scenario.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7501912F07F5A00B17631 /* Scenario.m */; };
 		D2D7502F12F0874500B17631 /* NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7502E12F0874500B17631 /* NSStringExtensions.m */; };
 		D2DD08ED13E754DF00D5AEFE /* CreateSparks.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2DD08EC13E754DF00D5AEFE /* CreateSparks.xib */; };
+		D2DD08EF13E75A9200D5AEFE /* ReleaseEnergy.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2DD08EE13E75A9200D5AEFE /* ReleaseEnergy.xib */; };
 		D2DEECB5130A2A74004AB731 /* SpriteEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DEECB4130A2A74004AB731 /* SpriteEditor.m */; };
 		D2DEECB8130A2AA6004AB731 /* SpriteEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */; };
 		D2E03F1912EF191A00F77E59 /* XSBool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E03F1812EF191A00F77E59 /* XSBool.m */; };
@@ -393,6 +394,7 @@
 		D2D7502D12F0874500B17631 /* NSStringExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringExtensions.h; sourceTree = "<group>"; };
 		D2D7502E12F0874500B17631 /* NSStringExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringExtensions.m; sourceTree = "<group>"; };
 		D2DD08EC13E754DF00D5AEFE /* CreateSparks.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateSparks.xib; sourceTree = "<group>"; };
+		D2DD08EE13E75A9200D5AEFE /* ReleaseEnergy.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReleaseEnergy.xib; sourceTree = "<group>"; };
 		D2DEECB3130A2A74004AB731 /* SpriteEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteEditor.h; sourceTree = "<group>"; };
 		D2DEECB4130A2A74004AB731 /* SpriteEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteEditor.m; sourceTree = "<group>"; };
 		D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpriteEditor.xib; sourceTree = "<group>"; };
@@ -870,6 +872,7 @@
 				D27153D413BD401800F0C920 /* CreateObject.xib */,
 				D2B62BB513E4E287007C2DFE /* PlaySound.xib */,
 				D2DD08EC13E754DF00D5AEFE /* CreateSparks.xib */,
+				D2DD08EE13E75A9200D5AEFE /* ReleaseEnergy.xib */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -1084,6 +1087,7 @@
 				D220C3FF13CE54F5002C3AD8 /* AresData.icns in Resources */,
 				D2B62BB613E4E288007C2DFE /* PlaySound.xib in Resources */,
 				D2DD08ED13E754DF00D5AEFE /* CreateSparks.xib in Resources */,
+				D2DD08EF13E75A9200D5AEFE /* ReleaseEnergy.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
