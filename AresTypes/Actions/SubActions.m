@@ -1096,6 +1096,18 @@
     [coder encodeUInt32:ID];
     [coder skip:20u];
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Become initial object with id %i", ID];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"ID", nil];
+}
+
+- (NSString *)nibName {
+    return @"AssumeInitial";
+}
 @end
 
 /* Copying stub.

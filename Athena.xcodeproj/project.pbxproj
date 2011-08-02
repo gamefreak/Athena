@@ -124,6 +124,7 @@
 		D2A1914F12FE415800232914 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1914E12FE415800232914 /* StarmapView.m */; };
 		D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A347D313C92117000378B8 /* AudioToolbox.framework */; };
 		D2A3484613C9E263000378B8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A3484513C9E263000378B8 /* Ogg.framework */; };
+		D2AA78EE13E85EB4009D761C /* AssumeInitial.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2B62BB613E4E288007C2DFE /* PlaySound.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B62BB513E4E287007C2DFE /* PlaySound.xib */; };
 		D2B720BF1308739900008307 /* SMIVImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B720BE1308739900008307 /* SMIVImage.m */; };
@@ -386,6 +387,7 @@
 		D2A347D313C92117000378B8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D2A3484513C9E263000378B8 /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A3484C13C9E3E6000378B8 /* Vorbis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Vorbis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssumeInitial.xib; sourceTree = "<group>"; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2B62BB513E4E287007C2DFE /* PlaySound.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaySound.xib; sourceTree = "<group>"; };
@@ -903,6 +905,7 @@
 				D221D8A613E8430000BE5354 /* DisableKeys.xib */,
 				D221D8A813E8527700BE5354 /* SetZoomLevel.xib */,
 				D221D8AA13E85AA200BE5354 /* ComputerSelect.xib */,
+				D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -1128,6 +1131,7 @@
 				D221D8A713E8430000BE5354 /* DisableKeys.xib in Resources */,
 				D221D8A913E8527700BE5354 /* SetZoomLevel.xib in Resources */,
 				D221D8AB13E85AA200BE5354 /* ComputerSelect.xib in Resources */,
+				D2AA78EE13E85EB4009D761C /* AssumeInitial.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
