@@ -793,6 +793,18 @@
     [coder encodeUInt8:shade];
     [coder skip:18u];
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%i tick flash of color %i:%i.", duration, color, shade];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"duration", @"color", @"shade", nil];
+}
+
+- (NSString *)nibName {
+    return @"ColorFlash";
+}
 @end
 
 @implementation CreateObjectSetDestinationAction
