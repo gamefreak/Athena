@@ -423,6 +423,7 @@
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [super initWithResArchiver:coder];
     if (self) {
+        //should this be interpreted as fixed instead?
         warpSpeed = [coder decodeSInt32];
         [coder skip:20u];
     }
@@ -433,6 +434,10 @@
     [super encodeResWithCoder:coder];
     [coder encodeSInt32:warpSpeed];
     [coder skip:20u];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Begin warping at %i u/s", warpSpeed];
 }
 @end
 

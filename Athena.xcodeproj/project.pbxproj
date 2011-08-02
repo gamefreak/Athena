@@ -141,6 +141,7 @@
 		D2E040B112EF41A400F77E59 /* XSInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E040B012EF41A400F77E59 /* XSInteger.m */; };
 		D2E452D412EF4BC90099B0F9 /* FlagBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E452D312EF4BC90099B0F9 /* FlagBlob.m */; };
 		D2E550E213E77B0400DAAC34 /* LandAt.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E550E113E77B0400DAAC34 /* LandAt.xib */; };
+		D2E550E413E77C3600DAAC34 /* EnterWarp.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E550E313E77C3600DAAC34 /* EnterWarp.xib */; };
 		D2E98D19130AED3F0013EBCA /* SpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E98D18130AED3F0013EBCA /* SpriteView.m */; };
 		D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */; };
 		D2FE01B113BBC5AD005C3127 /* NoAction.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FE01B013BBC5AD005C3127 /* NoAction.xib */; };
@@ -409,6 +410,7 @@
 		D2E452D212EF4BC90099B0F9 /* FlagBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagBlob.h; sourceTree = "<group>"; };
 		D2E452D312EF4BC90099B0F9 /* FlagBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlagBlob.m; sourceTree = "<group>"; };
 		D2E550E113E77B0400DAAC34 /* LandAt.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandAt.xib; sourceTree = "<group>"; };
+		D2E550E313E77C3600DAAC34 /* EnterWarp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterWarp.xib; sourceTree = "<group>"; };
 		D2E98D17130AED3F0013EBCA /* SpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteView.h; sourceTree = "<group>"; };
 		D2E98D18130AED3F0013EBCA /* SpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteView.m; sourceTree = "<group>"; };
 		D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioInitialView.h; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 				D2DD08EC13E754DF00D5AEFE /* CreateSparks.xib */,
 				D2DD08EE13E75A9200D5AEFE /* ReleaseEnergy.xib */,
 				D2E550E113E77B0400DAAC34 /* LandAt.xib */,
+				D2E550E313E77C3600DAAC34 /* EnterWarp.xib */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -1092,6 +1095,7 @@
 				D2DD08ED13E754DF00D5AEFE /* CreateSparks.xib in Resources */,
 				D2DD08EF13E75A9200D5AEFE /* ReleaseEnergy.xib in Resources */,
 				D2E550E213E77B0400DAAC34 /* LandAt.xib in Resources */,
+				D2E550E413E77C3600DAAC34 /* EnterWarp.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
