@@ -910,7 +910,7 @@
     self = [super initWithResArchiver:coder];
     if (self) {
         zoomLevel = [coder decodeUInt32];
-        if (!(ZoomLevelHalfSize <= zoomLevel && zoomLevel <= ZoomLevelAll)) {
+        if (!(ZoomLevelDoubleSize <= zoomLevel && zoomLevel <= ZoomLevelAll)) {
             NSLog(@"Bad zoom level [%i]", zoomLevel);
             zoomLevel = ZoomLevelActualSize;
         }
