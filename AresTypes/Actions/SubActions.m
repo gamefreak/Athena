@@ -888,7 +888,7 @@
 - (id) init {
     self = [super init];
     if (self) {
-        zoomLevel = 1;//???
+        zoomLevel = ZoomLevelActualSize;//???
     }
     return self;
 }
@@ -910,6 +910,10 @@
     self = [super initWithResArchiver:coder];
     if (self) {
         zoomLevel = [coder decodeUInt32];
+        if (!(ZoomLevelHalfSize <= zoomLevel && zoomLevel <= ZoomLevelAll)) {
+            NSLog(@"Bad zoom level [%i]", zoomLevel);
+            zoomLevel = ZoomLevelActualSize;
+        }
         [coder skip:20u];
     }
     return self;
@@ -919,6 +923,55 @@
     [super encodeResWithCoder:coder];
     [coder encodeUInt32:zoomLevel];
     [coder skip:20u];
+}
+
+- (NSString *) zoomString {
+    switch (zoomLevel) {
+        case ZoomLevelDoubleSize:
+            return @"2:1";
+            break;
+        case ZoomLevelActualSize:
+            return @"1:1";
+            break;
+        case ZoomLevelHalfSize:
+            return @"1:2";
+            break;
+        case ZoomLevelQuarterSize:
+            return @"1:4";
+            break;
+        case ZoomLevelSixteenthSize:
+            return @"1:16";
+            break;
+        case ZoomLevelNearestFoe:
+            return @"nearest hostile";
+            break;
+        case ZoomLevelNearestObject:
+            return @"nearest object";
+            break;
+        case ZoomLevelAll:
+            return @"all";
+            break;
+        default:
+            return @"<invalid zoom level>";
+            break;
+    }
+    NSAssert(0, @"Unreachable");
+}
+
++ (NSSet *)keyPathsForValuesAffectingZoomString {
+    return [NSSet setWithObjects:@"zoomLevel", nil];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Set zoom level to %@.", [self zoomString]];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"zoomLevel", @"zoomString", nil];
+}
+
+- (NSString *)nibName {
+    return @"SetZoomLevel";
 }
 @end
 

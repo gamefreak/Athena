@@ -154,10 +154,22 @@ typedef enum {
 }
 @end
 
+typedef enum {
+    ZoomLevelDoubleSize,
+    ZoomLevelActualSize,
+    ZoomLevelHalfSize,
+    ZoomLevelQuarterSize,
+    ZoomLevelSixteenthSize,
+    ZoomLevelNearestFoe,
+    ZoomLevelNearestObject,
+    ZoomLevelAll
+} ZoomLevel;
+
 @interface SetZoomLevelAction : Action {
-    NSInteger zoomLevel;
+    ZoomLevel zoomLevel;
 }
-@property (readwrite, assign) NSInteger zoomLevel;
+@property (readwrite, assign) ZoomLevel zoomLevel;
+- (NSString *) zoomString;
 @end
 
 @interface ComputerSelectAction : Action {
