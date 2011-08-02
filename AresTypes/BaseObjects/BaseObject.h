@@ -26,6 +26,13 @@ typedef enum {
     IconShapeNone = 0xf0 //SIGH
 } IconShape;
 
+typedef enum {
+    RotationalObject,
+    AnimatedObject,
+    BeamObject,
+    DeviceObject
+} ObjectType;
+
 @class Weapon;
 
 //SOOOOO many variables 0_0
@@ -142,6 +149,8 @@ typedef enum {
 @property (readwrite, assign) NSInteger portraitId;
 
 - (int) calculateWarpOutDistance;
+- (ObjectType)objectType;
+- (NSString *)specialPanelNib;
 @end
 
 @interface Weapon : NSObject <LuaCoding> {

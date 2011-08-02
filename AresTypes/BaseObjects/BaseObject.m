@@ -236,14 +236,19 @@
                 forKey:@"arrive"];
 
     [frame release];
-    if ([[attributes valueForKey:@"shapeFromDirection"] boolValue] == YES) {
-        frame = [coder decodeObjectOfClass:[RotationData class] forKey:@"rotation"];
-    } else if ([[attributes valueForKey:@"isSelfAnimated"] boolValue] == YES) {
-        frame = [coder decodeObjectOfClass:[AnimationData class] forKey:@"animation"];
-    } else if ([[attributes valueForKey:@"isBeam"] boolValue] == YES) {
-        frame = [coder decodeObjectOfClass:[BeamData class] forKey:@"beam"];
-    } else {
-        frame = [coder decodeObjectOfClass:[DeviceData class] forKey:@"device"];
+    switch ([self objectType]) {
+        case RotationalObject:
+            frame = [coder decodeObjectOfClass:[RotationData class] forKey:@"rotation"];
+            break;
+        case AnimatedObject:
+            frame = [coder decodeObjectOfClass:[AnimationData class] forKey:@"animation"];
+            break;
+        case BeamObject:
+            frame = [coder decodeObjectOfClass:[BeamData class] forKey:@"beam"];
+            break;
+        case DeviceObject:
+            frame = [coder decodeObjectOfClass:[DeviceData class] forKey:@"device"];
+            break;
     }
     [frame retain];
 
@@ -340,15 +345,22 @@
 
     [coder encodeDictionary:actions forKey:@"actions" asArray:NO];
 
-    if ([[attributes valueForKey:@"shapeFromDirection"] boolValue] == YES) {
-        [coder encodeObject:frame forKey:@"rotation"];
-    } else if ([[attributes valueForKey:@"isSelfAnimated"] boolValue] == YES) {
-        [coder encodeObject:frame forKey:@"animation"];
-    } else if ([[attributes valueForKey:@"isBeam"] boolValue] == YES) {
-        [coder encodeObject:frame forKey:@"beam"];
-    } else {
-        [coder encodeObject:frame forKey:@"device"];
+    NSString *encodeKey;
+    switch ([self objectType]) {
+        case RotationalObject:
+            encodeKey = @"rotation";
+            break;
+        case AnimatedObject:
+            encodeKey = @"animation";
+            break;
+        case BeamObject:
+            encodeKey = @"beam";
+            break;
+        case DeviceObject:
+            encodeKey = @"device";
+            break;
     }
+    [coder encodeObject:frame forKey:encodeKey];
 
     [coder encodeInteger:portraitId forKey:@"portraitId"];
 }
@@ -592,6 +604,38 @@
 
 + (size_t)sizeOfResourceItem {
     return 318;
+}
+
+- (ObjectType)objectType {
+    if ([[attributes valueForKey:@"shapeFromDirection"] boolValue] == YES) {
+        return RotationalObject;
+    } else if ([[attributes valueForKey:@"isSelfAnimated"] boolValue] == YES) {
+        return AnimatedObject;
+    } else if ([[attributes valueForKey:@"isBeam"] boolValue] == YES) {
+        return BeamObject;
+    } else {
+        return DeviceObject;
+    }
+}
+
++ (NSSet *)keyPathsForValuesAffectingObjectType {
+    return [NSSet setWithObjects:@"attributes.shapeFromDirection", @"attributes.isSelfAnimated", @"attributes.isBeam", nil];
+}
+
+- (NSString *)specialPanelNib {
+    switch ([self objectType]) {
+        case RotationalObject:
+        case AnimatedObject:
+        case BeamObject:
+        case DeviceObject:
+        default:
+            return nil;
+            break;
+    }
+}
+
++ (NSSet *)keyPathsForValuesAffectingSpecialPanelNib {
+    return [NSSet setWithObjects:@"objectType", nil];
 }
 @end
 
