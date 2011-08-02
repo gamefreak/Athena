@@ -147,6 +147,7 @@ typedef enum {
     NSUInteger keyMask;
 }
 @property (readwrite, assign) NSUInteger keyMask;
+@property (readwrite, retain) NSString *hexValue;
 @end
 
 @interface EnableKeysAction : DisableKeysAction {

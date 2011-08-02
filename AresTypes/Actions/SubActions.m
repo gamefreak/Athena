@@ -815,6 +815,7 @@
 
 @implementation DisableKeysAction
 @synthesize keyMask;
+@dynamic hexValue;
 
 - (id) init {
     self = [super init];
@@ -844,9 +845,41 @@
     [coder encodeUInt32:keyMask];
     [coder skip:20u];
 }
+
++ (NSSet *)keyPathsForValuesAffectingKeyMask {
+    return [NSSet setWithObjects:@"hexValue", nil];
+}
+
+- (NSString *)hexValue {
+    return [NSString stringWithFormat:@"%x", keyMask];
+}
+
+- (void)setHexValue:(NSString *)hexValue {
+    NSScanner *scanner = [NSScanner scannerWithString:hexValue];
+    [scanner scanHexInt:&keyMask];
+}
+
++ (NSSet *)keyPathsForValuesAffectingHexValue {
+    return [NSSet setWithObjects:@"keyMask", nil];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Disable keys with mask 0x%x.", keyMask];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"keyMask, hexValue", nil];
+}
+
+- (NSString *)nibName {
+    return @"DisableKeys";
+}
 @end
 
 @implementation EnableKeysAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Enable keys with mask 0x%x.", keyMask];
+}
 @end
 
 @implementation SetZoomLevelAction

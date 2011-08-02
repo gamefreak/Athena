@@ -29,6 +29,7 @@
 		D21EB31F12E8C41700694EBA /* BaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB31E12E8C41700694EBA /* BaseObject.m */; };
 		D21FC228131580E700F33E5A /* ResEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D21FC227131580E700F33E5A /* ResEntry.m */; };
 		D220C3FF13CE54F5002C3AD8 /* AresData.icns in Resources */ = {isa = PBXBuildFile; fileRef = D220C3FE13CE54F5002C3AD8 /* AresData.icns */; };
+		D221D8A713E8430000BE5354 /* DisableKeys.xib in Resources */ = {isa = PBXBuildFile; fileRef = D221D8A613E8430000BE5354 /* DisableKeys.xib */; };
 		D225D5E813035E9A00E75803 /* BriefingEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D225D5E713035E9A00E75803 /* BriefingEditor.xib */; };
 		D225D64513039F0D00E75803 /* ResUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D225D64413039F0D00E75803 /* ResUnarchiver.m */; };
 		D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D225D64613039FC500E75803 /* CoreServices.framework */; };
@@ -314,6 +315,7 @@
 		D21FC226131580E700F33E5A /* ResEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResEntry.h; sourceTree = "<group>"; };
 		D21FC227131580E700F33E5A /* ResEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResEntry.m; sourceTree = "<group>"; };
 		D220C3FE13CE54F5002C3AD8 /* AresData.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AresData.icns; sourceTree = "<group>"; };
+		D221D8A613E8430000BE5354 /* DisableKeys.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisableKeys.xib; sourceTree = "<group>"; };
 		D225D5E713035E9A00E75803 /* BriefingEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BriefingEditor.xib; sourceTree = "<group>"; };
 		D225D64113039D5100E75803 /* ResCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResCoding.h; sourceTree = "<group>"; };
 		D225D64313039F0D00E75803 /* ResUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResUnarchiver.h; sourceTree = "<group>"; };
@@ -894,6 +896,7 @@
 				D2FBB0C613E81B62009DED44 /* DeclareWinner.xib */,
 				D2FBB0C813E83CD4009DED44 /* Die.xib */,
 				D2FBB0CA13E83EAA009DED44 /* ColorFlash.xib */,
+				D221D8A613E8430000BE5354 /* DisableKeys.xib */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -1116,6 +1119,7 @@
 				D2FBB0C713E81B62009DED44 /* DeclareWinner.xib in Resources */,
 				D2FBB0C913E83CD5009DED44 /* Die.xib in Resources */,
 				D2FBB0CB13E83EAA009DED44 /* ColorFlash.xib in Resources */,
+				D221D8A713E8430000BE5354 /* DisableKeys.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
