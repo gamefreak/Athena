@@ -382,6 +382,18 @@
     [coder encodeSInt32:speed];
     [coder skip:20u];
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Land at destination at speed %i"];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"speed", nil];
+}
+
+- (NSString *)nibName {
+    return @"LandAt";
+}
 @end
 
 @implementation EnterWarpAction
