@@ -1018,6 +1018,18 @@
     [coder encodeSInt32:line];
     [coder skip:16u];
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Select line %i of screen %i in minicomputer.", line, screen];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"screen", @"line", nil];
+}
+
+- (NSString *)nibName {
+    return @"ComputerSelect";
+}
 @end
 
 @implementation AssumeInitialObjectAction
