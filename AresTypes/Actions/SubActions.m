@@ -546,6 +546,18 @@
     [coder encodeSInt32:amount];
     [coder skip:12u];
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Add %i to score %i of player %i.", amount, score, player];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"player", @"score", @"amount", nil];
+}
+
+- (NSString *)nibName {
+    return @"ChangeScore";
+}
 @end
 
 @implementation DeclareWinnerAction

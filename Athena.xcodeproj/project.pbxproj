@@ -145,6 +145,7 @@
 		D2E98D19130AED3F0013EBCA /* SpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E98D18130AED3F0013EBCA /* SpriteView.m */; };
 		D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */; };
 		D2FBB0C313E816DB009DED44 /* DisplayMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */; };
+		D2FBB0C513E81803009DED44 /* ChangeScore.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C413E81803009DED44 /* ChangeScore.xib */; };
 		D2FE01B113BBC5AD005C3127 /* NoAction.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FE01B013BBC5AD005C3127 /* NoAction.xib */; };
 /* End PBXBuildFile section */
 
@@ -417,6 +418,7 @@
 		D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioInitialView.h; sourceTree = "<group>"; };
 		D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioInitialView.m; sourceTree = "<group>"; };
 		D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayMessage.xib; sourceTree = "<group>"; };
+		D2FBB0C413E81803009DED44 /* ChangeScore.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeScore.xib; sourceTree = "<group>"; };
 		D2FE01B013BBC5AD005C3127 /* NoAction.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoAction.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -882,6 +884,7 @@
 				D2E550E113E77B0400DAAC34 /* LandAt.xib */,
 				D2E550E313E77C3600DAAC34 /* EnterWarp.xib */,
 				D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */,
+				D2FBB0C413E81803009DED44 /* ChangeScore.xib */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -1100,6 +1103,7 @@
 				D2E550E213E77B0400DAAC34 /* LandAt.xib in Resources */,
 				D2E550E413E77C3600DAAC34 /* EnterWarp.xib in Resources */,
 				D2FBB0C313E816DB009DED44 /* DisplayMessage.xib in Resources */,
+				D2FBB0C513E81803009DED44 /* ChangeScore.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
