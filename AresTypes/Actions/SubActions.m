@@ -619,6 +619,18 @@
     [coder encodeSInt32:[coder encodeObject:text]];
     [coder skip:12u];
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Declare player %i winner and go to level %i.", player, nextLevel.index];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"player", @"nextLevel.index", nil];
+}
+
+- (NSString *)nibName {
+    return @"DeclareWinner";
+}
 @end
 
 @implementation DieAction
