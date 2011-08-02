@@ -484,6 +484,18 @@
     [coder encodeSInt16:page];
     [coder skip:20u];
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Display message #%i page %i", ID, page];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"ID", @"page", nil];
+}
+
+- (NSString *)nibName {
+    return @"DisplayMessage";
+}
 @end
 
 @implementation ChangeScoreAction
