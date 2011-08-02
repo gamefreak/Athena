@@ -734,15 +734,31 @@
 @end
 
 @implementation SetDestinationAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Set destination to %i", directOverride];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDestination {
+    return [NSSet setWithObjects:@"directOverride", nil];
+}
 @end
 
 @implementation ActivateSpecialAction
+- (NSString *)description {
+    return @"Activate special weapon.";
+}
 @end
 
 @implementation ActivatePulseAction
+- (NSString *)description {
+    return @"Activate pulse weapon.";
+}
 @end
 
 @implementation ActivateBeamAction
+- (NSString *)description {
+    return @"Activate beam weapon.";
+}
 @end
 
 @implementation ColorFlashAction
@@ -808,9 +824,19 @@
 @end
 
 @implementation CreateObjectSetDestinationAction
+- (NSString *)description {
+    if (range > 0) {
+        return [NSString stringWithFormat:@"Create %i to %i of %@ with parent's destination.", min, min + range, [[baseType object] name]];
+    } else {
+        return [NSString stringWithFormat:@"Create %i of %@ with parent's destination.", min, [[baseType object] name]];
+    }
+}
 @end
 
 @implementation NilTargetAction
+- (NSString *)description {
+    return @"Clear target";
+}
 @end
 
 @implementation DisableKeysAction
