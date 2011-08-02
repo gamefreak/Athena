@@ -147,6 +147,7 @@
 		D2FBB0C313E816DB009DED44 /* DisplayMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */; };
 		D2FBB0C513E81803009DED44 /* ChangeScore.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C413E81803009DED44 /* ChangeScore.xib */; };
 		D2FBB0C713E81B62009DED44 /* DeclareWinner.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C613E81B62009DED44 /* DeclareWinner.xib */; };
+		D2FBB0C913E83CD5009DED44 /* Die.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C813E83CD4009DED44 /* Die.xib */; };
 		D2FE01B113BBC5AD005C3127 /* NoAction.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FE01B013BBC5AD005C3127 /* NoAction.xib */; };
 /* End PBXBuildFile section */
 
@@ -421,6 +422,7 @@
 		D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayMessage.xib; sourceTree = "<group>"; };
 		D2FBB0C413E81803009DED44 /* ChangeScore.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeScore.xib; sourceTree = "<group>"; };
 		D2FBB0C613E81B62009DED44 /* DeclareWinner.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeclareWinner.xib; sourceTree = "<group>"; };
+		D2FBB0C813E83CD4009DED44 /* Die.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Die.xib; sourceTree = "<group>"; };
 		D2FE01B013BBC5AD005C3127 /* NoAction.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoAction.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -888,6 +890,7 @@
 				D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */,
 				D2FBB0C413E81803009DED44 /* ChangeScore.xib */,
 				D2FBB0C613E81B62009DED44 /* DeclareWinner.xib */,
+				D2FBB0C813E83CD4009DED44 /* Die.xib */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -1108,6 +1111,7 @@
 				D2FBB0C313E816DB009DED44 /* DisplayMessage.xib in Resources */,
 				D2FBB0C513E81803009DED44 /* ChangeScore.xib in Resources */,
 				D2FBB0C713E81B62009DED44 /* DeclareWinner.xib in Resources */,
+				D2FBB0C913E83CD5009DED44 /* Die.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

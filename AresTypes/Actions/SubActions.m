@@ -705,6 +705,32 @@
     [coder encodeSInt8:how];
     [coder skip:23u];
 }
+
+- (NSString *)description {
+    switch (how) {
+        case DieActionNormal:
+            return @"Die normally.";
+            break;
+        case DieActionExpire:
+            return @"Die by expiring.";
+            break;
+        case DieActionDestroy:
+            return @"Die by destruction.";
+            break;
+        default:
+            return @"Die action is invalid!";
+            break;
+    }
+    return @"Die action is invalid!";    
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"how", nil];
+}
+
+- (NSString *)nibName {
+    return @"Die";
+}
 @end
 
 @implementation SetDestinationAction
