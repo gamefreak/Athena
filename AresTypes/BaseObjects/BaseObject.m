@@ -625,6 +625,8 @@
 - (NSString *)specialPanelNib {
     switch ([self objectType]) {
         case RotationalObject:
+            return @"RotationEditor";
+            break;
         case AnimatedObject:
         case BeamObject:
         case DeviceObject:

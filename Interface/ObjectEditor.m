@@ -13,6 +13,7 @@
 #import "FlagMenuPopulator.h"
 #import "WeaponViewController.h"
 #import "ActionEditor.h"
+#import "SpecialViewController.h"
 
 @implementation ObjectEditor
 @dynamic selection;
@@ -42,6 +43,12 @@
 
 - (void) awakeFromNib {
     [super awakeFromNib];
+    specialControllers = [[NSMutableDictionary alloc] initWithCapacity:4];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(specialParametersChanged:)
+                                                 name:@"SpecialParametersChanged"
+                                               object:nil];
 
     [attributesPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"attributes"];
     [buildFlagsPopulator setRepresentedClass:[BaseObjectBuildFlags class] andPathComponent:@"buildFlags"];
@@ -74,7 +81,9 @@
     [data release];
     [objects release];
     [selection release];
+    [specialControllers release];
     [self unbind:@"selectionIndex"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -170,13 +179,37 @@
 }
 
 - (IBAction) changeActionType:(id)sender {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     //Action selection changed
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"ActionParametersChanged" object:nil];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc postNotificationName:@"ActionParametersChanged" object:nil];
+    [nc postNotificationName:@"SpecialParametersChanged" object:nil];
+}
+
+- (void)specialParametersChanged:(NSNotification *)note {
+    NSString *nibName = [objectsController valueForKeyPath:@"selection.specialPanelNib"];
+    if (nibName == nil) {return;}//TEMP!
+    SpecialViewController *controller = [specialControllers objectForKey:nibName];
+    if (controller == nil) {
+        controller = [[SpecialViewController alloc] initWithNibName:nibName bundle:nil];
+        [specialControllers setObject:controller forKey:nibName];
+        [controller autorelease];
+    }
+
+    [controller setFrame:[[objectsController selection] valueForKey:@"frame"]];
+
+    NSView *newSpecialView = [controller view];
+    [newSpecialView setFrame:[specialViewTarget frame]];
+    
+    if (lastSpecialView == nil) {
+        [specialViewTarget addSubview:newSpecialView];
+    } else {
+        [specialViewTarget replaceSubview:lastSpecialView with:newSpecialView];
+    }
+    [lastSpecialView release];
+    lastSpecialView = [newSpecialView retain];
 }
 @end

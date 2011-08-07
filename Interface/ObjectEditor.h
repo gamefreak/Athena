@@ -49,6 +49,10 @@ static const float actionsVerticalBuffer = 56+31;
     ActionTab currentActionTab;
     IBOutlet ActionEditor *actionEditor;
     
+    NSMutableDictionary *specialControllers;
+    NSView *lastSpecialView;
+    IBOutlet NSView *specialViewTarget;
+    
     BOOL isEditor;
     //YES=show only devices
     //NO =inverse

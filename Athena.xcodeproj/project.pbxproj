@@ -125,6 +125,8 @@
 		D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A347D313C92117000378B8 /* AudioToolbox.framework */; };
 		D2A3484613C9E263000378B8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A3484513C9E263000378B8 /* Ogg.framework */; };
 		D2AA78EE13E85EB4009D761C /* AssumeInitial.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */; };
+		D2AA78F213E8A4B6009D761C /* SpecialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AA78F013E8A4B6009D761C /* SpecialViewController.m */; };
+		D2AA78F613E8A722009D761C /* RotationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2AA78F513E8A722009D761C /* RotationEditor.xib */; };
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2B62BB613E4E288007C2DFE /* PlaySound.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B62BB513E4E287007C2DFE /* PlaySound.xib */; };
 		D2B720BF1308739900008307 /* SMIVImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B720BE1308739900008307 /* SMIVImage.m */; };
@@ -388,6 +390,9 @@
 		D2A3484513C9E263000378B8 /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A3484C13C9E3E6000378B8 /* Vorbis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Vorbis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssumeInitial.xib; sourceTree = "<group>"; };
+		D2AA78EF13E8A4B6009D761C /* SpecialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialViewController.h; sourceTree = "<group>"; };
+		D2AA78F013E8A4B6009D761C /* SpecialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialViewController.m; sourceTree = "<group>"; };
+		D2AA78F513E8A722009D761C /* RotationEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RotationEditor.xib; sourceTree = "<group>"; };
 		D2ACC2C012EE11CA00652FEC /* BaseObjectFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObjectFlags.h; sourceTree = "<group>"; };
 		D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseObjectFlags.m; sourceTree = "<group>"; };
 		D2B62BB513E4E287007C2DFE /* PlaySound.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaySound.xib; sourceTree = "<group>"; };
@@ -562,6 +567,8 @@
 				D26B6A3F130C16D700B461FB /* ObjectEditor.m */,
 				D216CFF513243027008E24F0 /* WeaponViewController.h */,
 				D216CFF413243027008E24F0 /* WeaponViewController.m */,
+				D2AA78EF13E8A4B6009D761C /* SpecialViewController.h */,
+				D2AA78F013E8A4B6009D761C /* SpecialViewController.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -571,6 +578,7 @@
 			children = (
 				D26B6A41130C170900B461FB /* ObjectEditor.xib */,
 				D216CF66132420D1008E24F0 /* WeaponView.xib */,
+				D2AA78F413E8A6FD009D761C /* SubEditors */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -878,6 +886,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D2AA78F413E8A6FD009D761C /* SubEditors */ = {
+			isa = PBXGroup;
+			children = (
+				D2AA78F513E8A722009D761C /* RotationEditor.xib */,
+			);
+			name = SubEditors;
+			sourceTree = "<group>";
+		};
 		D2C7AD4913BB672E003B941F /* Actions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1132,6 +1148,7 @@
 				D221D8A913E8527700BE5354 /* SetZoomLevel.xib in Resources */,
 				D221D8AB13E85AA200BE5354 /* ComputerSelect.xib in Resources */,
 				D2AA78EE13E85EB4009D761C /* AssumeInitial.xib in Resources */,
+				D2AA78F613E8A722009D761C /* RotationEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1197,6 +1214,7 @@
 				D2971B9D137072E8004EE1E0 /* ActionEditor.m in Sources */,
 				D29595FF13C3C42B002BC25C /* ActionViewController.m in Sources */,
 				D29690D913C50E7E005FD7A3 /* XSSound.m in Sources */,
+				D2AA78F213E8A4B6009D761C /* SpecialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
