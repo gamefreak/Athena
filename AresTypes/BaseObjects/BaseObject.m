@@ -628,6 +628,8 @@
             return @"RotationEditor";
             break;
         case AnimatedObject:
+            return @"AnimationEditor";
+            break;
         case BeamObject:
         case DeviceObject:
         default:
