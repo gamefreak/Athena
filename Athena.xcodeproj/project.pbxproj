@@ -149,6 +149,7 @@
 		D2E452D412EF4BC90099B0F9 /* FlagBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E452D312EF4BC90099B0F9 /* FlagBlob.m */; };
 		D2E550E213E77B0400DAAC34 /* LandAt.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E550E113E77B0400DAAC34 /* LandAt.xib */; };
 		D2E550E413E77C3600DAAC34 /* EnterWarp.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E550E313E77C3600DAAC34 /* EnterWarp.xib */; };
+		D2E5F6DD13EF4B4E00C9FBB3 /* BeamEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E5F6DC13EF4B4E00C9FBB3 /* BeamEditor.xib */; };
 		D2E98D19130AED3F0013EBCA /* SpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E98D18130AED3F0013EBCA /* SpriteView.m */; };
 		D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */; };
 		D2FBB0C313E816DB009DED44 /* DisplayMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */; };
@@ -431,6 +432,7 @@
 		D2E452D312EF4BC90099B0F9 /* FlagBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlagBlob.m; sourceTree = "<group>"; };
 		D2E550E113E77B0400DAAC34 /* LandAt.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandAt.xib; sourceTree = "<group>"; };
 		D2E550E313E77C3600DAAC34 /* EnterWarp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterWarp.xib; sourceTree = "<group>"; };
+		D2E5F6DC13EF4B4E00C9FBB3 /* BeamEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BeamEditor.xib; sourceTree = "<group>"; };
 		D2E98D17130AED3F0013EBCA /* SpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteView.h; sourceTree = "<group>"; };
 		D2E98D18130AED3F0013EBCA /* SpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteView.m; sourceTree = "<group>"; };
 		D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioInitialView.h; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 			children = (
 				D2AA78F513E8A722009D761C /* RotationEditor.xib */,
 				D251881E13EF34B300584740 /* AnimationEditor.xib */,
+				D2E5F6DC13EF4B4E00C9FBB3 /* BeamEditor.xib */,
 			);
 			name = SubEditors;
 			sourceTree = "<group>";
@@ -1153,6 +1156,7 @@
 				D2AA78EE13E85EB4009D761C /* AssumeInitial.xib in Resources */,
 				D2AA78F613E8A722009D761C /* RotationEditor.xib in Resources */,
 				D251881F13EF34B300584740 /* AnimationEditor.xib in Resources */,
+				D2E5F6DD13EF4B4E00C9FBB3 /* BeamEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

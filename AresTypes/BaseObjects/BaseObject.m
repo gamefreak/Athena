@@ -631,6 +631,8 @@
             return @"AnimationEditor";
             break;
         case BeamObject:
+            return @"BeamEditor";
+            break;
         case DeviceObject:
         default:
             return nil;

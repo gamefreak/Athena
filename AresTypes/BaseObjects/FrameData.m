@@ -233,7 +233,7 @@
 - (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
-        color = [coder decodeUInt8];
+        color = [coder decodeUInt8] >> 4;
         char bt = [coder decodeUInt8];
         switch (bt) {
             case 0:
@@ -263,7 +263,7 @@
 }
 
 - (void) encodeResWithCoder:(ResArchiver *)coder {
-    [coder encodeUInt8:color];
+    [coder encodeUInt8:color << 4 | 0x01 ];
     char encType;
     switch (type) {
         case BeamTypeKinetic:
