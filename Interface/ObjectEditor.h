@@ -71,4 +71,8 @@ static const float actionsVerticalBuffer = 56+31;
 
 - (IBAction) calculateWarpOutDistance:(id)sender;
 - (IBAction) changeActionType:(id)sender;
+
+- (void) startObservingObject:(BaseObject *)object;
+- (void) stopObservingObject:(BaseObject *)object;
+- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
 @end

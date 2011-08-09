@@ -9,6 +9,8 @@
 #import "ObjectEditor.h"
 #import "MainData.h"
 #import "BaseObject.h"
+#import "BaseObjectFlags.h"
+#import "FlagBlob.h"
 
 #import "FlagMenuPopulator.h"
 #import "WeaponViewController.h"
@@ -213,5 +215,167 @@
     }
     [lastSpecialView release];
     lastSpecialView = [newSpecialView retain];
+}
+
+- (void) insertObject:(BaseObject *)newObject inObjectsAtIndex:(NSUInteger)index {
+    [self startObservingObject:newObject];
+    NSUndoManager *undo = [[self document] undoManager];
+    [[undo prepareWithInvocationTarget:self] removeObjectFromObjectsAtIndex:index];
+    [objects insertObject:newObject atIndex:index];
+}
+
+- (void) removeObjectFromObjectsAtIndex:(NSUInteger)index {
+    BaseObject *old = [objects objectAtIndex:index];
+    [self stopObservingObject:old];
+    NSUndoManager *undo = [[self document] undoManager];
+    [[undo prepareWithInvocationTarget:self] insertObject:old
+                                         inObjectsAtIndex:index];
+    [objects removeObjectAtIndex:index];
+}
+
+- (void) startObservingObject:(BaseObject *)object {
+    [object addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"shortName" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"notes" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"staticName" options:NSKeyValueObservingOptionOld context:NULL];
+    
+    for (NSString *key in [[[object attributes] class] keys]) {
+        [object addObserver:self
+                 forKeyPath:[NSString stringWithFormat:@"attributes.%@", key]
+                    options:NSKeyValueObservingOptionOld
+                    context:NULL];
+    }
+    
+    for (NSString *key in [[[object buildFlags] class ]keys]) {
+        [object addObserver:self
+                 forKeyPath:[NSString stringWithFormat:@"buildFlags.%@", key]
+                    options:NSKeyValueObservingOptionOld
+                    context:NULL];
+    }
+    
+    for (NSString *key in [[[object orderFlags] class ]keys]) {
+        [object addObserver:self
+                 forKeyPath:[NSString stringWithFormat:@"orderFlags.%@", key]
+                    options:NSKeyValueObservingOptionOld
+                    context:NULL];
+    }
+
+    [object addObserver:self forKeyPath:@"classNumber" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"race" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"price" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"buildTime" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"buildRatio" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"offence" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"escortRank" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"maxVelocity" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"warpSpeed" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"warpOutDistance" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"initialVelocity" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"initialVelocityRange" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"mass" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"thrust" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"health" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"energy" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"damage" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"initialAge" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"initialAgeRange" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"scale" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionOld context:NULL];
+//    NSInteger spriteId;
+    [object addObserver:self forKeyPath:@"iconShape" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"iconSize" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"shieldColor" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"initialDirection" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"initialDirectionRange" options:NSKeyValueObservingOptionOld context:NULL];
+//    NSMutableDictionary *weapons;//Later
+    [object addObserver:self forKeyPath:@"friendDefecit" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"dangerThreshold" options:NSKeyValueObservingOptionOld context:NULL];
+//    n) NSInteger specialDirection
+    [object addObserver:self forKeyPath:@"arriveActionDistance" options:NSKeyValueObservingOptionOld context:NULL];
+//    NSMutableDictionary *actions; //Don't observe here
+//    FrameData *frame;
+    [object addObserver:self forKeyPath:@"skillNum" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"skillDen" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"skillNumAdj" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"skillDenAdj" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"portraitId" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void) stopObservingObject:(BaseObject *)object {
+    [object removeObserver:self forKeyPath:@"name"];
+    [object removeObserver:self forKeyPath:@"shortName"];
+    [object removeObserver:self forKeyPath:@"notes"];
+    [object removeObserver:self forKeyPath:@"staticName"];
+
+    for (NSString *key in [[[object attributes] class] keys]) {
+        [object removeObserver:self
+                    forKeyPath:[NSString stringWithFormat:@"attributes.%@", key]];
+    }
+    
+    for (NSString *key in [[[object buildFlags] class ]keys]) {
+        [object removeObserver:self
+                    forKeyPath:[NSString stringWithFormat:@"buildFlags.%@", key]];
+    }
+    
+    for (NSString *key in [[[object orderFlags] class ]keys]) {
+        [object removeObserver:self
+                    forKeyPath:[NSString stringWithFormat:@"orderFlags.%@", key]];
+
+    }
+
+    [object removeObserver:self forKeyPath:@"classNumber"];
+    [object removeObserver:self forKeyPath:@"race"];
+    [object removeObserver:self forKeyPath:@"price"];
+    [object removeObserver:self forKeyPath:@"buildTime"];
+    [object removeObserver:self forKeyPath:@"buildRatio"];
+    [object removeObserver:self forKeyPath:@"offence"];
+    [object removeObserver:self forKeyPath:@"escortRank"];
+    [object removeObserver:self forKeyPath:@"maxVelocity"];
+    [object removeObserver:self forKeyPath:@"warpSpeed"];
+    [object removeObserver:self forKeyPath:@"warpOutDistance"];
+    [object removeObserver:self forKeyPath:@"initialVelocity"];
+    [object removeObserver:self forKeyPath:@"initalVelocityRange"];
+    [object removeObserver:self forKeyPath:@"mass"];
+    [object removeObserver:self forKeyPath:@"thrust"];
+    [object removeObserver:self forKeyPath:@"health"];
+    [object removeObserver:self forKeyPath:@"energy"];
+    [object removeObserver:self forKeyPath:@"damage"];
+    [object removeObserver:self forKeyPath:@"initialAge"];
+    [object removeObserver:self forKeyPath:@"initialAgeRange"];
+    [object removeObserver:self forKeyPath:@"scale"];
+    [object removeObserver:self forKeyPath:@"layer"];
+//    [object removeObserver:self forKeyPath:@"spriteId"];
+    [object removeObserver:self forKeyPath:@"iconShape"];
+    [object removeObserver:self forKeyPath:@"iconSize"];
+    [object removeObserver:self forKeyPath:@"shieldColor"];
+    [object removeObserver:self forKeyPath:@"initialDirection"];
+    [object removeObserver:self forKeyPath:@"initialDirectionRange"];
+//    NSMutableDictionary *weapons;
+    [object removeObserver:self forKeyPath:@"friendDefecit"];
+    [object removeObserver:self forKeyPath:@"dangerThreshold"];
+//   NSInteger specialDirection; //Disabled
+    [object removeObserver:self forKeyPath:@"arriveActionDistance"];
+//    NSMutableDictionary *actions;
+//    FrameData *frame;
+    [object removeObserver:self forKeyPath:@"skillNum"];
+    [object removeObserver:self forKeyPath:@"skillDen"];
+    [object removeObserver:self forKeyPath:@"skillNumAdj"];
+    [object removeObserver:self forKeyPath:@"skillDenAdj"];
+    [object removeObserver:self forKeyPath:@"portraitId"];
+}
+
+- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value {
+    [object setValue:value forKeyPath:keyPath];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    NSUndoManager *undo = [[self document] undoManager];
+    id old = [change objectForKey:NSKeyValueChangeOldKey];
+    [[undo prepareWithInvocationTarget:self] changeKeyPath:keyPath
+                                                  ofObject:object
+                                                   toValue:old];
 }
 @end
