@@ -634,6 +634,7 @@
             return @"BeamEditor";
             break;
         case DeviceObject:
+            return @"DeviceEditor";
         default:
             return nil;
             break;
