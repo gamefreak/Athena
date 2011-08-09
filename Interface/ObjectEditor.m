@@ -44,11 +44,13 @@
 - (void) awakeFromNib {
     [super awakeFromNib];
     specialControllers = [[NSMutableDictionary alloc] initWithCapacity:4];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(specialParametersChanged:)
-                                                 name:@"SpecialParametersChanged"
-                                               object:nil];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(specialParametersChanged:)
+               name:@"SpecialParametersChanged"
+             object:nil];
+    [nc postNotificationName:@"SpecialParametersChanged"
+                      object:nil];
 
     [attributesPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"attributes"];
     [buildFlagsPopulator setRepresentedClass:[BaseObjectBuildFlags class] andPathComponent:@"buildFlags"];
