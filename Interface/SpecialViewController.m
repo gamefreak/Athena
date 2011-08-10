@@ -9,7 +9,7 @@
 #import "SpecialViewController.h"
 
 @implementation SpecialViewController
-@synthesize frame;
+@dynamic frame;
 
 - (void)dealloc {
     [frame release];
@@ -20,7 +20,30 @@
     [super awakeFromNib];
 }
 
-- (void)specialParametersChanged:(NSNotification *)note {
-    
+- (void)setFrame:(FrameData *)frame_ {
+    [frame removeObserver:self];
+    [frame release];
+    frame = frame_;
+    [frame retain];
+    [frame addObserver:self];
+}
+
+- (FrameData *)frame {
+    return frame;
+}
+
+- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value {
+    [object setValue:value forKeyPath:keyPath];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    NSUndoManager *undo = [[[[[self view] window] windowController] document] undoManager];
+    id old = [change objectForKey:NSKeyValueChangeOldKey];
+    [[undo prepareWithInvocationTarget:self] changeKeyPath:keyPath
+                                                  ofObject:object
+                                                   toValue:old];
 }
 @end
