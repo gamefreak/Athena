@@ -94,7 +94,7 @@
     [actions setObject:[ActivateActionRef ref] forKey:@"activate"];
     [actions setObject:[ActionRef ref] forKey:@"arrive"];
 
-    frame = [[RotationData alloc] init];
+    frame = [[DeviceData alloc] init];
 
     skillNum = 1;
     skillDen = 1;
