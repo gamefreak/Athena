@@ -12,7 +12,11 @@
 #import "LuaCoding.h"
 #import "ResCoding.h"
 
-@interface FrameData : NSObject <LuaCoding, ResCoding> {} @end
+@interface FrameData : NSObject <LuaCoding, ResCoding> {
+}
+- (void) addObserver:(NSObject *)observer;
+- (void) removeObserver:(NSObject *)observer;
+@end
 
 @interface RotationData : FrameData {
     NSInteger offset;

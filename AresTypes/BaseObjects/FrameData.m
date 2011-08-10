@@ -39,6 +39,10 @@
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     [coder skip:32u];
 }
+
+//Do nothing here, this will be handled by subclasses.
+- (void) addObserver:(NSObject *)observer {}
+- (void) removeObserver:(NSObject *)observer {}
 @end
 
 @implementation RotationData
@@ -91,6 +95,20 @@
     [coder encodeFixed:turnRate];
     [coder encodeFixed:turnAcceleration];
     [coder skip:16];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [self addObserver:observer forKeyPath:@"offset" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"resolution" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"turnRate" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"turnAcceleration" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [self removeObserver:observer forKeyPath:@"offset"];
+    [self removeObserver:observer forKeyPath:@"resolution"];
+    [self removeObserver:observer forKeyPath:@"turnRate"];
+    [self removeObserver:observer forKeyPath:@"turnAcceleration"];
 }
 @end
 
@@ -164,6 +182,28 @@
     [coder encodeSInt32:shape];
     [coder encodeSInt32:shapeRange];
 }
+
+ - (void)addObserver:(NSObject *)observer {
+     [self addObserver:observer forKeyPath:@"firstShape" options:NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"lastShape" options:NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"direction" options:NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"directionRange" options:NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"speed" options:NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"speedRange" options:NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"shape" options:NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"shapeRange" options:NSKeyValueObservingOptionOld context:NULL];
+ }
+ 
+ - (void)removeObserver:(NSObject *)observer {
+     [self removeObserver:observer forKeyPath:@"firstShape"];
+     [self removeObserver:observer forKeyPath:@"lastShape"];
+     [self removeObserver:observer forKeyPath:@"direction"];
+     [self removeObserver:observer forKeyPath:@"directionRange"];
+     [self removeObserver:observer forKeyPath:@"speed"];
+     [self removeObserver:observer forKeyPath:@"speedRange"];
+     [self removeObserver:observer forKeyPath:@"shape"];
+     [self removeObserver:observer forKeyPath:@"shapeRange"];
+ }
 @end
 
 @implementation BeamData
@@ -290,6 +330,20 @@
     [coder encodeSInt32:range*range];
     [coder skip:22u];
 }
+
+- (void)addObserver:(NSObject *)observer {
+    [self addObserver:observer forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"type" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"accuracy" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"range" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [self removeObserver:observer forKeyPath:@"color"];
+    [self removeObserver:observer forKeyPath:@"type"];
+    [self removeObserver:observer forKeyPath:@"accuracy"];
+    [self removeObserver:observer forKeyPath:@"range"];
+}
 @end
 
 @implementation DeviceData
@@ -369,6 +423,32 @@
     [coder encodeSInt32:inverseSpeed];
     [coder encodeSInt32:restockCost];
     [coder skip:4u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [self addObserver:observer forKeyPath:@"energyCost" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"reload" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"ammo" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"range" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"inverseSpeed" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"restockCost" options:NSKeyValueObservingOptionOld context:NULL];
+
+    [uses addObserver:observer forKeyPath:@"attacking" options:NSKeyValueObservingOptionOld context:NULL];
+    [uses addObserver:observer forKeyPath:@"defence" options:NSKeyValueObservingOptionOld context:NULL];
+    [uses addObserver:observer forKeyPath:@"transportation" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [self removeObserver:observer forKeyPath:@"energyCost"];
+    [self removeObserver:observer forKeyPath:@"reload"];
+    [self removeObserver:observer forKeyPath:@"ammo"];
+    [self removeObserver:observer forKeyPath:@"range"];
+    [self removeObserver:observer forKeyPath:@"inverseSpeed"];
+    [self removeObserver:observer forKeyPath:@"restockCost"];
+
+    [uses removeObserver:observer forKeyPath:@"attacking"];
+    [uses removeObserver:observer forKeyPath:@"defence"];
+    [uses removeObserver:observer forKeyPath:@"transportation"];
 }
 @end
 
