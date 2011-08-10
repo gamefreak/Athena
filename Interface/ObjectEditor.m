@@ -177,6 +177,10 @@
         frame.size = actionsSize;
         frame.size.height += actionsVerticalBuffer;
     } else {
+        if ([identifier isEqualTo:@"special"]) {
+            //Fix for missing sprite on load.
+            [[specialControllers objectForKey:[objectsController valueForKeyPath:@"selection.specialPanelNib"]] updateViewSprite];
+        }
         frame.size = standardSize;
     }
     frame.size.width += borderSize.width;
@@ -197,7 +201,7 @@
 
 - (void)specialParametersChanged:(NSNotification *)note {
     NSString *nibName = [objectsController valueForKeyPath:@"selection.specialPanelNib"];
-    if (nibName == nil) {return;}//TEMP!
+
     SpecialViewController *controller = [specialControllers objectForKey:nibName];
     if (controller == nil) {
         controller = [[SpecialViewController alloc] initWithNibName:nibName bundle:nil];
