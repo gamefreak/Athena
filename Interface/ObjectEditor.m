@@ -209,8 +209,6 @@
         [controller autorelease];
     }
 
-    [controller setFrame:[[objectsController selection] valueForKey:@"frame"]];
-
     NSView *newSpecialView = [controller view];
     [newSpecialView setFrame:[specialViewTarget frame]];
     
@@ -221,6 +219,8 @@
     }
     [lastSpecialView release];
     lastSpecialView = [newSpecialView retain];
+
+    [controller setObject:[objectsController selection]];
 }
 
 - (void) insertObject:(BaseObject *)newObject inObjectsAtIndex:(NSUInteger)index {

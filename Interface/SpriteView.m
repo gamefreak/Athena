@@ -10,6 +10,7 @@
 #import "SMIVImage.h"
 
 @implementation SpriteView
+@synthesize sprite;
 @dynamic direction, speed;
 
 - (id)initWithFrame:(NSRect)frame {

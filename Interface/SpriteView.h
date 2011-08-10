@@ -16,6 +16,7 @@
     NSTimer *timer;
     CGFloat speed;
 }
+@property (readwrite, retain) SMIVImage *sprite;
 @property (readwrite) NSInteger direction;
 @property (readwrite, assign) CGFloat speed;
 

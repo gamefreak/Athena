@@ -8,10 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FrameData;
+@class BaseObject, FrameData, SMIVImage;
+@class SpriteView;
 
 @interface SpecialViewController : NSViewController {
     FrameData *frame;
+    BaseObject *object;
+    IBOutlet SpriteView *spriteView;
 }
 @property (readwrite, retain) FrameData *frame;
+@property (readwrite, retain) BaseObject *object;
+- (void) updateViewSprite;
 @end
