@@ -305,6 +305,8 @@
     [object addObserver:self forKeyPath:@"skillNumAdj" options:NSKeyValueObservingOptionOld context:NULL];
     [object addObserver:self forKeyPath:@"skillDenAdj" options:NSKeyValueObservingOptionOld context:NULL];
     [object addObserver:self forKeyPath:@"portraitId" options:NSKeyValueObservingOptionOld context:NULL];
+
+    [object addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionOld context:NULL];
 }
 
 - (void) stopObservingObject:(BaseObject *)object {
@@ -368,6 +370,8 @@
     [object removeObserver:self forKeyPath:@"skillNumAdj"];
     [object removeObserver:self forKeyPath:@"skillDenAdj"];
     [object removeObserver:self forKeyPath:@"portraitId"];
+
+    [object removeObserver:self forKeyPath:@"frame"];
 }
 
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value {

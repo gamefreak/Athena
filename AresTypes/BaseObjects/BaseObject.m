@@ -102,6 +102,8 @@
     skillDenAdj = 0;//???
 
     portraitId = -1;
+
+    [self addObserver:self forKeyPath:@"objectType" options:NSKeyValueObservingOptionOld context:NULL];
     return self;
 }
 
@@ -118,6 +120,7 @@
     [weapons release];
     [actions release];
     
+    [self removeObserver:self forKeyPath:@"objectType"];
     [frame release];
     [super dealloc];
 }
@@ -138,6 +141,8 @@
     notes = [[coder decodeStringForKey:@"notes"] retain];
     staticName = [[coder decodeStringForKey:@"staticName"] retain];
 
+    //disable the observation
+    [self removeObserver:self forKeyPath:@"objectType"];
     [attributes release];
     attributes = [[coder decodeObjectOfClass:[BaseObjectAttributes class] forKey:@"attributes"] retain];
     [buildFlags release];
@@ -251,6 +256,8 @@
             break;
     }
     [frame retain];
+    //and re-enable
+    [self addObserver:self forKeyPath:@"objectType" options:NSKeyValueObservingOptionOld context:NULL];
 
     skillNum = [coder decodeIntegerForKey:@"skillNum"];
     skillDen = [coder decodeIntegerForKey:@"skillDen"];
@@ -384,6 +391,8 @@
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
+        //disable the observation
+        [self removeObserver:self forKeyPath:@"objectType"];
         [attributes initWithResArchiver:coder];
         classNumber = [coder decodeSInt32];
         race = [coder decodeSInt32];
@@ -501,7 +510,8 @@
         staticName = [[[coder decodeObjectOfClass:[StringTable class]
                                           atIndex:STRBaseObjectStaticNames]
                        stringAtIndex:[coder currentIndex]] retain];
-        
+        //And re-enable
+        [self addObserver:self forKeyPath:@"objectType" options:NSKeyValueObservingOptionOld context:NULL];
     }
     return self;
 }
@@ -643,6 +653,27 @@
 
 + (NSSet *)keyPathsForValuesAffectingSpecialPanelNib {
     return [NSSet setWithObjects:@"objectType", nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    switch ([self objectType]) {
+        case RotationalObject:
+            [self setFrame:[[RotationData alloc] init]];
+            break;
+        case AnimatedObject:
+            [self setFrame:[[AnimationData alloc] init]];
+            break;
+        case BeamObject:
+            [self setFrame:[[BeamData alloc] init]];
+            break;
+        case DeviceObject:
+            [self setFrame:[[DeviceData alloc] init]];
+            break;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SpecialParametersChanged" object:self];
 }
 @end
 
