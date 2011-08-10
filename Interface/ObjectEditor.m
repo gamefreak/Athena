@@ -28,9 +28,6 @@
     if (self) {
         data = [_data retain];
         objects = [[data mutableArrayValueForKey:@"objects"] retain];
-        for (BaseObject *object in objects) {
-            [self startObservingObject:object];
-        }
         isEditor = YES;
     }
     return self;
@@ -86,9 +83,6 @@
 
 - (void)dealloc {
     [data release];
-    for (BaseObject *object in objects) {
-        [self stopObservingObject:object];
-    }
     [objects release];
     [selection release];
     [specialControllers release];
@@ -102,9 +96,11 @@
 }
 
 - (void) setSelection:(BaseObject *)newSelection {
+    [self stopObservingObject:selection];
     [selection release];
     selection = newSelection;
     [selection retain];
+    [self startObservingObject:selection];
 
     [objectsController setSelectedObjects:[NSArray arrayWithObject:selection]];
     [objectsTable scrollRowToVisible:[objectsController selectionIndex]];
