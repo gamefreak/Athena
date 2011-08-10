@@ -28,6 +28,9 @@
     if (self) {
         data = [_data retain];
         objects = [[data mutableArrayValueForKey:@"objects"] retain];
+        for (BaseObject *object in objects) {
+            [self startObservingObject:object];
+        }
         isEditor = YES;
     }
     return self;
@@ -83,6 +86,9 @@
 
 - (void)dealloc {
     [data release];
+    for (BaseObject *object in objects) {
+        [self stopObservingObject:object];
+    }
     [objects release];
     [selection release];
     [specialControllers release];
@@ -334,7 +340,7 @@
     [object removeObserver:self forKeyPath:@"warpSpeed"];
     [object removeObserver:self forKeyPath:@"warpOutDistance"];
     [object removeObserver:self forKeyPath:@"initialVelocity"];
-    [object removeObserver:self forKeyPath:@"initalVelocityRange"];
+    [object removeObserver:self forKeyPath:@"initialVelocityRange"];
     [object removeObserver:self forKeyPath:@"mass"];
     [object removeObserver:self forKeyPath:@"thrust"];
     [object removeObserver:self forKeyPath:@"health"];
