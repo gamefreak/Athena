@@ -79,4 +79,12 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)mouseUp:(NSEvent *)event {
+    if (direction == 1) {
+        [self setDirection:-1];
+    } else if (direction == -1) {
+        [self setDirection:1];
+    }
+}
+
 @end
