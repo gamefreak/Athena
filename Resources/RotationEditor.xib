@@ -88,7 +88,7 @@
 					<object class="NSTextField" id="651890453">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 141}, {132, 17}}</string>
+						<string key="NSFrame">{{29, 141}, {120, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="778685878"/>
@@ -97,7 +97,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="870265667">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Rotation Resolution:</string>
+							<string key="NSContents">Turn Acceleration:</string>
 							<reference key="NSSupport" ref="488124745"/>
 							<string key="NSCellIdentifier">_NS:3936</string>
 							<reference key="NSControlView" ref="651890453"/>
@@ -543,7 +543,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">38</int>
+			<int key="maxID">42</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
