@@ -98,9 +98,9 @@
 }
 
 - (void)addObserver:(NSObject *)observer {
-    [self addObserver:observer forKeyPath:@"offset" options:NSKeyValueObservingOptionOld context:NULL];
-    [self addObserver:observer forKeyPath:@"resolution" options:NSKeyValueObservingOptionOld context:NULL];
-    [self addObserver:observer forKeyPath:@"turnRate" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"offset" options:NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"resolution" options:NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"turnRate" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     [self addObserver:observer forKeyPath:@"turnAcceleration" options:NSKeyValueObservingOptionOld context:NULL];
 }
 

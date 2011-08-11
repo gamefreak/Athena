@@ -61,6 +61,13 @@
     NSString *spriteKey = [[object valueForKey:@"spriteId"] stringValue];
     SMIVImage *sprite = [sprites valueForKey:spriteKey];
     [spriteView setSprite:sprite];
+    if ([frame isKindOfClass:[RotationData class]]) {
+        [spriteView setAngularVelocity:2.0f * [[frame valueForKey:@"turnRate"] floatValue]];
+        NSRange frameRange;
+        frameRange.location = [[frame valueForKey:@"offset"] integerValue];
+        frameRange.length = 360 / [[frame valueForKey:@"resolution"] integerValue];
+        [spriteView setFrameRange:frameRange];
+    }
 }
 
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value {
@@ -71,8 +78,20 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    if (spriteView != nil && [keyPath isEqualToString:@"spriteId"] ) {
-        [self updateViewSprite];
+    if (spriteView != nil) {
+        if([keyPath isEqualToString:@"spriteId"]) {
+            [self updateViewSprite];
+        } else if ([keyPath isEqualToString:@"turnRate"]) {
+            [spriteView setAngularVelocity:2.0f * [[change valueForKey:NSKeyValueChangeNewKey] floatValue]];
+        } else if ([keyPath isEqualToString:@"offset"]) {
+            NSRange frameRange = [spriteView frameRange];
+            frameRange.location = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
+            [spriteView setFrameRange:frameRange];
+        } else if ([keyPath isEqualToString:@"resolution"]) {
+            NSRange frameRange = [spriteView frameRange];
+            frameRange.length = 360 / [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
+            [spriteView setFrameRange:frameRange];
+        }
     }
     NSUndoManager *undo = [[[[[self view] window] windowController] document] undoManager];
     id old = [change objectForKey:NSKeyValueChangeOldKey];
