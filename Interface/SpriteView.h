@@ -14,11 +14,14 @@
     SMIVImage *sprite;
     NSInteger direction;
     NSTimer *timer;
-    CGFloat speed;
+    CGFloat speed;//FPS
+    NSRange frameRange;
 }
 @property (readwrite, retain) SMIVImage *sprite;
 @property (readwrite) NSInteger direction;
 @property (readwrite, assign) CGFloat speed;
+@property (readwrite, assign) CGFloat angularVelocity;
+@property (readwrite, assign) NSRange frameRange;
 
 - (void) resetTimer;
 - (IBAction) triggerChange:(id)sender;

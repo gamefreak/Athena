@@ -10,8 +10,7 @@
 #import "SMIVImage.h"
 
 @implementation SpriteView
-@synthesize sprite;
-@dynamic direction, speed;
+@dynamic sprite, direction, speed, frameRange, angularVelocity;
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -62,7 +61,25 @@
     } else if (direction == -1) {
         [sprite previousFrame];
     }
+    if (!NSLocationInRange([sprite frame], frameRange)) {
+        if ([sprite frame] < frameRange.location) {
+            [sprite setFrame:NSMaxRange(frameRange)];
+        } else {
+            [sprite setFrame:frameRange.location];
+        }
+    }
     [self setNeedsDisplay:YES];
+}
+
+- (void)setSprite:(SMIVImage *)sprite_ {
+    [sprite release];
+    sprite = sprite_;
+    [sprite retain];
+    [self setFrameRange:NSMakeRange(0, [sprite count])]; 
+}
+
+- (SMIVImage *)sprite {
+    return sprite;
 }
 
 - (void)setDirection:(NSInteger)_direction {
@@ -71,13 +88,38 @@
     [self setNeedsDisplay:YES];
 }
 
+- (NSInteger)direction {
+    return direction;
+}
+
 - (void)setSpeed:(CGFloat)_speed {
     speed = _speed;
     [self resetTimer];
 }
 
+- (CGFloat)speed {
+    return speed;
+}
+
+- (void)setAngularVelocity:(CGFloat)angularVelocity {
+    [self setSpeed:angularVelocity * [sprite count] / (2.0f  * M_PI)];
+}
+
+- (CGFloat)angularVelocity {
+    //circle/slices * slices / second = circles/second
+    return 2.0f * M_PI / [sprite count] * speed;
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [self setNeedsDisplay:YES];
+}
+
+- (void)setFrameRange:(NSRange)frameRange_ {
+    frameRange = frameRange_;
+}
+
+- (NSRange)frameRange {
+    return frameRange;
 }
 
 - (void)mouseUp:(NSEvent *)event {
