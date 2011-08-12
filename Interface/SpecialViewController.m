@@ -67,6 +67,14 @@
         frameRange.location = [[frame valueForKey:@"offset"] integerValue];
         frameRange.length = 360 / [[frame valueForKey:@"resolution"] integerValue];
         [spriteView setFrameRange:frameRange];
+    } else if ([frame isKindOfClass:[AnimationData class]]) {
+        AnimationData *anim = (AnimationData *)frame;
+        [spriteView setSpeed:[anim speed]];
+        
+        NSRange range;
+        range.location = [anim firstShape];
+        range.length = [anim lastShape]- range.location;
+        [spriteView setFrameRange:range];
     }
 }
 
@@ -91,6 +99,18 @@
             NSRange frameRange = [spriteView frameRange];
             frameRange.length = 360 / [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
             [spriteView setFrameRange:frameRange];
+        } else if ([keyPath isEqualToString:@"firstShape"]) {
+            NSRange frameRange = [spriteView frameRange];
+            int right = frameRange.location + frameRange.length;
+            frameRange.location = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
+            frameRange.length = right - frameRange.location;
+        } else if ([keyPath isEqualToString:@"lastShape"]) {
+            NSRange frameRange = [spriteView frameRange];
+            int right = frameRange.location + frameRange.length;
+            frameRange.length = [[change valueForKey:NSKeyValueChangeNewKey] integerValue] - frameRange.location;
+        } else if ([keyPath isEqualToString:@"speed"]) {
+            int speed = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
+            [spriteView setSpeed:speed];
         }
     }
     NSUndoManager *undo = [[[[[self view] window] windowController] document] undoManager];

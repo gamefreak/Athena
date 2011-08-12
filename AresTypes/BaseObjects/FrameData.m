@@ -184,14 +184,14 @@
 }
 
  - (void)addObserver:(NSObject *)observer {
-     [self addObserver:observer forKeyPath:@"firstShape" options:NSKeyValueObservingOptionOld context:NULL];
-     [self addObserver:observer forKeyPath:@"lastShape" options:NSKeyValueObservingOptionOld context:NULL];
-     [self addObserver:observer forKeyPath:@"direction" options:NSKeyValueObservingOptionOld context:NULL];
-     [self addObserver:observer forKeyPath:@"directionRange" options:NSKeyValueObservingOptionOld context:NULL];
-     [self addObserver:observer forKeyPath:@"speed" options:NSKeyValueObservingOptionOld context:NULL];
-     [self addObserver:observer forKeyPath:@"speedRange" options:NSKeyValueObservingOptionOld context:NULL];
-     [self addObserver:observer forKeyPath:@"shape" options:NSKeyValueObservingOptionOld context:NULL];
-     [self addObserver:observer forKeyPath:@"shapeRange" options:NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"firstShape" options:NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"lastShape" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"direction" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"directionRange" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"speed" options:NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"speedRange" options:NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"shape" options:NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld context:NULL];
+     [self addObserver:observer forKeyPath:@"shapeRange" options:NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld context:NULL];
  }
  
  - (void)removeObserver:(NSObject *)observer {

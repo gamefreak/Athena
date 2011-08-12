@@ -56,6 +56,9 @@
 }
 
 - (IBAction) triggerChange:(id)sender {
+    if ([sprite count] == 0) {
+        return;
+    }
     if (direction == 1) {
         [sprite nextFrame];
     } else if (direction == -1) {
