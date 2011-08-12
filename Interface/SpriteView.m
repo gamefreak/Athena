@@ -61,11 +61,34 @@
     } else if (direction == -1) {
         [sprite previousFrame];
     }
-    if (!NSLocationInRange([sprite frame], frameRange)) {
-        if ([sprite frame] < frameRange.location) {
-            [sprite setFrame:NSMaxRange(frameRange)];
-        } else {
-            [sprite setFrame:frameRange.location];
+    
+    int pos = [sprite frame];
+    int left = frameRange.location;
+    int right = (frameRange.location + frameRange.length - 1) % [sprite count];
+    //Stupid wrapped ranges
+    if (left < right) {
+        //concave range |...[------]...|
+        if (right < pos) {
+            if (direction == 1) {
+                [sprite setFrame:left];
+            } else if (direction == -1) {
+                [sprite setFrame:right];
+            }
+        } else if (pos < left) {
+            if (direction == 1) {
+                [sprite setFrame:left];
+            } else if (direction == -1) {
+                [sprite setFrame:right];
+            }
+        }
+    } else if (right < left) {
+        //convex range |---]......[---|
+        if (right < pos && pos < left) {
+            if (direction == 1) {
+                [sprite setFrame:left];
+            } else if (direction == -1) {
+                [sprite setFrame:right];
+            }
         }
     }
     [self setNeedsDisplay:YES];
@@ -116,6 +139,7 @@
 
 - (void)setFrameRange:(NSRange)frameRange_ {
     frameRange = frameRange_;
+    [sprite setFrame:frameRange.location];
 }
 
 - (NSRange)frameRange {
