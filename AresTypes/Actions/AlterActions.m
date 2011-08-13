@@ -241,6 +241,7 @@
     } else if (class == [AlterAbsoluteLocationAction class]) {
         return AlterAbsoluteLocation;
     }
+    return 0;
 }
 
 + (Class) classForType:(ActionAlterType)type {

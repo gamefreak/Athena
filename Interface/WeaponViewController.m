@@ -26,10 +26,11 @@
 }
 
 - (IBAction) openObjectPicker:(id)sender {
+    AthenaDocument *document = [[[[self view] window] windowController] document];
     ObjectEditor *editor = [[ObjectEditor alloc]
-                            initAsPickerWithData:[[[[self view] window] document] data]
+                            initAsPickerWithData:[document data]
                             forDevices:YES];
-    [[[[self view] window] document] addWindowController:editor];
+    [document addWindowController:editor];
     [editor showWindow:sender];
 
     [editor setSelection:weapon.device];//So we don't lose the current selection

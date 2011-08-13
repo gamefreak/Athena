@@ -57,7 +57,7 @@
 }
 
 - (void) updateViewSprite {
-    NSDictionary *sprites = [[[[[[self view] window] windowController] document] data] sprites];
+    NSDictionary *sprites = [(MainData *)[[[[[self view] window] windowController] document] data] sprites];
     NSString *spriteKey = [[object valueForKey:@"spriteId"] stringValue];
     SMIVImage *sprite = [sprites valueForKey:spriteKey];
     [spriteView setSprite:sprite];
@@ -78,12 +78,12 @@
     }
 }
 
-- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value {
-    [object setValue:value forKeyPath:keyPath];
+- (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object_ toValue:(id)value {
+    [object_ setValue:value forKeyPath:keyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
+                      ofObject:(id)object_
                         change:(NSDictionary *)change
                        context:(void *)context {
     if (spriteView != nil) {
@@ -106,7 +106,6 @@
             frameRange.length = right - frameRange.location;
         } else if ([keyPath isEqualToString:@"lastShape"]) {
             NSRange frameRange = [spriteView frameRange];
-            int right = frameRange.location + frameRange.length;
             frameRange.length = [[change valueForKey:NSKeyValueChangeNewKey] integerValue] - frameRange.location;
         } else if ([keyPath isEqualToString:@"speed"]) {
             int speed = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
@@ -116,7 +115,7 @@
     NSUndoManager *undo = [[[[[self view] window] windowController] document] undoManager];
     id old = [change objectForKey:NSKeyValueChangeOldKey];
     [[undo prepareWithInvocationTarget:self] changeKeyPath:keyPath
-                                                  ofObject:object
+                                                  ofObject:object_
                                                    toValue:old];
 }
 @end

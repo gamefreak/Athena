@@ -16,6 +16,8 @@
 #import "RaceEditor.h"
 #import "SpriteEditor.h"
 
+#import <sys/stat.h>
+
 @implementation AthenaDocument
 @synthesize data;
 

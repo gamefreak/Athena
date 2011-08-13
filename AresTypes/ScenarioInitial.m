@@ -7,6 +7,7 @@
 //
 
 #import "ScenarioInitial.h"
+#import "MainData.h"
 #import "Archivers.h"
 #import "XSPoint.h"
 #import "XSInteger.h"
@@ -116,7 +117,7 @@
 }
 
 - (void) finishLoadingFromLuaWithRootData:(id)data {
-    self.type = [[data objects] objectAtIndex:typeId];
+    self.type = [[(MainData *)data objects] objectAtIndex:typeId];
 }
 
 + (BOOL) isComposite {
@@ -132,7 +133,7 @@
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
-        int typeId = [coder decodeSInt32];
+        typeId = [coder decodeSInt32];
         if (typeId != -1) {
             self.type = [coder decodeObjectOfClass:[BaseObject class] atIndex:typeId];
         } else {
@@ -180,7 +181,7 @@
     int k = 0;
     int builtCount = [builds count];
     for (; k < builtCount; k++) {
-        [coder encodeSInt32:[[builds objectAtIndex:k] value]];
+        [coder encodeSInt32:[[builds objectAtIndex:k] intValue]];
     }
     for (; k < 12; k++) {
         [coder encodeSInt32:-1];
@@ -226,7 +227,7 @@
 @end
 
 static NSArray *snitAttrKeys;
-@implementation ScenarioInitialAttributes;
+@implementation ScenarioInitialAttributes
 @synthesize fixedRace, initiallyHidden, isPlayerShip, staticDestination;
 
 + (NSArray *) keys {

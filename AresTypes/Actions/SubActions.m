@@ -22,7 +22,7 @@
         [coder skip:24u];
     }
     return self;
-};
+}
 
 - (void) encodeResWithCoder:(ResArchiver *)coder {
     [super encodeResWithCoder:coder];

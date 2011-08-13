@@ -10,6 +10,7 @@
 #import "Action.h"
 #import "BaseObject.h"
 #import "ObjectEditor.h"
+#import "AthenaDocument.h"
 
 @implementation ActionViewController
 @synthesize actionObj;
@@ -21,11 +22,12 @@
 
 //For CreateObjectAction
 - (IBAction)openObjectPicker:(id)sender {
-    MainData *data = [[[[self view] window] document] data];
+    AthenaDocument *document = [[[[self view] window] windowController] document];
+    MainData *data = [document data];
     ObjectEditor *editor = [[ObjectEditor alloc]
                             initAsPickerWithData:data
                             forDevices:NO];
-    [[[[self view] window] document] addWindowController:editor];
+    [document addWindowController:editor];
     [editor showWindow:sender];
     [editor setSelection:[actionObj valueForKeyPath:@"baseType.object"]];
     [self bind:@"type" toObject:editor withKeyPath:@"objectsController.selection" options:nil];

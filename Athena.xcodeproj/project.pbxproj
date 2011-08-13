@@ -1328,7 +1328,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = ../Frameworks;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = core2;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1346,7 +1345,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = ../Frameworks;
 				GCC_MODEL_TUNING = core2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Athena_Prefix.pch;

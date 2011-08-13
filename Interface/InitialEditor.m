@@ -62,7 +62,7 @@
     ObjectEditor *editor = [[ObjectEditor alloc]
                             initAsPickerWithData:data
                             forDevices:NO];
-    [[[self window] document] addWindowController:editor];
+    [[[[self window] windowController] document] addWindowController:editor];
     [editor showWindow:sender];
     [editor setSelection:currentInitial.type];
     [currentInitial bind:@"type" toObject:editor withKeyPath:@"selection" options:nil];

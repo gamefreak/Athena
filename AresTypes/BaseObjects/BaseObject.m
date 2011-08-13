@@ -9,6 +9,7 @@
 #import "BaseObject.h"
 #import "Archivers.h"
 #import "XSPoint.h"
+#import "MainData.h"
 
 @implementation BaseObject
 @synthesize name, shortName, notes, staticName;
@@ -744,7 +745,7 @@
 
 - (void) finishLoadingFromLuaWithRootData:(id)data {
     if (ID != -1) {
-        self.device = [[data objects] objectAtIndex:ID];
+        self.device = [[(MainData *)data objects] objectAtIndex:ID];
     }
 }
 

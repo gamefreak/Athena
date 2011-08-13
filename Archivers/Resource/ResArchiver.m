@@ -94,7 +94,7 @@
 - (BOOL) writeToFile:(NSString *)filePath {
     FSRef directoryRef;
     Boolean isDirectory;
-    if (FSPathMakeRef([[filePath stringByDeletingLastPathComponent] cStringUsingEncoding:NSMacOSRomanStringEncoding], &directoryRef, &isDirectory) != noErr) {
+    if (FSPathMakeRef((const UInt8 *)[[filePath stringByDeletingLastPathComponent] cStringUsingEncoding:NSMacOSRomanStringEncoding], &directoryRef, &isDirectory) != noErr) {
         //Could not make path ref
         return NO;
     }
@@ -137,7 +137,7 @@
 }
 
 - (void) setName:(NSString *)name {
-    [[stack lastObject] setName:name];
+    [(ResSegment *)[stack lastObject] setName:name];
 }
 
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object {

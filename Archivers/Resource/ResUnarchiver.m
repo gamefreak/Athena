@@ -11,6 +11,7 @@
 #import "ResSegment.h"
 #import "StringTable.h"
 #import "Scenario.h"
+#import <objc/runtime.h>
 
 @implementation ResUnarchiver
 - (id) initWithFilePath:(NSString *)path; {
@@ -45,7 +46,7 @@
     }
 }
 
-- (void) registerClass:(Class <Alloc, ResCoding>)class {
+- (void) registerClass:(Class <NSObject, Alloc, ResCoding>)class {
     ResType type = [class resType];
 
 
@@ -70,7 +71,7 @@
                                data:[data subdataWithRange:NSMakeRange(recSize * k, recSize)]
                                index:k
                                name:@""];
-            if ([class conformsToProtocol:@protocol(ResIndexOverriding)]) {
+            if (class_conformsToProtocol(class, @protocol(ResIndexOverriding))) {
                 [stack addObject:seg];
                 seg.index = [(id<ResIndexOverriding>)class peekAtIndexWithCoder:self];
                 [stack removeLastObject];

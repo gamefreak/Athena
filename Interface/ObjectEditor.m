@@ -17,6 +17,11 @@
 #import "ActionEditor.h"
 #import "SpecialViewController.h"
 
+@interface ObjectEditor (WarningsFix)
+- (void) insertObject:(BaseObject *)newObject inObjectsAtIndex:(NSUInteger)index;
+- (void) removeObjectFromObjectsAtIndex:(NSUInteger)index;
+@end
+
 @implementation ObjectEditor
 @dynamic selection;
 @dynamic selectionIndex;

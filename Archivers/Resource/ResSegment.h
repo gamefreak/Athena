@@ -15,7 +15,7 @@
     NSMutableData *data;
     NSString *name;
     id<ResCoding, NSObject> object;
-    Class<ResCoding> dataClass;
+    Class<Alloc, ResCoding> dataClass;
     NSUInteger cursor;
     BOOL loaded;
     Index *index;

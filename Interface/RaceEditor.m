@@ -10,7 +10,13 @@
 #import "MainData.h"
 #import "Race.h"
 
+@interface RaceEditor (WarningRemoval)
+- (void) insertObject:(Race *)newRace inRacesAtIndex:(NSInteger)index;
+- (void) removeObjectFromRacesAtIndex:(NSInteger)index;
+@end
+
 @implementation RaceEditor
+@synthesize races;
 - (id) initWithMainData:(MainData *)_data {
     self = [super initWithWindowNibName:@"RaceEditor"];
     if (self) {

@@ -9,6 +9,7 @@
 #import "ResSegment.h"
 #import "ResCoding.h"
 #import "IndexedObject.h"
+#import <objc/runtime.h>
 
 @implementation ResSegment
 @synthesize data, object, dataClass, cursor, loaded, name;
@@ -32,7 +33,7 @@
     return self;
 }
 
-- (id) initWithClass:(Class<ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index name:(NSString *)_name {
+- (id) initWithClass:(Class<Alloc, ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index name:(NSString *)_name {
     self = [super init];
     if (self) {
         name = [_name retain];
@@ -48,8 +49,8 @@
 - (id) loadObjectWithCoder:(ResUnarchiver *)coder {
     if (!loaded) {
         //Special case
-        if ([dataClass conformsToProtocol:@protocol(ResClassOverriding)]) {
-            dataClass = [(Class<ResClassOverriding>)dataClass classForResCoder:coder];
+        if (class_conformsToProtocol(dataClass, @protocol(ResClassOverriding))) {
+            dataClass = (Class<Alloc,ResCoding>)[(Class<ResClassOverriding>)dataClass classForResCoder:coder];
         }
         object = [[dataClass alloc] initWithResArchiver:coder];
         if ([object isKindOfClass:[IndexedObject class]]) {

@@ -15,6 +15,7 @@
     MainData *data;
     NSMutableArray *races;
 }
+@property (readwrite, retain) NSMutableArray *races;
 - (id) initWithMainData:(MainData *)data;
 
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
