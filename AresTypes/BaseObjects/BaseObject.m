@@ -109,6 +109,7 @@
 }
 
 - (void) dealloc {
+    [self removeObserver:self forKeyPath:@"objectType"];
     [name release];
     [shortName release];
     [notes release];
@@ -121,7 +122,6 @@
     [weapons release];
     [actions release];
     
-    [self removeObserver:self forKeyPath:@"objectType"];
     [frame release];
     [super dealloc];
 }
