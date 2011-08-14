@@ -58,4 +58,6 @@ typedef enum {
 + (Class) classForType:(ActionType)type;
 + (ActionType) typeForString:(NSString *)type;
 + (NSString *) stringForType:(ActionType) type;
+- (void) addObserver:(NSObject *)observer;
+- (void) removeObserver:(NSObject *)observer;
 @end

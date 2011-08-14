@@ -107,6 +107,26 @@
     [coder skip:6u];
 }
 
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"baseType" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"min" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"range" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"velocityRelative" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"directionRelative" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"distanceRange" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"baseType"];
+    [self removeObserver:observer forKeyPath:@"min"];
+    [self removeObserver:observer forKeyPath:@"range"];
+    [self removeObserver:observer forKeyPath:@"velocityRelative"];
+    [self removeObserver:observer forKeyPath:@"directionRelative"];
+    [self removeObserver:observer forKeyPath:@"distanceRange"];
+}
+
 - (NSString *)nibName {
     return @"CreateObject";
 }
@@ -205,6 +225,28 @@
     [coder encodeSInt32:soundIdRange];
 }
 
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"priority" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"persistence" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"isAbsolute" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"volume" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"volumeRange" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"soundId" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"soundIdRange" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"priority"];
+    [self removeObserver:observer forKeyPath:@"persistence"];
+    [self removeObserver:observer forKeyPath:@"isAbsolute"];
+    [self removeObserver:observer forKeyPath:@"volume"];
+    [self removeObserver:observer forKeyPath:@"volumeRange"];
+    [self removeObserver:observer forKeyPath:@"soundId"];
+    [self removeObserver:observer forKeyPath:@"soundIdRange"];
+}
+
 - (NSString *)nibName {
     return @"PlaySound";
 }
@@ -275,6 +317,25 @@
     [coder skip:11u];
 }
 
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"count" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"velocity" options:NSKeyValueObservingOptionOld context:NULL];
+
+    [self addObserver:observer forKeyPath:@"velocityRange" options:NSKeyValueObservingOptionOld context:NULL];
+
+    [self addObserver:observer forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:NULL];
+
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"count"];
+    [self removeObserver:observer forKeyPath:@"velocity"];
+    [self removeObserver:observer forKeyPath:@"velocityRange"];
+    [self removeObserver:observer forKeyPath:@"color"];
+}
+
 - (NSString *)description {
     if (count == 1) {
         return [NSString stringWithFormat:@"Make 1 %i-colored spark", color];
@@ -331,6 +392,16 @@
     [coder skip:20u];
 }
 
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"percent" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"percent"];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"Release %g%% of object's energy.", percent];
 }
@@ -381,6 +452,16 @@
     [super encodeResWithCoder:coder];
     [coder encodeSInt32:speed];
     [coder skip:20u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"speed" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"speed"];
 }
 
 - (NSString *)description {
@@ -436,6 +517,16 @@
     [coder skip:20u];
 }
 
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"warpSpeed" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"warpSpeed"];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"Begin warping at %i u/s", warpSpeed];
 }
@@ -483,6 +574,18 @@
     [coder encodeSInt16:ID];
     [coder encodeSInt16:page];
     [coder skip:20u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"ID" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"page" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"ID"];
+    [self removeObserver:observer forKeyPath:@"page"];
 }
 
 - (NSString *)description {
@@ -545,6 +648,20 @@
     [coder encodeSInt32:score];
     [coder encodeSInt32:amount];
     [coder skip:12u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"player" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"score" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"amount" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"player"];
+    [self removeObserver:observer forKeyPath:@"score"];
+    [self removeObserver:observer forKeyPath:@"amount"];
 }
 
 - (NSString *)description {
@@ -618,6 +735,22 @@
     [coder encodeSInt32:nextLevel.index];
     [coder encodeSInt32:[coder encodeObject:text]];
     [coder skip:12u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"player" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"nextLevel" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"text.name" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"text.text" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"player"];
+    [self removeObserver:observer forKeyPath:@"nextLevel"];
+    [self removeObserver:observer forKeyPath:@"text.name"];
+    [self removeObserver:observer forKeyPath:@"text.text"];
 }
 
 - (NSString *)description {
@@ -704,6 +837,16 @@
     [super encodeResWithCoder:coder];
     [coder encodeSInt8:how];
     [coder skip:23u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"how" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"how"];
 }
 
 - (NSString *)description {
@@ -810,6 +953,20 @@
     [coder skip:18u];
 }
 
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"duration" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"shade" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"duration"];
+    [self removeObserver:observer forKeyPath:@"color"];
+    [self removeObserver:observer forKeyPath:@"shade"];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%i tick flash of color %i:%i.", duration, color, shade];
 }
@@ -870,6 +1027,16 @@
     [super encodeResWithCoder:coder];
     [coder encodeUInt32:keyMask];
     [coder skip:20u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"keyMask" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"keyMask"];
 }
 
 + (NSSet *)keyPathsForValuesAffectingKeyMask {
@@ -949,6 +1116,16 @@
     [super encodeResWithCoder:coder];
     [coder encodeUInt32:zoomLevel];
     [coder skip:20u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"zoomLevel" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"zoomLevel"];
 }
 
 - (NSString *) zoomString {
@@ -1045,6 +1222,18 @@
     [coder skip:16u];
 }
 
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"screen" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"line" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"screen"];
+    [self removeObserver:observer forKeyPath:@"line"];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"Select line %i of screen %i in minicomputer.", line, screen];
 }
@@ -1097,6 +1286,16 @@
     [coder skip:20u];
 }
 
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"ID" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"ID"];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"Become initial object with id %i", ID];
 }
@@ -1109,21 +1308,3 @@
     return @"AssumeInitial";
 }
 @end
-
-/* Copying stub.
-@implementation CN
-- (id) init {
-    self = [super init];
-    return self;
-}
-
-- (id) initWithLuaCoder:(LuaUnarchiver *)coder {
-    self = [super initWithLuaCoder:coder];
-    return self;
-}
-
-- (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [super encodeLuaWithCoder:coder];
-}
-@end
-*/

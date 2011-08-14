@@ -38,8 +38,6 @@
 
 }
 
-
-
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [super initWithResArchiver:coder];
     if (self) {
@@ -362,6 +360,16 @@
     [coder encodeSInt32:value];
     [coder skip:18u];//int + 14 byte padding
 }
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"value" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"value"];
+}
 @end
 
 @implementation AlterActionRangeClass
@@ -407,6 +415,18 @@
     [coder encodeSInt32:min];
     [coder encodeSInt32:range];
     [coder skip:14u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"min" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"range" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"min"];
+    [self removeObserver:observer forKeyPath:@"range"];
 }
 @end
 
@@ -457,6 +477,20 @@
     [coder encodeSInt32:range];
     [coder skip:14u];
 }
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"relative" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"min" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"range" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"relative"];
+    [self removeObserver:observer forKeyPath:@"min"];
+    [self removeObserver:observer forKeyPath:@"range"];
+}
 @end
 
 @implementation AlterActionIDRefClass
@@ -504,6 +538,16 @@
     [coder skip:1u];//relative
     [coder encodeSInt32:[IDRef index]];
     [coder skip:18u];//int + 14 bytes padding
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"IDRef" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"IDRef"];
 }
 @end
 
@@ -567,6 +611,18 @@
     [coder encodeSInt32:value];
     [coder skip:18u];//int + 14 bytes padding
 }
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"useObjectsOwner" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"value" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"useObjectsOwner"];
+    [self removeObserver:observer forKeyPath:@"value"];
+}
 @end
 
 
@@ -622,6 +678,18 @@
     [coder encodeSInt32:[IDRef index]];
     [coder skip:18u];//int + 14 bytes padding
 }
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"retainAmmoCount" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"IDRef" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"retainAmmoCount"];
+    [self removeObserver:observer forKeyPath:@"IDRef"];
+}
 @end
 
 @implementation AlterActiveConditionAction
@@ -670,6 +738,20 @@
     [coder encodeUInt32:min];
     [coder encodeSInt32:range];
     [coder skip:14u];//padding
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"conditionTrue" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"min" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"range" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"conditionTrue"];
+    [self removeObserver:observer forKeyPath:@"min"];
+    [self removeObserver:observer forKeyPath:@"range"];
 }
 @end
 
@@ -720,6 +802,20 @@
     [coder encodeSInt8:useObjectsOwner];
     [coder encodeSInt32:value];
     [coder encodeSInt32:player];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"useObjectsOwner" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"value" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"player" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"useObjectsOwner"];
+    [self removeObserver:observer forKeyPath:@"value"];
+    [self removeObserver:observer forKeyPath:@"player"];
 }
 @end
 
@@ -778,6 +874,20 @@
     [coder encodeSInt32:point.x];
     [coder encodeSInt32:point.y];
     [coder skip:14u];//padding
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"relative" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"point.x" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"point.y" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"relative"];
+    [self removeObserver:observer forKeyPath:@"point.x"];
+    [self removeObserver:observer forKeyPath:@"point.y"];
 }
 @end
 

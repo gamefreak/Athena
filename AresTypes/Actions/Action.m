@@ -362,4 +362,26 @@
 - (NSString *)nibName {
     return @"NoAction";
 }
+
+- (void)addObserver:(NSObject *)observer {
+    [self addObserver:observer forKeyPath:@"type" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"reflexive" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"inclusiveFilter" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"exclusiveFilter" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"subjectOverride" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"directOverride" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"owner" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"delay" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [self removeObserver:observer forKeyPath:@"type"];
+    [self removeObserver:observer forKeyPath:@"reflexive"];
+    [self removeObserver:observer forKeyPath:@"inclusiveFilter"];
+    [self removeObserver:observer forKeyPath:@"exclusiveFilter"];
+    [self removeObserver:observer forKeyPath:@"subjectOverride"];
+    [self removeObserver:observer forKeyPath:@"directOverride"];
+    [self removeObserver:observer forKeyPath:@"owner"];
+    [self removeObserver:observer forKeyPath:@"delay"];
+}
 @end
