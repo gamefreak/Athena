@@ -40,8 +40,8 @@
     } else {
         NSSize grid = [sprite gridDistribution];
         [sprite drawSpriteSheetAtPoint:NSMakePoint(
-        (frame.size.width  - size.width  * grid.width )/2.0f,
-        (frame.size.height - size.height * grid.height)/2.0f)];
+        floorf((frame.size.width  - size.width  * grid.width )/2.0f),
+        floorf((frame.size.height - size.height * grid.height)/2.0f))];
     }
 
 }
