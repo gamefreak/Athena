@@ -84,7 +84,7 @@
     } else if ([type isEqual:@"energy"]) {
         return AlterEnergy;
     } else if ([type isEqual:@"owner"]) {
-        return AlterOnwer;
+        return AlterOwner;
     } else if ([type isEqual:@"hidden"]) {
         return AlterHidden;
     } else if ([type isEqual:@"cloak"]) {
@@ -150,7 +150,7 @@
         case AlterEnergy:
             return @"energy";
             break;
-        case AlterOnwer:
+        case AlterOwner:
             return @"owner";
             break;
         case AlterHidden:
@@ -216,8 +216,8 @@
         return AlterSpecialWeapon;
     } else if (class == [AlterEnergyAction class]) {
         return AlterEnergy;
-    } else if (class == [AlterOnwerAction class]) {
-        return AlterOnwer;
+    } else if (class == [AlterOwnerAction class]) {
+        return AlterOwner;
     } else if (class == [AlterHiddenAction class]) {
         return AlterHidden;
     } else if (class == [AlterCloakAction class]) {
@@ -280,8 +280,8 @@
         case AlterEnergy:
             return [AlterEnergyAction class];
             break;
-        case AlterOnwer:
-            return [AlterOnwerAction class];
+        case AlterOwner:
+            return [AlterOwnerAction class];
             break;
         case AlterHidden:
             return [AlterHiddenAction class];
@@ -563,13 +563,13 @@
 @implementation AlterBeamWeaponAction @end
 @implementation AlterSpecialWeaponAction @end
 @implementation AlterEnergyAction @end
-//@implementation AlterOnwerAction @end
+//@implementation AlterOwnerAction @end
 @implementation AlterHiddenAction @end
 @implementation AlterCloakAction @end
 @implementation AlterOfflineAction @end
 @implementation AlterCurrentTurnRateAction @end
 
-@implementation AlterOnwerAction
+@implementation AlterOwnerAction
 @synthesize useObjectsOwner, value;
 - (id)init {
     self = [super init];

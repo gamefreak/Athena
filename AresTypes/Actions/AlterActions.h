@@ -25,7 +25,7 @@ typedef enum {
     AlterBeamWeapon,
     AlterSpecialWeapon,
     AlterEnergy,
-    AlterOnwer,
+    AlterOwner,
     AlterHidden,
     AlterCloak,
     AlterOffline,
@@ -101,7 +101,7 @@ typedef enum {
 @interface AlterAgeAction : AlterActionRangeClass {} @end
 //@interface AlterAbsoluteLocationAction : AlterAction {} @end
 
-@interface AlterOnwerAction : AlterAction {
+@interface AlterOwnerAction : AlterAction {
     BOOL useObjectsOwner;
     int value;
 }
