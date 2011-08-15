@@ -132,6 +132,10 @@
     [[stack lastObject] advance:length];
 }
 
+- (void) seek:(size_t)position {
+    [[stack lastObject] seek:position];
+}
+
 - (void) extend:(NSUInteger)bytes {
     [[stack lastObject] extend:bytes];
 }

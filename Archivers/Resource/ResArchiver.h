@@ -21,6 +21,7 @@
 - (BOOL) writeToFile:(NSString *)file;
 
 - (void) skip:(size_t)length;
+- (void) seek:(size_t)position;
 - (void) extend:(NSUInteger)bytes;
 - (void) setName:(NSString *)name;
 
