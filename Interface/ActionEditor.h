@@ -22,4 +22,5 @@
 }
 @property (readwrite, retain) NSMutableArray *actions;
 - (void) actionParametersDidChange:(NSNotification *)notification;
+- (IBAction)addAction:(id)sender;
 @end

@@ -9,6 +9,12 @@
 #import "ActionEditor.h"
 #import "ObjectEditor.h"
 #import "ActionViewController.h"
+#import "Action.h"
+
+@interface ActionEditor (Private)
+- (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromActionsAtIndex:(NSUInteger)index;
+@end
 
 @implementation ActionEditor
 @synthesize actions;
@@ -42,6 +48,7 @@
 
 - (void) actionParametersDidChange:(NSNotification *)notification {
     int row = [actionTable selectedRow];
+    
     NSString *nib;
     if (row >= 0) {
         nib = [[actions objectAtIndex:row] nibName];
@@ -73,5 +80,26 @@
 //    [[innerEditorView superview] replaceSubview:innerEditorView with:[controller view]];
     [lastInnerView release];
     lastInnerView = [newInnerView retain];
+}
+
+- (IBAction)addAction:(id)sender {
+    NSMenuItem *choice = [sender selectedItem];
+    NSInteger tag = [choice tag];
+    Action *newAction = [[[Action classForType:tag] alloc] init];
+    [actionsArrayController addObject:newAction];
+}
+
+- (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index {
+    NSUndoManager *undo = [[[[[self view] window] windowController] document] undoManager];
+    [undo setActionName:@"Add Action"];
+    [[undo prepareWithInvocationTarget:self] removeObjectFromActionsAtIndex:index];
+    [actions insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromActionsAtIndex:(NSUInteger)index {
+    NSUndoManager *undo = [[[[[self view] window] windowController] document] undoManager];
+    [undo setActionName:@"Remove Action"];
+    [[undo prepareWithInvocationTarget:self] insertObject:[actions objectAtIndex:index] inActionsAtIndex:index];
+    [actions removeObjectAtIndex:index];
 }
 @end
