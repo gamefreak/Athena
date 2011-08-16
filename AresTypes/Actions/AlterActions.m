@@ -370,6 +370,10 @@
     [super removeObserver:observer];
     [self removeObserver:observer forKeyPath:@"value"];
 }
+
+- (NSString *)nibName {
+    return @"AlterValue";
+}
 @end
 
 @implementation AlterActionRangeClass
