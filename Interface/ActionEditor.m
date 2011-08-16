@@ -10,6 +10,7 @@
 #import "ObjectEditor.h"
 #import "ActionViewController.h"
 #import "Action.h"
+#import "AlterActions.h"
 
 @interface ActionEditor (Private)
 - (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index;
@@ -85,7 +86,12 @@
 - (IBAction)addAction:(id)sender {
     NSMenuItem *choice = [sender selectedItem];
     NSInteger tag = [choice tag];
-    Action *newAction = [[[Action classForType:tag] alloc] init];
+    Action *newAction;
+    if ([[choice title] hasPrefix:@"Alter"]) {
+        newAction = [[[AlterAction classForAlterType:tag] alloc] init];
+    } else {
+        newAction = [[[Action classForType:tag] alloc] init];
+    }
     [actionsArrayController addObject:newAction];
 }
 
