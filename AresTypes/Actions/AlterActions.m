@@ -432,6 +432,10 @@
     [self removeObserver:observer forKeyPath:@"min"];
     [self removeObserver:observer forKeyPath:@"range"];
 }
+
+- (NSString *)nibName {
+    return @"AlterRange";
+}
 @end
 
 @implementation AlterActionRelativeRangeClass
