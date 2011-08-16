@@ -12,7 +12,7 @@
 #import "SubActions.h"
 
 @implementation Action
-@synthesize type, reflexive, inclusiveFilter, exclusiveFilter;
+@synthesize reflexive, inclusiveFilter, exclusiveFilter;
 @synthesize subjectOverride, directOverride, owner, delay;
 @dynamic nibName;
 - (id) init {
@@ -37,7 +37,6 @@
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     if (self) {
-        type = [Action typeForString:[coder decodeStringForKey:@"type"]];
         reflexive = [coder decodeBoolForKey:@"reflexive"];
 
         inclusiveFilter = [coder decodeIntegerForKey:@"inclusiveFilter"];
@@ -52,7 +51,7 @@
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    [coder encodeString:[Action stringForType:type]
+    [coder encodeString:[Action stringForType:[Action typeForClass:[self class]]]
                  forKey:@"type"];
     [coder encodeBool:reflexive forKey:@"reflexive"];
     [coder encodeInteger:inclusiveFilter forKey:@"inclusiveFilter"];
@@ -92,7 +91,7 @@
      * //    self = [[[[self class] classForType:type_] alloc] init];
      */
     if (self) {
-        type = [coder decodeSInt8];
+        [coder skip:1u];//type
         reflexive = (BOOL)[coder decodeSInt8];
         inclusiveFilter = [coder decodeUInt32];
         exclusiveFilter = [coder decodeUInt32];
@@ -106,7 +105,7 @@
 }
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
-    [coder encodeSInt8:type];
+    [coder encodeSInt8:[Action typeForClass:[self class]]];
     [coder encodeSInt8:reflexive];
     [coder encodeUInt32:inclusiveFilter];
     [coder encodeUInt32:exclusiveFilter];
@@ -417,7 +416,6 @@
 }
 
 - (void)addObserver:(NSObject *)observer {
-    [self addObserver:observer forKeyPath:@"type" options:NSKeyValueObservingOptionOld context:NULL];
     [self addObserver:observer forKeyPath:@"reflexive" options:NSKeyValueObservingOptionOld context:NULL];
     [self addObserver:observer forKeyPath:@"inclusiveFilter" options:NSKeyValueObservingOptionOld context:NULL];
     [self addObserver:observer forKeyPath:@"exclusiveFilter" options:NSKeyValueObservingOptionOld context:NULL];
@@ -428,7 +426,6 @@
 }
 
 - (void)removeObserver:(NSObject *)observer {
-    [self removeObserver:observer forKeyPath:@"type"];
     [self removeObserver:observer forKeyPath:@"reflexive"];
     [self removeObserver:observer forKeyPath:@"inclusiveFilter"];
     [self removeObserver:observer forKeyPath:@"exclusiveFilter"];
@@ -436,5 +433,17 @@
     [self removeObserver:observer forKeyPath:@"directOverride"];
     [self removeObserver:observer forKeyPath:@"owner"];
     [self removeObserver:observer forKeyPath:@"delay"];
+}
+
+//copies non subclass specific values to another action object
+//used for changing action types.
+- (void) copyValuesTo:(Action *)otherAction {
+    [otherAction setReflexive:reflexive];
+    [otherAction setInclusiveFilter:inclusiveFilter];
+    [otherAction setExclusiveFilter:exclusiveFilter];
+    [otherAction setSubjectOverride:subjectOverride];
+    [otherAction setDirectOverride:directOverride];
+    [otherAction setOwner:owner];
+    [otherAction setDelay:delay];
 }
 @end

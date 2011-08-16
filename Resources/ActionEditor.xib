@@ -176,12 +176,13 @@
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSPopUpButtonCell" key="NSCell" id="543491012">
 											<int key="NSCellFlags">-2076049856</int>
-											<int key="NSCellFlags2">2048</int>
+											<int key="NSCellFlags2">134219776</int>
 											<reference key="NSSupport" ref="90572749"/>
 											<string key="NSCellIdentifier">_NS:179</string>
 											<reference key="NSControlView" ref="819672412"/>
-											<int key="NSButtonFlags">109199615</int>
+											<int key="NSButtonFlags">-2035138305</int>
 											<int key="NSButtonFlags2">129</int>
+											<reference key="NSAlternateImage" ref="90572749"/>
 											<string key="NSAlternateContents"/>
 											<string key="NSKeyEquivalent"/>
 											<int key="NSPeriodicDelay">400</int>
@@ -287,7 +288,7 @@
 													</object>
 												</object>
 												<object class="NSTextFieldCell" key="NSDataCell" id="909892569">
-													<int key="NSCellFlags">337772096</int>
+													<int key="NSCellFlags">69336641</int>
 													<int key="NSCellFlags2">2048</int>
 													<string key="NSContents">Text Cell</string>
 													<reference key="NSSupport" ref="90572749"/>
@@ -936,6 +937,19 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="NSAction">_popUpItemAction:</string>
 						<int key="NSTag">2</int>
 					</object>
+					<object class="NSMenuItem" id="418840581">
+						<reference key="NSMenu" ref="1063714712"/>
+						<bool key="NSIsDisabled">YES</bool>
+						<bool key="NSIsHidden">YES</bool>
+						<string key="NSTitle">Fake-Actions</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSKeyEquivModMask">1048576</int>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="50934701"/>
+						<reference key="NSMixedImage" ref="852339348"/>
+						<string key="NSAction">_popUpItemAction:</string>
+						<int key="NSTag">3</int>
+					</object>
 					<object class="NSMenuItem" id="374572574">
 						<reference key="NSMenu" ref="1063714712"/>
 						<string key="NSTitle">Make Sparks</string>
@@ -1407,7 +1421,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<reference key="NSMenuFont" ref="90572749"/>
 			</object>
 			<object class="NSMenu" id="682009516">
-				<string key="NSTitle">Add Action</string>
+				<string key="NSTitle">Change Action</string>
 				<array class="NSMutableArray" key="NSMenuItems">
 					<object class="NSMenuItem" id="362797159">
 						<reference key="NSMenu" ref="682009516"/>
@@ -1459,6 +1473,19 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="NSMixedImage" ref="852339348"/>
 						<string key="NSAction">_popUpItemAction:</string>
 						<int key="NSTag">2</int>
+					</object>
+					<object class="NSMenuItem" id="145419053">
+						<reference key="NSMenu" ref="682009516"/>
+						<bool key="NSIsDisabled">YES</bool>
+						<bool key="NSIsHidden">YES</bool>
+						<string key="NSTitle">Fake Actions</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSKeyEquivModMask">1048576</int>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="50934701"/>
+						<reference key="NSMixedImage" ref="852339348"/>
+						<string key="NSAction">_popUpItemAction:</string>
+						<int key="NSTag">3</int>
 					</object>
 					<object class="NSMenuItem" id="1172497">
 						<reference key="NSMenu" ref="682009516"/>
@@ -2446,8 +2473,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<int key="objectID">49</int>
 						<reference key="object" ref="277928464"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="1017781933"/>
 							<reference ref="819672412"/>
+							<reference ref="1017781933"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -2551,6 +2578,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="764771951"/>
 							<reference ref="991491349"/>
 							<reference ref="254247424"/>
+							<reference ref="418840581"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Menu - Add Action</string>
@@ -2886,6 +2914,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="937161144"/>
 							<reference ref="1018698602"/>
 							<reference ref="367445094"/>
+							<reference ref="145419053"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Menu - Add Action</string>
@@ -3141,6 +3170,16 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="367445094"/>
 						<reference key="parent" ref="682009516"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">282</int>
+						<reference key="object" ref="418840581"/>
+						<reference key="parent" ref="1063714712"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">283</int>
+						<reference key="object" ref="145419053"/>
+						<reference key="parent" ref="682009516"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3308,6 +3347,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="274.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="275.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="282.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="283.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3339,7 +3380,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">281</int>
+			<int key="maxID">283</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -12,8 +12,14 @@
 #import "Action.h"
 #import "AlterActions.h"
 
+const int regularActionOffset = 2;
+const int regularActionCount = 24;
+const int alterActionOffset = 28;//regularActionOffset + regularActionCount + 2
+const int alterActionCount = 23;
+
 @interface ActionEditor (Private)
 - (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index;
+- (void)replaceObjectInActionsAtIndex:(NSUInteger)index withObject:(Action *)object;
 - (void)removeObjectFromActionsAtIndex:(NSUInteger)index;
 @end
 
@@ -55,7 +61,7 @@
     int row = [actionTable selectedRow];
     
     NSString *nib;
-    if ([self hasSelection]) {
+    if (row >= 0) {
         nib = [[actions objectAtIndex:row] nibName];
     } else {
         nib = @"NoAction";
@@ -105,6 +111,15 @@
     [actions insertObject:object atIndex:index];
 }
 
+- (void)replaceObjectInActionsAtIndex:(NSUInteger)index withObject:(Action *)action {
+    //This should only be called when changing action types.
+    Action *old = [actions objectAtIndex:index];
+    NSUndoManager *undo = [[[[[self view] window] windowController] document] undoManager];
+    [undo setActionName:@"Change Action Type"];
+    [[undo prepareWithInvocationTarget:self] replaceObjectInActionsAtIndex:index withObject:old];
+    [actions replaceObjectAtIndex:index withObject:action];
+}
+
 - (void)removeObjectFromActionsAtIndex:(NSUInteger)index {
     NSUndoManager *undo = [[[[[self view] window] windowController] document] undoManager];
     [undo setActionName:@"Remove Action"];
@@ -123,12 +138,6 @@
 }
 
 - (NSInteger)rowForDropDown {
-    const int regularActionOffset = 2;
-    const int regularActionCount = 24;
-    const int alterActionOffset = 28;//regularActionOffset + regularActionCount + 2
-    const int alterActionCount = 23;
-#pragma unused (regularActionCount, alterActionCount) //STFU
-
     if (![self hasSelection]) {
         return regularActionOffset + NoActionType;
     }
@@ -146,7 +155,15 @@
 }
 
 - (void)setRowForDropDown:(NSInteger)rowForDropDown {
-    
+    Class class;
+    if (alterActionOffset <= rowForDropDown) {
+        class = [AlterAction classForAlterType:rowForDropDown - alterActionOffset];
+    } else {
+        class = [Action classForType:rowForDropDown - regularActionOffset];
+    }
+    Action *newAction = [[[class alloc] init] autorelease];
+    [[actions objectAtIndex:[actionsArrayController selectionIndex]] copyValuesTo:newAction];
+    [self replaceObjectInActionsAtIndex:[actionsArrayController selectionIndex] withObject:newAction];
 }
 
 - (BOOL)hasSelection {
