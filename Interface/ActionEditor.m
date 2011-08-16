@@ -19,6 +19,7 @@
 
 @implementation ActionEditor
 @synthesize actions;
+@dynamic rowForDropDown;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -44,14 +45,17 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     //Action selection changed
+    [self willChangeValueForKey:@"hasSelection"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
+    [self didChangeValueForKey:@"hasSelection"];
 }
 
 - (void) actionParametersDidChange:(NSNotification *)notification {
+    [self willChangeValueForKey:@"rowForDropDown"];
     int row = [actionTable selectedRow];
     
     NSString *nib;
-    if (row >= 0) {
+    if ([self hasSelection]) {
         nib = [[actions objectAtIndex:row] nibName];
     } else {
         nib = @"NoAction";
@@ -81,18 +85,17 @@
 //    [[innerEditorView superview] replaceSubview:innerEditorView with:[controller view]];
     [lastInnerView release];
     lastInnerView = [newInnerView retain];
+    [self didChangeValueForKey:@"rowForDropDown"];
 }
 
 - (IBAction)addAction:(id)sender {
+    NSLog(@"Adding");
     NSMenuItem *choice = [sender selectedItem];
-    NSInteger tag = [choice tag];
-    Action *newAction;
-    if ([[choice title] hasPrefix:@"Alter"]) {
-        newAction = [[[AlterAction classForAlterType:tag] alloc] init];
-    } else {
-        newAction = [[[Action classForType:tag] alloc] init];
-    }
+    Action *newAction = [[[ActionEditor classForMenuItem:choice] alloc] init];
+    int count = [actions count];
     [actionsArrayController addObject:newAction];
+    NSAssert(count != [actions count], @"Length of actions array unchanged %ul == %ul", count, [actions count]);
+    [newAction release];
 }
 
 - (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index {
@@ -107,5 +110,46 @@
     [undo setActionName:@"Remove Action"];
     [[undo prepareWithInvocationTarget:self] insertObject:[actions objectAtIndex:index] inActionsAtIndex:index];
     [actions removeObjectAtIndex:index];
+}
+
++ (Class)classForMenuItem:(NSMenuItem *)menuItem {
+    Class class;
+    if ([[menuItem title] hasPrefix:@"Alter"]) {
+        class = [AlterAction classForAlterType:[menuItem tag]];
+    } else {
+        class = [Action classForType:[menuItem tag]];
+    }
+    return class;
+}
+
+- (NSInteger)rowForDropDown {
+    const int regularActionOffset = 2;
+    const int regularActionCount = 24;
+    const int alterActionOffset = 28;//regularActionOffset + regularActionCount + 2
+    const int alterActionCount = 23;
+#pragma unused (regularActionCount, alterActionCount) //STFU
+
+    if (![self hasSelection]) {
+        return regularActionOffset + NoActionType;
+    }
+
+    NSUInteger index = [actionsArrayController selectionIndex];
+    Class currentActionClass = [[actions objectAtIndex:index] class];
+
+    BOOL isAlterType = [currentActionClass isSubclassOfClass:[AlterAction class]];
+
+    if (isAlterType) {
+        return alterActionOffset + [AlterAction alterTypeForClass:currentActionClass];
+    } else {
+        return regularActionOffset + [Action typeForClass:currentActionClass];
+    }
+}
+
+- (void)setRowForDropDown:(NSInteger)rowForDropDown {
+    
+}
+
+- (BOOL)hasSelection {
+    return [[actionsArrayController selectedObjects] count] > 0;
 }
 @end
