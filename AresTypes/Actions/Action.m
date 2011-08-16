@@ -141,6 +141,59 @@
     return type;
 }
 
++ (ActionType)typeForClass:(Class)class {
+    if ([NoAction class] == class) {
+        return NoActionType;
+    } else if ([CreateObjectAction class] == class) {
+        return CreateObjectActionType;
+    } else if ([PlaySoundAction class] == class) {
+        return PlaySoundActionType;
+    } else if ([class isSubclassOfClass:[AlterAction class]]) {
+        return AlterActionType;
+    } else if ([MakeSparksAction class] == class) {
+        return MakeSparksActionType;
+    } else if ([ReleaseEnergyAction class] == class) {
+        return ReleaseEnergyActionType;
+    } else if ([LandAtAction class] == class) {
+        return LandAtActionType;
+    } else if ([EnterWarpAction class] == class) {
+        return EnterWarpActionType;
+    } else if ([DisplayMessageAction class] == class) {
+        return DisplayMessageActionType;
+    } else if ([ChangeScoreAction class] == class) {
+        return ChangeScoreActionType;
+    } else if ([DeclareWinnerAction class] == class) {
+        return DeclareWinnerActionType;
+    } else if ([DieAction class] == class) {
+        return DieActionType;
+    } else if ([SetDestinationAction class] == class) {
+        return SetDestinationActionType;
+    } else if ([ActivateSpecialAction class] == class) {
+        return ActivateSpecialActionType;
+    } else if ([ActivatePulseAction class] == class) {
+        return ActivatePulseActionType;
+    } else if ([ActivateBeamAction class] == class) {
+        return ActivateBeamActionType;
+    } else if ([ColorFlashAction class] == class) {
+        return ColorFlashActionType;
+    } else if ([CreateObjectSetDestinationAction class] == class) {
+        return CreateObjectSetDestinationActionType;
+    } else if ([NilTargetAction class] == class) {
+        return NilTargetActionType;
+    } else if ([DisableKeysAction class] == class) {
+        return DisableKeysActionType;
+    } else if ([EnableKeysAction class] == class) {
+        return EnableKeysActionType;
+    } else if ([SetZoomLevelAction class] == class) {
+        return SetZoomLevelActionType;
+    } else if ([ComputerSelectAction class] == class) {
+        return ComputerSelectActionType;
+    } else if ([AssumeInitialObjectAction class] == class) {
+        return AssumeInitialObjectActionType;
+    }
+    return NoActionType;
+}
+
 + (Class) classForType:(ActionType)type {
     switch (type) {
         case NoActionType:

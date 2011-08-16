@@ -55,9 +55,10 @@ typedef enum {
 @property (readwrite, assign) NSInteger delay;
 
 @property (readonly) NSString *nibName;
++ (ActionType) typeForClass:(Class)class;
 + (Class) classForType:(ActionType)type;
 + (ActionType) typeForString:(NSString *)type;
-+ (NSString *) stringForType:(ActionType) type;
++ (NSString *) stringForType:(ActionType)type;
 - (void) addObserver:(NSObject *)observer;
 - (void) removeObserver:(NSObject *)observer;
 @end
