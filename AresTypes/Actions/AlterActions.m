@@ -55,7 +55,7 @@
     [coder seek:24u];
     ActionAlterType type = [coder decodeUInt8];
     [coder seek:0u];
-    return [AlterAction classForType:type];
+    return [AlterAction classForAlterType:type];
 }
 
 + (ActionAlterType) alterTypeForString:(NSString *)type {
@@ -242,7 +242,7 @@
     return 0;
 }
 
-+ (Class) classForType:(ActionAlterType)type {
++ (Class) classForAlterType:(ActionAlterType)type {
     switch (type) {
         case AlterHealth:
             return [AlterHealthAction class];

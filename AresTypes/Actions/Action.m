@@ -136,7 +136,7 @@
 + (Class) classForLuaCoder:(LuaUnarchiver *)coder {
     Class type = [self classForType:[self typeForString:[coder decodeStringForKey:@"type"]]];
     if (type == [AlterAction class]) {
-        type = [AlterAction classForType:[AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]]];
+        type = [AlterAction classForAlterType:[AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]]];
     }
     return type;
 }

@@ -34,7 +34,7 @@ typedef enum {
     AlterActiveCondition,
     AlterOccupation,
     AlterAbsoluteCash,
-    AlterAge,
+    AlterAge,//=21
     AlterAbsoluteLocation = 26
 } ActionAlterType; //Blegh
 
@@ -45,7 +45,7 @@ typedef enum {
 + (NSString *) stringForAlterType:(ActionAlterType)type;
 
 + (ActionAlterType) alterTypeForClass:(Class)class;
-+ (Class) classForType:(ActionAlterType)type;
++ (Class) classForAlterType:(ActionAlterType)type;
 @end
 
 @interface AlterActionValueClass : AlterAction {
