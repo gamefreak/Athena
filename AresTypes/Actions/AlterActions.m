@@ -795,6 +795,14 @@
     [super removeObserver:observer];
     [self removeObserver:observer forKeyPath:@"IDRef"];
 }
+
+- (NSString *)nibName {
+    return @"AlterIDRef";
+}
+
+- (NSString *)pickerLabel {
+    return [NSString stringWithFormat:@"%i %@", [IDRef index], [[IDRef object] shortName]];
+}
 @end
 
 @implementation AlterHealthAction
@@ -1049,6 +1057,18 @@
     [super removeObserver:observer];
     [self removeObserver:observer forKeyPath:@"retainAmmoCount"];
     [self removeObserver:observer forKeyPath:@"IDRef"];
+}
+
+- (NSString *)nibName {
+    return @"AlterIDRef";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Change base type to %@.", [self pickerLabel]];
+}
+     
+- (NSString *)pickerLabel {
+    return [NSString stringWithFormat:@"%i %@", [IDRef index], [[IDRef object] shortName]];
 }
 @end
 

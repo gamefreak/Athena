@@ -106,9 +106,11 @@
     selection = newSelection;
     [selection retain];
     [self startObservingObject:selection];
-
-    [objectsController setSelectedObjects:[NSArray arrayWithObject:selection]];
-    [objectsTable scrollRowToVisible:[objectsController selectionIndex]];
+    if (selection != nil) {
+        [objectsController setSelectedObjects:[NSArray arrayWithObject:selection]];
+        [objectsTable scrollRowToVisible:[objectsController selectionIndex]];
+    }
+    
 }
 
 - (NSUInteger) selectionIndex {

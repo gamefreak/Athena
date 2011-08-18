@@ -110,6 +110,7 @@ typedef enum {
     Index *IDRef;
 }
 @property (readwrite, retain) Index *IDRef;
+- (NSString *)pickerLabel;
 @end
 
 @interface AlterHealthAction : AlterActionValueClass {} @end
@@ -151,6 +152,7 @@ typedef enum {
 }
 @property (readwrite, assign) BOOL retainAmmoCount;
 @property (readwrite, retain) Index *IDRef;
+- (NSString *)pickerLabel;
 @end
 
 @interface AlterActiveConditionAction : AlterAction {

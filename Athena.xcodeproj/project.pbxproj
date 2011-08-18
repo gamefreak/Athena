@@ -127,6 +127,7 @@
 		D2A1914F12FE415800232914 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1914E12FE415800232914 /* StarmapView.m */; };
 		D2A347D413C92117000378B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A347D313C92117000378B8 /* AudioToolbox.framework */; };
 		D2A3484613C9E263000378B8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A3484513C9E263000378B8 /* Ogg.framework */; };
+		D2A4A00D13FD94C300104C59 /* AlterIDRef.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A4A00C13FD94C300104C59 /* AlterIDRef.xib */; };
 		D2AA78EE13E85EB4009D761C /* AssumeInitial.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */; };
 		D2AA78F213E8A4B6009D761C /* SpecialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AA78F013E8A4B6009D761C /* SpecialViewController.m */; };
 		D2AA78F613E8A722009D761C /* RotationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2AA78F513E8A722009D761C /* RotationEditor.xib */; };
@@ -398,6 +399,7 @@
 		D2A347D313C92117000378B8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D2A3484513C9E263000378B8 /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A3484C13C9E3E6000378B8 /* Vorbis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Vorbis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2A4A00C13FD94C300104C59 /* AlterIDRef.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterIDRef.xib; sourceTree = "<group>"; };
 		D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssumeInitial.xib; sourceTree = "<group>"; };
 		D2AA78EF13E8A4B6009D761C /* SpecialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialViewController.h; sourceTree = "<group>"; };
 		D2AA78F013E8A4B6009D761C /* SpecialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialViewController.m; sourceTree = "<group>"; };
@@ -703,6 +705,39 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		D22CBB4B13FD8DA0003E7C37 /* Alter Actions */ = {
+			isa = PBXGroup;
+			children = (
+				D2F8344413FB184D0003FF76 /* AlterValue.xib */,
+				D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */,
+				D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */,
+				D2A4A00C13FD94C300104C59 /* AlterIDRef.xib */,
+			);
+			name = "Alter Actions";
+			sourceTree = "<group>";
+		};
+		D22CBB4C13FD8DB2003E7C37 /* Normal Actions */ = {
+			isa = PBXGroup;
+			children = (
+				D27153D413BD401800F0C920 /* CreateObject.xib */,
+				D2B62BB513E4E287007C2DFE /* PlaySound.xib */,
+				D2DD08EC13E754DF00D5AEFE /* CreateSparks.xib */,
+				D2DD08EE13E75A9200D5AEFE /* ReleaseEnergy.xib */,
+				D2E550E113E77B0400DAAC34 /* LandAt.xib */,
+				D2E550E313E77C3600DAAC34 /* EnterWarp.xib */,
+				D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */,
+				D2FBB0C413E81803009DED44 /* ChangeScore.xib */,
+				D2FBB0C613E81B62009DED44 /* DeclareWinner.xib */,
+				D2FBB0C813E83CD4009DED44 /* Die.xib */,
+				D2FBB0CA13E83EAA009DED44 /* ColorFlash.xib */,
+				D221D8A613E8430000BE5354 /* DisableKeys.xib */,
+				D221D8A813E8527700BE5354 /* SetZoomLevel.xib */,
+				D221D8AA13E85AA200BE5354 /* ComputerSelect.xib */,
+				D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */,
+			);
+			name = "Normal Actions";
+			sourceTree = "<group>";
+		};
 		D264F8BD12E8EE3A0050BCFB /* Archivers */ = {
 			isa = PBXGroup;
 			children = (
@@ -922,24 +957,8 @@
 			isa = PBXGroup;
 			children = (
 				D2FE01B013BBC5AD005C3127 /* NoAction.xib */,
-				D27153D413BD401800F0C920 /* CreateObject.xib */,
-				D2B62BB513E4E287007C2DFE /* PlaySound.xib */,
-				D2DD08EC13E754DF00D5AEFE /* CreateSparks.xib */,
-				D2DD08EE13E75A9200D5AEFE /* ReleaseEnergy.xib */,
-				D2E550E113E77B0400DAAC34 /* LandAt.xib */,
-				D2E550E313E77C3600DAAC34 /* EnterWarp.xib */,
-				D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */,
-				D2FBB0C413E81803009DED44 /* ChangeScore.xib */,
-				D2FBB0C613E81B62009DED44 /* DeclareWinner.xib */,
-				D2FBB0C813E83CD4009DED44 /* Die.xib */,
-				D2FBB0CA13E83EAA009DED44 /* ColorFlash.xib */,
-				D221D8A613E8430000BE5354 /* DisableKeys.xib */,
-				D221D8A813E8527700BE5354 /* SetZoomLevel.xib */,
-				D221D8AA13E85AA200BE5354 /* ComputerSelect.xib */,
-				D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */,
-				D2F8344413FB184D0003FF76 /* AlterValue.xib */,
-				D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */,
-				D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */,
+				D22CBB4C13FD8DB2003E7C37 /* Normal Actions */,
+				D22CBB4B13FD8DA0003E7C37 /* Alter Actions */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -1173,6 +1192,7 @@
 				D2F8344513FB184D0003FF76 /* AlterValue.xib in Resources */,
 				D2F8344713FB1A130003FF76 /* AlterRelativeRange.xib in Resources */,
 				D22CBB4313FD5A1D003E7C37 /* AlterRange.xib in Resources */,
+				D2A4A00D13FD94C300104C59 /* AlterIDRef.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,5 +15,7 @@
 }
 @property (readwrite, retain) Action *actionObj;
 @property (readwrite, retain) BaseObject *type;
+@property (readwrite, retain) BaseObject *ref;
 - (IBAction)openObjectPicker:(id)sender;
+- (IBAction)openObjectPicker2:(id)sender;
 @end

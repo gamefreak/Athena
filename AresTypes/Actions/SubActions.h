@@ -27,6 +27,7 @@
 @property (readwrite, assign) BOOL velocityRelative;
 @property (readwrite, assign) BOOL directionRelative;
 @property (readwrite, assign) NSInteger distanceRange;
+- (NSString *)pickerLabel;
 @end
 
 @interface PlaySoundAction : Action {

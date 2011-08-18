@@ -8,13 +8,14 @@
 
 #import "ActionViewController.h"
 #import "Action.h"
+#import "AlterActions.h"
 #import "BaseObject.h"
 #import "ObjectEditor.h"
 #import "AthenaDocument.h"
 
 @implementation ActionViewController
 @synthesize actionObj;
-@dynamic type;
+@dynamic type, ref;
 - (void)dealloc {
     [actionObj release];
     [super dealloc];
@@ -40,5 +41,26 @@
 
 -  (void)setType:(BaseObject *)type {
     [actionObj setValue:[type valueForKey:@"index"] forKeyPath:@"baseType"];
+}
+
+//For alter actions
+- (IBAction)openObjectPicker2:(id)sender {
+    AthenaDocument *document = [[[[self view] window] windowController] document];
+    MainData *data = [document data];
+    BOOL forDevices = [[actionObj class] isSubclassOfClass:[AlterActionIDRefClass class]];
+    ObjectEditor *editor = [[ObjectEditor alloc] initAsPickerWithData:data forDevices:forDevices];
+    [document addWindowController:editor];
+    [editor showWindow:sender];
+    [editor setSelection:[actionObj valueForKeyPath:@"IDRef.object"]];
+    [self bind:@"ref" toObject:editor withKeyPath:@"objectsController.selection" options:nil];
+    [editor release];
+}
+
+- (BaseObject *)ref {
+    return [actionObj valueForKeyPath:@"IDRef.object"];
+}
+
+- (void)setRef:(BaseObject *)ref {
+    [actionObj setValue:[ref valueForKey:@"index"] forKey:@"IDRef"];
 }
 @end
