@@ -95,7 +95,6 @@ const int alterActionCount = 23;
 }
 
 - (IBAction)addAction:(id)sender {
-    NSLog(@"Adding");
     NSMenuItem *choice = [sender selectedItem];
     Action *newAction = [[[ActionEditor classForMenuItem:choice] alloc] init];
     int count = [actions count];
@@ -164,6 +163,7 @@ const int alterActionCount = 23;
     Action *newAction = [[[class alloc] init] autorelease];
     [[actions objectAtIndex:[actionsArrayController selectionIndex]] copyValuesTo:newAction];
     [self replaceObjectInActionsAtIndex:[actionsArrayController selectionIndex] withObject:newAction];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
 }
 
 - (BOOL)hasSelection {
