@@ -52,6 +52,14 @@ typedef enum {
     int value;
 }
 @property (readwrite, assign) int value;
+- (NSString *)valueLabel;
+@end
+
+@interface AlterActionFloatValueClass : AlterAction {
+    float value;
+}
+@property (readwrite, assign) float value;
+- (NSString *)valueLabel;
 @end
 
 @interface AlterActionRangeClass : AlterAction {
@@ -60,6 +68,18 @@ typedef enum {
 }
 @property (readwrite, assign) int min;
 @property (readwrite, assign) int range;
+- (NSString *)minLabel;
+- (NSString *)rangeLabel;
+@end
+
+@interface AlterActionFloatRangeClass : AlterAction {
+    float min;
+    float range;
+}
+@property (readwrite, assign) float min;
+@property (readwrite, assign) float range;
+- (NSString *)minLabel;
+- (NSString *)rangeLabel;
 @end
 
 @interface AlterActionRelativeRangeClass : AlterAction {
@@ -69,6 +89,21 @@ typedef enum {
 @property (readwrite, assign) BOOL relative;
 @property (readwrite, assign) int min;
 @property (readwrite, assign) int range;
+- (NSString *)relativeLabel;
+- (NSString *)minLabel;
+- (NSString *)rangeLabel;
+@end
+
+@interface AlterActionRelativeFloatRangeClass : AlterAction {
+    BOOL relative;
+    float min, range;
+}
+@property (readwrite, assign) BOOL relative;
+@property (readwrite, assign) float min;
+@property (readwrite, assign) float range;
+- (NSString *)relativeLabel;
+- (NSString *)minLabel;
+- (NSString *)rangeLabel;
 @end
 
 @interface AlterActionIDRefClass : AlterAction {
@@ -78,27 +113,27 @@ typedef enum {
 @end
 
 @interface AlterHealthAction : AlterActionValueClass {} @end
-@interface AlterVelocityAction : AlterActionRelativeRangeClass {} @end
+@interface AlterVelocityAction : AlterActionRelativeFloatRangeClass {} @end
 @interface AlterThrustAction : AlterActionRelativeRangeClass {} @end
-@interface AlterMaxThrustAction : AlterActionValueClass {} @end
-@interface AlterMaxVelocityAction : AlterActionValueClass {} @end
-@interface AlterMaxTurnRateAction : AlterActionValueClass {} @end
+@interface AlterMaxThrustAction : AlterActionFloatValueClass {} @end
+@interface AlterMaxVelocityAction : AlterActionFloatValueClass {} @end
+@interface AlterMaxTurnRateAction : AlterActionFloatValueClass {} @end
 @interface AlterLocationAction : AlterActionRelativeRangeClass {} @end
 @interface AlterScaleAction : AlterActionValueClass {} @end
 @interface AlterPulseWeaponAction : AlterActionIDRefClass {} @end
 @interface AlterBeamWeaponAction : AlterActionIDRefClass {} @end
 @interface AlterSpecialWeaponAction : AlterActionIDRefClass {} @end
 @interface AlterEnergyAction : AlterActionValueClass {} @end
-//@interface AlterOnwerAction : AlterAction {} @end
+//@interface AlterOwnerAction : AlterAction {} @end
 @interface AlterHiddenAction : AlterActionRangeClass {} @end
 @interface AlterCloakAction : AlterAction {} @end
-@interface AlterOfflineAction : AlterActionRangeClass {} @end
-@interface AlterCurrentTurnRateAction : AlterActionRangeClass {} @end
+@interface AlterOfflineAction : AlterActionFloatRangeClass {} @end
+@interface AlterCurrentTurnRateAction : AlterActionFloatRangeClass {} @end
 //@interface AlterBaseTypeAction : AlterAction {} @end
 //@interface AlterActiveConditionAction : AlterAction {} @end
 @interface AlterOccupationAction : AlterActionValueClass {} @end
 //@interface AlterAbsoluteCashAction : AlterAction {} @end
-@interface AlterAgeAction : AlterActionRangeClass {} @end
+@interface AlterAgeAction : AlterActionRelativeRangeClass {} @end
 //@interface AlterAbsoluteLocationAction : AlterAction {} @end
 
 @interface AlterOwnerAction : AlterAction {
@@ -136,6 +171,9 @@ typedef enum {
 @property (readwrite, assign) BOOL useObjectsOwner;
 @property (readwrite, assign) int value;
 @property (readwrite, assign) int player;
+- (NSString *)relativeLabel;
+- (NSString *)minLabel;
+- (NSString *)rangeLabel;
 @end
 
 @interface AlterAbsoluteLocationAction : AlterAction {

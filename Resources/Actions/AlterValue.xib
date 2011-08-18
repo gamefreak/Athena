@@ -47,7 +47,7 @@
 					<object class="NSTextField" id="381177772">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{65, 230}, {96, 22}}</string>
+						<string key="NSFrame">{{120, 230}, {96, 22}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -88,7 +88,7 @@
 					<object class="NSTextField" id="586738804">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 233}, {43, 17}}</string>
+						<string key="NSFrame">{{17, 233}, {98, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="381177772"/>
@@ -96,7 +96,7 @@
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="635958104">
 							<int key="NSCellFlags">68288064</int>
-							<int key="NSCellFlags2">272630784</int>
+							<int key="NSCellFlags2">71304192</int>
 							<string key="NSContents">Value:</string>
 							<reference key="NSSupport" ref="600715757"/>
 							<string key="NSCellIdentifier">_NS:3936</string>
@@ -152,6 +152,22 @@
 						<reference key="destination" ref="1005"/>
 					</object>
 					<int key="connectionID">8</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: actionObj.valueLabel</string>
+						<reference key="source" ref="586738804"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="586738804"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">value: actionObj.valueLabel</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">actionObj.valueLabel</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">9</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -258,7 +274,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">8</int>
+			<int key="maxID">9</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -374,6 +374,71 @@
 - (NSString *)nibName {
     return @"AlterValue";
 }
+
+- (NSString *)valueLabel {
+    return @"Value:";
+}
+
+@end
+
+@implementation AlterActionFloatValueClass
+@synthesize value;
+- (id)init {
+    self = [super init];
+    if (self) {
+        value = 0.0f;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        value = [coder decodeFloatForKey:@"value"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeFloat:value forKey:@"value"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        [coder skip:1u];//relative
+        value = [coder decodeFixed];
+        [coder skip:18u];//int + 14 byte padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder skip:1u];//relative
+    [coder encodeFixed:value];
+    [coder skip:18u];//int + 14 byte padding
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"value" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"value"];
+}
+
+- (NSString *)nibName {
+    return @"AlterValue";
+}
+
+- (NSString *)valueLabel {
+    return @"Value:";
+}
+
 @end
 
 @implementation AlterActionRangeClass
@@ -435,6 +500,84 @@
 
 - (NSString *)nibName {
     return @"AlterRange";
+}
+
+- (NSString *)minLabel {
+    return @"Minimum:";
+}
+
+- (NSString *)rangeLabel {
+    return @"Range:";
+}
+@end
+
+@implementation AlterActionFloatRangeClass
+@synthesize min, range;
+- (id)init {
+    self = [super init];
+    if (self) {
+        min = 0.0f;
+        range = 0.0f;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        min = [coder decodeFloatForKey:@"minimum"];
+        range = [coder decodeFloatForKey:@"range"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeFloat:min forKey:@"minimum"];
+    [coder encodeFloat:range forKey:@"range"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        [coder skip:1u];//relative
+        min = [coder decodeFixed];
+        range = [coder decodeFixed];
+        [coder skip:14u];//padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder skip:1u];//relative
+    [coder encodeFixed:min];
+    [coder encodeFixed:range];
+    [coder skip:14u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"min" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"range" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"min"];
+    [self removeObserver:observer forKeyPath:@"range"];
+}
+
+- (NSString *)nibName {
+    return @"AlterRange";
+}
+
+- (NSString *)minLabel {
+    return @"Minimum:";
+}
+
+- (NSString *)rangeLabel {
+    return @"Range:";
 }
 @end
 
@@ -503,6 +646,97 @@
 - (NSString *)nibName {
     return @"AlterRelativeRange";
 }
+
+- (NSString *)relativeLabel {
+    return @"Relative:";
+}
+
+- (NSString *)minLabel {
+    return @"Minimum:";
+}
+
+- (NSString *)rangeLabel {
+    return @"Range:";
+}
+@end
+
+@implementation AlterActionRelativeFloatRangeClass
+@synthesize relative, min, range;
+- (id)init {
+    self = [super init];
+    if (self) {
+        relative = YES;
+        min = 0;
+        range = 0;
+    }
+    return self;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super initWithLuaCoder:coder];
+    if (self) {
+        relative = [coder decodeBoolForKey:@"relative"];
+        min = [coder decodeFloatForKey:@"minimum"];
+        range = [coder decodeFloatForKey:@"range"];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [super encodeLuaWithCoder:coder];
+    [coder encodeBool:relative forKey:@"relative"];
+    [coder encodeFloat:min forKey:@"minimum"];
+    [coder encodeFloat:range forKey:@"range"];
+}
+
+- (id)initWithResArchiver:(ResUnarchiver *)coder {
+    self = [super initWithResArchiver:coder];
+    if (self) {
+        relative = (BOOL)[coder decodeSInt8];
+        min = [coder decodeFixed];
+        range = [coder decodeFixed];
+        [coder skip:14u];//padding
+    }
+    return self;
+}
+
+- (void)encodeResWithCoder:(ResArchiver *)coder {
+    [super encodeResWithCoder:coder];
+    [coder encodeSInt8:relative];
+    [coder encodeFixed:min];
+    [coder encodeFixed:range];
+    [coder skip:14u];
+}
+
+- (void)addObserver:(NSObject *)observer {
+    [super addObserver:observer];
+    [self addObserver:observer forKeyPath:@"relative" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"min" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"range" options:NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeObserver:(NSObject *)observer {
+    [super removeObserver:observer];
+    [self removeObserver:observer forKeyPath:@"relative"];
+    [self removeObserver:observer forKeyPath:@"min"];
+    [self removeObserver:observer forKeyPath:@"range"];
+}
+
+- (NSString *)nibName {
+    return @"AlterRelativeRange";
+}
+
+- (NSString *)relativeLabel {
+    return @"Relative:";
+}
+
+- (NSString *)minLabel {
+    return @"Minimum:";
+}
+
+- (NSString *)rangeLabel {
+    return @"Range:";
+}
 @end
 
 @implementation AlterActionIDRefClass
@@ -563,23 +797,133 @@
 }
 @end
 
-@implementation AlterHealthAction @end
-@implementation AlterVelocityAction @end
-@implementation AlterThrustAction @end
-@implementation AlterMaxThrustAction @end
-@implementation AlterMaxVelocityAction @end
-@implementation AlterMaxTurnRateAction @end
-@implementation AlterLocationAction @end
-@implementation AlterScaleAction @end
+@implementation AlterHealthAction
+- (NSString *)valueLabel {
+    return @"Change Health By:";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Add %i to health.", value];
+}
+@end
+
+@implementation AlterVelocityAction
+- (NSString *)description {
+    if (relative) {
+        return [NSString stringWithFormat:@"Add %g - %g to velocity.", min, min + range];
+    } else {
+        return [NSString stringWithFormat:@"Set velocity to %g - %g.", min, min+ range];
+    }
+}
+@end
+
+@implementation AlterThrustAction
+- (NSString *)description {
+    if (relative) {
+        return [NSString stringWithFormat:@"Add %i - %i to current thrust.", min, min + range];
+    } else {
+        return [NSString stringWithFormat:@"Set current thrust to %i - %i.", min, min + range];
+    }
+}
+@end
+
+@implementation AlterMaxThrustAction
+- (NSString *)valueLabel {
+    return @"Max Thrust:";
+}
+
+- (NSString *)description {
+    if (value >= 0.0f) {
+        return [NSString stringWithFormat:@"Set max thrust to %g.", value];
+    } else {
+        return @"Reset max thrust.";
+    }
+}
+@end
+
+@implementation AlterMaxVelocityAction
+- (NSString *)valueLabel {
+    return @"Max Velocity:";
+}
+
+- (NSString *)description {
+    if (value >= 0.0f) {
+        return [NSString stringWithFormat:@"Set max velocity to %g.", value];
+    } else {
+        return @"Reset max velocity.";
+    }
+}
+@end
+
+@implementation AlterMaxTurnRateAction
+- (NSString *)valueLabel {
+    return @"Max Turn Rate:";
+}
+
+- (NSString *)description {
+    if (value >= 0.0f) {
+        return [NSString stringWithFormat:@"Set max turn rate to %g.", value];
+    } else {
+        return @"Reset max turn rate.";
+    }
+}
+@end
+
+@implementation AlterLocationAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Move by %i - %i pixels.", min, min + range];
+}
+@end
+
+@implementation AlterScaleAction
+- (NSString *)valueLabel {
+    return @"Scale:";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Set scale to %g%%.", value/4096.0f];
+}
+@end
+
 @implementation AlterPulseWeaponAction @end
 @implementation AlterBeamWeaponAction @end
 @implementation AlterSpecialWeaponAction @end
-@implementation AlterEnergyAction @end
+
+@implementation AlterEnergyAction
+- (NSString *)valueLabel {
+    return @"Change Energy By:";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Add %i to energy.", value];
+}
+@end
+
 //@implementation AlterOwnerAction @end
-@implementation AlterHiddenAction @end
-@implementation AlterCloakAction @end
-@implementation AlterOfflineAction @end
-@implementation AlterCurrentTurnRateAction @end
+
+@implementation AlterHiddenAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Unhide initial objects %i-%i.", min, min + range];
+}
+@end
+
+@implementation AlterCloakAction
+- (NSString *)description {
+    return @"Cloak or decloak object.";
+}
+@end
+
+@implementation AlterOfflineAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Set target offline for %g - %g steps.", min, min + range];
+}
+@end
+
+@implementation AlterCurrentTurnRateAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Set current turn rate to %g - %g.", min, min + range];
+}
+@end
 
 @implementation AlterOwnerAction
 @synthesize useObjectsOwner, value;
@@ -634,6 +978,10 @@
     [super removeObserver:observer];
     [self removeObserver:observer forKeyPath:@"useObjectsOwner"];
     [self removeObserver:observer forKeyPath:@"value"];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Set owner to %i.", value];
 }
 @end
 
@@ -765,9 +1113,25 @@
     [self removeObserver:observer forKeyPath:@"min"];
     [self removeObserver:observer forKeyPath:@"range"];
 }
+
+- (NSString *)description {
+    if (conditionTrue) {
+        return [NSString stringWithFormat:@"Activate conditions %i - %i.", min, min + range];
+    } else {
+        return [NSString stringWithFormat:@"Deactivate conditions %i - %i.", min, min + range];
+    }
+}
 @end
 
-@implementation AlterOccupationAction @end
+@implementation AlterOccupationAction
+- (NSString *)valueLabel {
+    return @"Occupation:";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Modify current occupation by %i", value];
+}
+@end
 
 @implementation AlterAbsoluteCashAction
 @synthesize useObjectsOwner, value, player;
@@ -829,9 +1193,37 @@
     [self removeObserver:observer forKeyPath:@"value"];
     [self removeObserver:observer forKeyPath:@"player"];
 }
+
+- (NSString *)nibName {
+    return @"AlterRelativeRange";
+}
+
+- (NSString *)relativeLabel {
+    return @"Use Object's Owner";
+}
+
+- (NSString *)minLabel {
+    return @"Amount:";
+}
+
+- (NSString *)rangeLabel {
+    return @"Player:";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Set player %i's cash to %i", player, value];
+}
 @end
 
-@implementation AlterAgeAction @end
+@implementation AlterAgeAction
+- (NSString *)description {
+    if (relative) {
+        return [NSString stringWithFormat:@"Add %i - %i to age.", min, min + range];
+    } else {
+        return [NSString stringWithFormat:@"Set age to %i - %i.", min, min + range];
+    }
+}
+@end
 
 @implementation AlterAbsoluteLocationAction
 @synthesize relative, point;
@@ -901,5 +1293,18 @@
     [self removeObserver:observer forKeyPath:@"point.x"];
     [self removeObserver:observer forKeyPath:@"point.y"];
 }
+
+- (NSString *)nibName {
+    return @"AlterRelativeRange";
+}
+
+- (NSString *)description {
+    if (relative) {
+        return [NSString stringWithFormat:@"Move object by %i, %i.", point.x, point.y];
+    } else {
+        return [NSString stringWithFormat:@"Move object to %i, %i.", point.x, point.y];
+    }
+}
+
 @end
 
