@@ -1074,7 +1074,7 @@
 }
 
 - (NSString *)nibName {
-    return @"AlterIDRef";
+    return @"AlterBaseType";
 }
 
 - (NSString *)description {
