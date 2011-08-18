@@ -17,6 +17,7 @@
 
 - (void)dealloc {
     [object release];
+    [frame removeObserver:self];
     [frame release];
     [super dealloc];
 }

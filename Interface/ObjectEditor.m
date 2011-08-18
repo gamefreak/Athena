@@ -89,6 +89,7 @@
 - (void)dealloc {
     [data release];
     [objects release];
+    [self stopObservingObject:selection];
     [selection release];
     [specialControllers release];
     [self unbind:@"selectionIndex"];
@@ -259,14 +260,14 @@
                     context:NULL];
     }
     
-    for (NSString *key in [[[object buildFlags] class ]keys]) {
+    for (NSString *key in [[[object buildFlags] class] keys]) {
         [object addObserver:self
                  forKeyPath:[NSString stringWithFormat:@"buildFlags.%@", key]
                     options:NSKeyValueObservingOptionOld
                     context:NULL];
     }
     
-    for (NSString *key in [[[object orderFlags] class ]keys]) {
+    for (NSString *key in [[[object orderFlags] class] keys]) {
         [object addObserver:self
                  forKeyPath:[NSString stringWithFormat:@"orderFlags.%@", key]
                     options:NSKeyValueObservingOptionOld
@@ -327,12 +328,12 @@
                     forKeyPath:[NSString stringWithFormat:@"attributes.%@", key]];
     }
     
-    for (NSString *key in [[[object buildFlags] class ]keys]) {
+    for (NSString *key in [[[object buildFlags] class] keys]) {
         [object removeObserver:self
                     forKeyPath:[NSString stringWithFormat:@"buildFlags.%@", key]];
     }
     
-    for (NSString *key in [[[object orderFlags] class ]keys]) {
+    for (NSString *key in [[[object orderFlags] class] keys]) {
         [object removeObserver:self
                     forKeyPath:[NSString stringWithFormat:@"orderFlags.%@", key]];
 
