@@ -35,6 +35,7 @@
 		D225D5E813035E9A00E75803 /* BriefingEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D225D5E713035E9A00E75803 /* BriefingEditor.xib */; };
 		D225D64513039F0D00E75803 /* ResUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D225D64413039F0D00E75803 /* ResUnarchiver.m */; };
 		D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D225D64613039FC500E75803 /* CoreServices.framework */; };
+		D22CBB4313FD5A1D003E7C37 /* AlterRange.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */; };
 		D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */; };
 		D251881F13EF34B300584740 /* AnimationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251881E13EF34B300584740 /* AnimationEditor.xib */; };
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
@@ -153,7 +154,7 @@
 		D2E5F6DD13EF4B4E00C9FBB3 /* BeamEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E5F6DC13EF4B4E00C9FBB3 /* BeamEditor.xib */; };
 		D2E98D19130AED3F0013EBCA /* SpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E98D18130AED3F0013EBCA /* SpriteView.m */; };
 		D2F8344513FB184D0003FF76 /* AlterValue.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F8344413FB184D0003FF76 /* AlterValue.xib */; };
-		D2F8344713FB1A130003FF76 /* AlterRange.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F8344613FB1A130003FF76 /* AlterRange.xib */; };
+		D2F8344713FB1A130003FF76 /* AlterRelativeRange.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */; };
 		D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */; };
 		D2FBB0C313E816DB009DED44 /* DisplayMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */; };
 		D2FBB0C513E81803009DED44 /* ChangeScore.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2FBB0C413E81803009DED44 /* ChangeScore.xib */; };
@@ -333,6 +334,7 @@
 		D225D64313039F0D00E75803 /* ResUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResUnarchiver.h; sourceTree = "<group>"; };
 		D225D64413039F0D00E75803 /* ResUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResUnarchiver.m; sourceTree = "<group>"; };
 		D225D64613039FC500E75803 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = ../../../../../../../../../../Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterRange.xib; sourceTree = "<group>"; };
 		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
 		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
@@ -440,7 +442,7 @@
 		D2E98D17130AED3F0013EBCA /* SpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteView.h; sourceTree = "<group>"; };
 		D2E98D18130AED3F0013EBCA /* SpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteView.m; sourceTree = "<group>"; };
 		D2F8344413FB184D0003FF76 /* AlterValue.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterValue.xib; sourceTree = "<group>"; };
-		D2F8344613FB1A130003FF76 /* AlterRange.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterRange.xib; sourceTree = "<group>"; };
+		D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterRelativeRange.xib; sourceTree = "<group>"; };
 		D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioInitialView.h; sourceTree = "<group>"; };
 		D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioInitialView.m; sourceTree = "<group>"; };
 		D2FBB0C213E816DB009DED44 /* DisplayMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayMessage.xib; sourceTree = "<group>"; };
@@ -936,7 +938,8 @@
 				D221D8AA13E85AA200BE5354 /* ComputerSelect.xib */,
 				D2AA78ED13E85EB4009D761C /* AssumeInitial.xib */,
 				D2F8344413FB184D0003FF76 /* AlterValue.xib */,
-				D2F8344613FB1A130003FF76 /* AlterRange.xib */,
+				D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */,
+				D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */,
 			);
 			name = SubEditors;
 			path = Actions;
@@ -1168,7 +1171,8 @@
 				D2E5F6DD13EF4B4E00C9FBB3 /* BeamEditor.xib in Resources */,
 				D283C95313F177F200943106 /* DeviceEditor.xib in Resources */,
 				D2F8344513FB184D0003FF76 /* AlterValue.xib in Resources */,
-				D2F8344713FB1A130003FF76 /* AlterRange.xib in Resources */,
+				D2F8344713FB1A130003FF76 /* AlterRelativeRange.xib in Resources */,
+				D22CBB4313FD5A1D003E7C37 /* AlterRange.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
