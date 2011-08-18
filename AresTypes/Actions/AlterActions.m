@@ -893,9 +893,23 @@
 }
 @end
 
-@implementation AlterPulseWeaponAction @end
-@implementation AlterBeamWeaponAction @end
-@implementation AlterSpecialWeaponAction @end
+@implementation AlterPulseWeaponAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Change Pulse Weapon to %@.", [self pickerLabel]];
+}
+@end
+
+@implementation AlterBeamWeaponAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Change Beam Weapon to %@.", [self pickerLabel]];
+}
+@end
+
+@implementation AlterSpecialWeaponAction
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Change Special Weapon to %@.", [self pickerLabel]];
+}
+@end
 
 @implementation AlterEnergyAction
 - (NSString *)valueLabel {
