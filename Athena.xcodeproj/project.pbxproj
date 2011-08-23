@@ -40,6 +40,8 @@
 		D251881F13EF34B300584740 /* AnimationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251881E13EF34B300584740 /* AnimationEditor.xib */; };
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
 		D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = D25A40461327327F0017030B /* FlagMenuPopulator.m */; };
+		D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */; };
+		D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D25B7E161403E93500BE6203 /* ConditionEditor.m */; };
 		D26B69DB130C14EB00B461FB /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28312E8BDE200694EBA /* lapi.c */; };
 		D26B69DC130C14EC00B461FB /* lapi.h in Headers */ = {isa = PBXBuildFile; fileRef = D21EB28412E8BDE200694EBA /* lapi.h */; };
 		D26B69DD130C14ED00B461FB /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28512E8BDE200694EBA /* lauxlib.c */; };
@@ -345,6 +347,9 @@
 		D253B46B13033B1300F0F66A /* BriefingEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefingEditor.m; sourceTree = "<group>"; };
 		D25A40451327327F0017030B /* FlagMenuPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlagMenuPopulator.h; path = ../AresTypes/BaseObjects/FlagMenuPopulator.h; sourceTree = "<group>"; };
 		D25A40461327327F0017030B /* FlagMenuPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlagMenuPopulator.m; path = ../AresTypes/BaseObjects/FlagMenuPopulator.m; sourceTree = "<group>"; };
+		D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConditionEditor.xib; sourceTree = "<group>"; };
+		D25B7E151403E93500BE6203 /* ConditionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionEditor.h; sourceTree = "<group>"; };
+		D25B7E161403E93500BE6203 /* ConditionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionEditor.m; sourceTree = "<group>"; };
 		D26B69D8130C14CC00B461FB /* liblua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblua.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D26B6A3E130C16D700B461FB /* ObjectEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectEditor.h; sourceTree = "<group>"; };
 		D26B6A3F130C16D700B461FB /* ObjectEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectEditor.m; sourceTree = "<group>"; };
@@ -741,6 +746,14 @@
 			name = "Normal Actions";
 			sourceTree = "<group>";
 		};
+		D25B7E141403E90300BE6203 /* Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */,
+			);
+			name = Conditions;
+			sourceTree = "<group>";
+		};
 		D264F8BD12E8EE3A0050BCFB /* Archivers */ = {
 			isa = PBXGroup;
 			children = (
@@ -875,6 +888,8 @@
 				D2A1914C12FE414900232914 /* Starmap */,
 				D2A1911512FE3BFB00232914 /* Initials */,
 				D2E865A71301E5310075B7F9 /* Briefings */,
+				D25B7E151403E93500BE6203 /* ConditionEditor.h */,
+				D25B7E161403E93500BE6203 /* ConditionEditor.m */,
 			);
 			name = Scenarios;
 			sourceTree = "<group>";
@@ -973,6 +988,7 @@
 				D288344912F2642B00A02383 /* ScenarioEditor.xib */,
 				D2C55B4B12F3235E007140A2 /* InitialEditor.xib */,
 				D2A1911C12FE3CB700232914 /* StarmapPicker.xib */,
+				D25B7E141403E90300BE6203 /* Conditions */,
 			);
 			name = Scenarios;
 			sourceTree = "<group>";
@@ -1197,6 +1213,7 @@
 				D22CBB4313FD5A1D003E7C37 /* AlterRange.xib in Resources */,
 				D2A4A00D13FD94C300104C59 /* AlterIDRef.xib in Resources */,
 				D2A4A00F13FD9BBA00104C59 /* AlterBaseType.xib in Resources */,
+				D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,6 +1280,7 @@
 				D29595FF13C3C42B002BC25C /* ActionViewController.m in Sources */,
 				D29690D913C50E7E005FD7A3 /* XSSound.m in Sources */,
 				D2AA78F213E8A4B6009D761C /* SpecialViewController.m in Sources */,
+				D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

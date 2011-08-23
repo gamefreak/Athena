@@ -10,6 +10,7 @@
 #import "MainData.h"
 #import "InitialEditor.h"
 #import "BriefingEditor.h"
+#import "ConditionEditor.h"
 #import "StarmapPicker.h"
 #import "Scenario.h"
 
@@ -207,7 +208,10 @@
 }
 
 - (IBAction) openConditionEditor:(id)sender {
-    
+    ConditionEditor *editor = [[ConditionEditor alloc] initWithMainData:data scenario:[scenarioArray selectionIndex]];
+    [[self document] addWindowController:editor];
+    [editor showWindow:self];
+    [editor release];
 }
 
 - (IBAction) scoreStringTableClick:(id)sender {
