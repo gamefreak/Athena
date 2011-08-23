@@ -23,6 +23,7 @@ typedef enum {
     DestroyTab = 5,
 } ActionTab;
 
+extern NSString *XSSpecialParametersChanged;
 
 //The border size around the subviews
 static const NSSize borderSize = {.width = 261+50, .height = 25};

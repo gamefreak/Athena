@@ -17,6 +17,8 @@
 #import "ActionEditor.h"
 #import "SpecialViewController.h"
 
+NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
+
 @interface ObjectEditor (WarningsFix)
 - (void) insertObject:(BaseObject *)newObject inObjectsAtIndex:(NSUInteger)index;
 - (void) removeObjectFromObjectsAtIndex:(NSUInteger)index;
@@ -54,9 +56,9 @@
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self
            selector:@selector(specialParametersChanged:)
-               name:@"SpecialParametersChanged"
+               name:XSSpecialParametersChanged
              object:nil];
-    [nc postNotificationName:@"SpecialParametersChanged"
+    [nc postNotificationName:XSSpecialParametersChanged
                       object:nil];
 
     [attributesPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"attributes"];
@@ -197,14 +199,14 @@
 }
 
 - (IBAction) changeActionType:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     //Action selection changed
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc postNotificationName:@"ActionParametersChanged" object:nil];
-    [nc postNotificationName:@"SpecialParametersChanged" object:nil];
+    [nc postNotificationName:XSActionParametersChanged object:nil];
+    [nc postNotificationName:XSSpecialParametersChanged object:nil];
 }
 
 - (void)specialParametersChanged:(NSNotification *)note {

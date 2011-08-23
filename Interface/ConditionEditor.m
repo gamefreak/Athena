@@ -48,7 +48,7 @@
     [currentCondition release];
     currentCondition = currentCondition_;
     [currentCondition retain];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
 }
 
 - (NSUInteger)currentIndex {

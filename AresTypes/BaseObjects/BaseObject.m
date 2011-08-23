@@ -10,6 +10,7 @@
 #import "Archivers.h"
 #import "XSPoint.h"
 #import "MainData.h"
+#import "ObjectEditor.h"
 
 @implementation BaseObject
 @synthesize name, shortName, notes, staticName;
@@ -676,7 +677,7 @@
             [self setFrame:[[DeviceData alloc] init]];
             break;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SpecialParametersChanged" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSSpecialParametersChanged object:self];
 }
 @end
 

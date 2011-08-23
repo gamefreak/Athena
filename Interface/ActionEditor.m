@@ -17,6 +17,9 @@ const int regularActionCount = 24;
 const int alterActionOffset = 28;//regularActionOffset + regularActionCount + 2
 const int alterActionCount = 23;
 
+NSString *XSActionParametersChanged = @"ActionParametersChanged";
+
+
 @interface ActionEditor (Private)
 - (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index;
 - (void)replaceObjectInActionsAtIndex:(NSUInteger)index withObject:(Action *)object;
@@ -43,16 +46,16 @@ const int alterActionCount = 23;
     [targetView addSubview:[self view]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(actionParametersDidChange:)
-                                                 name:@"ActionParametersChanged"
+                                                 name:XSActionParametersChanged
                                                object:nil];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     //Action selection changed
     [self willChangeValueForKey:@"hasSelection"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
     [self didChangeValueForKey:@"hasSelection"];
 }
 
@@ -163,7 +166,7 @@ const int alterActionCount = 23;
     Action *newAction = [[[class alloc] init] autorelease];
     [[actions objectAtIndex:[actionsArrayController selectionIndex]] copyValuesTo:newAction];
     [self replaceObjectInActionsAtIndex:[actionsArrayController selectionIndex] withObject:newAction];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ActionParametersChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
 }
 
 - (BOOL)hasSelection {

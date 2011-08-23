@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString *XSActionParametersChanged;
 
 @interface ActionEditor : NSViewController <NSTableViewDelegate> {
     IBOutlet NSView *targetView;
