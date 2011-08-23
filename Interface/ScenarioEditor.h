@@ -23,6 +23,7 @@
 - (IBAction) openInitialEditor:(id)sender;
 - (IBAction) openStarmapPicker:(id)sender;
 - (IBAction) openBriefingEditor:(id)sender;
+- (IBAction) openConditionEditor:(id)sender;
 
 - (IBAction) scoreStringTableClick:(id)sender;
 @end

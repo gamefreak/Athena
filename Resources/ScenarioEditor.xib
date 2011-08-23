@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">11A511</string>
+		<string key="IBDocument.SystemVersion">11B26</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
 		<string key="IBDocument.AppKitVersion">1138</string>
 		<string key="IBDocument.HIToolboxVersion">566.00</string>
@@ -80,13 +80,15 @@
 												<string key="NSFrameSize">{250, 17}</string>
 												<reference key="NSSuperview" ref="461461992"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="177926409"/>
+												<reference key="NSNextKeyView" ref="1013946888"/>
 												<reference key="NSTableView" ref="971335097"/>
 											</object>
-											<object class="_NSCornerView" key="NSCornerView">
-												<nil key="NSNextResponder"/>
+											<object class="_NSCornerView" key="NSCornerView" id="1013946888">
+												<reference key="NSNextResponder" ref="916391362"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{236, 0}, {16, 17}}</string>
+												<reference key="NSSuperview" ref="916391362"/>
+												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="177926409"/>
 											</object>
 											<array class="NSMutableArray" key="NSTableColumns">
@@ -251,6 +253,7 @@
 									<reference key="NSBGColor" ref="505760569"/>
 									<int key="NScvFlags">4</int>
 								</object>
+								<reference ref="1013946888"/>
 							</array>
 							<string key="NSFrame">{{20, 61}, {252, 454}}</string>
 							<reference key="NSSuperview" ref="1006"/>
@@ -261,6 +264,7 @@
 							<reference key="NSHScroller" ref="773043418"/>
 							<reference key="NSContentView" ref="177926409"/>
 							<reference key="NSHeaderClipView" ref="461461992"/>
+							<reference key="NSCornerView" ref="1013946888"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						</object>
 						<object class="NSButton" id="1068613691">
@@ -370,7 +374,7 @@
 										<object class="NSButton" id="971431614">
 											<reference key="NSNextResponder" ref="549321274"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{30, 406}, {161, 19}}</string>
+											<string key="NSFrame">{{18, 406}, {120, 19}}</string>
 											<reference key="NSSuperview" ref="549321274"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="787109538"/>
@@ -378,7 +382,7 @@
 											<object class="NSButtonCell" key="NSCell" id="240602743">
 												<int key="NSCellFlags">-2080244224</int>
 												<int key="NSCellFlags2">134217728</int>
-												<string key="NSContents">Open Initial Object Editor</string>
+												<string key="NSContents">Open Initial Editor</string>
 												<object class="NSFont" key="NSSupport" id="42164653">
 													<string key="NSName">LucidaGrande</string>
 													<double key="NSSize">12</double>
@@ -877,7 +881,7 @@
 										<object class="NSButton" id="830281090">
 											<reference key="NSNextResponder" ref="549321274"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{339, 406}, {154, 19}}</string>
+											<string key="NSFrame">{{439, 406}, {154, 19}}</string>
 											<reference key="NSSuperview" ref="549321274"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="220744643"/>
@@ -1100,13 +1104,16 @@
 																					<string key="NSFrameSize">{499, 17}</string>
 																					<reference key="NSSuperview" ref="536642365"/>
 																					<reference key="NSWindow"/>
-																					<reference key="NSNextKeyView" ref="874383548"/>
+																					<reference key="NSNextKeyView" ref="912728877"/>
 																					<reference key="NSTableView" ref="1043669482"/>
 																				</object>
-																				<object class="_NSCornerView" key="NSCornerView">
-																					<nil key="NSNextResponder"/>
+																				<object class="_NSCornerView" key="NSCornerView" id="912728877">
+																					<reference key="NSNextResponder" ref="96816786"/>
 																					<int key="NSvFlags">-2147483392</int>
 																					<string key="NSFrame">{{279, 0}, {16, 17}}</string>
+																					<reference key="NSSuperview" ref="96816786"/>
+																					<reference key="NSWindow"/>
+																					<reference key="NSNextKeyView" ref="874383548"/>
 																				</object>
 																				<array class="NSMutableArray" key="NSTableColumns">
 																					<object class="NSTableColumn" id="706937479">
@@ -1346,6 +1353,7 @@
 																		<reference key="NSBGColor" ref="505760569"/>
 																		<int key="NScvFlags">4</int>
 																	</object>
+																	<reference ref="912728877"/>
 																</array>
 																<string key="NSFrame">{{17, 17}, {501, 222}}</string>
 																<reference key="NSSuperview" ref="130468937"/>
@@ -1356,6 +1364,7 @@
 																<reference key="NSHScroller" ref="425586653"/>
 																<reference key="NSContentView" ref="874383548"/>
 																<reference key="NSHeaderClipView" ref="536642365"/>
+																<reference key="NSCornerView" ref="912728877"/>
 																<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 															</object>
 															<object class="NSButton" id="700329072">
@@ -1684,10 +1693,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 										<object class="NSButton" id="787109538">
 											<reference key="NSNextResponder" ref="549321274"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{199, 406}, {132, 19}}</string>
+											<string key="NSFrame">{{146, 406}, {132, 19}}</string>
 											<reference key="NSSuperview" ref="549321274"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="830281090"/>
+											<reference key="NSNextKeyView" ref="537607691"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="974148703">
 												<int key="NSCellFlags">-2080244224</int>
@@ -1695,6 +1704,30 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 												<string key="NSContents">Open Briefing Editor</string>
 												<reference key="NSSupport" ref="42164653"/>
 												<reference key="NSControlView" ref="787109538"/>
+												<int key="NSButtonFlags">-2038152961</int>
+												<int key="NSButtonFlags2">164</int>
+												<string key="NSAlternateContents"/>
+												<string key="NSKeyEquivalent"/>
+												<int key="NSPeriodicDelay">400</int>
+												<int key="NSPeriodicInterval">75</int>
+											</object>
+										</object>
+										<object class="NSButton" id="537607691">
+											<reference key="NSNextResponder" ref="549321274"/>
+											<int key="NSvFlags">268</int>
+											<string key="NSFrame">{{286, 406}, {145, 19}}</string>
+											<reference key="NSSuperview" ref="549321274"/>
+											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView" ref="830281090"/>
+											<string key="NSReuseIdentifierKey">_NS:1534</string>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSButtonCell" key="NSCell" id="71946122">
+												<int key="NSCellFlags">-2080244224</int>
+												<int key="NSCellFlags2">134217728</int>
+												<string key="NSContents">Open Condition Editor</string>
+												<reference key="NSSupport" ref="42164653"/>
+												<string key="NSCellIdentifier">_NS:1534</string>
+												<reference key="NSControlView" ref="537607691"/>
 												<int key="NSButtonFlags">-2038152961</int>
 												<int key="NSButtonFlags2">164</int>
 												<string key="NSAlternateContents"/>
@@ -2370,6 +2403,14 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					</object>
 					<int key="connectionID">242</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openConditionEditor:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="537607691"/>
+					</object>
+					<int key="connectionID">252</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -2502,7 +2543,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<array class="NSMutableArray" key="children">
 							<reference ref="185490485"/>
 							<reference ref="909915989"/>
-							<reference ref="971431614"/>
 							<reference ref="220744643"/>
 							<reference ref="82279785"/>
 							<reference ref="350998255"/>
@@ -2518,8 +2558,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<reference ref="47547136"/>
 							<reference ref="365391836"/>
 							<reference ref="265859413"/>
+							<reference ref="971431614"/>
 							<reference ref="787109538"/>
 							<reference ref="830281090"/>
+							<reference ref="537607691"/>
 						</array>
 						<reference key="parent" ref="1006"/>
 					</object>
@@ -3176,6 +3218,19 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="object" ref="776691935"/>
 						<reference key="parent" ref="53462539"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">250</int>
+						<reference key="object" ref="537607691"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="71946122"/>
+						</array>
+						<reference key="parent" ref="801033567"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">251</int>
+						<reference key="object" ref="71946122"/>
+						<reference key="parent" ref="537607691"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3271,6 +3326,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<boolean value="YES" key="249.IBNumberFormatterLocalizesFormatMetadataKey"/>
 				<string key="249.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="250.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="251.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3313,7 +3370,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">249</int>
+			<int key="maxID">252</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3322,6 +3379,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="openBriefingEditor:">id</string>
+						<string key="openConditionEditor:">id</string>
 						<string key="openInitialEditor:">id</string>
 						<string key="openStarmapPicker:">id</string>
 						<string key="scoreStringTableClick:">id</string>
@@ -3329,6 +3387,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="openBriefingEditor:">
 							<string key="name">openBriefingEditor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openConditionEditor:">
+							<string key="name">openConditionEditor:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="openInitialEditor:">

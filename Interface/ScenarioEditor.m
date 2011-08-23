@@ -206,6 +206,10 @@
     [editor release];
 }
 
+- (IBAction) openConditionEditor:(id)sender {
+    
+}
+
 - (IBAction) scoreStringTableClick:(id)sender {
     NSUInteger row = [scoreStringTable clickedRow];
     if (row == -1) {
