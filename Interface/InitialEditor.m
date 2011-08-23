@@ -23,6 +23,8 @@
 @end
 
 @implementation InitialEditor
+@synthesize currentInitial;
+
 - (id) initWithMainData:(MainData *)_data scenario:(NSUInteger)scenarioId {
     self = [super initWithWindowNibName:@"InitialEditor"];
     if (self) {
@@ -32,10 +34,6 @@
         [scenario retain];
         initialObjects = scenario.initialObjects;
         [initialObjects retain];
-
-        for (ScenarioInitial *initial in initialObjects) {
-            [self startObservingInitial:initial];
-        }
     }
     return self;
 }
@@ -43,9 +41,6 @@
 - (void) dealloc {
     [data release];
     [scenario release];
-    for (ScenarioInitial *initial in initialObjects) {
-        [self stopObservingInitial:initial];
-    }
     [initialObjects release];
     [super dealloc];
 }
@@ -163,5 +158,17 @@
 
 - (id) tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
     return [XSInteger xsIntegerWithValue:[editingString integerValue]];
+}
+
+- (void)setCurrentInitial:(ScenarioInitial *)currentInitial_ {
+    [self stopObservingInitial:currentInitial];
+    [currentInitial release];
+    currentInitial = currentInitial_;
+    [currentInitial retain];
+    [self startObservingInitial:currentInitial];
+}
+
+- (ScenarioInitial *)currentInitial {
+    return currentInitial;
 }
 @end

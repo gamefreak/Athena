@@ -20,6 +20,7 @@
     IBOutlet NSArrayController *initialObjectsController;
     IBOutlet ScenarioInitialView *initialView;
 }
+@property (readwrite, retain) ScenarioInitial *currentInitial;
 - (id) initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
 
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
