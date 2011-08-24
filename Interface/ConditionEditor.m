@@ -8,10 +8,13 @@
 
 #import "ConditionEditor.h"
 #import "ActionEditor.h"
+#import "ConditionViewController.h"
 
 #import "MainData.h"
 #import "Scenario.h"
 #import "Condition.h"
+
+NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 
 @implementation ConditionEditor
 @synthesize conditions;
@@ -22,15 +25,20 @@
         data = [data_ retain];
         scenario = [[[data scenarios] objectAtIndex:scenario_] retain];
         conditions = [[scenario conditions] retain];
+        editorControllers = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [actionEditor unbind:@"actions"];
+    [self unbind:@"currentIndex"];
     [data release];
     [scenario release];
     [conditions release];
-    [actionEditor unbind:@"actions"];
+    [editorControllers release];
+    [lastSubeditor release];
     [super dealloc];
 }
 
@@ -38,6 +46,41 @@
     [super windowDidLoad];
     [actionEditor bind:@"actions" toObject:self withKeyPath:@"currentActionsArray" options:nil];
     [self bind:@"currentIndex" toObject:conditionsController withKeyPath:@"selectionIndex" options:nil];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(conditionParametersDidChange:) name:XSConditionParametersChanged object:nil];
+    [nc postNotificationName:XSConditionParametersChanged object:nil];
+}
+
+- (void)conditionParametersDidChange:(NSNotification *)note {
+    int  row = [conditionsTable selectedRow];
+
+    NSString *nib;
+    if (row >= 0) {
+        nib = [[conditions objectAtIndex:row] nibName];
+    } else {
+        nib = @"NoParameter";
+    }
+
+    ConditionViewController *controller;
+    controller = [editorControllers objectForKey:nib];
+    if (controller == nil) {
+        NSLog(@"Loading new nib %@", nib);
+        controller = [[ConditionViewController alloc] initWithNibName:nib bundle:nil];
+        [editorControllers setObject:controller forKey:nib];
+        [controller autorelease];
+    }
+
+    [controller setConditionObj:[conditionsController selection]];
+
+    NSView *newInnerView = [controller view];
+    [newInnerView setFrame:[subeditorView frame]];
+    if (lastSubeditor == nil) {
+        [subeditorView addSubview:newInnerView];
+    } else {
+        [subeditorView replaceSubview:lastSubeditor with:newInnerView];
+    }
+    [lastSubeditor release];
+    lastSubeditor = [newInnerView retain];
 }
 
 - (Condition *)currentCondition {
@@ -48,7 +91,9 @@
     [currentCondition release];
     currentCondition = currentCondition_;
     [currentCondition retain];
-    [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc postNotificationName:XSActionParametersChanged object:nil];
+    [nc postNotificationName:XSConditionParametersChanged object:nil];
 }
 
 - (NSUInteger)currentIndex {

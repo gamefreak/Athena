@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString *XSConditionParametersChanged;
+
 @class MainData, Scenario, Condition;
 @class ActionEditor;
 
@@ -19,10 +21,15 @@
 
     IBOutlet ActionEditor *actionEditor;
     IBOutlet NSArrayController *conditionsController;
+    IBOutlet NSView *subeditorView;
+    NSView *lastSubeditor;
+    IBOutlet NSTableView *conditionsTable;
+    NSMutableDictionary *editorControllers;
 }
 @property (readwrite, retain) NSMutableArray *conditions;
 @property (readwrite, retain) Condition *currentCondition;
 @property (readwrite, assign) NSUInteger currentIndex;
 - (id)initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
 - (NSMutableArray *)currentActionsArray;
+- (void)conditionParametersDidChange:(NSNotification *)note;
 @end

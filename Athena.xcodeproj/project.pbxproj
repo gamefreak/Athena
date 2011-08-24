@@ -98,7 +98,9 @@
 		D26B6A33130C15CC00B461FB /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D26B69D8130C14CC00B461FB /* liblua.a */; };
 		D26B6A40130C16D700B461FB /* ObjectEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D26B6A3F130C16D700B461FB /* ObjectEditor.m */; };
 		D26B6A42130C170900B461FB /* ObjectEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D26B6A41130C170900B461FB /* ObjectEditor.xib */; };
+		D270392D140564EE00F426CD /* ConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D270392B140564EE00F426CD /* ConditionViewController.m */; };
 		D27153D513BD401800F0C920 /* CreateObject.xib in Resources */ = {isa = PBXBuildFile; fileRef = D27153D413BD401800F0C920 /* CreateObject.xib */; };
+		D275AB9D14040D360069F043 /* NoParameter.xib in Resources */ = {isa = PBXBuildFile; fileRef = D275AB9C14040D360069F043 /* NoParameter.xib */; };
 		D2781DEC130C7AC100E0CD75 /* IndexedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D2781DEB130C7AC100E0CD75 /* IndexedObject.m */; };
 		D283C95313F177F200943106 /* DeviceEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D283C95213F177F200943106 /* DeviceEditor.xib */; };
 		D2882C2612F1D41400A02383 /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = D2882C2512F1D41400A02383 /* Condition.m */; };
@@ -354,7 +356,10 @@
 		D26B6A3E130C16D700B461FB /* ObjectEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectEditor.h; sourceTree = "<group>"; };
 		D26B6A3F130C16D700B461FB /* ObjectEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectEditor.m; sourceTree = "<group>"; };
 		D26B6A41130C170900B461FB /* ObjectEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ObjectEditor.xib; sourceTree = "<group>"; };
+		D270392A140564EE00F426CD /* ConditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionViewController.h; sourceTree = "<group>"; };
+		D270392B140564EE00F426CD /* ConditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionViewController.m; sourceTree = "<group>"; };
 		D27153D413BD401800F0C920 /* CreateObject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateObject.xib; sourceTree = "<group>"; };
+		D275AB9C14040D360069F043 /* NoParameter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoParameter.xib; sourceTree = "<group>"; };
 		D2781DEA130C7AC100E0CD75 /* IndexedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexedObject.h; sourceTree = "<group>"; };
 		D2781DEB130C7AC100E0CD75 /* IndexedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexedObject.m; sourceTree = "<group>"; };
 		D2802FD412EA572500F1A0B0 /* Archivers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archivers.h; sourceTree = "<group>"; };
@@ -750,6 +755,7 @@
 			isa = PBXGroup;
 			children = (
 				D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */,
+				D275AB9C14040D360069F043 /* NoParameter.xib */,
 			);
 			name = Conditions;
 			sourceTree = "<group>";
@@ -762,6 +768,17 @@
 				D225D64213039D5900E75803 /* Resource */,
 			);
 			path = Archivers;
+			sourceTree = "<group>";
+		};
+		D27039291405641300F426CD /* Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				D25B7E151403E93500BE6203 /* ConditionEditor.h */,
+				D25B7E161403E93500BE6203 /* ConditionEditor.m */,
+				D270392A140564EE00F426CD /* ConditionViewController.h */,
+				D270392B140564EE00F426CD /* ConditionViewController.m */,
+			);
+			name = Conditions;
 			sourceTree = "<group>";
 		};
 		D2764FA81307528D00C847E4 /* Media */ = {
@@ -888,8 +905,7 @@
 				D2A1914C12FE414900232914 /* Starmap */,
 				D2A1911512FE3BFB00232914 /* Initials */,
 				D2E865A71301E5310075B7F9 /* Briefings */,
-				D25B7E151403E93500BE6203 /* ConditionEditor.h */,
-				D25B7E161403E93500BE6203 /* ConditionEditor.m */,
+				D27039291405641300F426CD /* Conditions */,
 			);
 			name = Scenarios;
 			sourceTree = "<group>";
@@ -1214,6 +1230,7 @@
 				D2A4A00D13FD94C300104C59 /* AlterIDRef.xib in Resources */,
 				D2A4A00F13FD9BBA00104C59 /* AlterBaseType.xib in Resources */,
 				D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */,
+				D275AB9D14040D360069F043 /* NoParameter.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1281,6 +1298,7 @@
 				D29690D913C50E7E005FD7A3 /* XSSound.m in Sources */,
 				D2AA78F213E8A4B6009D761C /* SpecialViewController.m in Sources */,
 				D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */,
+				D270392D140564EE00F426CD /* ConditionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

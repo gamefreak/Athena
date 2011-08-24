@@ -57,6 +57,8 @@ typedef enum {
 + (NSString *) stringForType:(ConditionType)type;
 + (ConditionType) typeForClass:(Class)class;
 + (Class<LuaCoding, ResCoding>) classForType:(ConditionType)type;
+
+- (NSString *)nibName;
 @end
 
 #pragma mark Intermediates

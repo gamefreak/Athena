@@ -406,6 +406,10 @@
             break;
     }
 }
+
+- (NSString *)nibName {
+    return @"NoParameter";
+}
 @end
 
 #pragma mark Intermediates
