@@ -11,6 +11,7 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		4D64EFB1140BCAB200017458 /* ProgressWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D64EFB0140BCAB200017458 /* ProgressWindow.xib */; };
 		4D64EFB4140BCD0A00017458 /* ProgressWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D64EFB3140BCD0A00017458 /* ProgressWindow.m */; };
+		4D64EFB8140BD0FF00017458 /* DownloadWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D64EFB7140BD0FF00017458 /* DownloadWindow.m */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* AthenaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -268,6 +269,8 @@
 		4D64EFB0140BCAB200017458 /* ProgressWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressWindow.xib; sourceTree = "<group>"; };
 		4D64EFB2140BCD0A00017458 /* ProgressWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressWindow.h; sourceTree = "<group>"; };
 		4D64EFB3140BCD0A00017458 /* ProgressWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressWindow.m; sourceTree = "<group>"; };
+		4D64EFB6140BD0FF00017458 /* DownloadWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadWindow.h; sourceTree = "<group>"; };
+		4D64EFB7140BD0FF00017458 /* DownloadWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadWindow.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Athena-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Athena-Info.plist"; path = "../Athena-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Athena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Athena.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D216CF66132420D1008E24F0 /* WeaponView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeaponView.xib; sourceTree = "<group>"; };
@@ -901,6 +904,8 @@
 				D25A40461327327F0017030B /* FlagMenuPopulator.m */,
 				4D64EFB2140BCD0A00017458 /* ProgressWindow.h */,
 				4D64EFB3140BCD0A00017458 /* ProgressWindow.m */,
+				4D64EFB6140BD0FF00017458 /* DownloadWindow.h */,
+				4D64EFB7140BD0FF00017458 /* DownloadWindow.m */,
 			);
 			name = Reusable;
 			sourceTree = "<group>";
@@ -1309,6 +1314,7 @@
 				D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */,
 				D270392D140564EE00F426CD /* ConditionViewController.m in Sources */,
 				4D64EFB4140BCD0A00017458 /* ProgressWindow.m in Sources */,
+				4D64EFB8140BD0FF00017458 /* DownloadWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

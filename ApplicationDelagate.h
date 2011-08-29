@@ -8,9 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString *XSAresDataUrl;
 
 @interface ApplicationDelagate : NSObject <NSApplicationDelegate> {
 
 }
-
+- (NSString *)supportDir;
+- (void)downloadAresData;
+- (void)downloadDidComplete:(NSNotification *)notification;
+- (void)openDefaultData;
 @end
