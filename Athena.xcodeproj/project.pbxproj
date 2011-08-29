@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* AthenaDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* AthenaDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		4D64EFB1140BCAB200017458 /* ProgressWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D64EFB0140BCAB200017458 /* ProgressWindow.xib */; };
+		4D64EFB4140BCD0A00017458 /* ProgressWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D64EFB3140BCD0A00017458 /* ProgressWindow.m */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* AthenaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -263,6 +265,9 @@
 		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4D64EFB0140BCAB200017458 /* ProgressWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressWindow.xib; sourceTree = "<group>"; };
+		4D64EFB2140BCD0A00017458 /* ProgressWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressWindow.h; sourceTree = "<group>"; };
+		4D64EFB3140BCD0A00017458 /* ProgressWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressWindow.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Athena-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Athena-Info.plist"; path = "../Athena-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Athena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Athena.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D216CF66132420D1008E24F0 /* WeaponView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeaponView.xib; sourceTree = "<group>"; };
@@ -858,6 +863,7 @@
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
 				D2DEECB6130A2A8D004AB731 /* Scenarios */,
 				D2C7AD4913BB672E003B941F /* Actions */,
+				4D64EFB0140BCAB200017458 /* ProgressWindow.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -893,6 +899,8 @@
 			children = (
 				D25A40451327327F0017030B /* FlagMenuPopulator.h */,
 				D25A40461327327F0017030B /* FlagMenuPopulator.m */,
+				4D64EFB2140BCD0A00017458 /* ProgressWindow.h */,
+				4D64EFB3140BCD0A00017458 /* ProgressWindow.m */,
 			);
 			name = Reusable;
 			sourceTree = "<group>";
@@ -1231,6 +1239,7 @@
 				D2A4A00F13FD9BBA00104C59 /* AlterBaseType.xib in Resources */,
 				D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */,
 				D275AB9D14040D360069F043 /* NoParameter.xib in Resources */,
+				4D64EFB1140BCAB200017458 /* ProgressWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1299,6 +1308,7 @@
 				D2AA78F213E8A4B6009D761C /* SpecialViewController.m in Sources */,
 				D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */,
 				D270392D140564EE00F426CD /* ConditionViewController.m in Sources */,
+				4D64EFB4140BCD0A00017458 /* ProgressWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
