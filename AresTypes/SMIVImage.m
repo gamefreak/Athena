@@ -415,20 +415,11 @@ static uint8 quantitize_pixel(uint32 pixel) {
     spriteName = [title stringByReplacingOccurrencesOfString:@"/" withString:@":"];
 
     NSSize grid = [self gridDistribution];
-    NSSize fullSize = NSMakeSize(grid.width * masterSize.width, grid.height * masterSize.height);
-    NSImage *outImage = [[NSImage alloc] initWithSize:fullSize];
-    [outImage lockFocus];
-    [self drawSpriteSheetAtPoint:NSMakePoint(masterSize.width * 0.5f, masterSize.height * 0.5f)];
-    [outImage unlockFocus];
-    //This seems SO silly!
-    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithData:[outImage TIFFRepresentation]];
-    [outImage release];
-    BOOL err;
-    NSData *pngData = [rep representationUsingType:NSPNGFileType properties:nil];
+    NSData *pngData = [self PNGDataForGrid:grid];
     NSString *destPath  = [[spriteDir stringByAppendingPathComponent:spriteName] stringByAppendingPathExtension:@"png"];
+    BOOL err;
     err = [pngData writeToFile:destPath atomically:NO];
     assert(err);
-    [rep release];
 
     NSXMLElement *dimElem = [NSXMLElement elementWithName:@"dimensions"];
     NSMutableDictionary *attrs = [NSMutableDictionary dictionaryWithCapacity:2];
@@ -447,5 +438,19 @@ static uint8 quantitize_pixel(uint32 pixel) {
 
 + (Class)classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
+}
+
+- (NSData *)PNGDataForGrid:(NSSize)grid {
+    NSSize fullSize = NSMakeSize(grid.width * masterSize.width, grid.height * masterSize.height);
+    NSImage *outImage = [[NSImage alloc] initWithSize:fullSize];
+    [outImage lockFocus];
+    [self drawSpriteSheetAtPoint:NSMakePoint(masterSize.width * 0.5f, masterSize.height * 0.5f)];
+    [outImage unlockFocus];
+    //This seems SO silly!
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithData:[outImage TIFFRepresentation]];
+    [outImage release];
+    NSData *pngData = [rep representationUsingType:NSPNGFileType properties:nil];
+    [rep release];
+    return pngData;
 }
 @end
