@@ -11,6 +11,7 @@
 
 @implementation SpriteView
 @dynamic sprite, direction, speed, frameRange, angularVelocity;
+@synthesize dragStartEvent;
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -18,6 +19,7 @@
         [self addObserver:self forKeyPath:@"sprite" options:NSKeyValueObservingOptionOld context:NULL];
         direction = 0;
         speed = 1.0f;
+        dragging = NO;
     }
     
     return self;
@@ -27,6 +29,9 @@
     [self removeObserver:self forKeyPath:@"sprite"];
     [timer invalidate];
     [timer release];
+    [dragTimer invalidate];
+    [dragTimer release];
+    [dragStartEvent release];
     [super dealloc];
 }
 
@@ -149,12 +154,74 @@
     return frameRange;
 }
 
-- (void)mouseUp:(NSEvent *)event {
-    if (direction == 1) {
-        [self setDirection:-1];
-    } else if (direction == -1) {
-        [self setDirection:1];
-    }
+- (void)mouseDown:(NSEvent *)event {
+    dragTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(beginDrag:) userInfo:NULL repeats:NO] retain];
+
+    [self setDragStartEvent:event];
 }
 
+- (void)mouseUp:(NSEvent *)event {
+    if (!dragging) {
+        if (direction == 1) {
+            [self setDirection:-1];
+        } else if (direction == -1) {
+            [self setDirection:1];
+        }
+    }
+    [dragTimer invalidate];
+    [dragTimer release];
+    dragTimer = nil;
+    dragging = NO;
+}
+
+- (void)beginDrag:(NSTimer *)timer_ {
+    NSAssert(dragTimer == timer_, @"Recieved beginDrag: message from wrong timer.");
+    [dragTimer release];
+    dragTimer = nil;
+    dragging = YES;
+    
+    [self dragPromisedFilesOfTypes:[NSArray arrayWithObject:NSPasteboardTypePNG]
+                          fromRect:NSZeroRect
+                            source:self
+                         slideBack:YES
+                             event:dragStartEvent];
+}
+
+- (void)dragImage:(NSImage *)image_
+               at:(NSPoint)location
+           offset:(NSSize)offset
+            event:(NSEvent *)event
+       pasteboard:(NSPasteboard *)pboard
+           source:(id)source
+        slideBack:(BOOL)slideFlag {
+    NSData *png = [sprite PNGDataForGrid:[sprite gridDistribution]];
+    //make a better drag image
+    NSImage *image = [[[NSImage alloc] initWithData:png] autorelease];
+    //Add png data
+    [pboard setData:png forType:NSPasteboardTypePNG];
+    //calculate base point
+    NSPoint point = [self convertPoint:[dragStartEvent locationInWindow] fromView:nil];
+    //Offsest to center the image
+    NSSize size = [image size];
+    point.x -= size.width / 2.0;
+    point.y -= size.height / 2.0;
+    [super dragImage:image
+                  at:point
+              offset:NSZeroSize
+               event:event
+          pasteboard:pboard
+              source:source
+           slideBack:slideFlag];
+}
+
+- (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
+    NSString *path = [dropDestination path];
+    NSString *fileName = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [sprite title]]];
+    [[sprite PNGDataForGrid:[sprite gridDistribution]] writeToFile:fileName atomically:NO];
+    return [NSArray arrayWithObject:fileName];
+}
+
+- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag {
+    return NSDragOperationCopy;
+}
 @end

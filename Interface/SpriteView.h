@@ -16,13 +16,19 @@
     NSTimer *timer;
     CGFloat speed;//FPS
     NSRange frameRange;
+
+    BOOL dragging;
+    NSTimer *dragTimer;
+    NSEvent *dragStartEvent;
 }
 @property (readwrite, retain) SMIVImage *sprite;
 @property (readwrite) NSInteger direction;
 @property (readwrite, assign) CGFloat speed;
 @property (readwrite, assign) CGFloat angularVelocity;
 @property (readwrite, assign) NSRange frameRange;
+@property (readwrite, retain) NSEvent *dragStartEvent;
 
 - (void) resetTimer;
 - (IBAction) triggerChange:(id)sender;
+- (void)beginDrag:(NSTimer *)timer;
 @end
