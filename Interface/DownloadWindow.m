@@ -23,6 +23,10 @@ NSString *XSDownloadComplete = @"XSDownloadComplete";
     return self;
 }
 
+- (void)awakeFromNib {
+    [progressBar setIndeterminate:YES];
+}
+
 - (void)dealloc {
     [displayText release];
     [response release];
@@ -32,6 +36,7 @@ NSString *XSDownloadComplete = @"XSDownloadComplete";
 
 - (void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)newResponse {
     [self setResponse:newResponse];
+    [progressBar setIndeterminate:NO];
 }
 
 - (void)download:(NSURLDownload *)download didReceiveDataOfLength:(NSUInteger)length {
@@ -54,3 +59,4 @@ NSString *XSDownloadComplete = @"XSDownloadComplete";
     [download setDestination:filename allowOverwrite:YES];
 }
 
+@end

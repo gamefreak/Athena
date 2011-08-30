@@ -11,6 +11,7 @@
 
 @interface ProgressWindow : NSWindowController {
     float percentage;
+    IBOutlet NSProgressIndicator *progressBar;
 }
 @property (assign) float percentage;
 - (NSString *)displayText;
