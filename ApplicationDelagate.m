@@ -38,37 +38,9 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
     } else if (hasData) {
         [self openDefaultData];
     } else if (asked && !hasData) {
-        //ASK FOR FILE
+        //Ask for file
+        [[NSDocumentController sharedDocumentController] openDocument:nil];
     }
-
-    
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSURL *location = [defaults URLForKey:@"DefaultDataLocation"];
-//
-//    if (location == nil) {
-//        NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-//        [openPanel setAllowsMultipleSelection:YES];
-//        [openPanel setTitle:@"Select default file location"];
-//        [openPanel setMessage:@"Select the default data file."];
-//        [openPanel setDirectory:NSHomeDirectory()];
-//
-//        NSInteger result = [openPanel runModal];
-//
-//        if (result == NSOKButton) {
-//            location = [openPanel URL];
-//            [defaults setURL:location forKey:@"DefaultDataLocation"];
-//        }
-//    }
-//    if (location != nil) {
-//        NSDocumentController *doc = [NSDocumentController sharedDocumentController];
-//        NSError *error = nil;
-//        [doc openDocumentWithContentsOfURL:location
-//                                   display:YES
-//                                     error:&error];
-//        if (error != nil) {
-//            NSLog(@"ERROR: %@", error);
-//        }
-//    }
 }
 
 - (NSString *)supportDir {
