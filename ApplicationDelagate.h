@@ -17,4 +17,6 @@ extern NSString *XSAresDataUrl;
 - (void)downloadAresData;
 - (void)downloadDidComplete:(NSNotification *)notification;
 - (void)openDefaultData;
+- (IBAction)redownloadData:(id)sender;
+- (IBAction)openOrignalData:(id)sender;//Action version
 @end

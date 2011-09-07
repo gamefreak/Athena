@@ -54,7 +54,7 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
 
 - (void)downloadAresData {
     NSString *appSupport = [self supportDir];
-    NSError *error;
+    NSError *error = nil;
     NSFileManager *fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:appSupport]) {
     [fm createDirectoryAtPath:appSupport
@@ -123,7 +123,19 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
     }
 }
 
+- (IBAction)openOrignalData:(id)sender {
+    if ([[NSUserDefaultsController sharedUserDefaultsController] boolForKey:@"HasAresData"]) {
+        [self openDefaultData];
+    } else {
+        [self downloadAresData];
+    }
+}
+
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender {
     return NO;
+}
+
+- (IBAction)redownloadData:(id)sender {
+    [self downloadAresData];
 }
 @end
