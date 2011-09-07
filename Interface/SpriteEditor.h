@@ -10,12 +10,15 @@
 
 @class MainData;
 @class SpriteView;
+@class SMIVImage;
 
 @interface SpriteEditor : NSWindowController {
     MainData *data;
     NSMutableDictionary *sprites;
+    
     IBOutlet SpriteView *spriteView;
     IBOutlet NSDictionaryController *spriteController;
 }
+@property (readwrite, assign) NSUInteger spriteId;
 - (id) initWithMainData:(MainData *)data;
 @end

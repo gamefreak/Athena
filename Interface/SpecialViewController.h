@@ -19,7 +19,9 @@
 @property (readwrite, retain) FrameData *frame;
 @property (readwrite, retain) BaseObject *object;
 @property (readonly) NSString *spriteName;
+@property (readwrite) NSInteger spriteId;
 - (void)updateViewSprite;
 - (void)loadFix;
 - (SMIVImage *)spriteForObject:(BaseObject *)object;
+- (IBAction)openSpritePicker:(id)sender;
 @end

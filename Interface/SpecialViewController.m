@@ -10,15 +10,18 @@
 #import "SpriteView.h"
 #import "BaseObject.h"
 #import "MainData.h"
+#import "AthenaDocument.h"
+#import "SpriteEditor.h"
 
 @implementation SpecialViewController
 @dynamic object;
 @dynamic frame;
 @dynamic spriteName;
+@dynamic spriteId;
 
 - (void)dealloc {
     [object release];
-    [frame removeObserver:self];
+    [frame removeObserver:self];//NOTE: do not confuse with removeObserver:forKeyPath:
     [frame release];
     [super dealloc];
 }
@@ -35,6 +38,7 @@
     [object release];
     object = object_;
     [object retain];
+
     [self setFrame:[object valueForKey:@"frame"]];
 
     if (spriteView != nil) {
@@ -58,12 +62,26 @@
     return frame;
 }
 
+//relay to fix picker
+- (NSInteger)spriteId {
+    return [[object valueForKey:@"spriteId"] integerValue];
+}
+
+- (void)setSpriteId:(NSInteger)spriteId {
+    [object setValue:[NSNumber numberWithInteger:spriteId] forKey:@"spriteId"];
+    [self updateViewSprite];
+}
+
++ (NSSet *)keyPathsForValuesAffectingSpriteId {
+    return [NSSet setWithObjects:@"object", @"object.spriteId", nil];
+}
+
 - (NSString *)spriteName {
     return [[self spriteForObject:object] title];
 }
 
 + (NSSet *)keyPathsForValuesAffectingSpriteName {
-    return [NSSet setWithObjects:@"object", @"object.spriteId", nil];
+    return [NSSet setWithObjects:@"object", @"object.spriteId", @"spriteId", nil];
 }
 
 - (void) updateViewSprite {
@@ -140,4 +158,16 @@
     NSString *spriteKey = [[object_ valueForKey:@"spriteId"] stringValue];
     return [sprites valueForKey:spriteKey];
 }
+
+- (IBAction)openSpritePicker:(id)sender {
+    AthenaDocument *doc = [[[[self view] window] windowController] document];
+    SpriteEditor *editor = [[SpriteEditor alloc] initWithMainData:[doc data]];
+    [doc addWindowController:editor];
+    [editor showWindow:sender];
+    [editor setSpriteId:[[object valueForKey:@"spriteId"] integerValue]];
+    [self bind:@"spriteId" toObject:editor withKeyPath:@"spriteId" options:nil];
+    [editor autorelease];
+    
+}
+
 @end
