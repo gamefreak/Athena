@@ -188,8 +188,8 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
         frame.size.height += actionsVerticalBuffer;
     } else {
         if ([identifier isEqualTo:@"special"]) {
-            //Fix for missing sprite on load.
-            [[specialControllers objectForKey:[objectsController valueForKeyPath:@"selection.specialPanelNib"]] updateViewSprite];
+            //Fix for missing sprite and sprite name on load.
+            [[specialControllers objectForKey:[objectsController valueForKeyPath:@"selection.specialPanelNib"]] loadFix];
         }
         frame.size = standardSize;
     }

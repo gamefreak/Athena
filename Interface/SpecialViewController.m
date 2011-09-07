@@ -14,6 +14,7 @@
 @implementation SpecialViewController
 @dynamic object;
 @dynamic frame;
+@dynamic spriteName;
 
 - (void)dealloc {
     [object release];
@@ -57,10 +58,16 @@
     return frame;
 }
 
+- (NSString *)spriteName {
+    return [[self spriteForObject:object] title];
+}
+
++ (NSSet *)keyPathsForValuesAffectingSpriteName {
+    return [NSSet setWithObjects:@"object", @"object.spriteId", nil];
+}
+
 - (void) updateViewSprite {
-    NSDictionary *sprites = [(MainData *)[[[[[self view] window] windowController] document] data] sprites];
-    NSString *spriteKey = [[object valueForKey:@"spriteId"] stringValue];
-    SMIVImage *sprite = [sprites valueForKey:spriteKey];
+    SMIVImage *sprite = [self spriteForObject:object];
     [spriteView setSprite:sprite];
     if ([frame isKindOfClass:[RotationData class]]) {
         [spriteView setAngularVelocity:2.0f * [[frame valueForKey:@"turnRate"] floatValue]];
@@ -74,9 +81,17 @@
         
         NSRange range;
         range.location = [anim firstShape];
-        range.length = [anim lastShape]- range.location;
+        range.length = [anim lastShape] - range.location;
         [spriteView setFrameRange:range];
     }
+}
+
+- (void)loadFix {
+    //Fix missing sprite
+    [self updateViewSprite];
+    //Fix missing sprite name
+    [self willChangeValueForKey:@"spriteName"];
+    [self didChangeValueForKey:@"spriteName"];
 }
 
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object_ toValue:(id)value {
@@ -118,5 +133,11 @@
     [[undo prepareWithInvocationTarget:self] changeKeyPath:keyPath
                                                   ofObject:object_
                                                    toValue:old];
+}
+
+- (SMIVImage *)spriteForObject:(BaseObject *)object_ {
+    NSDictionary *sprites = [(MainData *)[[[[[self view] window] windowController] document] data] sprites];
+    NSString *spriteKey = [[object_ valueForKey:@"spriteId"] stringValue];
+    return [sprites valueForKey:spriteKey];
 }
 @end

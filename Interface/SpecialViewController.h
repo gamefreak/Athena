@@ -18,5 +18,8 @@
 }
 @property (readwrite, retain) FrameData *frame;
 @property (readwrite, retain) BaseObject *object;
-- (void) updateViewSprite;
+@property (readonly) NSString *spriteName;
+- (void)updateViewSprite;
+- (void)loadFix;
+- (SMIVImage *)spriteForObject:(BaseObject *)object;
 @end
