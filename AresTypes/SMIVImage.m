@@ -456,10 +456,29 @@ static uint8 quantitize_pixel(uint32 pixel) {
 
 - (NSData *)GIFData {
     NSMutableArray *gifFrames = [NSMutableArray arrayWithCapacity:[frames count]];
+    void *buffer = calloc(masterSize.width * masterSize.height, 4);
+    CGContextRef context = CGBitmapContextCreate(buffer, masterSize.width, masterSize.height, 8, masterSize.width * 4, devRGB, kCGImageAlphaPremultipliedLast);
+    NSGraphicsContext *oldContext = [[NSGraphicsContext currentContext] retain];//Do I even need to set this?
+    //Skip having to pass the context through to the drawing functions.
+    //OR: I could just copy/paste the drawing methods
+    //*OR*: make those methods call the real functions
+    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO]];
+    CGRect fullRect = {.origin = CGPointZero, .size = NSSizeToCGSize(masterSize)};
+    NSPoint centerPoint = NSMakePoint(masterSize.width / 2.0f, masterSize.height / 2.0f);
     for (SMIVFrame *frame in frames) {
-        NSBitmapImageRep *rep = [[[NSBitmapImageRep alloc] initWithCGImage:[frame image]] autorelease];
+        CGContextClearRect(context, fullRect);
+        [frame drawAtPoint:centerPoint];
+        CGImageRef image = CGBitmapContextCreateImage(context);
+        NSBitmapImageRep *rep;
+        rep = [[[NSBitmapImageRep alloc] initWithCGImage:image] autorelease];
+    
         [gifFrames addObject:rep];
+        CGImageRelease(image);
     }
+    CGContextRelease(context);
+    free(buffer);
+    [NSGraphicsContext setCurrentContext:oldContext];
+    [oldContext release];
     return [NSBitmapImageRep representationOfImageRepsInArray:gifFrames usingType:NSGIFFileType properties:nil];
 }
 @end
