@@ -453,4 +453,13 @@ static uint8 quantitize_pixel(uint32 pixel) {
     [rep release];
     return pngData;
 }
+
+- (NSData *)GIFData {
+    NSMutableArray *gifFrames = [NSMutableArray arrayWithCapacity:[frames count]];
+    for (SMIVFrame *frame in frames) {
+        NSBitmapImageRep *rep = [[[NSBitmapImageRep alloc] initWithCGImage:[frame image]] autorelease];
+        [gifFrames addObject:rep];
+    }
+    return [NSBitmapImageRep representationOfImageRepsInArray:gifFrames usingType:NSGIFFileType properties:nil];
+}
 @end

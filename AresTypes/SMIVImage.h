@@ -64,4 +64,5 @@
 - (void) drawSpriteSheetAtPoint:(NSPoint)point;
 - (NSSize) gridDistribution;
 - (NSData *)PNGDataForGrid:(NSSize)grid;
+- (NSData *)GIFData;
 @end

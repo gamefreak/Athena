@@ -196,7 +196,15 @@
         slideBack:(BOOL)slideFlag {
     NSData *png = [sprite PNGDataForGrid:[sprite gridDistribution]];
     //make a better drag image
-    NSImage *image = [[[NSImage alloc] initWithData:png] autorelease];
+    NSImage *image;
+    if ([dragStartEvent modifierFlags] & NSAlternateKeyMask) {//GIF
+        //GIF gets only the first frame
+        //or would the current frame be better?
+        image = [[[NSImage alloc] initWithCGImage:[[[sprite frames] objectAtIndex:0] image] size:[sprite size]] autorelease];
+    } else {
+        //PNG gets the spritesheet
+        image = [[[NSImage alloc] initWithData:png] autorelease];
+    }
     //Add png data
     [pboard setData:png forType:NSPasteboardTypePNG];
     //calculate base point
@@ -216,8 +224,14 @@
 
 - (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
     NSString *path = [dropDestination path];
-    NSString *fileName = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [sprite title]]];
-    [[sprite PNGDataForGrid:[sprite gridDistribution]] writeToFile:fileName atomically:NO];
+    NSString *fileName = nil;
+    if ([dragStartEvent modifierFlags] & NSAlternateKeyMask) {//GIF
+        fileName = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.gif", [sprite title]]];
+        [[sprite GIFData] writeToFile:fileName atomically:NO];
+    } else {//PNG
+        fileName = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [sprite title]]];
+        [[sprite PNGDataForGrid:[sprite gridDistribution]] writeToFile:fileName atomically:NO];
+    }
     return [NSArray arrayWithObject:fileName];
 }
 
