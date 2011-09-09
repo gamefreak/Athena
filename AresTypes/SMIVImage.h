@@ -11,58 +11,44 @@
 #import "ResCoding.h"
 #import "LuaCoding.h"
 
-@interface SMIVFrame : NSObject <ResCoding> {
-    short width, height;
-    short offsetX, offsetY;
-    CGImageRef image;
-}
-@property (readonly) int width;
-@property (readonly) int height;
-@property (readonly) NSSize size;
-@property (readonly) NSSize paddedSize;
-
-@property (readonly) int offsetX;
-@property (readonly) int offsetY;
-@property (readonly) NSPoint offsetPoint;
-
-@property (readonly) size_t length;//size of smiv frame in bytes 
-@property (readonly) CGImageRef image;
-
-- (id)initWithImage:(CGImageRef)image inRect:(CGRect)rect;
-
-- (void)drawAtPoint:(NSPoint)point;
-- (void)drawInRect:(NSRect)rect;
-
-- (uint8 *)quantitize;
-@end
-
-//Custom container for SMIV animations.
-//WARNING: Use of NSCopying is a HACK for NSDictionaryController you probably want NSMutableCopying
 @interface SMIVImage : NSObject <ResCoding, LuaCoding, NSCopying> {
     NSString *title;
     NSMutableArray *frames;
-    NSUInteger count;
-    NSUInteger currentFrameId;
-    NSSize masterSize;
+    CGSize cellSize;
+    CGImageRef image;
+    int currentFrame;
 }
-@property (readwrite, retain)  NSString *title;
+@property (retain) NSString *title;
+@property (readonly) CGSize cellSize;
+@property (assign) int currentFrame;
+@property (readonly) int count;
 @property (readonly) NSArray *frames;
-@property (readonly) NSUInteger count;
-@property (readwrite) NSUInteger frame;
-@property (readonly) NSSize size;
-@property (readonly) NSSize masterSize;
-
+@property (readonly) CGImageRef image;
 - (NSUInteger) nextFrame;
 - (NSUInteger) previousFrame;
-
-- (void) drawAtPoint:(NSPoint)point;
-- (void) drawInRect:(NSRect)rect;
-
-- (void) drawFrame:(NSUInteger)frame atPoint:(NSPoint)point;
-- (void) drawFrame:(NSUInteger)frame inRect:(NSRect)rect;
-
-- (void) drawSpriteSheetAtPoint:(NSPoint)point;
-- (NSSize) gridDistribution;
-- (NSData *)PNGDataForGrid:(NSSize)grid;
+- (void)drawAtPoint:(CGPoint)point;
+- (void)drawSpriteSheetAtPoint:(CGPoint)point;
+- (CGSize)gridDistribution;
++ (CGSize)gridDistributionForCount:(int)count;
+- (CGRect)rectForFrame:(int)frame;
+- (NSData *)PNGData;
 - (NSData *)GIFData;
+@end
+
+@interface SMIVFrame : NSObject {
+    int xOffset, yOffset;
+    int width, height;
+    CGSize cellSize;//just to handle information sharing
+    CGImageRef slice;
+}
+@property (assign) int xOffset, yOffset;
+@property (assign) int width, height;
+@property (readonly) CGFloat paddedWidth, paddedHeight;
+@property (assign) CGSize cellSize;
+@property (assign) CGImageRef slice;
+@property (readonly) size_t lengthOfData;
+- (id)initWithImage:(CGImageRef)image inRect:(CGRect)rect;
+- (id)initWithResArchiver:(ResUnarchiver *)coder;
+- (void)encodeResWithCoder:(ResArchiver *)coder;
+- (uint8 *)quantitizedPixels;
 @end

@@ -39,12 +39,12 @@
     [[NSColor blackColor] set];
     NSRectFill(dirtyRect);
     NSRect frame = [self frame];
-    NSSize size = [sprite masterSize];
+    NSSize size = [sprite cellSize];
     if (direction != 2) {
-        [sprite drawAtPoint:NSMakePoint(frame.size.width/2.0f, frame.size.height/2.0f)];
+        [sprite drawAtPoint:CGPointMake((frame.size.width - size.width)/2.0f, (frame.size.height - size.height)/2.0f)];
     } else {
         NSSize grid = [sprite gridDistribution];
-        [sprite drawSpriteSheetAtPoint:NSMakePoint(
+        [sprite drawSpriteSheetAtPoint:CGPointMake(
         floorf((frame.size.width  - size.width  * grid.width )/2.0f),
         floorf((frame.size.height - size.height * grid.height)/2.0f))];
     }
@@ -70,7 +70,7 @@
         [sprite previousFrame];
     }
     
-    int pos = [sprite frame];
+    int pos = [sprite currentFrame];
     int left = frameRange.location;
     int right = (frameRange.location + frameRange.length - 1) % [sprite count];
     //Stupid wrapped ranges
@@ -78,24 +78,24 @@
         //concave range |...[------]...|
         if (right < pos) {
             if (direction == 1) {
-                [sprite setFrame:left];
+                [sprite setCurrentFrame:left];
             } else if (direction == -1) {
-                [sprite setFrame:right];
+                [sprite setCurrentFrame:right];
             }
         } else if (pos < left) {
             if (direction == 1) {
-                [sprite setFrame:left];
+                [sprite setCurrentFrame:left];
             } else if (direction == -1) {
-                [sprite setFrame:right];
+                [sprite setCurrentFrame:right];
             }
         }
     } else if (right < left) {
         //convex range |---]......[---|
         if (right < pos && pos < left) {
             if (direction == 1) {
-                [sprite setFrame:left];
+                [sprite setCurrentFrame:left];
             } else if (direction == -1) {
-                [sprite setFrame:right];
+                [sprite setCurrentFrame:right];
             }
         }
     }
@@ -147,7 +147,7 @@
 
 - (void)setFrameRange:(NSRange)frameRange_ {
     frameRange = frameRange_;
-    [sprite setFrame:frameRange.location];
+    [sprite setCurrentFrame:frameRange.location];
 }
 
 - (NSRange)frameRange {
@@ -194,26 +194,30 @@
        pasteboard:(NSPasteboard *)pboard
            source:(id)source
         slideBack:(BOOL)slideFlag {
-    NSData *png = [sprite PNGDataForGrid:[sprite gridDistribution]];
+    NSData *png = [sprite PNGData];
     //make a better drag image
-    NSImage *image;
+    NSImage *dragImage;
     if ([dragStartEvent modifierFlags] & NSAlternateKeyMask) {//GIF
         //GIF gets only the first frame
         //or would the current frame be better?
-        image = [[[NSImage alloc] initWithCGImage:[[[sprite frames] objectAtIndex:0] image] size:[sprite size]] autorelease];
+        CGImageRef sheet = [sprite image];
+        CGRect rect = [sprite rectForFrame:0];
+        CGImageRef subImage = CGImageCreateWithImageInRect(sheet, rect);
+        dragImage = [[[NSImage alloc] initWithCGImage:subImage size:rect.size] autorelease];
+        CGImageRelease(subImage);
     } else {
         //PNG gets the spritesheet
-        image = [[[NSImage alloc] initWithData:png] autorelease];
+        dragImage = [[[NSImage alloc] initWithData:png] autorelease];
     }
     //Add png data
     [pboard setData:png forType:NSPasteboardTypePNG];
     //calculate base point
     NSPoint point = [self convertPoint:[dragStartEvent locationInWindow] fromView:nil];
     //Offsest to center the image
-    NSSize size = [image size];
+    NSSize size = [dragImage size];
     point.x -= size.width / 2.0;
     point.y -= size.height / 2.0;
-    [super dragImage:image
+    [super dragImage:dragImage
                   at:point
               offset:NSZeroSize
                event:event
@@ -230,7 +234,7 @@
         [[sprite GIFData] writeToFile:fileName atomically:NO];
     } else {//PNG
         fileName = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [sprite title]]];
-        [[sprite PNGDataForGrid:[sprite gridDistribution]] writeToFile:fileName atomically:NO];
+        [[sprite PNGData] writeToFile:fileName atomically:NO];
     }
     return [NSArray arrayWithObject:fileName];
 }
