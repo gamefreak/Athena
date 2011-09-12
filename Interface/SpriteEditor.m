@@ -13,6 +13,7 @@
 
 @implementation SpriteEditor
 @dynamic spriteId;
+@synthesize spriteController;
 
 - (id) initWithMainData:(MainData *)_data {
     self = [super initWithWindowNibName:@"SpriteEditor"];

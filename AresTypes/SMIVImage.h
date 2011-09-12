@@ -24,6 +24,7 @@
 @property (readonly) int count;
 @property (readonly) NSArray *frames;
 @property (readonly) CGImageRef image;
+- (id)initWithAnimation:(NSBitmapImageRep *)image named:(NSString *)name;
 - (NSUInteger) nextFrame;
 - (NSUInteger) previousFrame;
 - (void)drawAtPoint:(CGPoint)point;

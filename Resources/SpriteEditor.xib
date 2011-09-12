@@ -81,6 +81,7 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrameSize">{200, 535}</string>
 											<reference key="NSSuperview" ref="660534482"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="1003974986"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="295535363">
@@ -88,6 +89,7 @@
 												<int key="NSvFlags">256</int>
 												<string key="NSFrameSize">{200, 17}</string>
 												<reference key="NSSuperview" ref="997037848"/>
+												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="660534482"/>
 												<reference key="NSTableView" ref="370475387"/>
 											</object>
@@ -218,6 +220,7 @@
 									</object>
 									<string key="NSFrame">{{1, 17}, {200, 535}}</string>
 									<reference key="NSSuperview" ref="967165005"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="370475387"/>
 									<reference key="NSDocView" ref="370475387"/>
 									<reference key="NSBGColor" ref="1039850422"/>
@@ -228,6 +231,7 @@
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{224, 17}, {15, 102}}</string>
 									<reference key="NSSuperview" ref="967165005"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="998695022"/>
 									<reference key="NSTarget" ref="967165005"/>
 									<string key="NSAction">_doScroller:</string>
@@ -239,6 +243,7 @@
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 									<reference key="NSSuperview" ref="967165005"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="576974631"/>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="967165005"/>
@@ -254,6 +259,7 @@
 									</object>
 									<string key="NSFrame">{{1, 0}, {200, 17}}</string>
 									<reference key="NSSuperview" ref="967165005"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="295535363"/>
 									<reference key="NSDocView" ref="295535363"/>
 									<reference key="NSBGColor" ref="1039850422"/>
@@ -262,6 +268,7 @@
 							</object>
 							<string key="NSFrame">{{20, 20}, {202, 553}}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="997037848"/>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="1003974986"/>
@@ -275,6 +282,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{227, 556}, {85, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="185476763"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="1057212177">
@@ -297,6 +305,7 @@
 							<int key="NSvFlags">266</int>
 							<string key="NSFrame">{{318, 551}, {385, 22}}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="74398210"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="451279192">
@@ -325,6 +334,7 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrame">{{242, 20}, {460, 494}}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="NSClassName">SpriteView</string>
 						</object>
@@ -333,6 +343,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{240, 520}, {244, 25}}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="399963749"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSegmentedCell" key="NSCell" id="150317766">
@@ -371,6 +382,7 @@
 							<int key="NSvFlags">266</int>
 							<string key="NSFrame">{{488, 516}, {216, 26}}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="351228837"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="60422975">
@@ -391,6 +403,7 @@
 					</object>
 					<string key="NSFrameSize">{722, 593}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="967165005"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
@@ -763,6 +776,7 @@
 					<string>6.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
+					<string>9.CustomClassName</string>
 					<string>9.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -794,6 +808,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>SpriteImporterTableView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
@@ -811,7 +826,78 @@
 			<nil key="sourceID"/>
 			<int key="maxID">84</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">SpriteEditor</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>spriteController</string>
+							<string>spriteView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSDictionaryController</string>
+							<string>SpriteView</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>spriteController</string>
+							<string>spriteView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">spriteController</string>
+								<string key="candidateClassName">NSDictionaryController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">spriteView</string>
+								<string key="candidateClassName">SpriteView</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SpriteEditor.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SpriteImporterTableView</string>
+					<string key="superclassName">NSTableView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SpriteImporterTableView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SpriteView</string>
+					<string key="superclassName">NSView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">triggerChange:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">triggerChange:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">triggerChange:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SpriteView.h</string>
+					</object>
+				</object>
+			</object>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">

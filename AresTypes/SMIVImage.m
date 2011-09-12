@@ -90,6 +90,40 @@ static uint8 quantitize_pixel(uint32 pixel) {
     return [self retain];
 }
 
+#pragma mark Image inits;
+- (id)initWithAnimation:(NSBitmapImageRep *)rep named:(NSString *)name {
+    self = [self init];
+    if (self) {
+        [self setTitle:name];
+        int count = [[rep valueForProperty:NSImageFrameCount] intValue];
+        cellSize = NSSizeToCGSize([rep size]);
+        assert(!CGSizeEqualToSize(cellSize, CGSizeZero));
+        //Create the master image
+        CGSize arrangement = [SMIVImage gridDistributionForCount:count];//knowing how to arrange the cells
+        CGSize imageDimensions = CGSizeMake(arrangement.width * cellSize.width, arrangement.height * cellSize.height);
+        CGContextRef context = CGBitmapContextCreate(NULL, imageDimensions.width, imageDimensions.height, 8, imageDimensions.width * 4, devRGB, kCGImageAlphaPremultipliedLast);
+
+        for (int k = 0; k < count; k++) {
+            //I hate this design
+            [rep setProperty:NSImageCurrentFrame withValue:[NSNumber numberWithInt:k]];
+            CGImageRef frame = [rep CGImage];
+            int xLoc = k%((int)arrangement.width);
+            int yLoc = (int)k/(int)arrangement.width;
+            CGRect rect = CGRectMake(cellSize.width * xLoc, cellSize.height * (arrangement.height - yLoc - 1), cellSize.width, cellSize.height);
+            CGContextDrawImage(context, rect, frame);
+        }
+        image = CGBitmapContextCreateImage(context);
+        CGContextRelease(context);
+        for (int k = 0; k < count; k++) {
+            int xLoc = k%((int)arrangement.width);
+            int yLoc = k/(int)arrangement.width;
+            CGRect rect = CGRectMake(cellSize.width * xLoc, cellSize.height * yLoc, cellSize.width, cellSize.height);
+            [frames addObject:[[[SMIVFrame alloc] initWithImage:image inRect:rect] autorelease]];
+        }
+    }
+    return self;
+}
+
 #pragma mark Resource Methods
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
@@ -247,7 +281,7 @@ static uint8 quantitize_pixel(uint32 pixel) {
         int count = xDim * yDim;
         for (int i = 0; i < count; i++) {
             int x = i % xDim;
-            int y = i / yDim;
+            int y = i / xDim;
             CGRect rect = CGRectMake(x * cellSize.width, y * cellSize.height, cellSize.width, cellSize.height);
 
             SMIVFrame *frame = [[[SMIVFrame alloc] initWithImage:image inRect:rect] autorelease];

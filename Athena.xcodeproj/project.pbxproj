@@ -17,6 +17,7 @@
 		8D15AC310486D014006FF6A4 /* AthenaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		D2132116141E760D001533A3 /* SpriteImporterTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2132115141E760D001533A3 /* SpriteImporterTableView.m */; };
 		D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D216CF66132420D1008E24F0 /* WeaponView.xib */; };
 		D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D216CFF413243027008E24F0 /* WeaponViewController.m */; };
 		D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D216E73012E9DE1700D17AFB /* LuaArchiver.m */; };
@@ -273,6 +274,8 @@
 		4D64EFB7140BD0FF00017458 /* DownloadWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadWindow.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Athena-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Athena-Info.plist"; path = "../Athena-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Athena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Athena.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2132114141E760D001533A3 /* SpriteImporterTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteImporterTableView.h; sourceTree = "<group>"; };
+		D2132115141E760D001533A3 /* SpriteImporterTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteImporterTableView.m; sourceTree = "<group>"; };
 		D216CF66132420D1008E24F0 /* WeaponView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeaponView.xib; sourceTree = "<group>"; };
 		D216CFF413243027008E24F0 /* WeaponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeaponViewController.m; sourceTree = "<group>"; };
 		D216CFF513243027008E24F0 /* WeaponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponViewController.h; sourceTree = "<group>"; };
@@ -1038,6 +1041,8 @@
 				D2DEECB4130A2A74004AB731 /* SpriteEditor.m */,
 				D2E98D17130AED3F0013EBCA /* SpriteView.h */,
 				D2E98D18130AED3F0013EBCA /* SpriteView.m */,
+				D2132114141E760D001533A3 /* SpriteImporterTableView.h */,
+				D2132115141E760D001533A3 /* SpriteImporterTableView.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -1315,6 +1320,7 @@
 				D270392D140564EE00F426CD /* ConditionViewController.m in Sources */,
 				4D64EFB4140BCD0A00017458 /* ProgressWindow.m in Sources */,
 				4D64EFB8140BD0FF00017458 /* DownloadWindow.m in Sources */,
+				D2132116141E760D001533A3 /* SpriteImporterTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

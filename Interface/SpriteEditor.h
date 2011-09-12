@@ -20,5 +20,6 @@
     IBOutlet NSDictionaryController *spriteController;
 }
 @property (readwrite, assign) NSUInteger spriteId;
+@property (readonly) NSDictionaryController *spriteController;
 - (id) initWithMainData:(MainData *)data;
 @end
