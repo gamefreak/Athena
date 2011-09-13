@@ -11,18 +11,20 @@
 #import "DownloadWindow.h"
 
 NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMedia.zip";
+NSString *XSHasAskedForData = @"AskedToGetData";
+NSString *XSHasAresData = @"HasAresData";
 
 @implementation ApplicationDelagate
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
     NSMutableDictionary *baseDefaults = [NSMutableDictionary dictionary];
-    [baseDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"AskedToGetData"];
-    [baseDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"HasAresData"];
+    [baseDefaults setObject:[NSNumber numberWithBool:NO] forKey:XSHasAskedForData];
+    [baseDefaults setObject:[NSNumber numberWithBool:NO] forKey:XSHasAresData];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults  registerDefaults:baseDefaults];
     
-    BOOL hasData = [defaults boolForKey:@"HasAresData"];
-    BOOL asked = [defaults boolForKey:@"AskedToGetData"];
+    BOOL hasData = [defaults boolForKey:XSHasAresData];
+    BOOL asked = [defaults boolForKey:XSHasAskedForData];
     if (!hasData && !asked) {
         NSAlert *alert = [[[NSAlert alloc] init] autorelease];
         [alert setMessageText:@"Download ares data?"];
@@ -34,7 +36,7 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
             [self downloadAresData];
         } else if (result == 1001) {
         }
-        [defaults setBool:YES forKey:@"AskedToGetData"];
+        [defaults setBool:YES forKey:XSHasAskedForData];
     } else if (hasData) {
         [self openDefaultData];
     } else if (asked && !hasData) {
@@ -43,7 +45,7 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
     }
 }
 
-- (NSString *)supportDir {
++ (NSString *)supportDir {
     NSString *appSupport = NSHomeDirectory();
     appSupport = [appSupport stringByAppendingPathComponent:@"Library"];
     appSupport = [appSupport stringByAppendingPathComponent:@"Application Support"];
@@ -51,21 +53,24 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
     return appSupport;
 }
 
-
-- (void)downloadAresData {
-    NSString *appSupport = [self supportDir];
++ (void)ensureDirectoryExists:(NSString *)dir {
     NSError *error = nil;
     NSFileManager *fm = [NSFileManager defaultManager];
-    if (![fm fileExistsAtPath:appSupport]) {
-    [fm createDirectoryAtPath:appSupport
-  withIntermediateDirectories:YES
-                   attributes:nil
-                        error:&error];
+    if (![fm fileExistsAtPath:dir]) {
+        [fm createDirectoryAtPath:dir
+      withIntermediateDirectories:YES
+                       attributes:nil
+                            error:&error];
         if (error) {
-            NSLog(@"Failed to create Support directory: %@", error);
+            NSLog(@"Failed to create directory: %@", error);
         }
     }
+}
 
+
+- (void)downloadAresData {
+    NSString *appSupport = [ApplicationDelagate supportDir];
+    [ApplicationDelagate ensureDirectoryExists:appSupport];
     NSURL *url = [NSURL URLWithString:XSAresDataUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url
                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -90,7 +95,7 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
 
 - (void)downloadDidComplete:(NSNotification *)notification {
     //Open the archive
-    NSString *path = [self supportDir];
+    NSString *path = [ApplicationDelagate supportDir];
     NSString *file = [path stringByAppendingPathComponent:@"AresMedia.zip"];
     NSString *dest = [path stringByAppendingPathComponent:@"Ares Data"];
     //use ditto not unzip because unzip doesn't handle resource fork
@@ -103,7 +108,7 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
     if ([task terminationStatus]) {
         NSLog(@"Unzip failed");
     } else {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasAresData"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:XSHasAresData];
     }
     [task release];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:XSDownloadComplete object:[notification object]];
@@ -113,7 +118,7 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
 - (void)openDefaultData {
     NSDocumentController *controller = [NSDocumentController sharedDocumentController];
     NSError *error = nil;
-    NSString *path = [[self supportDir] stringByAppendingPathComponent:@"Ares Data"];
+    NSString *path = [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"];
     NSURL *fileURL = [NSURL fileURLWithPath:[path stringByAppendingPathComponent:@"Ares Scenarios"]];
     [controller openDocumentWithContentsOfURL:fileURL
                                       display:YES
@@ -124,7 +129,7 @@ NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMe
 }
 
 - (IBAction)openOrignalData:(id)sender {
-    if ([[NSUserDefaultsController sharedUserDefaultsController] boolForKey:@"HasAresData"]) {
+    if ([[NSUserDefaultsController sharedUserDefaultsController] boolForKey:XSHasAresData]) {
         [self openDefaultData];
     } else {
         [self downloadAresData];

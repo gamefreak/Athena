@@ -9,11 +9,14 @@
 #import <Cocoa/Cocoa.h>
 
 extern NSString *XSAresDataUrl;
+extern NSString *XSHasAskedForData;
+extern NSString *XSHasAresData;
 
 @interface ApplicationDelagate : NSObject <NSApplicationDelegate> {
 
 }
-- (NSString *)supportDir;
++ (NSString *)supportDir;
++ (void)ensureDirectoryExists:(NSString *)directory;
 - (void)downloadAresData;
 - (void)downloadDidComplete:(NSNotification *)notification;
 - (void)openDefaultData;
