@@ -1,0 +1,14 @@
+package "Athena"
+version "0.1"
+purpose "Scenario editor for Ares, Xsera, and eventually Antares."
+
+args "--arg-struct-name=athena_args --func-name=arg_parser"
+
+option "base" b "Use base data." string typestr="FILE" argoptional optional
+option "download" d "Download data" dependon="base" optional
+
+option "check" c "Preform consistency check" dependon="base" optional hidden
+option "list" l "List file contents" dependon="base" optional hidden
+
+option "type" t "Filetype to output" values="ares","xsera","lua" enum dependon="out" optional
+option "out" o "Output location" string typestr="FILE" dependon="type" optional

@@ -46,6 +46,8 @@
 		D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = D25A40461327327F0017030B /* FlagMenuPopulator.m */; };
 		D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */; };
 		D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D25B7E161403E93500BE6203 /* ConditionEditor.m */; };
+		D2627542141FD4960064AD95 /* cmdline.c in Sources */ = {isa = PBXBuildFile; fileRef = D2627540141FD4960064AD95 /* cmdline.c */; };
+		D2627544141FD4B10064AD95 /* athena.ggo in Resources */ = {isa = PBXBuildFile; fileRef = D2627543141FD4B10064AD95 /* athena.ggo */; };
 		D26B69DB130C14EB00B461FB /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28312E8BDE200694EBA /* lapi.c */; };
 		D26B69DC130C14EC00B461FB /* lapi.h in Headers */ = {isa = PBXBuildFile; fileRef = D21EB28412E8BDE200694EBA /* lapi.h */; };
 		D26B69DD130C14ED00B461FB /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28512E8BDE200694EBA /* lauxlib.c */; };
@@ -363,6 +365,9 @@
 		D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConditionEditor.xib; sourceTree = "<group>"; };
 		D25B7E151403E93500BE6203 /* ConditionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionEditor.h; sourceTree = "<group>"; };
 		D25B7E161403E93500BE6203 /* ConditionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionEditor.m; sourceTree = "<group>"; };
+		D2627540141FD4960064AD95 /* cmdline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmdline.c; sourceTree = "<group>"; };
+		D2627541141FD4960064AD95 /* cmdline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdline.h; sourceTree = "<group>"; };
+		D2627543141FD4B10064AD95 /* athena.ggo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = athena.ggo; sourceTree = "<group>"; };
 		D26B69D8130C14CC00B461FB /* liblua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblua.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D26B6A3E130C16D700B461FB /* ObjectEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectEditor.h; sourceTree = "<group>"; };
 		D26B6A3F130C16D700B461FB /* ObjectEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectEditor.m; sourceTree = "<group>"; };
@@ -570,6 +575,7 @@
 				D2A347B513C90D9A000378B8 /* Vorbis.xcodeproj */,
 				D21EB28212E8BDE200694EBA /* lua */,
 				2564AD2C0F5327BB00F57823 /* Athena_Prefix.pch */,
+				D2627545141FD4B60064AD95 /* Command Line */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -777,6 +783,16 @@
 				D275AB9C14040D360069F043 /* NoParameter.xib */,
 			);
 			name = Conditions;
+			sourceTree = "<group>";
+		};
+		D2627545141FD4B60064AD95 /* Command Line */ = {
+			isa = PBXGroup;
+			children = (
+				D2627543141FD4B10064AD95 /* athena.ggo */,
+				D2627541141FD4960064AD95 /* cmdline.h */,
+				D2627540141FD4960064AD95 /* cmdline.c */,
+			);
+			name = "Command Line";
 			sourceTree = "<group>";
 		};
 		D264F8BD12E8EE3A0050BCFB /* Archivers */ = {
@@ -1258,6 +1274,7 @@
 				D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */,
 				D275AB9D14040D360069F043 /* NoParameter.xib in Resources */,
 				4D64EFB1140BCAB200017458 /* ProgressWindow.xib in Resources */,
+				D2627544141FD4B10064AD95 /* athena.ggo in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1329,6 +1346,7 @@
 				4D64EFB4140BCD0A00017458 /* ProgressWindow.m in Sources */,
 				4D64EFB8140BD0FF00017458 /* DownloadWindow.m in Sources */,
 				D2132116141E760D001533A3 /* SpriteImporterTableView.m in Sources */,
+				D2627542141FD4960064AD95 /* cmdline.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
