@@ -597,6 +597,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D2132128141F7D45001533A3 /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */,
+			);
+			name = Sprite;
+			sourceTree = "<group>";
+		};
 		D216CF6213241F92008E24F0 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -865,7 +873,7 @@
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				D225D5E713035E9A00E75803 /* BriefingEditor.xib */,
 				D216CF68132420DD008E24F0 /* Objects */,
-				D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */,
+				D2132128141F7D45001533A3 /* Sprite */,
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
 				D2DEECB6130A2A8D004AB731 /* Scenarios */,
 				D2C7AD4913BB672E003B941F /* Actions */,

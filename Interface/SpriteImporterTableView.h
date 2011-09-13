@@ -10,5 +10,4 @@
 
 @interface SpriteImporterTableView : NSTableView {
 }
-
 @end

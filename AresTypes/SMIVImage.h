@@ -25,6 +25,7 @@
 @property (readonly) NSArray *frames;
 @property (readonly) CGImageRef image;
 - (id)initWithAnimation:(NSBitmapImageRep *)image named:(NSString *)name;
+- (id)initWithSpriteSheet:(NSBitmapImageRep *)image named:(NSString *)name cellsWide:(int)cellsWide tall:(int)cellsTall;
 - (NSUInteger) nextFrame;
 - (NSUInteger) previousFrame;
 - (void)drawAtPoint:(CGPoint)point;

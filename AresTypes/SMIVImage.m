@@ -124,6 +124,42 @@ static uint8 quantitize_pixel(uint32 pixel) {
     return self;
 }
 
+- (id)initWithSpriteSheet:(NSBitmapImageRep *)rep named:(NSString *)name cellsWide:(int)cellsWide tall:(int)cellsTall {
+    self = [self init];
+    if (self) {
+        [self setTitle:name];
+        int count = cellsWide * cellsTall;
+        cellSize = CGSizeMake([rep pixelsWide]/cellsWide, [rep pixelsHigh]/cellsTall);
+        CGSize arrangement = [SMIVImage gridDistributionForCount:count];//knowing how to arrange the cells
+        CGSize imageDimensions = CGSizeMake(arrangement.width * cellSize.width, arrangement.height * cellSize.height);
+        CGContextRef context = CGBitmapContextCreate(NULL, imageDimensions.width, imageDimensions.height, 8, imageDimensions.width * 4, devRGB, kCGImageAlphaPremultipliedLast);
+        CGImageRef sheet = [rep CGImage];
+        //We could have just kept the sheets the same, but lets make them stay standardized
+        for (int k = 0; k < count; k++) {
+            //Slice the source image
+            int sourceX = k%cellsWide;
+            int sourceY = k/cellsWide;
+            CGRect sourceRect = CGRectMake(cellSize.width * sourceX, cellSize.height * (sourceY), cellSize.width, cellSize.height);
+            CGImageRef subImage = CGImageCreateWithImageInRect(sheet, sourceRect);
+
+            int destX = k%((int)arrangement.width);
+            int destY = (int)k/(int)arrangement.width;
+            CGRect destRect = CGRectMake(cellSize.width * destX, cellSize.height * (arrangement.height - destY - 1), cellSize.width, cellSize.height);
+            CGContextDrawImage(context, destRect, subImage);
+            CGImageRelease(subImage);
+        }
+        image = CGBitmapContextCreateImage(context);
+        CGContextRelease(context);
+        for (int k = 0; k < count; k++) {
+            int xLoc = k%((int)arrangement.width);
+            int yLoc = k/(int)arrangement.width;
+            CGRect rect = CGRectMake(cellSize.width * xLoc, cellSize.height * yLoc, cellSize.width, cellSize.height);
+            [frames addObject:[[[SMIVFrame alloc] initWithImage:image inRect:rect] autorelease]];
+        }
+    }
+    return self;
+}
+
 #pragma mark Resource Methods
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
