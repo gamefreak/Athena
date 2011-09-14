@@ -27,10 +27,11 @@ int main(int argc, char *argv[]) {
     //Determine file to work with.
     //Get desired path
     NSString *path = nil;
+    NSString *supportDir = [ApplicationDelagate supportDir];
     BOOL needsToDownloadData = NO;
     if (args.base_arg == NULL) {
         //use downloaded info from Application Support
-        path = [ApplicationDelagate supportDir];
+        path = supportDir;
         [ApplicationDelagate ensureDirectoryExists:path];
         path = [path stringByAppendingPathComponent:@"Ares Data"];
         path = [path stringByAppendingPathComponent:@"Ares Scenarios"];
@@ -40,22 +41,32 @@ int main(int argc, char *argv[]) {
         //use specified file
         path = [NSString stringWithUTF8String:args.base_arg];
     }
-    if ((args.download_given && args.base_arg == NULL) || needsToDownloadData) {
+    if ((args.download_given) || needsToDownloadData) {
+        NSString *downloadPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"AresMedia.zip"];
         //Download data from host to desired file path
         NSTask *task;
         //Download
         task = [[[NSTask alloc] init] autorelease];
         [task setLaunchPath:@"/usr/bin/curl"];
-        [task setArguments:[NSArray arrayWithObjects:@"-O", XSAresDataUrl, nil]];
-        [task setCurrentDirectoryPath:[ApplicationDelagate supportDir]];
+        [task setArguments:[NSArray arrayWithObjects:@"--location", @"-o", downloadPath, XSAresDataUrl, nil]];
+        [task setCurrentDirectoryPath:supportDir];
         [task launch];
         [task waitUntilExit];
         if ([task terminationStatus]) exit(1);
+
         //And unzip
         task = [[[NSTask alloc] init] autorelease];
         [task setLaunchPath:@"/usr/bin/ditto"];
-        [task setArguments:[NSArray arrayWithObjects:@"-xk", [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"AresMedia.zip"], [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"], nil]];
-        [task setCurrentDirectoryPath:[ApplicationDelagate supportDir]];
+        [task setArguments:[NSArray arrayWithObjects:@"-xk", downloadPath, [supportDir stringByAppendingPathComponent:@"Ares Data"], nil]];
+        [task setCurrentDirectoryPath:supportDir];
+        [task launch];
+        [task waitUntilExit];
+        if ([task terminationStatus]) exit(1);
+
+        //Clean up
+        task = [[[NSTask alloc] init] autorelease];
+        [task setLaunchPath:@"/bin/rm"];
+        [task setArguments:[NSArray arrayWithObjects:@"-f", downloadPath, nil]];
         [task launch];
         [task waitUntilExit];
         if ([task terminationStatus]) exit(1);
