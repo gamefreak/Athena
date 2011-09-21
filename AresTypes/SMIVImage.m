@@ -349,7 +349,7 @@ static uint8 quantitize_pixel(uint32 pixel) {
     NSXMLElement *rootElement = [NSXMLElement elementWithName:@"sprite"];;
     [rootElement addChild:dimElement];
     NSXMLDocument *document = [NSXMLDocument documentWithRootElement:rootElement];
-    [[document XMLData] writeToFile:[spriteDir stringByAppendingFormat:@"%@.xml", spriteName] atomically:NO];
+    [[document XMLData] writeToFile:[[spriteDir stringByAppendingPathComponent:spriteName] stringByAppendingPathExtension:@"xml"] atomically:NO];
 }
 
 + (BOOL)isComposite {
