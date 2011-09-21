@@ -69,17 +69,17 @@
 
         NSData *outData = [LuaArchiver archivedDataWithRootObject:data withName:@"data" baseDirectory:baseDir];
         [outData writeToFile:[baseDir stringByAppendingPathComponent:@"data.lua"] atomically:YES];
-
-        //tar/gzip it
-        NSTask *gzipTask = [[NSTask alloc] init];
-        [gzipTask setLaunchPath:@"/usr/bin/tar"];
-        [gzipTask setArguments:[NSArray arrayWithObjects:@"cfz", [fullName lastPathComponent], @"./data/", nil]];
-        [gzipTask setCurrentDirectoryPath:localRoot];
-        [gzipTask launch];
-        [gzipTask waitUntilExit];
-        [gzipTask release];
+        
+        //zip it
+        NSTask *zipTask = [[NSTask alloc] init];
+        [zipTask setLaunchPath:@"/usr/bin/zip"];
+        [zipTask setArguments:[NSArray arrayWithObjects:@"-q", [fullName lastPathComponent], @"-r", @"./data/", nil]];
+        [zipTask setCurrentDirectoryPath:localRoot];
+        [zipTask launch];
+        [zipTask waitUntilExit];
+        [zipTask release];
+        
         //clean up the directories
-
         NSTask *rmTask = [[NSTask alloc] init];
         [rmTask setLaunchPath:@"/bin/rm"];
         [rmTask setArguments:[NSArray arrayWithObjects:@"-r", @"./data/", nil]];
@@ -125,15 +125,15 @@
             mkdir(safepath, 0777);
             chdir(safepath);
             NSString *destPath = [NSString stringWithUTF8String:safepath];
-
+            
             NSTask *unzipTask = [[NSTask alloc] init];
-            [unzipTask setLaunchPath:@"/usr/bin/tar"];
+            [unzipTask setLaunchPath:@"/usr/bin/unzip"];
+            [unzipTask setArguments:[NSArray arrayWithObjects:@"-q", fileName, @"-d", destPath, nil]];
             [unzipTask setCurrentDirectoryPath:destPath];
-            NSArray *taskArgs = [NSArray arrayWithObjects:@"xfz", fileName, @"-C", destPath, nil];
-            [unzipTask setArguments:taskArgs];
             [unzipTask launch];
             [unzipTask waitUntilExit];
             [unzipTask release];
+            
             NSString *baseDir = [destPath stringByAppendingPathComponent:@"data"];
             NSString *dataFile = [baseDir stringByAppendingPathComponent:@"data.lua"];
             NSData *df = [NSData dataWithContentsOfFile:dataFile];
