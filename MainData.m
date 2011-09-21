@@ -70,17 +70,27 @@ static NSArray *mainDataKeys;
 //MARK: Lua Coding
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    [objects    setArray:[coder decodeArrayOfClass:[BaseObject class]      forKey:@"objects"    zeroIndexed:YES]];
-    [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
-    [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
-    [sprites setDictionary:[coder decodeDictionaryOfClass:[SMIVImage class] forKey:@"sprites"]];
-    [sounds setDictionary:[coder decodeDictionaryOfClass:[XSSound class] forKey:@"sounds"]];
+    if (self) {
+        title = [[coder decodeStringForKey:@"title"] retain];
+        downloadUrl = [[coder decodeStringForKey:@"downloadUrl"] retain];
+        author = [[coder decodeStringForKey:@"author"] retain];
+        authorUrl = [[coder decodeStringForKey:@"authorUrl"] retain];
+        [objects    setArray:[coder decodeArrayOfClass:[BaseObject class]      forKey:@"objects"    zeroIndexed:YES]];
+        [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
+        [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
+        [sprites setDictionary:[coder decodeDictionaryOfClass:[SMIVImage class] forKey:@"sprites"]];
+        [sounds setDictionary:[coder decodeDictionaryOfClass:[XSSound class] forKey:@"sounds"]];
 
-    [flags initWithLuaCoder:coder];
+        [flags initWithLuaCoder:coder];
+    }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
+    [coder encodeString:title forKey:@"title"];
+    [coder encodeString:downloadUrl forKey:@"downloadUrl"];
+    [coder encodeString:author forKey:@"author"];
+    [coder encodeString:authorUrl forKey:@"authorUrl"];
     [flags encodeLuaWithCoder:coder];
     [coder encodeArray:objects    forKey:@"objects"    zeroIndexed:YES];
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
