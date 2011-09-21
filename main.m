@@ -103,6 +103,7 @@ int main(int argc, char *argv[]) {
                 break;
             case type_arg_xsera:
                 type = @"org.brainpen.XseraData";
+                break;
             default:
                 assert(0);
                 break;
