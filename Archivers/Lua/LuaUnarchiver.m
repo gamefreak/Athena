@@ -45,16 +45,24 @@ static void stackDump (lua_State *L) {
 
 @implementation LuaUnarchiver (Private)
 - (NSUInteger) getKey:(NSString *)key {
-    lua_pushstring(L, [key UTF8String]);
-    lua_gettable(L, -2);
+    if (lua_gettop(L) == 0) {
+        lua_getglobal(L, [key UTF8String]);
+    } else {
+        lua_pushstring(L, [key UTF8String]);
+        lua_gettable(L, -2);
+    }
     return 1;
 }
 
 - (NSUInteger) getKeyPath:(NSString *)keyPath {
     NSArray *components = [keyPath componentsSeparatedByString:@"."];
     for (id subKey in components) {
-        lua_pushstring(L, [subKey UTF8String]);
-        lua_gettable(L, -2);
+        if (lua_gettop(L) == 0) {
+            lua_getglobal(L, [subKey UTF8String]);
+        } else {
+            lua_pushstring(L, [subKey UTF8String]);
+            lua_gettable(L, -2);
+        }
     }
     return [components count];
 }
@@ -71,11 +79,11 @@ static void stackDump (lua_State *L) {
 
 
 @implementation LuaUnarchiver
-@synthesize baseDir, isPluginFormat;
+@synthesize baseDir;
 - (id) init {
     self = [super init];
     if (self) {
-        baseDir = @"/";
+        baseDir = nil;
         L = luaL_newstate();
         if (L == NULL) @throw @"Failed to open lua state.";
     }
@@ -90,11 +98,8 @@ static void stackDump (lua_State *L) {
     
     err = lua_pcall(L, 0, 0, 0);
     if (err != 0) @throw [NSString stringWithFormat:@"Lua Error: %s", lua_tostring(L, -1)];
-    
-    lua_getglobal(L, "data");
-    
-    assert(lua_gettop(L) == 1);
-    assert(lua_istable(L, -1));
+
+    assert(lua_gettop(L) == 0);
 }
 
 - (void) dealloc {
@@ -104,19 +109,14 @@ static void stackDump (lua_State *L) {
     [super dealloc];
 }
 
-+ (id) unarchiveObjectWithData:(NSData *)data
-                 baseDirectory:(NSString *)baseDir
-                    fromPlugin:(BOOL)isPlugin_ {
-    LuaUnarchiver *decoder = [[LuaUnarchiver alloc] init];
-    [decoder setBaseDir:baseDir];
-    [decoder setIsPluginFormat:isPlugin_];
-    [decoder loadData:data];
-    
-    //Remember: MainData is hardcoded here
-    MainData *decodedObject = [[MainData alloc] initWithLuaCoder:decoder];
-    [decodedObject finishLoadingFromLuaWithRootData:decodedObject];
-    [decoder release];
-    return [decodedObject autorelease];
+- (NSData *)fileNamed:(NSString *)name inDirectory:(NSString *)directory {
+    name = [name stringByReplacingOccurrencesOfString:@"/" withString:@":"];
+    NSFileWrapper *cursor = baseDir;
+    NSArray *path = [directory pathComponents];
+    for (NSString *component in path) {
+        cursor = [[cursor fileWrappers] objectForKey:component];
+    }
+    return [[[cursor fileWrappers] objectForKey:name] regularFileContents];
 }
 
 - (BOOL) hasKey:(NSString *)key {

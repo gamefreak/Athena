@@ -299,15 +299,12 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     if (self) {
         //Work out the file path
         name = [[coder decodeString] retain];
-        NSString *fileName = [coder baseDir];
-        fileName = [fileName stringByAppendingPathComponent:@"Sounds"];
-        fileName = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
-        fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
+        NSData *data = [coder fileNamed:[[name stringByReplacingOccurrencesOfString:@"/" withString:@":"] stringByAppendingPathExtension:@"ogg"]
+                            inDirectory:@"Sounds"];
 
-        FILE *file = fopen([fileName cStringUsingEncoding:NSUTF8StringEncoding], "rb");
-        if (file == NULL) {
-            @throw [NSString stringWithFormat:@"File \"%@\" could not be opened", fileName];
-        }
+        NSUInteger cursor = 0;
+        NSUInteger dataSize = [data length];
+
         //A bunch of NSDatas go here
         ///they will be mushed together at the end
         NSMutableArray *pcmBlocks = [NSMutableArray array];
@@ -330,7 +327,11 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         ogg_sync_init(&oy);
         while (1) {//Read through the data in blocks
             rbuffer = ogg_sync_buffer(&oy, bufferSize);
-            byteCount = fread(rbuffer, 1, bufferSize, file);
+
+            byteCount = MIN((dataSize - cursor), bufferSize);
+            [data getBytes:rbuffer range:NSMakeRange(cursor, byteCount)];
+            cursor += byteCount;
+
             ogg_sync_wrote(&oy, byteCount);
 
             if (ogg_sync_pageout(&oy, &og) != 1) {
@@ -381,7 +382,11 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
                 }
                 //get more data
                 rbuffer = ogg_sync_buffer(&oy, bufferSize);
-                byteCount = fread(rbuffer, 1, byteCount, file);
+
+                byteCount = MIN((dataSize - cursor), bufferSize);
+                [data getBytes:rbuffer range:NSMakeRange(cursor, byteCount)];
+                cursor += byteCount;
+
                 if (byteCount == 0 && i < 2) {
                     @throw @"Missing vorbis headers";
                 }
@@ -447,7 +452,11 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
                     }
                     if (!eos) {
                         rbuffer = ogg_sync_buffer(&oy, bufferSize);
-                        byteCount = fread(rbuffer, 1, bufferSize, file);
+
+                        byteCount = MIN((dataSize - cursor), bufferSize);
+                        [data getBytes:rbuffer range:NSMakeRange(cursor, byteCount)];
+                        cursor += byteCount;
+                        
                         ogg_sync_wrote(&oy, byteCount);
                         if (byteCount == 0) eos = 1;
                     }
@@ -464,15 +473,14 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
             vorbis_info_clear(&vi);
         }
         ogg_sync_clear(&oy);
-        fclose(file);
 
         [self setBuffer:malloc(totalLength)];
-        int cursor = 0;
+        int wCursor = 0;
         for (NSData *block in pcmBlocks) {
-            [block getBytes:buffer+cursor];
-            cursor += [block length];
+            [block getBytes:buffer+wCursor];
+            wCursor += [block length];
         }
-        bufferLength = cursor;
+        bufferLength = wCursor;
         assert(bufferLength > 0);
     }
     return self;
@@ -481,9 +489,6 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     NSString *fixedName = [name stringByReplacingOccurrencesOfString:@"/" withString:@":"];
     [coder encodeString:fixedName];
-
-    NSString *fileName  = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
-    fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
 
     NSMutableData *data = [NSMutableData data];
 
@@ -588,7 +593,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         vorbis_comment_clear(&vc);
         vorbis_info_clear(&vi);
     }
-    [coder saveFile:data named:fileName inDirectory:@"Sounds"];
+    [coder saveFile:data named:[fixedName stringByAppendingPathExtension:@"ogg"] inDirectory:@"Sounds"];
 
 }
 

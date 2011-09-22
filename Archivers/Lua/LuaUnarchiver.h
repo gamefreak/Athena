@@ -15,13 +15,12 @@
 @interface LuaUnarchiver : NSCoder {
     lua_State *L;
     NSMutableDictionary *refTable;
-    NSString *baseDir;
-    BOOL isPluginFormat;
+    NSFileWrapper *baseDir;
 }
-@property (readwrite, retain) NSString *baseDir;
-@property (readwrite, assign) BOOL isPluginFormat;
-+ (id) unarchiveObjectWithData:(NSData *)data baseDirectory:(NSString *)baseDir fromPlugin:(BOOL)isPlugin;
+@property (readwrite, retain) NSFileWrapper *baseDir;
 - (void) loadData:(NSData *)data;
+
+- (NSData *)fileNamed:(NSString *)name inDirectory:(NSString *)directory;
 
 - (BOOL) hasKey:(NSString *)key;
 - (BOOL) hasKeyPath:(NSString *)keyPath;

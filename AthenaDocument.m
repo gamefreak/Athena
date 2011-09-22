@@ -29,7 +29,6 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             file = generateFileWrapperFromDictionary(obj);
         }
         [file setPreferredFilename:key];
-        [wrapper addFileWrapper:file];
     }
     return [wrapper autorelease];
 }
@@ -83,8 +82,9 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     [arch encodeObject:data forKey:@"data"];
     NSMutableDictionary *files = [arch files];
     [files setObject:arch.data forKey:@"data.lua"];
+    NSFileWrapper *wrapper = generateFileWrapperFromDictionary(files);
     [arch release];
-    return generateFileWrapperFromDictionary(files);
+    return wrapper;
 }
 
 - (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
@@ -93,7 +93,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     data = nil;
     @try {
         if ([type isEqual:@"org.brainpen.xseraplugin"]){
-            
+            return [super readFromFile:fileName ofType:type];
         } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
             ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
             if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
@@ -139,6 +139,16 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         NSLog(@"Error while opening:\n%@", exception);
         return NO;
     }
+    return YES;
+}
+
+- (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type {
+    LuaUnarchiver *arch = [[LuaUnarchiver alloc] init];
+    [arch setBaseDir:wrapper];
+    [arch loadData:[arch fileNamed:@"data.lua" inDirectory:@""]];
+    [data release];
+    data = [[arch decodeObjectOfClass:[MainData class] forKey:@"data"] retain];
+    [arch release];
     return YES;
 }
 

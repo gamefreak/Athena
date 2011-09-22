@@ -285,18 +285,10 @@ static uint8 quantitize_pixel(uint32 pixel) {
     self = [self init];
     if (self) {
         [self setTitle:[coder decodeString]];
-        NSString *baseDir = [coder baseDir];
-        NSString *spriteDir = [baseDir stringByAppendingPathComponent:@"Sprites"];
-        NSString *spriteName;
-        if (![coder isPluginFormat]) {
-            spriteDir = [spriteDir stringByAppendingPathComponent:@"Id"];
-            spriteName = [coder topKey];
-        } else {
-            spriteName = title;
-        }
+        NSString *spriteName = [title stringByReplacingOccurrencesOfString:@"/" withString:@":"];
 
         //Retrieve XML config for sprite arrangement (will be moved into lua)
-        NSData *xmlData = [NSData dataWithContentsOfFile:[spriteDir stringByAppendingFormat:@"/%@.xml", [spriteName stringByReplacingOccurrencesOfString:@"/" withString:@":"]]];
+        NSData *xmlData = [coder fileNamed:[spriteName stringByAppendingPathExtension:@"xml"] inDirectory:@"Sprites"];
         NSError *err = nil;
         NSXMLDocument *configData = [[NSXMLDocument alloc] initWithData:xmlData options:0 error:&err];
         NSXMLElement *dimElement = [[[configData rootElement] elementsForName:@"dimensions"] lastObject];
@@ -305,8 +297,7 @@ static uint8 quantitize_pixel(uint32 pixel) {
         [configData release];
 
         //Get the PNG
-        NSString *pngName = [spriteDir stringByAppendingFormat:@"/%@.png", spriteName];
-        CGDataProviderRef provider = CGDataProviderCreateWithFilename([pngName UTF8String]);
+        CGDataProviderRef provider =  CGDataProviderCreateWithCFData((CFDataRef)[coder fileNamed:[spriteName stringByAppendingPathExtension:@"png"] inDirectory:@"Sprites"]);
         assert(image == NULL);
         image = CGImageCreateWithPNGDataProvider(provider, NULL, YES, kCGRenderingIntentDefault);
         CGDataProviderRelease(provider);
