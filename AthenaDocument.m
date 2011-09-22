@@ -29,6 +29,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             file = generateFileWrapperFromDictionary(obj);
         }
         [file setPreferredFilename:key];
+        [wrapper addFileWrapper:file];
     }
     return [wrapper autorelease];
 }
