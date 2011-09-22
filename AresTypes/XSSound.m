@@ -305,9 +305,10 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         NSUInteger cursor = 0;
         NSUInteger dataSize = [data length];
 
-        //A bunch of NSDatas go here
-        ///they will be mushed together at the end
-        NSMutableArray *pcmBlocks = [NSMutableArray array];
+        /*
+         Decode tests with the base ares sounds resulted in raw data sizes between 0.25 and 1.9 times the vorbis data.
+         */
+        NSMutableData *pcmData = [NSMutableData dataWithCapacity:dataSize * 2];
 
         char *rbuffer;
         int byteCount;
@@ -441,7 +442,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
                                             if (tmp >= 255) tmp = 255;
                                             tbuffer[j] = (unsigned char)tmp;
                                         }
-                                        [pcmBlocks addObject:[NSData dataWithBytes:tbuffer length:bout]];
+                                        [pcmData appendBytes:tbuffer length:bout];
                                         free(tbuffer);
                                         vorbis_synthesis_read(&v, bout);
                                     }
@@ -475,12 +476,9 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         ogg_sync_clear(&oy);
 
         [self setBuffer:malloc(totalLength)];
-        int wCursor = 0;
-        for (NSData *block in pcmBlocks) {
-            [block getBytes:buffer+wCursor];
-            wCursor += [block length];
-        }
-        bufferLength = wCursor;
+        bufferLength = [pcmData length];
+        assert(totalLength == bufferLength);
+        [pcmData getBytes:buffer length:totalLength];
         assert(bufferLength > 0);
     }
     return self;
@@ -490,7 +488,11 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     NSString *fixedName = [name stringByReplacingOccurrencesOfString:@"/" withString:@":"];
     [coder encodeString:fixedName];
 
-    NSMutableData *data = [NSMutableData data];
+    /*
+     Encoding tests performed on all of the original Ares sounds resulted in data sizes between 0.52 and 3.9 times the size of the raw sound data.
+     So to reduce memory allocations, preallocate 4 times the length of the raw data.
+     */
+    NSMutableData *data = [NSMutableData dataWithCapacity:bufferLength * 4];
 
     vorbis_info vi;
     vorbis_comment vc;
