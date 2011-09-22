@@ -479,23 +479,13 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
-    //Can't really write the files out with the old format, so skip.
-    if (![coder isPluginFormat]) {
-        [coder encodeString:name];
-        return;
-    }
     NSString *fixedName = [name stringByReplacingOccurrencesOfString:@"/" withString:@":"];
     [coder encodeString:fixedName];
-    NSString *fileName = [coder baseDir];
-    fileName = [fileName stringByAppendingPathComponent:@"Sounds"];
-    fileName = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
+
+    NSString *fileName  = [fileName stringByAppendingPathComponent:[name stringByReplacingOccurrencesOfString:@"/" withString:@":"]];
     fileName = [fileName stringByAppendingPathExtension:@"ogg"];//Hardcoded
 
-//    FILE *file = fopen([fileName cStringUsingEncoding:NSMacOSRomanStringEncoding], "wb");
-    FILE *file = fopen([fileName UTF8String], "wb");
-    if (file == NULL) {
-        @throw @"Could not open file for writing.";
-    }
+    NSMutableData *data = [NSMutableData data];
 
     vorbis_info vi;
     vorbis_comment vc;
@@ -534,8 +524,8 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
             while (!eos) {
                 int result = ogg_stream_flush(&os, &og);
                 if (result == 0) break;
-                fwrite(og.header, 1, og.header_len, file);
-                fwrite(og.body, 1, og.body_len, file);
+                [data appendBytes:og.header length:og.header_len];
+                [data appendBytes:og.body length:og.body_len];
             }
         }
 
@@ -579,8 +569,8 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
                     while (!eos) {
                         int result = ogg_stream_pageout(&os, &og);
                         if (result == 0) break;
-                        fwrite(og.header, 1, og.header_len, file);
-                        fwrite(og.body, 1, og.body_len, file);
+                        [data appendBytes:og.header length:og.header_len];
+                        [data appendBytes:og.body length:og.body_len];
                         if (ogg_page_eos(&og)) eos = 1;
                     }
                 }
@@ -597,8 +587,8 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
         vorbis_dsp_clear(&vd);
         vorbis_comment_clear(&vc);
         vorbis_info_clear(&vi);
-        fclose(file);
     }
+    [coder saveFile:data named:fileName inDirectory:@"Sounds"];
 
 }
 

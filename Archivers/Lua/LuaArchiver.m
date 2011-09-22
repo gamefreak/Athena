@@ -23,28 +23,25 @@
 
 @implementation LuaArchiver
 @dynamic data;
-@synthesize baseDir;
+@synthesize files;
 
 - (id)init {
     self = [super init];
     if (self) {
-        baseDir = @"";
         data = [[NSMutableString alloc] init];
         keyStack = [[NSMutableArray alloc] init];
+        files = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 - (void) dealloc {
+    [files release];
     [keyStack release];
-    [baseDir release];
     [data release];
     [super dealloc];
 }
 
-- (BOOL)isPluginFormat {
-    return [baseDir isNotEqualTo:@""];
-}
 
 - (NSString *)topKey {
     return [keyStack lastObject];
@@ -55,21 +52,19 @@
     return [data dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-+ (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name {
-    LuaArchiver *arch = [[LuaArchiver alloc] init];
-    [arch encodeObject:object forKey:name];
-    NSData *dat = [arch data];
-    [arch release];
-    return dat;
-}
 
-+ (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name baseDirectory:(NSString *)baseDir {
-    LuaArchiver *arch = [[LuaArchiver alloc] init];
-    [arch setBaseDir:baseDir];
-    [arch encodeObject:object forKey:name];
-    NSData *dat = [arch data];
-    [arch release];
-    return dat;
+- (void) saveFile:(NSData *)fileData named:(NSString *)name inDirectory:(NSString *)directory {
+    NSArray *path = [directory pathComponents];
+    NSMutableDictionary *cursor = files;
+    for (NSString *element in path) {
+        NSMutableDictionary *d = [cursor objectForKey:element];
+        if (d == nil) {
+            d = [NSMutableDictionary dictionary];
+            [cursor setObject:d forKey:element];
+        }
+        cursor = d;
+    }
+    [cursor setObject:fileData forKey:name];
 }
 
 - (void) encodeObject:(id <NSObject, LuaCoding>)obj forKey:(NSString *)key {

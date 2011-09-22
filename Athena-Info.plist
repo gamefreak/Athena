@@ -7,22 +7,6 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>xsscenario</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>Xsera Data</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.brainpen.XseraData</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string>AthenaDocument</string>
-		</dict>
-		<dict>
 			<key>CFBundleTypeIconFile</key>
 			<string>AresData</string>
 			<key>CFBundleTypeName</key>
@@ -43,17 +27,15 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>lua</string>
+				<string>xsscenario</string>
 			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string></string>
 			<key>CFBundleTypeName</key>
-			<string>Xsera Lua</string>
+			<string>Xsera Plugin</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.brainpen.XseraLua</string>
+				<string>org.brainpen.XseraPlugin</string>
 			</array>
 			<key>NSDocumentClass</key>
 			<string>AthenaDocument</string>
@@ -88,21 +70,7 @@
 	<key>NSServices</key>
 	<array/>
 	<key>UTExportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeDescription</key>
-			<string>Xsera Lua</string>
-			<key>UTTypeIdentifier</key>
-			<string>org.brainpen.XseraLua</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>lua</string>
-				</array>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -127,12 +95,12 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.data</string>
+				<string>com.apple.package</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Xsera Plugin</string>
 			<key>UTTypeIdentifier</key>
-			<string>org.brainpen.XseraData</string>
+			<string>org.brainpen.XseraPlugin</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

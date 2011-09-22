@@ -18,6 +18,22 @@
 
 #import <sys/stat.h>
 
+NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
+    NSFileWrapper *wrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:[NSDictionary dictionary]];
+    for (NSString *key in [dictionary keyEnumerator]) {
+        id obj = [dictionary objectForKey:key];
+        NSFileWrapper *file = nil;
+        if ([obj isKindOfClass:[NSData class]]) {
+            file = [[[NSFileWrapper alloc] initRegularFileWithContents:(NSData *)obj] autorelease];
+        } else if ([obj isKindOfClass:[NSDictionary class]]) {
+            file = generateFileWrapperFromDictionary(obj);
+        }
+        [file setPreferredFilename:key];
+        [wrapper addFileWrapper:file];
+    }
+    return [wrapper autorelease];
+}
+
 @implementation AthenaDocument
 @synthesize data;
 
@@ -53,47 +69,8 @@
         assert(success==YES);
         [coder release];
         return success;
-    } else if ([type isEqualTo:@"org.brainpen.XseraData"]) {
-        NSString *fullName = [absoluteURL path];
-        NSString *localRoot = [fullName stringByDeletingLastPathComponent];
-        NSString *baseDir = [localRoot stringByAppendingPathComponent:@"data/"];
-        //Set up the directories.
-        chdir([localRoot UTF8String]);
-        mkdir("data", 0777);
-        chdir("./data");
-        mkdir("Sounds", 0777);
-        mkdir("Sprites", 0777);
-        mkdir("Images", 0777);
-        mkdir("Videos", 0777);
-        chdir("..");
-
-        NSData *outData = [LuaArchiver archivedDataWithRootObject:data withName:@"data" baseDirectory:baseDir];
-        [outData writeToFile:[baseDir stringByAppendingPathComponent:@"data.lua"] atomically:YES];
-        
-        //zip it
-        NSTask *zipTask = [[NSTask alloc] init];
-        [zipTask setLaunchPath:@"/usr/bin/zip"];
-        [zipTask setArguments:[NSArray arrayWithObjects:@"-q", [fullName lastPathComponent], @"-r", @"./data/", nil]];
-        [zipTask setCurrentDirectoryPath:localRoot];
-        [zipTask launch];
-        [zipTask waitUntilExit];
-        [zipTask release];
-        
-        //clean up the directories
-        NSTask *rmTask = [[NSTask alloc] init];
-        [rmTask setLaunchPath:@"/bin/rm"];
-        [rmTask setArguments:[NSArray arrayWithObjects:@"-r", @"./data/", nil]];
-        [rmTask setCurrentDirectoryPath:localRoot];
-        [rmTask launch];
-        [rmTask waitUntilExit];
-        [rmTask release];
-
-        if (outError != NULL) {
-            *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-        }
-        return YES;
-    } else if ([type isEqualTo:@"org.brainpen.XseraLua"]) {
-            return [super writeToURL:absoluteURL ofType:type error:outError];
+    } else if ([type isEqualTo:@"org.brainpen.XseraPlugin"]) {
+        return [super writeToURL:absoluteURL ofType:type error:outError];
     } else {
         //BAD!!!
         return NO;
@@ -101,12 +78,13 @@
     return NO;//This should never be reached.
 }
 
-- (NSData *) dataOfType:(NSString *)typeName error:(NSError **)outError {
-    NSData *outData = [LuaArchiver archivedDataWithRootObject:data withName:@"data"];
-    if (outError != NULL) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
-	return outData;
+- (NSFileWrapper *)fileWrapperOfType:(NSString *)typeName error:(NSError **)outError {
+    LuaArchiver *arch = [[LuaArchiver alloc] init];
+    [arch encodeObject:data forKey:@"data"];
+    NSMutableDictionary *files = [arch files];
+    [files setObject:arch.data forKey:@"data.lua"];
+    [arch release];
+    return generateFileWrapperFromDictionary(files);
 }
 
 - (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
@@ -114,41 +92,8 @@
     [data release];
     data = nil;
     @try {
-        if ([type isEqual:@"org.brainpen.xseralua"]) {
-            //ughh
-            NSString *baseDir = [[[fileName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByDeletingLastPathComponent];
-            data = [[LuaUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:fileName] baseDirectory:baseDir fromPlugin:NO] retain];
-
-        } else if ([type isEqualTo:@"org.brainpen.xseradata"]) {
-            NSString *workingDir = NSTemporaryDirectory();
-            char *safepath = tempnam([workingDir UTF8String], "savedirectory");
-            mkdir(safepath, 0777);
-            chdir(safepath);
-            NSString *destPath = [NSString stringWithUTF8String:safepath];
+        if ([type isEqual:@"org.brainpen.xseraplugin"]){
             
-            NSTask *unzipTask = [[NSTask alloc] init];
-            [unzipTask setLaunchPath:@"/usr/bin/unzip"];
-            [unzipTask setArguments:[NSArray arrayWithObjects:@"-q", fileName, @"-d", destPath, nil]];
-            [unzipTask setCurrentDirectoryPath:destPath];
-            [unzipTask launch];
-            [unzipTask waitUntilExit];
-            [unzipTask release];
-            
-            NSString *baseDir = [destPath stringByAppendingPathComponent:@"data"];
-            NSString *dataFile = [baseDir stringByAppendingPathComponent:@"data.lua"];
-            NSData *df = [NSData dataWithContentsOfFile:dataFile];
-            data = [[LuaUnarchiver unarchiveObjectWithData:df baseDirectory:baseDir fromPlugin:YES] retain];
-
-            NSTask *rmTask = [[NSTask alloc] init];
-            [rmTask setLaunchPath:@"/bin/rm"];
-            [rmTask setArguments:[NSArray arrayWithObjects:@"-r", @"./data/", nil]];
-            [rmTask setCurrentDirectoryPath:destPath];
-            [rmTask launch];
-            [rmTask waitUntilExit];
-            [rmTask release];
-
-            free(safepath);
-            NSLog(@"Save complete.");
         } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
             ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
             if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {

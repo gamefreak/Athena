@@ -330,15 +330,11 @@ static uint8 quantitize_pixel(uint32 pixel) {
 
 - (void)encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeString:title];
-    if (![coder isPluginFormat]) return;
-    NSString *baseDir = [coder baseDir];
-    NSString *spriteDir = [baseDir stringByAppendingPathComponent:@"Sprites"];
     NSString *spriteName = [title stringByReplacingOccurrencesOfString:@"/" withString:@":"];
 
-    NSString *destPath = [spriteDir stringByAppendingFormat:@"/%@.png", spriteName];
-    BOOL err;
-    err = [[self PNGData] writeToFile:destPath atomically:NO];
-    assert(err);
+    [coder saveFile:[self PNGData]
+              named:[spriteName stringByAppendingPathExtension:@"png"]
+        inDirectory:@"Sprites"];
 
     CGSize arrangement = [self gridDistribution];
     NSXMLElement *dimElement = [NSXMLElement elementWithName:@"dimensions"];
@@ -349,7 +345,10 @@ static uint8 quantitize_pixel(uint32 pixel) {
     NSXMLElement *rootElement = [NSXMLElement elementWithName:@"sprite"];;
     [rootElement addChild:dimElement];
     NSXMLDocument *document = [NSXMLDocument documentWithRootElement:rootElement];
-    [[document XMLData] writeToFile:[[spriteDir stringByAppendingPathComponent:spriteName] stringByAppendingPathExtension:@"xml"] atomically:NO];
+
+    [coder saveFile:[document XMLData]
+              named:[spriteName stringByAppendingPathExtension:@"xml"]
+        inDirectory:@"Sprites"];
 }
 
 + (BOOL)isComposite {

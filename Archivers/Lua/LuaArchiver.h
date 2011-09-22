@@ -13,17 +13,15 @@
 
 @interface LuaArchiver : NSObject {
     NSMutableString *data;
-    NSString *baseDir;
     NSMutableArray *keyStack;
+    NSMutableDictionary *files;
 }
-@property (readwrite, retain) NSString *baseDir;
 @property (readonly) NSData *data;
-//Xsera lua version
-+ (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name;
-//Xsera Data version
-+ (NSData *) archivedDataWithRootObject:(id<LuaCoding>)object withName:(NSString *)name baseDirectory:(NSString *)baseDir;
-- (BOOL) isPluginFormat;
+@property (readonly) NSMutableDictionary *files;
+
 - (NSString *)topKey;
+
+- (void) saveFile:(NSData *)data named:(NSString *)name inDirectory:(NSString *)directory;
 
 - (void) encodeObject:(id)object forKey:(NSString *)key;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
