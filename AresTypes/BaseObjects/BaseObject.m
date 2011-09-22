@@ -665,16 +665,16 @@
                        context:(void *)context {
     switch ([self objectType]) {
         case RotationalObject:
-            [self setFrame:[[RotationData alloc] init]];
+            [self setFrame:[[[RotationData alloc] init] autorelease]];
             break;
         case AnimatedObject:
-            [self setFrame:[[AnimationData alloc] init]];
+            [self setFrame:[[[AnimationData alloc] init] autorelease]];
             break;
         case BeamObject:
-            [self setFrame:[[BeamData alloc] init]];
+            [self setFrame:[[[BeamData alloc] init] autorelease]];
             break;
         case DeviceObject:
-            [self setFrame:[[DeviceData alloc] init]];
+            [self setFrame:[[[DeviceData alloc] init] autorelease]];
             break;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:XSSpecialParametersChanged object:self];
