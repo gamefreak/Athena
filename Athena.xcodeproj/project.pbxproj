@@ -457,6 +457,7 @@
 		D2DEECB3130A2A74004AB731 /* SpriteEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteEditor.h; sourceTree = "<group>"; };
 		D2DEECB4130A2A74004AB731 /* SpriteEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteEditor.m; sourceTree = "<group>"; };
 		D2DEECB7130A2AA6004AB731 /* SpriteEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpriteEditor.xib; sourceTree = "<group>"; };
+		D2DF25BE142D45E000402F3E /* COPYRIGHT */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYRIGHT; sourceTree = "<group>"; };
 		D2E03F1712EF191A00F77E59 /* XSBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSBool.h; sourceTree = "<group>"; };
 		D2E03F1812EF191A00F77E59 /* XSBool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSBool.m; sourceTree = "<group>"; };
 		D2E03F2412EF1B1D00F77E59 /* LuaCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCoding.h; sourceTree = "<group>"; };
@@ -637,6 +638,7 @@
 		D21EB28212E8BDE200694EBA /* lua */ = {
 			isa = PBXGroup;
 			children = (
+				D2DF25BE142D45E000402F3E /* COPYRIGHT */,
 				D21EB28312E8BDE200694EBA /* lapi.c */,
 				D21EB28412E8BDE200694EBA /* lapi.h */,
 				D21EB28512E8BDE200694EBA /* lauxlib.c */,
