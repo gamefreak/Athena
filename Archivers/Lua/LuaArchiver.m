@@ -234,8 +234,6 @@
 }
 
 - (void)sync {
-    @synchronized(files) {
-        dispatch_group_wait(disp_group, DISPATCH_TIME_FOREVER);
-    }
+    dispatch_group_wait(disp_group, DISPATCH_TIME_FOREVER);
 }
 @end
