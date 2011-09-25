@@ -181,7 +181,7 @@
     int k = 0;
     int builtCount = [builds count];
     for (; k < builtCount; k++) {
-        [coder encodeSInt32:[[builds objectAtIndex:k] intValue]];
+        [coder encodeSInt32:[[builds objectAtIndex:k] value]];
     }
     for (; k < 12; k++) {
         [coder encodeSInt32:-1];

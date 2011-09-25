@@ -129,7 +129,7 @@ NSString *XSHasAresData = @"HasAresData";
 }
 
 - (IBAction)openOrignalData:(id)sender {
-    if ([[NSUserDefaultsController sharedUserDefaultsController] boolForKey:XSHasAresData]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:XSHasAresData]) {
         [self openDefaultData];
     } else {
         [self downloadAresData];

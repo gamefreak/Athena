@@ -252,7 +252,7 @@ static uint8 quantitize_pixel(uint32 pixel) {
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     [coder setName:title];
     unsigned int frameCount = [frames count];
-    NSArray *lengths = [frames valueForKeyPath:@"length"];
+    NSArray *lengths = [frames valueForKeyPath:@"lengthOfData"];
     unsigned int size = [[lengths valueForKeyPath:@"@sum.intValue"] unsignedIntValue];
     [coder extend:size + frameCount * 4 + 8];
     [coder encodeUInt32:size + frameCount * 4];
