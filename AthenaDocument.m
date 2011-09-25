@@ -68,6 +68,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         BOOL success = [coder writeToFile:fileName];
         assert(success==YES);
         [coder release];
+        NSLog(@"Save complete");
         return success;
     } else if ([type isEqualTo:@"org.brainpen.XseraPlugin"]) {
         return [super writeToURL:absoluteURL ofType:type error:outError];
@@ -86,6 +87,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     [files setObject:arch.data forKey:@"data.lua"];
     NSFileWrapper *wrapper = generateFileWrapperFromDictionary(files);
     [arch release];
+    NSLog(@"Save complete");
     return wrapper;
 }
 

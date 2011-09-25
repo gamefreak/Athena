@@ -174,6 +174,9 @@ static NSArray *mainDataKeys;
     for (NSString *key in sprites) {
         [coder encodeObject:[sprites objectForKey:key] atIndex:[key intValue]];
     }
+    for (NSString *key in sounds) {
+        [coder encodeObject:[sounds objectForKey:key] atIndex:[key intValue]];
+    }
 
     [coder extend:1056];
     [coder encodeSInt32:inFlareId];

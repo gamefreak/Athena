@@ -237,43 +237,50 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     [coder setName:name];
+    [coder extend:bufferLength+42];
 
-    [coder encodeSInt16:1];//format 1
-    [coder encodeSInt16:1];//1 data type encoded
-    [coder encodeSInt16:SAMPLEDSYNTH];//data format
-    [coder encodeUInt32:INITMONO];//initialization options
-    [coder encodeSInt16:1];//1 command
-    [coder encodeUInt16:0x8051];//bufferCommand
+    [coder encodeSwappedSInt16:1];//format 1
+    [coder encodeSwappedSInt16:1];//1 data type encoded
+    [coder encodeSwappedSInt16:SAMPLEDSYNTH];//data format
+    [coder encodeSwappedUInt32:INITMONO];//initialization options
+    [coder encodeSwappedSInt16:1];//1 command
+    [coder encodeSwappedUInt16:0x8051];//bufferCommand
     [coder skip:2];//skip param 1
-    [coder encodeUInt32:SOUNDHEADERLOC];//param 2 (the location of the sound header)
+    [coder encodeSwappedUInt32:SOUNDHEADERLOC];//param 2 (the location of the sound header)
     [coder encodeUInt32:0];//no offset
     
-    [coder encodeUInt32:bufferLength];
+    [coder encodeSwappedUInt32:bufferLength];
 
     switch (sampleRate) {
         case 32000:
-            [coder encodeUInt32:RATE32KHZ];
+            [coder encodeSwappedUInt32:RATE32KHZ];
+            break;
         case 22050:
-            [coder encodeUInt32:RATE22050HZ];
+            [coder encodeSwappedUInt32:RATE22050HZ];
+            break;
         case 22000:
-            [coder encodeUInt32:RATE22KHZ];
+            [coder encodeSwappedUInt32:RATE22KHZ];
+            break;
         case 16000:
-            [coder encodeUInt32:RATE16KHZ];
+            [coder encodeSwappedUInt32:RATE16KHZ];
+            break;
         case 11000:
-            [coder encodeUInt32:RATE11KHZ];
+            [coder encodeSwappedUInt32:RATE11KHZ];
+            break;
         case 11025:
-            [coder encodeUInt32:RATE11025HZ];
+            [coder encodeSwappedUInt32:RATE11025HZ];
+            break;
         case 8000:
-            [coder encodeUInt32:RATE8KHZ];
+            [coder encodeSwappedUInt32:RATE8KHZ];
             break;
         default:
             @throw [NSString stringWithFormat:@"Unsupported rate %i", sampleRate];
             break;
     }
     
-    //I don't know what to do here
-    [coder encodeSInt32:1];//loop start
-    [coder encodeSInt32:2];//loop end
+    //Now I have a better idea.
+    [coder encodeSwappedSInt32:bufferLength - 2];//loop start
+    [coder encodeSwappedSInt32:bufferLength - 1];//loop end
     
     [coder encodeSInt8:0];//sample encoding I dunno what it does
     [coder encodeUInt8:kMiddleC];//base frequency
