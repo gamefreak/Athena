@@ -81,6 +81,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
 - (NSFileWrapper *)fileWrapperOfType:(NSString *)typeName error:(NSError **)outError {
     LuaArchiver *arch = [[LuaArchiver alloc] init];
     [arch encodeObject:data forKey:@"data"];
+    [arch sync];
     NSMutableDictionary *files = [arch files];
     [files setObject:arch.data forKey:@"data.lua"];
     NSFileWrapper *wrapper = generateFileWrapperFromDictionary(files);

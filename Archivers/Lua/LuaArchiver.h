@@ -15,6 +15,8 @@
     NSMutableString *data;
     NSMutableArray *keyStack;
     NSMutableDictionary *files;
+    dispatch_group_t disp_group;
+    dispatch_queue_t disp_queue;
 }
 @property (readonly) NSData *data;
 @property (readonly) NSMutableDictionary *files;
@@ -38,4 +40,7 @@
 - (void) encodeInteger:(NSInteger)value forKey:(NSString *)key;
 - (void) encodePoint:(id<XSPoint>)point forKey:(NSString *)key;
 - (void) encodeNilForKey:(NSString *)key;
+
+- (void) async:(void (^)(void))block;
+- (void) sync;
 @end

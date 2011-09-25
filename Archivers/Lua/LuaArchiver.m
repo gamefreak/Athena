@@ -9,6 +9,11 @@
 #import "LuaArchiver.h"
 #import "NSStringExtensions.h"
 
+//DISABLED ~3.5s
+//ENABLED ~2s
+//Tested on a 2.53 Ghz Core2Duo
+#define ENABLE_PARALLEL
+
 @interface LuaArchiver (Private)
 - (void) indent;
 @end
@@ -28,14 +33,19 @@
 - (id)init {
     self = [super init];
     if (self) {
-        data = [[NSMutableString alloc] init];
+        data = [[NSMutableString alloc] initWithCapacity:4*1024*1024];
         keyStack = [[NSMutableArray alloc] init];
         files = [[NSMutableDictionary alloc] init];
+        disp_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        disp_group = dispatch_group_create();
     }
     return self;
 }
 
 - (void) dealloc {
+    dispatch_group_wait(disp_group, DISPATCH_TIME_FOREVER);
+    dispatch_release(disp_group);
+    dispatch_release(disp_queue);
     [files release];
     [keyStack release];
     [data release];
@@ -54,17 +64,19 @@
 
 
 - (void) saveFile:(NSData *)fileData named:(NSString *)name inDirectory:(NSString *)directory {
-    NSArray *path = [directory pathComponents];
-    NSMutableDictionary *cursor = files;
-    for (NSString *element in path) {
-        NSMutableDictionary *d = [cursor objectForKey:element];
-        if (d == nil) {
-            d = [NSMutableDictionary dictionary];
-            [cursor setObject:d forKey:element];
+    @synchronized(files) {
+        NSArray *path = [directory pathComponents];
+        NSMutableDictionary *cursor = files;
+        for (NSString *element in path) {
+            NSMutableDictionary *d = [cursor objectForKey:element];
+            if (d == nil) {
+                d = [NSMutableDictionary dictionary];
+                [cursor setObject:d forKey:element];
+            }
+            cursor = d;
         }
-        cursor = d;
+        [cursor setObject:fileData forKey:name];
     }
-    [cursor setObject:fileData forKey:name];
 }
 
 - (void) encodeObject:(id <NSObject, LuaCoding>)obj forKey:(NSString *)key {
@@ -185,5 +197,17 @@
     [self indent];
     [data appendFormat:@"%@ = nil;\n", key];
     [keyStack removeLastObject];
+}
+
+- (void)async:(void (^)(void))block {
+#ifdef ENABLE_PARALLEL
+    dispatch_group_async(disp_group, disp_queue, block);
+#else
+    dispatch_sync(disp_queue, block);
+#endif
+}
+
+- (void)sync {
+    dispatch_group_wait(disp_group, DISPATCH_TIME_FOREVER);
 }
 @end

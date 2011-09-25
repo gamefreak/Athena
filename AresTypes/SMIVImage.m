@@ -322,24 +322,25 @@ static uint8 quantitize_pixel(uint32 pixel) {
 - (void)encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeString:title];
     NSString *spriteName = [title stringByReplacingOccurrencesOfString:@"/" withString:@":"];
+    [coder async:^{
+        [coder saveFile:[self PNGData]
+                  named:[spriteName stringByAppendingPathExtension:@"png"]
+            inDirectory:@"Sprites"];
 
-    [coder saveFile:[self PNGData]
-              named:[spriteName stringByAppendingPathExtension:@"png"]
-        inDirectory:@"Sprites"];
+        CGSize arrangement = [self gridDistribution];
+        NSXMLElement *dimElement = [NSXMLElement elementWithName:@"dimensions"];
+        NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithCapacity:2];
+        [attributes setObject:[NSNumber numberWithInt:(int)arrangement.width] forKey:@"x"];
+        [attributes setObject:[NSNumber numberWithInt:(int)arrangement.height] forKey:@"y"];
+        [dimElement setAttributesAsDictionary:attributes];
+        NSXMLElement *rootElement = [NSXMLElement elementWithName:@"sprite"];;
+        [rootElement addChild:dimElement];
+        NSXMLDocument *document = [NSXMLDocument documentWithRootElement:rootElement];
 
-    CGSize arrangement = [self gridDistribution];
-    NSXMLElement *dimElement = [NSXMLElement elementWithName:@"dimensions"];
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithCapacity:2];
-    [attributes setObject:[NSNumber numberWithInt:(int)arrangement.width] forKey:@"x"];
-    [attributes setObject:[NSNumber numberWithInt:(int)arrangement.height] forKey:@"y"];
-    [dimElement setAttributesAsDictionary:attributes];
-    NSXMLElement *rootElement = [NSXMLElement elementWithName:@"sprite"];;
-    [rootElement addChild:dimElement];
-    NSXMLDocument *document = [NSXMLDocument documentWithRootElement:rootElement];
-
-    [coder saveFile:[document XMLData]
-              named:[spriteName stringByAppendingPathExtension:@"xml"]
-        inDirectory:@"Sprites"];
+        [coder saveFile:[document XMLData]
+                  named:[spriteName stringByAppendingPathExtension:@"xml"]
+            inDirectory:@"Sprites"];
+    }];
 }
 
 + (BOOL)isComposite {
