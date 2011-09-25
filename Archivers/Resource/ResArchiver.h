@@ -32,12 +32,21 @@
 
 - (void) encodeUInt8:(UInt8)value;
 - (void) encodeSInt8:(SInt8)value;
+
 - (void) encodeUInt16:(UInt16)value;
 - (void) encodeSInt16:(SInt16)value;
+- (void) encodeSwappedUInt16:(UInt16)value;
+- (void) encodeSwappedSInt16:(SInt16)value;
+
 - (void) encodeUInt32:(UInt32)value;
 - (void) encodeSInt32:(SInt32)value;
+- (void) encodeSwappedUInt32:(UInt32)value;
+- (void) encodeSwappedSInt32:(SInt32)value;
+
 - (void) encodeUInt64:(UInt64)value;
 - (void) encodeSInt64:(SInt64)value;
+- (void) encodeSwappedUInt64:(UInt64)value;
+- (void) encodeSwappedSInt64:(SInt64)value;
 
 - (void) encodeFixed:(CGFloat)value;
 

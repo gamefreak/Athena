@@ -22,7 +22,6 @@
 - (NSMutableDictionary *) getTableForClass:(Class<ResCoding>)class {
     NSMutableDictionary *table = [types objectForKey:[class typeKey]];
     if (table == nil) {
-        NSLog(@"Begining to encode resources of type '%@'", [class typeKey]);
         table = [[NSMutableDictionary alloc] init];
         [types setObject:table forKey:[class typeKey]];
         [table setObject:[NSNumber numberWithUnsignedInt:0u] forKey:@"COUNTER"];
@@ -118,7 +117,6 @@
     ResFileRefNum resFile = FSOpenResFile(&fileRef, fsRdPerm | fsWrPerm);
     UseResFile(resFile);
     for (NSString *key in planes) {
-        NSLog(@"Writing resources of type: %@", key);
         NSDictionary *table = [planes objectForKey:key];
         for (NSNumber *index in table) {
             [[table objectForKey:index] save];
@@ -199,6 +197,14 @@
     [[stack lastObject] writeBytes:&value length:sizeof(SInt16)];
 }
 
+- (void) encodeSwappedUInt16:(UInt16)value {
+    [[stack lastObject] writeBytes:&value length:sizeof(UInt16)];
+}
+
+- (void) encodeSwappedSInt16:(SInt16)value {
+    [[stack lastObject] writeBytes:&value length:sizeof(SInt16)];
+}
+
 - (void) encodeUInt32:(UInt32)value {
     value = CFSwapInt32HostToBig(value);
     [[stack lastObject] writeBytes:&value length:sizeof(UInt32)];
@@ -209,6 +215,14 @@
     [[stack lastObject] writeBytes:&value length:sizeof(SInt32)];
 }
 
+- (void) encodeSwappedUInt32:(UInt32)value {
+    [[stack lastObject] writeBytes:&value length:sizeof(UInt32)];
+}
+
+- (void) encodeSwappedSInt32:(SInt32)value {
+    [[stack lastObject] writeBytes:&value length:sizeof(SInt32)];
+}
+
 - (void) encodeUInt64:(UInt64)value {
     value = CFSwapInt64HostToBig(value);
     [[stack lastObject] writeBytes:&value length:sizeof(UInt64)];
@@ -216,6 +230,14 @@
 
 - (void) encodeSInt64:(SInt64)value {
     value = CFSwapInt64HostToBig(value);
+    [[stack lastObject] writeBytes:&value length:sizeof(SInt64)];
+}
+
+- (void) encodeSwappedUInt64:(UInt64)value {
+    [[stack lastObject] writeBytes:&value length:sizeof(UInt64)];
+}
+
+- (void) encodeSwappedSInt64:(SInt64)value {
     [[stack lastObject] writeBytes:&value length:sizeof(SInt64)];
 }
 
