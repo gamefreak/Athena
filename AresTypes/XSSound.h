@@ -30,7 +30,7 @@
 #define SOUNDHEADERLOC 20
 
 
-@interface XSSound : NSObject <ResCoding, LuaCoding> {
+@interface XSSound : NSObject <ResCoding, LuaCoding, NSCopying> {
 @private
     NSString *name;
     uint32 bufferLength;

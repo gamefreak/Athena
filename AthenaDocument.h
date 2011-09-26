@@ -20,4 +20,5 @@
 - (IBAction) openScenarioEditor:(id)sender;
 - (IBAction) openRaceEditor:(id)sender;
 - (IBAction) openSpriteEditor:(id)sender;
+- (IBAction) openSoundEditor:(id)sender;
 @end

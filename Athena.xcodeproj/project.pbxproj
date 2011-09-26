@@ -151,6 +151,8 @@
 		D2C9D6FE130462020087EDE4 /* StringTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9D6FD130462020087EDE4 /* StringTable.m */; };
 		D2D2078B13107044000CDCA4 /* ResArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D2078A13107044000CDCA4 /* ResArchiver.m */; };
 		D2D51A2012E8B87300B7794A /* LuaUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */; };
+		D2D6839A142FF694001B2C70 /* SoundEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D68399142FF694001B2C70 /* SoundEditor.m */; };
+		D2D6839C142FF6E9001B2C70 /* SoundEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D6839B142FF6E9001B2C70 /* SoundEditor.xib */; };
 		D2D7501A12F07F5A00B17631 /* Scenario.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7501912F07F5A00B17631 /* Scenario.m */; };
 		D2D7502F12F0874500B17631 /* NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7502E12F0874500B17631 /* NSStringExtensions.m */; };
 		D2DD08ED13E754DF00D5AEFE /* CreateSparks.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2DD08EC13E754DF00D5AEFE /* CreateSparks.xib */; };
@@ -448,6 +450,9 @@
 		D2D2078A13107044000CDCA4 /* ResArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResArchiver.m; sourceTree = "<group>"; };
 		D2D51A1E12E8B87300B7794A /* LuaUnarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaUnarchiver.h; sourceTree = "<group>"; };
 		D2D51A1F12E8B87300B7794A /* LuaUnarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaUnarchiver.m; sourceTree = "<group>"; };
+		D2D68398142FF694001B2C70 /* SoundEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEditor.h; sourceTree = "<group>"; };
+		D2D68399142FF694001B2C70 /* SoundEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundEditor.m; sourceTree = "<group>"; };
+		D2D6839B142FF6E9001B2C70 /* SoundEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SoundEditor.xib; sourceTree = "<group>"; };
 		D2D7501812F07F5A00B17631 /* Scenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scenario.h; sourceTree = "<group>"; };
 		D2D7501912F07F5A00B17631 /* Scenario.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scenario.m; sourceTree = "<group>"; };
 		D2D7502D12F0874500B17631 /* NSStringExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringExtensions.h; sourceTree = "<group>"; };
@@ -861,6 +866,8 @@
 				D288339512F24F7000A02383 /* RaceEditor.h */,
 				D288339612F24F7000A02383 /* RaceEditor.m */,
 				D2A1911412FE3BEF00232914 /* Scenarios */,
+				D2D68398142FF694001B2C70 /* SoundEditor.h */,
+				D2D68399142FF694001B2C70 /* SoundEditor.m */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -896,6 +903,7 @@
 				D2DEECB6130A2A8D004AB731 /* Scenarios */,
 				D2C7AD4913BB672E003B941F /* Actions */,
 				4D64EFB0140BCAB200017458 /* ProgressWindow.xib */,
+				D2D6839B142FF6E9001B2C70 /* SoundEditor.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -1277,6 +1285,7 @@
 				D275AB9D14040D360069F043 /* NoParameter.xib in Resources */,
 				4D64EFB1140BCAB200017458 /* ProgressWindow.xib in Resources */,
 				D2627544141FD4B10064AD95 /* athena.ggo in Resources */,
+				D2D6839C142FF6E9001B2C70 /* SoundEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1349,6 +1358,7 @@
 				4D64EFB8140BD0FF00017458 /* DownloadWindow.m in Sources */,
 				D2132116141E760D001533A3 /* SpriteImporterTableView.m in Sources */,
 				D2627542141FD4960064AD95 /* cmdline.c in Sources */,
+				D2D6839A142FF694001B2C70 /* SoundEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

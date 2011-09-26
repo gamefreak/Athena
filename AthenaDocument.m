@@ -15,6 +15,7 @@
 #import "ScenarioEditor.h"
 #import "RaceEditor.h"
 #import "SpriteEditor.h"
+#import "SoundEditor.h"
 
 #import <sys/stat.h>
 
@@ -187,5 +188,12 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     [self addWindowController:spriteEditor];
     [spriteEditor showWindow:self];
     [spriteEditor release];
+}
+
+- (IBAction)openSoundEditor:(id)sender {
+    SoundEditor *soundEditor = [[SoundEditor alloc] initWithMainData:data];
+    [self addWindowController:soundEditor];
+    [soundEditor showWindow:self];
+    [soundEditor release];
 }
 @end

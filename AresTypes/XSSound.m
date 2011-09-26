@@ -42,6 +42,10 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     [super dealloc];
 }
 
+//WARNING: HACK FOR NSDictionaryController you probably want -mutableCopy
+- (id)copyWithZone:(NSZone *)zone {
+    return [self retain];
+}
 
 - (void)play {
     NSLog(@"Playing");
