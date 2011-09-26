@@ -28,7 +28,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
     self = [super init];
     if (self) {
         name = @"Untitled";
-        sampleRate = 22000;
+        sampleRate = 0;
         bufferLength = 0;
         buffer = NULL;
     }

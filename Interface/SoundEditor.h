@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MainData;
+@class MainData, XSSound;
 
 @interface SoundEditor : NSWindowController {
     NSMutableDictionary *sounds;
@@ -17,4 +17,10 @@
 @property (readonly) NSMutableDictionary *sounds;
 - (id)initWithMainData:(MainData *)data;
 - (IBAction)playSound:(id)sender;
+- (BOOL)addSoundForPath:(NSString *)path;
+- (BOOL)addSound:(XSSound *)sound;
+@end
+
+@interface SoundImporterTableView : NSTableView {
+}
 @end
