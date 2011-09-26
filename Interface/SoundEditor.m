@@ -93,6 +93,36 @@
     }
     return NO;
 }
+
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
+    [pboard declareTypes:[NSArray arrayWithObjects:NSFileContentsPboardType, NSFilesPromisePboardType, nil] owner:self];
+
+    NSMutableArray *fileNames = [NSMutableArray array];
+    for (NSString *key in [[[soundsController arrangedObjects] objectsAtIndexes:rowIndexes] valueForKey:@"key"]) {
+        XSSound *sound = [sounds objectForKey:key];
+        NSFileWrapper *wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[sound getVorbis]];
+        [wrapper setFilename:[[sound name] stringByAppendingPathExtension:@"ogg"]];
+        [wrapper setPreferredFilename:[[sound name] stringByAppendingPathExtension:@"ogg"]];
+        [pboard writeFileWrapper:wrapper];
+        [wrapper release];
+        [fileNames addObject:[[sound name] stringByAppendingPathExtension:@"ogg"]];
+        break;
+    }
+
+    [pboard setPropertyList:fileNames forType:NSFilesPromisePboardType];
+    return YES;
+}
+
+- (NSArray *)tableView:(NSTableView *)tableView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
+    NSFileWrapper *wrapper = [[NSPasteboard pasteboardWithName:NSDragPboard] readFileWrapper];
+    NSError *error = nil;
+    BOOL result = [wrapper writeToURL:[dropDestination URLByAppendingPathComponent:[wrapper filename]]
+                                options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
+    if (error) {
+        [NSAlert alertWithError:error];
+    }
+    return [NSArray arrayWithObject:[[dropDestination path] stringByAppendingPathComponent:[wrapper filename]]];
+}
 @end
 
 
@@ -100,6 +130,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
+    [self setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 }
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {

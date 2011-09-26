@@ -10,7 +10,7 @@
 
 @class MainData, XSSound;
 
-@interface SoundEditor : NSWindowController {
+@interface SoundEditor : NSWindowController <NSTableViewDataSource> {
     NSMutableDictionary *sounds;
     IBOutlet NSDictionaryController *soundsController;
 }
