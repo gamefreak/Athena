@@ -42,4 +42,6 @@
 @property (readwrite, assign) uint32 sampleRate;
 @property (readwrite) void *buffer;
 - (void) play;
+- (void) setVorbis:(NSData *)vorbis;
+- (NSData *)getVorbis;
 @end
