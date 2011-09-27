@@ -4,6 +4,30 @@
 
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
+
+//To shut up some pedantic warning messages.
+//Why is this +alloc part of the NSObject protocol?
 @protocol Alloc + (id) alloc; @end
 @interface NSObject (ALLOC_DO_YOU_SPEAK_IT) <Alloc> @end
+#endif
+
+
+
+#ifdef __DEBUG__
+#ifdef __OBJC__
+#define ITRACE(var) NSLog(@"%s = %i", #var, var)
+#define FTRACE(var) NSLog(@"%s = %f", #var, var)
+#define STRACE(var) NSLog(@"%s = %s", #var, var)
+#define OTRACE(var) NSLog(@"%s = %@", #var, var)
+#else
+#define ITRACE(var) printf("%s = %i\n", #var, var)
+#define FTRACE(var) printf("%s = %f\n", #var, var)
+#define STRACE(var) printf("%s = %s\n", #var, var)
+#define OTRACE(var)
+#endif
+#else
+#define ITRACE(var)
+#define FTRACE(var)
+#define STRACE(var)
+#define OTRACE(var)
 #endif
