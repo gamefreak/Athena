@@ -32,6 +32,24 @@
     });
 }
 
+- (IBAction)openSound:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"ogg", nil]];
+    [openPanel setAllowsOtherFileTypes:NO];
+    [openPanel setAllowsMultipleSelection:NO];
+    assert([openPanel canChooseFiles]);
+    assert(![openPanel canChooseDirectories]);
+//    [openPanel setDirectory:NSHomeDirectory()];
+
+    [openPanel retain];
+    [openPanel beginWithCompletionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelOKButton) {
+            [self addSoundForPath:[[[openPanel URLs] objectAtIndex:0] path]];
+        }
+        [openPanel autorelease];
+    }];
+}
+
 - (void)dealloc {
     [sounds retain];
     [super dealloc];
@@ -39,6 +57,7 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+//    [soundsController setSortDescriptors:[NSArra
 }
 
 - (BOOL)addSoundForPath:(NSString *)file {

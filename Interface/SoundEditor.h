@@ -17,6 +17,7 @@
 @property (readonly) NSMutableDictionary *sounds;
 - (id)initWithMainData:(MainData *)data;
 - (IBAction)playSound:(id)sender;
+- (IBAction)openSound:(id)sender;
 - (BOOL)addSoundForPath:(NSString *)path;
 - (BOOL)addSound:(XSSound *)sound;
 @end
