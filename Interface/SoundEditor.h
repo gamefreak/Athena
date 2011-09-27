@@ -11,10 +11,10 @@
 @class MainData, XSSound;
 
 @interface SoundEditor : NSWindowController <NSTableViewDataSource> {
-    NSMutableDictionary *sounds;
-    IBOutlet NSDictionaryController *soundsController;
+    NSMutableArray *sounds;
+    IBOutlet NSArrayController *soundsController;
 }
-@property (readonly) NSMutableDictionary *sounds;
+@property (readonly) NSMutableArray *sounds;
 - (id)initWithMainData:(MainData *)data;
 - (IBAction)playSound:(id)sender;
 - (IBAction)openSound:(id)sender;

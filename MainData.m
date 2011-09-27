@@ -17,6 +17,7 @@
 #import "Condition.h"
 #import "Race.h"
 
+#import "XSKeyValuePair.h"
 #import "SMIVImage.h"
 #import "XSSound.h"
 
@@ -60,7 +61,7 @@ static NSArray *mainDataKeys;
         scenarios = [[NSMutableArray alloc] init];
         races = [[NSMutableArray alloc] init];
         sprites = [[NSMutableDictionary alloc] init];
-        sounds = [[NSMutableDictionary alloc] init];
+        sounds = [[NSMutableArray alloc] init];
         [self addObserver:self forKeyPath:@"objects" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         [self addObserver:self forKeyPath:@"scenarios" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     }
@@ -79,7 +80,7 @@ static NSArray *mainDataKeys;
         [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
         [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
         [sprites setDictionary:[coder decodeDictionaryOfClass:[SMIVImage class] forKey:@"sprites"]];
-        [sounds setDictionary:[coder decodeDictionaryOfClass:[XSSound class] forKey:@"sounds"]];
+        [sounds setArray:[coder decodePairArrayOfClass:[XSSound class] forKey:@"sounds"]];
 
         [flags initWithLuaCoder:coder];
     }
@@ -96,7 +97,7 @@ static NSArray *mainDataKeys;
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
     [coder encodeDictionary:sprites forKey:@"sprites" asArray:YES];
-    [coder encodeDictionary:sounds forKey:@"sounds" asArray:YES];
+    [coder encodePairArray:sounds forKey:@"sounds"];
 }
 
 - (void) finishLoadingFromLuaWithRootData:(id)data {
@@ -151,8 +152,13 @@ static NSArray *mainDataKeys;
         [sprites release];
         sprites = [[coder allObjectsOfClass:[SMIVImage class]] retain];
 
-        [sounds release];
-        sounds = [[coder allObjectsOfClass:[XSSound class]] retain];
+        NSDictionary *soundDict = [coder allObjectsOfClass:[XSSound class]];
+        for (NSString *key in soundDict) {
+            [sounds addObject:[XSKeyValuePair pairWithKey:key value:[soundDict objectForKey:key]]];
+        }
+//        [sounds release];
+//        sounds = [[coder allObjectsOfClass:[XSSound class]] retain];
+        
     }
     return self;
 }
@@ -174,8 +180,9 @@ static NSArray *mainDataKeys;
     for (NSString *key in sprites) {
         [coder encodeObject:[sprites objectForKey:key] atIndex:[key intValue]];
     }
-    for (NSString *key in sounds) {
-        [coder encodeObject:[sounds objectForKey:key] atIndex:[key intValue]];
+
+    for (XSKeyValuePair *pair in sounds) {
+        [coder encodeObject:pair.value atIndex:[pair.key intValue]];
     }
 
     [coder extend:1056];

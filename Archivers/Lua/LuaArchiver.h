@@ -27,6 +27,7 @@
 
 - (void) encodeObject:(id)object forKey:(NSString *)key;
 - (void) encodeArray:(NSArray *)array forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
+- (void) encodePairArray:(NSArray *)array forKey:(NSString *)key;
 - (void) encodeDictionary:(NSDictionary *)dict forKey:(NSString *)key asArray:(BOOL)asArray;
 
 - (void) encodeString:(NSString *)string;

@@ -29,6 +29,7 @@
 - (id) decodeObjectOfClass:(Class<Alloc, LuaCoding>)class forKeyPath:(NSString *)keyPath;
 
 - (NSMutableArray *) decodeArrayOfClass:(Class<Alloc, LuaCoding>)_class forKey:(NSString *)key zeroIndexed:(BOOL)isZeroIndexed;
+- (NSMutableArray *) decodePairArrayOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key;
 - (NSMutableDictionary *) decodeDictionaryOfClass:(Class<Alloc, LuaCoding>)class forKey:(NSString *)key;
 
 - (BOOL) decodeBool;

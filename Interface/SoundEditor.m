@@ -10,6 +10,7 @@
 
 #import "MainData.h"
 #import "XSSound.h"
+#import "XSKeyValuePair.h"
 
 @implementation SoundEditor
 @synthesize sounds;
@@ -51,13 +52,12 @@
 }
 
 - (void)dealloc {
-    [sounds retain];
+    [sounds release];
     [super dealloc];
 }
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-//    [soundsController setSortDescriptors:[NSArra
 }
 
 - (BOOL)addSoundForPath:(NSString *)file {
@@ -83,14 +83,14 @@
 - (BOOL)addSound:(XSSound *)sound {
     if (sound != nil) {
         //get keys
-        NSArray *keys = [[sounds allKeys] valueForKeyPath:@"intValue"];
+        NSArray *keys = [sounds valueForKeyPath:@"key"];
         int firstIndex = [[keys valueForKeyPath:@"@min.intValue"] intValue];
         int lastIndex = [[keys valueForKeyPath:@"@max.intValue"] intValue];
         int found = -1;
         //scan for gaps
         for (int k = firstIndex; k < lastIndex; k++) {
             NSString *tk = [[NSNumber numberWithInt:k] stringValue];
-            if ([sounds objectForKey:tk] == nil) {
+            if (![keys containsObject:tk]) {
                 found = k;
                 break;
             }
@@ -101,7 +101,7 @@
         }
         key = [[NSNumber numberWithInt:found] stringValue];
         
-        NSAssert([sounds objectForKey:key] == nil, @"sounds table contained unexpected key %@", key);
+        NSAssert(![keys containsObject:key], @"sounds table contained unexpected key %@", key);
         
         id pair = [soundsController newObject];
         [pair setKey:key];
@@ -117,14 +117,15 @@
     [pboard declareTypes:[NSArray arrayWithObjects:NSFileContentsPboardType, NSFilesPromisePboardType, nil] owner:self];
 
     NSMutableArray *fileNames = [NSMutableArray array];
-    for (NSString *key in [[[soundsController arrangedObjects] objectsAtIndexes:rowIndexes] valueForKey:@"key"]) {
-        XSSound *sound = [sounds objectForKey:key];
+    for (XSKeyValuePair *pair in [[soundsController arrangedObjects] objectsAtIndexes:rowIndexes]) {
+        XSSound *sound = pair.value;
         NSFileWrapper *wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[sound getVorbis]];
-        [wrapper setFilename:[[sound name] stringByAppendingPathExtension:@"ogg"]];
-        [wrapper setPreferredFilename:[[sound name] stringByAppendingPathExtension:@"ogg"]];
+        NSString *filename = [[sound name] stringByAppendingPathExtension:@"ogg"];
+        [wrapper setFilename:filename];
+        [wrapper setPreferredFilename:filename];
         [pboard writeFileWrapper:wrapper];
         [wrapper release];
-        [fileNames addObject:[[sound name] stringByAppendingPathExtension:@"ogg"]];
+        [fileNames addObject:filename];
         break;
     }
 

@@ -8,6 +8,7 @@
 
 #import "LuaArchiver.h"
 #import "NSStringExtensions.h"
+#import "XSKeyValuePair.h"
 
 //DISABLED ~3.5s
 //ENABLED ~2s
@@ -117,6 +118,21 @@
             [self encodeObject:obj
                         forKey:[NSString stringWithFormat:@"[%d]", idx]];
             idx++;
+        }
+        [self indent];
+        [data appendString:@"};\n"];
+        [keyStack removeLastObject];
+    }
+}
+
+- (void) encodePairArray:(NSArray *)array forKey:(NSString *)key {
+    @synchronized(self) {
+        [keyStack addObject:key];
+        [self indent];
+        [data appendString:key];
+        [data appendString:@" = {\n"];
+        for (XSKeyValuePair *pair in array) {
+            [self encodeObject:pair.value forKey:[NSString stringWithFormat:@"[%@]", pair.key]];
         }
         [self indent];
         [data appendString:@"};\n"];

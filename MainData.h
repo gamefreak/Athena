@@ -45,7 +45,7 @@
     NSMutableArray *scenarios;
     NSMutableArray *races;
     NSMutableDictionary *sprites;
-    NSMutableDictionary *sounds;
+    NSMutableArray *sounds;
 }
 @property (readwrite) NSInteger inFlareId;
 @property (readwrite) NSInteger outFlareId;
@@ -64,5 +64,5 @@
 @property (readonly) NSMutableArray *scenarios;
 @property (readonly) NSMutableArray *races;
 @property (readonly) NSMutableDictionary *sprites;
-@property (readonly) NSMutableDictionary *sounds;
+@property (readonly) NSMutableArray *sounds;
 @end
