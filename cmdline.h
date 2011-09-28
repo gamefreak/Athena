@@ -34,7 +34,7 @@ extern "C" {
 #define ARG_PARSER_VERSION "0.1"
 #endif
 
-enum enum_type { type_arg_ares = 0 , type_arg_xsera, type_arg_lua };
+enum enum_type { type_arg_ares = 0 , type_arg_xsera };
 
 /** @brief Where the command line options are stored */
 struct athena_args

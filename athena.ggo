@@ -10,5 +10,5 @@ option "download" d "Download data" dependon="base" optional
 option "check" c "Preform consistency check" dependon="base" optional hidden
 option "list" l "List file contents" dependon="base" optional hidden
 
-option "type" t "Filetype to output" values="ares","xsera","lua" enum dependon="out" optional
+option "type" t "Filetype to output" values="ares","xsera" enum dependon="out" optional
 option "out" o "Output location" string typestr="FILE" dependon="type" optional

@@ -98,11 +98,8 @@ int main(int argc, char *argv[]) {
             case type_arg_ares:
                 type = @"com.biggerplanet.AresData";
                 break;
-            case type_arg_lua:
-                type = @"org.brainpen.XseraLua";
-                break;
             case type_arg_xsera:
-                type = @"org.brainpen.XseraData";
+                type = @"org.brainpen.XseraPlugin";
                 break;
             default:
                 assert(0);
@@ -110,10 +107,11 @@ int main(int argc, char *argv[]) {
         }
         assert(type);
         //Get output path
-        NSURL *outUrl = [NSURL fileURLWithPath:[NSString stringWithUTF8String:args.out_arg]];
-        //save file
+        NSURL *outUrl = [NSURL fileURLWithPath:[[NSString stringWithUTF8String:args.out_arg] stringByExpandingTildeInPath]];
+        error = nil;
         BOOL result = [document writeToURL:outUrl ofType:type error:&error];
         if (!result || error) {
+            NSLog(@"Error: %@", error);
             exit(1);
         }
     }
