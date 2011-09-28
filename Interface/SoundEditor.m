@@ -12,6 +12,11 @@
 #import "XSSound.h"
 #import "XSKeyValuePair.h"
 
+@interface SoundEditor (Private)
+- (void)insertObject:(XSSound *)object inSoundsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromSoundsAtIndex:(NSUInteger)index;
+@end
+
 @implementation SoundEditor
 @synthesize sounds;
 
@@ -142,6 +147,16 @@
         [NSAlert alertWithError:error];
     }
     return [NSArray arrayWithObject:[[dropDestination path] stringByAppendingPathComponent:[wrapper filename]]];
+}
+
+- (void)insertObject:(XSSound *)object inSoundsAtIndex:(NSUInteger)index {
+    [[[[self document] undoManager] prepareWithInvocationTarget:self] removeObjectFromSoundsAtIndex:index];
+    [sounds insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromSoundsAtIndex:(NSUInteger)index {
+    [[[[self document] undoManager] prepareWithInvocationTarget:self] insertObject:[sounds objectAtIndex:index] inSoundsAtIndex:index];
+    [sounds removeObjectAtIndex:index];
 }
 @end
 
