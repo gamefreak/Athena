@@ -25,6 +25,7 @@
 }
 
 - (void)dealloc {
+    [spriteView unbind:@"sprite"];
     [data release];
     [sprites release];
     [spriteController removeObserver:self forKeyPath:@"selectionIndex"];
@@ -56,21 +57,8 @@
         NSLog(@"NOT FOUND");
         return -1;
     }
-    return [[[[spriteController arrangedObjects] objectAtIndex:index] key] integerValue];
-    
-//    NSUInteger id = [[ key] integerValue];
-//    NSLog(@"returning %", id);
+    return [[[spriteController selection] valueForKey:@"key"] intValue];
 }
-
-//- (NSUInteger)selectionIndex {
-//    [sprites valueForKey:[[NSNumber numberWithUnsignedInteger:[spriteController selectionIndex]] stringValue]];
-//    [sprites key
-//    return [spriteController selectionIndex];
-//}
-
-//- (void)setSelectionIndex:(NSUInteger)selectionIndex {
-//    [spriteController setSelectionIndex:selectionIndex];
-//}
 
 - (void)setSpriteId:(NSUInteger)spriteId {
     NSArray *objects = [spriteController arrangedObjects];
@@ -79,7 +67,6 @@
         //Clear selection
         [spriteController setSelectedObjects:[NSArray array]];
     } else {
-//    NSLog(@"setting %@", key);
         NSUInteger index = [objects indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
             if ([[obj key] isEqualTo:key]) {
                 *stop = YES;
@@ -153,14 +140,14 @@
 - (BOOL)addSprite:(SMIVImage *)sprite {
     if (sprite != nil) {
         //get keys
-        NSArray *keys = [[sprites allKeys] valueForKeyPath:@"intValue"];
+        NSArray *keys = [sprites valueForKeyPath:@"key"];
         int firstIndex = [[keys valueForKeyPath:@"@min.intValue"] intValue];
         int lastIndex = [[keys valueForKeyPath:@"@max.intValue"] intValue];
         int found = -1;
         //scan for gaps
         for (int k = firstIndex; k < lastIndex; k++) {
             NSString *tk = [[NSNumber numberWithInt:k] stringValue];
-            if ([sprites objectForKey:tk] == nil) {
+            if (![sprites containsObject:tk]) {
                 found = k;
                 break;
             }
@@ -171,13 +158,12 @@
         }
         key = [[NSNumber numberWithInt:found] stringValue];
 
-        NSAssert([sprites objectForKey:key] == nil, @"sprites table contained unexpected key %@", key);
+        NSAssert(![sprites containsObject:key], @"sprites table contained unexpected key %@", key);
 
-        NSDictionaryController *controller = [[[self window] windowController] spriteController];
-        id pair = [controller newObject];
+        id pair = [spriteController newObject];
         [pair setKey:key];
         [pair setValue:sprite];
-        [controller addObject:pair];
+        [spriteController addObject:pair];
         [pair release];
         return YES;
     }

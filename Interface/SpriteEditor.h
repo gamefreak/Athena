@@ -14,17 +14,17 @@
 
 @interface SpriteEditor : NSWindowController {
     MainData *data;
-    NSMutableDictionary *sprites;
+    NSMutableArray *sprites;
     
     IBOutlet SpriteView *spriteView;
-    IBOutlet NSDictionaryController *spriteController;
+    IBOutlet NSArrayController *spriteController;
 
     IBOutlet NSWindow *dimensionsSheet;
     IBOutlet NSTextField *widthInput;
     IBOutlet NSTextField *heightInput;
 }
 @property (readwrite, assign) NSUInteger spriteId;
-@property (readonly) NSDictionaryController *spriteController;
+@property (readonly) NSArrayController *spriteController;
 - (id) initWithMainData:(MainData *)data;
 - (BOOL)addSpriteForPath:(NSString *)path;
 - (IBAction)dimensionsOk:(id)sender;

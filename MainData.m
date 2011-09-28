@@ -60,7 +60,7 @@ static NSArray *mainDataKeys;
         objects = [[NSMutableArray alloc] init];
         scenarios = [[NSMutableArray alloc] init];
         races = [[NSMutableArray alloc] init];
-        sprites = [[NSMutableDictionary alloc] init];
+        sprites = [[NSMutableArray alloc] init];
         sounds = [[NSMutableArray alloc] init];
         [self addObserver:self forKeyPath:@"objects" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         [self addObserver:self forKeyPath:@"scenarios" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
@@ -79,7 +79,7 @@ static NSArray *mainDataKeys;
         [objects    setArray:[coder decodeArrayOfClass:[BaseObject class]      forKey:@"objects"    zeroIndexed:YES]];
         [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
         [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
-        [sprites setDictionary:[coder decodeDictionaryOfClass:[SMIVImage class] forKey:@"sprites"]];
+        [sprites setArray:[coder decodePairArrayOfClass:[SMIVImage class] forKey:@"sprites"]];
         [sounds setArray:[coder decodePairArrayOfClass:[XSSound class] forKey:@"sounds"]];
 
         [flags initWithLuaCoder:coder];
@@ -96,7 +96,7 @@ static NSArray *mainDataKeys;
     [coder encodeArray:objects    forKey:@"objects"    zeroIndexed:YES];
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
-    [coder encodeDictionary:sprites forKey:@"sprites" asArray:YES];
+    [coder encodePairArray:sprites forKey:@"sprites"];
     [coder encodePairArray:sounds forKey:@"sounds"];
 }
 
@@ -149,16 +149,15 @@ static NSArray *mainDataKeys;
             [objects addObject:[coder decodeObjectOfClass:[BaseObject class] atIndex:index]];
         }
 
-        [sprites release];
-        sprites = [[coder allObjectsOfClass:[SMIVImage class]] retain];
+        NSDictionary *spriteDict = [coder allObjectsOfClass:[SMIVImage class]];
+        for (NSString *key in spriteDict) {
+            [sprites addObject:[XSKeyValuePair pairWithKey:key value:[spriteDict objectForKey:key]]];
+        }
 
         NSDictionary *soundDict = [coder allObjectsOfClass:[XSSound class]];
         for (NSString *key in soundDict) {
             [sounds addObject:[XSKeyValuePair pairWithKey:key value:[soundDict objectForKey:key]]];
         }
-//        [sounds release];
-//        sounds = [[coder allObjectsOfClass:[XSSound class]] retain];
-        
     }
     return self;
 }
@@ -177,8 +176,9 @@ static NSArray *mainDataKeys;
         [coder encodeObject:object];
     }
 
-    for (NSString *key in sprites) {
-        [coder encodeObject:[sprites objectForKey:key] atIndex:[key intValue]];
+    for (XSKeyValuePair *pair in sprites) {
+        [coder encodeObject:pair.value atIndex:[pair.key intValue]];
+//        [coder encodeObject:[sprites objectForKey:key] atIndex:[key intValue]];
     }
 
     for (XSKeyValuePair *pair in sounds) {
