@@ -20,26 +20,34 @@
 
 - (id) init {
     self = [super init];
+    if (self) {
+    }
     return self;
 }
 
 - (id) initWithPoint:(NSPoint)_point {
-    [self init];
-    point = _point;
+    self = [self init];
+    if (self) {
+        point = _point;
+    }
     return self;
 }
 
 - (id) initWithX:(CGFloat)x Y:(CGFloat)y {
-    [self init];
-    point = NSMakePoint(x, y);
+    self = [self init];
+    if (self) {
+        point = NSMakePoint(x, y);
+    }
     return self;
     
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
-    [self init];
-    point.x = [coder decodeFloatForKey:@"x"];
-    point.y = [coder decodeFloatForKey:@"y"];
+    self = [self init];
+    if (self) {
+        point.x = [coder decodeFloatForKey:@"x"];
+        point.y = [coder decodeFloatForKey:@"y"];
+    }
     return self;
 }
 
