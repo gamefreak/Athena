@@ -11,6 +11,11 @@
 #import "SpriteView.h"
 #import "SMIVImage.h"
 
+@interface SpriteEditor (Private)
+- (void)insertObject:(SMIVImage *)object inSpritesAtIndex:(NSUInteger)index;    
+- (void)removeObjectFromSpritesAtIndex:(NSUInteger)index;
+@end
+
 @implementation SpriteEditor
 @dynamic spriteId;
 @synthesize spriteController;
@@ -77,6 +82,16 @@
         }];
         [spriteController setSelectionIndex:index];
     }
+}
+
+- (void)insertObject:(SMIVImage *)object inSpritesAtIndex:(NSUInteger)index {
+    [[[[self document] undoManager] prepareWithInvocationTarget:self] removeObjectFromSpritesAtIndex:index];
+    [sprites insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromSpritesAtIndex:(NSUInteger)index {
+    [[[[self document] undoManager] prepareWithInvocationTarget:self] insertObject:[sprites objectAtIndex:index] inSpritesAtIndex:index];
+    [sprites removeObjectAtIndex:index];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
