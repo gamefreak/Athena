@@ -92,13 +92,14 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     return wrapper;
 }
 
-- (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type {
+- (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)type error:(NSError **)outError {
+    NSString *fileName = [url path];
     NSLog(@"Reading Data of type (%@)", type);
     [data release];
     data = nil;
     @try {
         if ([type isEqual:@"org.brainpen.xseraplugin"]){
-            return [super readFromFile:fileName ofType:type];
+            return [super readFromURL:url ofType:type error:outError];
         } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
             ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
             if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
