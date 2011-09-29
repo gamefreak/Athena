@@ -107,6 +107,7 @@
 		D26B6A42130C170900B461FB /* ObjectEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D26B6A41130C170900B461FB /* ObjectEditor.xib */; };
 		D270392D140564EE00F426CD /* ConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D270392B140564EE00F426CD /* ConditionViewController.m */; };
 		D27153D513BD401800F0C920 /* CreateObject.xib in Resources */ = {isa = PBXBuildFile; fileRef = D27153D413BD401800F0C920 /* CreateObject.xib */; };
+		D272DA4D1434DFD200F3CB12 /* UniquePairKeyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D272DA4C1434DFD200F3CB12 /* UniquePairKeyFormatter.m */; };
 		D275AB9D14040D360069F043 /* NoParameter.xib in Resources */ = {isa = PBXBuildFile; fileRef = D275AB9C14040D360069F043 /* NoParameter.xib */; };
 		D2781DEC130C7AC100E0CD75 /* IndexedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D2781DEB130C7AC100E0CD75 /* IndexedObject.m */; };
 		D283C95313F177F200943106 /* DeviceEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D283C95213F177F200943106 /* DeviceEditor.xib */; };
@@ -380,6 +381,8 @@
 		D270392A140564EE00F426CD /* ConditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionViewController.h; sourceTree = "<group>"; };
 		D270392B140564EE00F426CD /* ConditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionViewController.m; sourceTree = "<group>"; };
 		D27153D413BD401800F0C920 /* CreateObject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateObject.xib; sourceTree = "<group>"; };
+		D272DA4B1434DFD200F3CB12 /* UniquePairKeyFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniquePairKeyFormatter.h; sourceTree = "<group>"; };
+		D272DA4C1434DFD200F3CB12 /* UniquePairKeyFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniquePairKeyFormatter.m; sourceTree = "<group>"; };
 		D275AB9C14040D360069F043 /* NoParameter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoParameter.xib; sourceTree = "<group>"; };
 		D2781DEA130C7AC100E0CD75 /* IndexedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexedObject.h; sourceTree = "<group>"; };
 		D2781DEB130C7AC100E0CD75 /* IndexedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexedObject.m; sourceTree = "<group>"; };
@@ -948,6 +951,8 @@
 				4D64EFB3140BCD0A00017458 /* ProgressWindow.m */,
 				4D64EFB6140BD0FF00017458 /* DownloadWindow.h */,
 				4D64EFB7140BD0FF00017458 /* DownloadWindow.m */,
+				D272DA4B1434DFD200F3CB12 /* UniquePairKeyFormatter.h */,
+				D272DA4C1434DFD200F3CB12 /* UniquePairKeyFormatter.m */,
 			);
 			name = Reusable;
 			sourceTree = "<group>";
@@ -1365,6 +1370,7 @@
 				D2627542141FD4960064AD95 /* cmdline.c in Sources */,
 				D2D6839A142FF694001B2C70 /* SoundEditor.m in Sources */,
 				D26259181432525C0014F9A8 /* XSKeyValuePair.m in Sources */,
+				D272DA4D1434DFD200F3CB12 /* UniquePairKeyFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
