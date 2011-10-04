@@ -494,7 +494,6 @@ static CGColorSpaceRef devRGB;
 
 - (uint8_t *)quantitizedPixels {
     assert(CGImageGetBitsPerPixel(slice) == 32);
-    assert((CGImageGetBitmapInfo(slice) & kCGImageAlphaLast) == kCGImageAlphaLast);
     CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(slice));
     const uint32_t *buffer = (uint32_t *)CFDataGetBytePtr(data);
     uint8 *quantitizedBuffer = malloc(width * height);

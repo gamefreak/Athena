@@ -46,6 +46,7 @@
     NSMutableArray *races;
     NSMutableArray *sprites;
     NSMutableArray *sounds;
+    NSMutableArray *images;
 }
 @property (readwrite) NSInteger inFlareId;
 @property (readwrite) NSInteger outFlareId;
@@ -65,4 +66,5 @@
 @property (readonly) NSMutableArray *races;
 @property (readonly) NSMutableArray *sprites;
 @property (readonly) NSMutableArray *sounds;
+@property (readonly) NSMutableArray *images;
 @end

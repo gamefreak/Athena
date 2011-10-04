@@ -31,6 +31,7 @@ extern inline uint32_t dequantitize_pixel(uint8_t pixel);
 extern inline uint32_t pixel_magnitude(uint32_t pixel, uint32_t color);
 extern uint8_t quantitize_pixel(uint32_t pixel);
 
+extern const uint32_t CLUT_ID;
 
 extern const uint8_t CLUT[256][3];
 extern const uint8_t CLUT4[256][4];

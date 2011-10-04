@@ -20,6 +20,7 @@
 #import "XSKeyValuePair.h"
 #import "SMIVImage.h"
 #import "XSSound.h"
+#import "XSImage.h"
 
 static NSArray *mainDataKeys;
 @implementation MainDataFlags
@@ -41,7 +42,7 @@ static NSArray *mainDataKeys;
 //@synthesize checkSum;
 
 @synthesize objects, scenarios, races;
-@synthesize sprites, sounds;
+@synthesize sprites, sounds, images;
 
 - (id) init {
     self = [super init];
@@ -62,6 +63,7 @@ static NSArray *mainDataKeys;
         races = [[NSMutableArray alloc] init];
         sprites = [[NSMutableArray alloc] init];
         sounds = [[NSMutableArray alloc] init];
+        images = [[NSMutableArray alloc] init];
         [self addObserver:self forKeyPath:@"objects" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         [self addObserver:self forKeyPath:@"scenarios" options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     }
@@ -158,6 +160,11 @@ static NSArray *mainDataKeys;
         for (NSString *key in soundDict) {
             [sounds addObject:[XSKeyValuePair pairWithKey:key value:[soundDict objectForKey:key]]];
         }
+        
+        NSDictionary *imageDict = [coder allObjectsOfClass:[XSImage class]];
+        for (NSString *key in imageDict) {
+            [images addObject:[XSKeyValuePair pairWithKey:key value:[imageDict objectForKey:key]]];
+        }
     }
     return self;
 }
@@ -178,10 +185,13 @@ static NSArray *mainDataKeys;
 
     for (XSKeyValuePair *pair in sprites) {
         [coder encodeObject:pair.value atIndex:[pair.key intValue]];
-//        [coder encodeObject:[sprites objectForKey:key] atIndex:[key intValue]];
     }
 
     for (XSKeyValuePair *pair in sounds) {
+        [coder encodeObject:pair.value atIndex:[pair.key intValue]];
+    }
+    
+    for (XSKeyValuePair *pair in images) {
         [coder encodeObject:pair.value atIndex:[pair.key intValue]];
     }
 
@@ -240,6 +250,7 @@ static NSArray *mainDataKeys;
     [races release];
     [sprites release];
     [sounds release];
+    [images release];
 
     [flags release];
     [title release];

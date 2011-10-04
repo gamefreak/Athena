@@ -107,6 +107,8 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sprites"]];
                 NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sounds'");
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sounds"]];
+                NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Interfaces'");
+                [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Interfaces"]];
             }
             data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
             [coder release];
