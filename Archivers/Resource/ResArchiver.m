@@ -126,6 +126,10 @@
     return YES;
 }
 
+- (size_t) tell {
+    return [[stack lastObject] cursor];
+}
+
 - (void) skip:(size_t)length {
     [[stack lastObject] advance:length];
 }

@@ -20,6 +20,7 @@
 }
 - (BOOL) writeToFile:(NSString *)file;
 
+- (size_t) tell;
 - (void) skip:(size_t)length;
 - (void) seek:(size_t)position;
 - (void) extend:(NSUInteger)bytes;
