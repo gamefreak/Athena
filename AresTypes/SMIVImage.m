@@ -14,38 +14,6 @@
 static CGColorSpaceRef CLUTCSpace;
 static CGColorSpaceRef devRGB;
 
-static inline uint32 dequantitize_pixel(uint8 pixel);
-static inline uint32_t pixel_magnitude(uint32 pixel, uint32 color);
-static uint8 quantitize_pixel(uint32 pixel);
-
-static inline uint32 dequantitize_pixel(uint8 pixel) {
-    return CLUT4P[pixel];
-}
-
-#define SLICE(value, shift) (int16_t)((value & (0xff << shift)) >> shift)
-static inline uint32_t pixel_magnitude(uint32 pixel, uint32 color) {
-    int16_t r = SLICE(pixel, 24) - SLICE(color, 24);
-    int16_t g = SLICE(pixel, 16) - SLICE(color, 16);
-    int16_t b = SLICE(pixel, 8) - SLICE(color, 8);
-    return (r*r+g*g+b*b);
-}
-#undef SLICE
-
-static uint8 quantitize_pixel(uint32 pixel) {
-    short alpha = (pixel & 0x000000ff) >> 0;
-    if (alpha < 0xf0) return 0;//transparent
-    int bestIdx = 0;
-    int bestDiff = 1000000;
-    for (int i = 1; i <= 256; i++) {
-        int diff = pixel_magnitude(pixel, CLUT4P[i] & 0xffffff00);
-        if (diff < bestDiff) {
-            bestDiff = diff;
-            bestIdx = i;
-        }
-    }
-    return bestIdx;
-}
-
 @implementation SMIVImage
 @synthesize title;
 @synthesize cellSize;

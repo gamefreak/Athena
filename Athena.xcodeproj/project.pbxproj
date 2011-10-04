@@ -21,6 +21,7 @@
 		D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D216CF66132420D1008E24F0 /* WeaponView.xib */; };
 		D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D216CFF413243027008E24F0 /* WeaponViewController.m */; };
 		D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D216E73012E9DE1700D17AFB /* LuaArchiver.m */; };
+		D21C4950143B496C00B5E39B /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = D21C494F143B496C00B5E39B /* Color.c */; };
 		D21EB27912E8BAEF00694EBA /* MainData.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB27812E8BAEF00694EBA /* MainData.m */; };
 		D21EB2BD12E8BDE200694EBA /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28712E8BDE200694EBA /* lbaselib.c */; };
 		D21EB2C212E8BDE200694EBA /* ldump.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28F12E8BDE200694EBA /* ldump.c */; };
@@ -287,6 +288,7 @@
 		D216CFF513243027008E24F0 /* WeaponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponViewController.h; sourceTree = "<group>"; };
 		D216E72F12E9DE1700D17AFB /* LuaArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaArchiver.h; sourceTree = "<group>"; };
 		D216E73012E9DE1700D17AFB /* LuaArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaArchiver.m; sourceTree = "<group>"; };
+		D21C494F143B496C00B5E39B /* Color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Color.c; sourceTree = "<group>"; };
 		D21EB27712E8BAEF00694EBA /* MainData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainData.h; sourceTree = "<group>"; };
 		D21EB27812E8BAEF00694EBA /* MainData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainData.m; sourceTree = "<group>"; };
 		D21EB28312E8BDE200694EBA /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 			isa = PBXGroup;
 			children = (
 				D23EDD2112EE8129002699A4 /* Color.h */,
+				D21C494F143B496C00B5E39B /* Color.c */,
 				D2E452D212EF4BC90099B0F9 /* FlagBlob.h */,
 				D2E452D312EF4BC90099B0F9 /* FlagBlob.m */,
 				D28831CC12F21E4E00A02383 /* Actions */,
@@ -1371,6 +1374,7 @@
 				D2D6839A142FF694001B2C70 /* SoundEditor.m in Sources */,
 				D26259181432525C0014F9A8 /* XSKeyValuePair.m in Sources */,
 				D272DA4D1434DFD200F3CB12 /* UniquePairKeyFormatter.m in Sources */,
+				D21C4950143B496C00B5E39B /* Color.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
