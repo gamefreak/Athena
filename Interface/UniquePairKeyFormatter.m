@@ -45,6 +45,7 @@
             *error = [NSString stringWithFormat:@"Plugin already contains object with index %@", string];
         }
     }
+    [wk release];
     return ok;
 }
 
