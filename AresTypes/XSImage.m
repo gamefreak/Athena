@@ -44,7 +44,11 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
     self = [super initWithData:[coder rawData]];
     assert(self);
     if (self) {
-        [self setName:[coder currentName]];
+        NSString *name_ = [coder currentName];
+        if ([name_ length] == 0) {
+            name_ = [NSString stringWithFormat:@"Image %i", [coder currentIndex]];
+        }
+        [self setName:name_];
     }
     return self;
 }
@@ -165,6 +169,52 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 
 + (BOOL)isPacked {
     return NO;
+}
+
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    NSString *name_ = [coder decodeString];
+    NSData *data = [coder fileNamed:[name_ stringByAppendingPathExtension:@"png"]
+                        inDirectory:@"Images"];
+    self = [super initWithData:data];
+    if (self) {
+        [self setName:name_];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [coder encodeString:name];
+    [coder async:^{
+        NSUInteger repIndex = [[self representations] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
+            return *stop = [obj isKindOfClass:[NSBitmapImageRep class]];
+        }];
+        NSBitmapImageRep *rep = nil;
+        if (repIndex == NSNotFound) {
+            NSRect rect; rect.size = [self size];
+            CGImageRef image = [self CGImageForProposedRect:&rect context:nil hints:nil];
+            rep = [[NSBitmapImageRep alloc] initWithCGImage:image];
+            CGImageRelease(image);
+            [self addRepresentation:rep];
+            [rep autorelease];
+        } else {
+            rep = [[self representations] objectAtIndex:repIndex];
+        }
+        assert(rep != nil);
+        NSData *data = [rep representationUsingType:NSPNGFileType properties:nil];
+        assert(data != nil);
+        assert(name != nil);
+        [coder saveFile:data
+                  named:[name stringByAppendingPathExtension:@"png"]
+            inDirectory:@"Images"];
+    }];
+}
+
++ (BOOL)isComposite {
+    return NO;
+}
+
++ (Class)classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
 }
 @end
 

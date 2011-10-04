@@ -9,7 +9,7 @@
 #import <AppKit/AppKit.h>
 #import "Archivers.h"
 
-@interface XSImage : NSImage <ResCoding> {
+@interface XSImage : NSImage <ResCoding, LuaCoding> {
     NSString *name;
 }
 @property (retain) NSString *name;

@@ -83,6 +83,7 @@ static NSArray *mainDataKeys;
         [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
         [sprites setArray:[coder decodePairArrayOfClass:[SMIVImage class] forKey:@"sprites"]];
         [sounds setArray:[coder decodePairArrayOfClass:[XSSound class] forKey:@"sounds"]];
+        [images setArray:[coder decodePairArrayOfClass:[XSImage class] forKey:@"images"]];
 
         [flags initWithLuaCoder:coder];
     }
@@ -100,6 +101,7 @@ static NSArray *mainDataKeys;
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
     [coder encodePairArray:sprites forKey:@"sprites"];
     [coder encodePairArray:sounds forKey:@"sounds"];
+    [coder encodePairArray:images forKey:@"images"];
 }
 
 - (void) finishLoadingFromLuaWithRootData:(id)data {
