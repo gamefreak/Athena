@@ -158,8 +158,7 @@ static CGColorSpaceRef devRGB;
         CGSize arrangement = [SMIVImage gridDistributionForCount:frameCount];//knowing how to arrange the cells
         CGSize imageDimensions = CGSizeMake(arrangement.width * cellSize.width, arrangement.height * cellSize.height);
         //First make a graphics context to draw into
-        CGContextRef context = CGBitmapContextCreate(NULL, imageDimensions.width, imageDimensions.height, 8, imageDimensions.width * 4, devRGB, kCGImageAlphaNoneSkipLast);
-
+        CGContextRef context = CGBitmapContextCreate(NULL, imageDimensions.width, imageDimensions.height, 8, imageDimensions.width * 4, devRGB, kCGImageAlphaPremultipliedLast);
         //load load each image and draw it into the sheet
         for (int k = 0; k < frameCount; k++) {
             //I would have used the iterator but we need the frame header location
@@ -177,7 +176,7 @@ static CGColorSpaceRef devRGB;
             free(preBuffer);
             CFDataRef data = CFDataCreate(kCFAllocatorDefault, (void *)buffer, byteSize * 4);//Capture the data
             CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);//make a straw...
-            CGImageRef frameImage = CGImageCreate(frame.width, frame.height, 8, 32, frame.width * 4, devRGB, kCGBitmapByteOrder32Host | kCGImageAlphaLast, provider, NULL, NO, kCGRenderingIntentDefault);
+            CGImageRef frameImage = CGImageCreate(frame.width, frame.height, 8, 32, frame.width * 4, devRGB, kCGBitmapByteOrder32Host | kCGImageAlphaPremultipliedLast, provider, NULL, NO, kCGRenderingIntentDefault);
 
             CGDataProviderRelease(provider);
             CFRelease(data);
