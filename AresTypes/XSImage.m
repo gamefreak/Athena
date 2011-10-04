@@ -26,24 +26,28 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 
 
 @implementation XSImage
-@synthesize name;
+@synthesize name, image;
+
 - (id)init {
     self = [super init];
     if (self) {
+        assert(0);
         name = @"Untitled";
+        image = nil;
     }
     return self;
 }
 
 - (void)dealloc {
+    [image release];
     [name release];
     [super dealloc];
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
-    self = [super initWithData:[coder rawData]];
-    assert(self);
+    self = [super init];
     if (self) {
+        image = [[NSImage alloc] initWithData:[coder rawData]];
         NSString *name_ = [coder currentName];
         if ([name_ length] == 0) {
             name_ = [NSString stringWithFormat:@"Image %i", [coder currentIndex]];
@@ -56,20 +60,20 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     [coder setName:name];
     //Check if we already have a PICT representation
-    NSUInteger repIndex = [[self representations] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
+    NSUInteger repIndex = [[image representations] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
         return *stop = [obj isKindOfClass:[NSPICTImageRep class]];
     }];
     if (repIndex != NSNotFound) {
         //We have a pict representation so skip the custom encoder!
-        NSData *data = [[[self representations] objectAtIndex:repIndex] PICTRepresentation];
+        NSData *data = [[[image representations] objectAtIndex:repIndex] PICTRepresentation];
         [coder extend:[data length]];
         [coder writeBytes:(void *)[data bytes] length:[data length]];
     } else {
         //Custom encoder time!
-        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
-        CGImageRef image = [rep CGImage];//Get out image
-        short width = CGImageGetWidth(image);
-        short height = CGImageGetHeight(image);
+        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithData:[image TIFFRepresentation]];
+        CGImageRef image_ = [rep CGImage];//Get out image
+        short width = CGImageGetWidth(image_);
+        short height = CGImageGetHeight(image_);
         Rect rect = {0, 0, height, width};
         [coder extend:2686];//this is how much data will be written before the image is encoded
         [coder skip:512];//512 byte blank header
@@ -127,7 +131,7 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
         [coder encodeRect:rect];//source rect
         [coder encodeRect:rect];//destination rect
         [coder encodeSInt16:0x0000];//cant remember what it's for
-        CFDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(image));
+        CFDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(image_));
         const uint32_t *pixelBuffer = (uint32 *)CFDataGetBytePtr(imageData);
         int count = 0;
         for (int y = 0; y < height; y++) {
@@ -172,12 +176,10 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 }
 
 - (id)initWithLuaCoder:(LuaUnarchiver *)coder {
-    NSString *name_ = [coder decodeString];
-    NSData *data = [coder fileNamed:[name_ stringByAppendingPathExtension:@"png"]
-                        inDirectory:@"Images"];
-    self = [super initWithData:data];
+    self = [super init];
     if (self) {
-        [self setName:name_];
+        [self setName:[coder decodeString]];
+        image = [[NSImage alloc] initWithData:[coder fileNamed:[name stringByAppendingPathExtension:@"png"] inDirectory:@"Images"]];
     }
     return self;
 }
@@ -185,19 +187,19 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 - (void)encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeString:name];
     [coder async:^{
-        NSUInteger repIndex = [[self representations] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
+        NSUInteger repIndex = [[image representations] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
             return *stop = [obj isKindOfClass:[NSBitmapImageRep class]];
         }];
         NSBitmapImageRep *rep = nil;
         if (repIndex == NSNotFound) {
-            NSRect rect; rect.size = [self size];
-            CGImageRef image = [self CGImageForProposedRect:&rect context:nil hints:nil];
-            rep = [[NSBitmapImageRep alloc] initWithCGImage:image];
-            CGImageRelease(image);
-            [self addRepresentation:rep];
+            NSRect rect; rect.size = [image size];
+            CGImageRef image_ = [image CGImageForProposedRect:&rect context:nil hints:nil];
+            rep = [[NSBitmapImageRep alloc] initWithCGImage:image_];
+//            CGImageRelease(image);
+            [image addRepresentation:rep];
             [rep autorelease];
         } else {
-            rep = [[self representations] objectAtIndex:repIndex];
+            rep = [[image representations] objectAtIndex:repIndex];
         }
         assert(rep != nil);
         NSData *data = [rep representationUsingType:NSPNGFileType properties:nil];
