@@ -14,35 +14,30 @@
 static CGColorSpaceRef CLUTCSpace;
 static CGColorSpaceRef devRGB;
 
-static uint32 dequantitize_pixel(uint8 pixel);
-static int pixel_magnitude(uint32 pixel);
+static inline uint32 dequantitize_pixel(uint8 pixel);
+static inline uint32_t pixel_magnitude(uint32 pixel, uint32 color);
 static uint8 quantitize_pixel(uint32 pixel);
 
-static uint32 dequantitize_pixel(uint8 pixel) {
-    return *(uint32*)CLUT4[pixel];
+static inline uint32 dequantitize_pixel(uint8 pixel) {
+    return CLUT4P[pixel];
 }
 
-static int pixel_magnitude(uint32 pixel) {
-    int sum = 0;
-    int r = (pixel & 0xff000000) >> 24;
-    sum += r * r;
-    int g = (pixel & 0x00ff0000) >> 16;
-    sum += g * g;
-    int b = (pixel & 0x0000ff00) >> 8;
-    sum += b * b;
-    return sum;
+#define SLICE(value, shift) (int16_t)((value & (0xff << shift)) >> shift)
+static inline uint32_t pixel_magnitude(uint32 pixel, uint32 color) {
+    int16_t r = SLICE(pixel, 24) - SLICE(color, 24);
+    int16_t g = SLICE(pixel, 16) - SLICE(color, 16);
+    int16_t b = SLICE(pixel, 8) - SLICE(color, 8);
+    return (r*r+g*g+b*b);
 }
+#undef SLICE
 
 static uint8 quantitize_pixel(uint32 pixel) {
     short alpha = (pixel & 0x000000ff) >> 0;
     if (alpha < 0xf0) return 0;//transparent
-    int sum = pixel_magnitude(pixel);
     int bestIdx = 0;
-    int bestDiff = UINT32_MAX;
+    int bestDiff = 1000000;
     for (int i = 1; i <= 256; i++) {
-        int cmag = pixel_magnitude(*CLUT4[i]);
-        int diff = ABS(cmag - sum);
-        if (diff == 0) return i;
+        int diff = pixel_magnitude(pixel, CLUT4P[i] & 0xffffff00);
         if (diff < bestDiff) {
             bestDiff = diff;
             bestIdx = i;
@@ -195,9 +190,8 @@ static uint8 quantitize_pixel(uint32 pixel) {
         CGSize arrangement = [SMIVImage gridDistributionForCount:frameCount];//knowing how to arrange the cells
         CGSize imageDimensions = CGSizeMake(arrangement.width * cellSize.width, arrangement.height * cellSize.height);
         //First make a graphics context to draw into
-        CGContextRef context = CGBitmapContextCreate(NULL, imageDimensions.width, imageDimensions.height, 8, imageDimensions.width * 4, devRGB, kCGImageAlphaPremultipliedLast);
-        //We will need to save the destination rectangles because the main image won't be created during the loop
-        CGRect rectArray[frameCount];
+        CGContextRef context = CGBitmapContextCreate(NULL, imageDimensions.width, imageDimensions.height, 8, imageDimensions.width * 4, devRGB, kCGImageAlphaNoneSkipLast);
+
         //load load each image and draw it into the sheet
         for (int k = 0; k < frameCount; k++) {
             //I would have used the iterator but we need the frame header location
@@ -215,7 +209,8 @@ static uint8 quantitize_pixel(uint32 pixel) {
             free(preBuffer);
             CFDataRef data = CFDataCreate(kCFAllocatorDefault, (void *)buffer, byteSize * 4);//Capture the data
             CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);//make a straw...
-            CGImageRef frameImage = CGImageCreate(frame.width, frame.height, 8, 32, frame.width * 4, devRGB, kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast, provider, NULL, YES, kCGRenderingIntentDefault);
+            CGImageRef frameImage = CGImageCreate(frame.width, frame.height, 8, 32, frame.width * 4, devRGB, kCGBitmapByteOrder32Host | kCGImageAlphaLast, provider, NULL, NO, kCGRenderingIntentDefault);
+
             CGDataProviderRelease(provider);
             CFRelease(data);
             free(buffer);
@@ -231,19 +226,11 @@ static uint8 quantitize_pixel(uint32 pixel) {
             destRect.size.height = frame.height;
             //Finally draw it
             CGContextDrawImage(context, destRect, frameImage);
+            [[frames objectAtIndex:k] setSlice:frameImage];
             CGImageRelease(frameImage);
-            //Temporarily save the rect
-            rectArray[k] = destRect;
         }
         image = CGBitmapContextCreateImage(context);
         CGContextRelease(context);
-        //to reduce memory usage use a subimage instead of separate image
-        //this is retained for to simplify saving the animations purposes
-        for (int k = 0; k < frameCount; k++) {
-            CGImageRef slice = CGImageCreateWithImageInRect(image, rectArray[k]);
-            [[frames objectAtIndex:k] setSlice:slice];
-            CGImageRelease(slice);
-        }
         
     }
     return self;
@@ -531,17 +518,18 @@ static uint8 quantitize_pixel(uint32 pixel) {
     [coder encodeUInt16:height];
     [coder encodeSInt16:xOffset];
     [coder encodeSInt16:yOffset];
-    uint8 *buffer = [self quantitizedPixels];
+    uint8_t *buffer = [self quantitizedPixels];
     [coder writeBytes:buffer length:width * height];
     free(buffer);
 }
 
 #pragma mark Other Methods
 
-- (uint8 *)quantitizedPixels {
+- (uint8_t *)quantitizedPixels {
     assert(CGImageGetBitsPerPixel(slice) == 32);
+    assert((CGImageGetBitmapInfo(slice) & kCGImageAlphaLast) == kCGImageAlphaLast);
     CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(slice));
-    const uint32 *buffer = (uint32 *)CFDataGetBytePtr(data);
+    const uint32_t *buffer = (uint32_t *)CFDataGetBytePtr(data);
     uint8 *quantitizedBuffer = malloc(width * height);
     for (int i = 0; i < width * height; i++) {
         quantitizedBuffer[i] = quantitize_pixel(buffer[i]);
