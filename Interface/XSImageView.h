@@ -12,6 +12,11 @@
 
 @interface XSImageView : NSView {
     XSImage *image;
+
+    NSTimer *dragTimer;
+    NSEvent *dragStartEvent;
 }
 @property (readwrite, retain) XSImage *image;
+@property (readwrite, retain) NSEvent *dragStartEvent;
+- (void)beginDrag:(NSTimer *)timer;
 @end

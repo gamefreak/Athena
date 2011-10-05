@@ -11,11 +11,14 @@
 
 @implementation XSImageView
 @dynamic image;
+@synthesize dragStartEvent;
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         image = nil;
+        dragTimer = nil;
+        dragStartEvent = nil;
     }
     return self;
 }
@@ -41,6 +44,64 @@
     //draw it.
     [[image image] drawInRect:targetRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0f];
 
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    dragTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(beginDrag:) userInfo:NULL repeats:NO] retain];
+    [self setDragStartEvent:event];
+}
+
+- (void)mouseUp:(NSEvent *)event {
+    [dragTimer invalidate];
+    [dragTimer release];
+    dragTimer = nil;
+}
+
+- (void)beginDrag:(NSTimer *)timer_ {
+    NSAssert(dragTimer == timer_, @"Recieved beginDrag: message from wrong timer.");
+    [dragTimer release];
+    dragTimer = nil;
+
+    [self dragPromisedFilesOfTypes:[NSArray arrayWithObject:NSPasteboardTypePNG]
+                          fromRect:NSZeroRect
+                            source:self
+                         slideBack:YES
+                             event:dragStartEvent];
+}
+
+- (void)dragImage:(NSImage *)image_
+               at:(NSPoint)location
+           offset:(NSSize)offset
+            event:(NSEvent *)event
+       pasteboard:(NSPasteboard *)pboard
+           source:(id)source
+        slideBack:(BOOL)slideFlag {
+    //Add png data
+    [pboard setData:[image PNGData] forType:NSPasteboardTypePNG];
+    //calculate base point
+    NSPoint point = [self convertPoint:[dragStartEvent locationInWindow] fromView:nil];
+    //Offsest to center the image
+    NSSize size = [[image image] size];
+    point.x -= size.width / 2.0;
+    point.y -= size.height / 2.0;
+    [super dragImage:[image image]
+                  at:point
+              offset:NSZeroSize
+               event:event
+          pasteboard:pboard
+              source:source
+           slideBack:slideFlag];
+}
+
+- (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
+    NSString *path = [dropDestination path];
+    NSString *fileName = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [image name]]];
+    [[image PNGData] writeToFile:fileName atomically:NO];
+    return [NSArray arrayWithObject:fileName];
+}
+
+- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag {
+    return NSDragOperationCopy;
 }
 
 - (XSImage *)image {

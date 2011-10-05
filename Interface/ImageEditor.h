@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MainData, XSImageView;
+@class MainData, XSImageView, XSImage;
 
-@interface ImageEditor : NSWindowController {
+@interface ImageEditor : NSWindowController <NSTableViewDataSource> {
     MainData *data;
     NSMutableArray *images;
     IBOutlet XSImageView *imageView;
@@ -19,4 +19,11 @@
 @property (readonly) MainData *data;
 @property (readwrite, retain) NSMutableArray *images;
 - (id)initWithMainData:(MainData *)data;
+- (BOOL)addImageForPath:(NSString *)file;
+- (BOOL)addImage:(XSImage *)image;
+- (IBAction)openImage:(id)sender;
+@end
+
+@interface ImageImporterTableView : NSTableView {
+}
 @end
