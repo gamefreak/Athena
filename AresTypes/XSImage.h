@@ -15,4 +15,5 @@
 }
 @property (readwrite, retain) NSString *name;
 @property (readwrite, retain) NSImage *image;
+- (NSData *)PNGData;
 @end

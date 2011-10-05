@@ -187,22 +187,7 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 - (void)encodeLuaWithCoder:(LuaArchiver *)coder {
     [coder encodeString:name];
     [coder async:^{
-        NSUInteger repIndex = [[image representations] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
-            return *stop = [obj isKindOfClass:[NSBitmapImageRep class]];
-        }];
-        NSBitmapImageRep *rep = nil;
-        if (repIndex == NSNotFound) {
-            NSRect rect; rect.size = [image size];
-            CGImageRef image_ = [image CGImageForProposedRect:&rect context:nil hints:nil];
-            rep = [[NSBitmapImageRep alloc] initWithCGImage:image_];
-//            CGImageRelease(image);
-            [image addRepresentation:rep];
-            [rep autorelease];
-        } else {
-            rep = [[image representations] objectAtIndex:repIndex];
-        }
-        assert(rep != nil);
-        NSData *data = [rep representationUsingType:NSPNGFileType properties:nil];
+        NSData *data = [self PNGData];
         assert(data != nil);
         assert(name != nil);
         [coder saveFile:data
@@ -217,6 +202,23 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 
 + (Class)classForLuaCoder:(LuaUnarchiver *)coder {
     return self;
+}
+
+- (NSData *)PNGData {
+    NSUInteger repIndex = [[image representations] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
+        return *stop = [obj isKindOfClass:[NSBitmapImageRep class]];
+    }];
+    NSBitmapImageRep *rep = nil;
+    if (repIndex == NSNotFound) {
+        NSRect rect; rect.size = [image size];
+        CGImageRef image_ = [image CGImageForProposedRect:&rect context:nil hints:nil];
+        rep = [[NSBitmapImageRep alloc] initWithCGImage:image_];
+        [image addRepresentation:rep];
+        [rep autorelease];
+    } else {
+        rep = [[image representations] objectAtIndex:repIndex];
+    }
+    return [rep representationUsingType:NSPNGFileType properties:nil];
 }
 @end
 
