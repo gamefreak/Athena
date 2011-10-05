@@ -31,7 +31,6 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 - (id)init {
     self = [super init];
     if (self) {
-        assert(0);
         name = @"Untitled";
         image = nil;
     }
@@ -210,8 +209,7 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
     }];
     NSBitmapImageRep *rep = nil;
     if (repIndex == NSNotFound) {
-        NSRect rect; rect.size = [image size];
-        CGImageRef image_ = [image CGImageForProposedRect:&rect context:nil hints:nil];
+        CGImageRef image_ = [image CGImageForProposedRect:NULL context:nil hints:nil];
         rep = [[NSBitmapImageRep alloc] initWithCGImage:image_];
         [image addRepresentation:rep];
         [rep autorelease];
