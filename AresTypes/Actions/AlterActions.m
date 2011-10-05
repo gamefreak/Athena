@@ -1155,6 +1155,10 @@
         return [NSString stringWithFormat:@"Deactivate conditions %i - %i.", min, min + range];
     }
 }
+
+- (NSString *)nibName {
+    return @"AlterActiveCondition";
+}
 @end
 
 @implementation AlterOccupationAction

@@ -151,6 +151,7 @@
 		D2ACC2C212EE11CA00652FEC /* BaseObjectFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ACC2C112EE11CA00652FEC /* BaseObjectFlags.m */; };
 		D2B62BB613E4E288007C2DFE /* PlaySound.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B62BB513E4E287007C2DFE /* PlaySound.xib */; };
 		D2B720BF1308739900008307 /* SMIVImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B720BE1308739900008307 /* SMIVImage.m */; };
+		D2B812D2143D115E00192B71 /* AlterActiveCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B812D1143D115E00192B71 /* AlterActiveCondition.xib */; };
 		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
 		D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2C55B4B12F3235E007140A2 /* InitialEditor.xib */; };
 		D2C9D6FB13044E970087EDE4 /* ResSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9D6FA13044E960087EDE4 /* ResSegment.m */; };
@@ -456,6 +457,7 @@
 		D2B62BB513E4E287007C2DFE /* PlaySound.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaySound.xib; sourceTree = "<group>"; };
 		D2B720BD1308739900008307 /* SMIVImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIVImage.h; sourceTree = "<group>"; };
 		D2B720BE1308739900008307 /* SMIVImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMIVImage.m; sourceTree = "<group>"; };
+		D2B812D1143D115E00192B71 /* AlterActiveCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterActiveCondition.xib; sourceTree = "<group>"; };
 		D2C55B3A12F321E2007140A2 /* InitialEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialEditor.h; sourceTree = "<group>"; };
 		D2C55B3B12F321E2007140A2 /* InitialEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialEditor.m; sourceTree = "<group>"; };
 		D2C55B4B12F3235E007140A2 /* InitialEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialEditor.xib; sourceTree = "<group>"; };
@@ -776,6 +778,7 @@
 				D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */,
 				D2A4A00C13FD94C300104C59 /* AlterIDRef.xib */,
 				D2A4A00E13FD9BBA00104C59 /* AlterBaseType.xib */,
+				D2B812D1143D115E00192B71 /* AlterActiveCondition.xib */,
 			);
 			name = "Alter Actions";
 			sourceTree = "<group>";
@@ -1324,6 +1327,7 @@
 				D2627544141FD4B10064AD95 /* athena.ggo in Resources */,
 				D2D6839C142FF6E9001B2C70 /* SoundEditor.xib in Resources */,
 				D204FE70143B7975006AA3F9 /* ImageEditor.xib in Resources */,
+				D2B812D2143D115E00192B71 /* AlterActiveCondition.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
