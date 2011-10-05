@@ -12,13 +12,19 @@
 #import "AthenaDocument.h"
 
 int main(int argc, char *argv[]) {
+    BOOL hasPSN = NO;
+    if (argc > 1 && strncmp("-psn", argv[1], 4) == 0) {
+        hasPSN = YES;
+    }
     struct athena_args args;
-    if (arg_parser(argc, argv, &args) != 0) {
+    if (!hasPSN && arg_parser(argc, argv, &args) != 0) {
         exit(1);
     }
-    if (!args.base_given) {
+    if (hasPSN || !args.base_given) {
         NSLog(@"No parameters, starting to GUI");
-        arg_parser_free(&args);
+        if (!hasPSN) {
+            arg_parser_free(&args);   
+        }
         return NSApplicationMain(argc, (const char **) argv);
     }
 
