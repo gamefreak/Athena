@@ -100,7 +100,7 @@
                                index:rID
                                name:str];
             [str release];
-            [table setObject:seg forKey:[[NSNumber numberWithShort:rID] stringValue]];
+            [table setObject:seg forKey:[[NSNumber numberWithUnsignedShort:rID] stringValue]];
             [seg release];
             HUnlock(dataH);
             ReleaseResource(dataH);
