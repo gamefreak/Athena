@@ -12,7 +12,6 @@
 		4D64EFB1140BCAB200017458 /* ProgressWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D64EFB0140BCAB200017458 /* ProgressWindow.xib */; };
 		4D64EFB4140BCD0A00017458 /* ProgressWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D64EFB3140BCD0A00017458 /* ProgressWindow.m */; };
 		4D64EFB8140BD0FF00017458 /* DownloadWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D64EFB7140BD0FF00017458 /* DownloadWindow.m */; };
-		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* AthenaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -275,7 +274,6 @@
 		2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AthenaDocument.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* AthenaDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AthenaDocument.h; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4D64EFB0140BCAB200017458 /* ProgressWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressWindow.xib; sourceTree = "<group>"; };
@@ -496,6 +494,7 @@
 		D2E5F6DC13EF4B4E00C9FBB3 /* BeamEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BeamEditor.xib; sourceTree = "<group>"; };
 		D2E98D17130AED3F0013EBCA /* SpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteView.h; sourceTree = "<group>"; };
 		D2E98D18130AED3F0013EBCA /* SpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteView.m; sourceTree = "<group>"; };
+		D2F40C84143CF32E0078B5D2 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D2F8344413FB184D0003FF76 /* AlterValue.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterValue.xib; sourceTree = "<group>"; };
 		D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterRelativeRange.xib; sourceTree = "<group>"; };
 		D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioInitialView.h; sourceTree = "<group>"; };
@@ -602,6 +601,7 @@
 				2564AD2C0F5327BB00F57823 /* Athena_Prefix.pch */,
 				D2627545141FD4B60064AD95 /* Command Line */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+				D2F40C84143CF32E0078B5D2 /* LICENSE */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -611,7 +611,6 @@
 			children = (
 				D2A1911112FE3BE500232914 /* Starmap.png */,
 				D220C3FE13CE54F5002C3AD8 /* AresData.icns */,
-				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Athena-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				D2944BBD1315C2E900D1175E /* Nibs */,
@@ -1280,7 +1279,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* AthenaDocument.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
@@ -1488,14 +1486,6 @@
 				1DDD582B0DA1D0D100B32029 /* English */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2A37F4BAFDCFA73011CA2CEA /* English */,
-			);
-			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
