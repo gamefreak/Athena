@@ -17,6 +17,8 @@
 		8D15AC310486D014006FF6A4 /* AthenaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* AthenaDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		D204FE6E143B7765006AA3F9 /* ImageEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D204FE6D143B7765006AA3F9 /* ImageEditor.m */; };
+		D204FE70143B7975006AA3F9 /* ImageEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D204FE6F143B7975006AA3F9 /* ImageEditor.xib */; };
 		D2132116141E760D001533A3 /* SpriteImporterTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2132115141E760D001533A3 /* SpriteImporterTableView.m */; };
 		D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D216CF66132420D1008E24F0 /* WeaponView.xib */; };
 		D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D216CFF413243027008E24F0 /* WeaponViewController.m */; };
@@ -43,6 +45,7 @@
 		D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D225D64613039FC500E75803 /* CoreServices.framework */; };
 		D22CBB4313FD5A1D003E7C37 /* AlterRange.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */; };
 		D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */; };
+		D245ECDF143BBDCB00F78634 /* XSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D245ECDE143BBDCB00F78634 /* XSImageView.m */; };
 		D251881F13EF34B300584740 /* AnimationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251881E13EF34B300584740 /* AnimationEditor.xib */; };
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
 		D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = D25A40461327327F0017030B /* FlagMenuPopulator.m */; };
@@ -282,6 +285,9 @@
 		4D64EFB7140BD0FF00017458 /* DownloadWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadWindow.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Athena-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Athena-Info.plist"; path = "../Athena-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Athena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Athena.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D204FE6C143B7765006AA3F9 /* ImageEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditor.h; sourceTree = "<group>"; };
+		D204FE6D143B7765006AA3F9 /* ImageEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEditor.m; sourceTree = "<group>"; };
+		D204FE6F143B7975006AA3F9 /* ImageEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageEditor.xib; sourceTree = "<group>"; };
 		D2132114141E760D001533A3 /* SpriteImporterTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteImporterTableView.h; sourceTree = "<group>"; };
 		D2132115141E760D001533A3 /* SpriteImporterTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteImporterTableView.m; sourceTree = "<group>"; };
 		D216CF66132420D1008E24F0 /* WeaponView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeaponView.xib; sourceTree = "<group>"; };
@@ -366,6 +372,8 @@
 		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
 		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		D245ECDD143BBDCB00F78634 /* XSImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSImageView.h; sourceTree = "<group>"; };
+		D245ECDE143BBDCB00F78634 /* XSImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSImageView.m; sourceTree = "<group>"; };
 		D251881E13EF34B300584740 /* AnimationEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimationEditor.xib; sourceTree = "<group>"; };
 		D253B46A13033B1300F0F66A /* BriefingEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefingEditor.h; sourceTree = "<group>"; };
 		D253B46B13033B1300F0F66A /* BriefingEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefingEditor.m; sourceTree = "<group>"; };
@@ -795,6 +803,17 @@
 			name = "Normal Actions";
 			sourceTree = "<group>";
 		};
+		D245ECDC143BBDB100F78634 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D204FE6C143B7765006AA3F9 /* ImageEditor.h */,
+				D204FE6D143B7765006AA3F9 /* ImageEditor.m */,
+				D245ECDD143BBDCB00F78634 /* XSImageView.h */,
+				D245ECDE143BBDCB00F78634 /* XSImageView.m */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		D25B7E141403E90300BE6203 /* Conditions */ = {
 			isa = PBXGroup;
 			children = (
@@ -882,6 +901,7 @@
 				D2A1911412FE3BEF00232914 /* Scenarios */,
 				D2D68398142FF694001B2C70 /* SoundEditor.h */,
 				D2D68399142FF694001B2C70 /* SoundEditor.m */,
+				D245ECDC143BBDB100F78634 /* Images */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -920,6 +940,7 @@
 				D2C7AD4913BB672E003B941F /* Actions */,
 				4D64EFB0140BCAB200017458 /* ProgressWindow.xib */,
 				D2D6839B142FF6E9001B2C70 /* SoundEditor.xib */,
+				D204FE6F143B7975006AA3F9 /* ImageEditor.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -1304,6 +1325,7 @@
 				4D64EFB1140BCAB200017458 /* ProgressWindow.xib in Resources */,
 				D2627544141FD4B10064AD95 /* athena.ggo in Resources */,
 				D2D6839C142FF6E9001B2C70 /* SoundEditor.xib in Resources */,
+				D204FE70143B7975006AA3F9 /* ImageEditor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1381,6 +1403,8 @@
 				D272DA4D1434DFD200F3CB12 /* UniquePairKeyFormatter.m in Sources */,
 				D21C4950143B496C00B5E39B /* Color.c in Sources */,
 				D21C4968143B528000B5E39B /* XSImage.m in Sources */,
+				D204FE6E143B7765006AA3F9 /* ImageEditor.m in Sources */,
+				D245ECDF143BBDCB00F78634 /* XSImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

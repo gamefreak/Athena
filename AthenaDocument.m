@@ -14,6 +14,7 @@
 #import "ObjectEditor.h"
 #import "ScenarioEditor.h"
 #import "RaceEditor.h"
+#import "ImageEditor.h"
 #import "SpriteEditor.h"
 #import "SoundEditor.h"
 
@@ -184,6 +185,13 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     [self addWindowController:raceEditor];
     [raceEditor showWindow:self];
     [raceEditor release];
+}
+
+- (IBAction)openImageEditor:(id)sender {
+    ImageEditor *imageEditor = [[ImageEditor alloc] initWithMainData:data];
+    [self addWindowController:imageEditor];
+    [imageEditor showWindow:self];
+    [imageEditor release];
 }
 
 - (IBAction) openSpriteEditor:(id)sender {
