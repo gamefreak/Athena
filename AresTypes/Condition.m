@@ -948,6 +948,18 @@
     [coder encodeSInt32:line];
     [coder skip:4u];//unused
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Line %i of screen %i is selected in the minicomputer", line, screen];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"line", @"screen", nil];
+}
+
+- (NSString *)nibName {
+    return @"CurrentComputerSelectionCondition";
+}
 @end
 
 @implementation ZoomLevelCondition @end
