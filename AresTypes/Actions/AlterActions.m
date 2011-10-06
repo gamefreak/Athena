@@ -1156,6 +1156,10 @@
     }
 }
 
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"min", @"range", @"conditionTrue", nil];
+}
+
 - (NSString *)nibName {
     return @"AlterActiveCondition";
 }
