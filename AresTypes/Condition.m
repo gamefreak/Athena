@@ -833,6 +833,18 @@
     [coder encodeSInt32:player];
     [coder skip:8u];//unused
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Player %u has no ships remaining"];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"player", nil];
+}
+
+- (NSString *)nibName {
+    return @"NoShipsLeftCondition";
+}
 @end
 
 @implementation CurrentMessageCondition
