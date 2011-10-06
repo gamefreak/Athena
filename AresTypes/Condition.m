@@ -792,7 +792,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Subject has a velocity greater than %i", value];
+    return [NSString stringWithFormat:@"Subject has a velocity of %i or less", value];
 }
 @end
 
@@ -1042,7 +1042,7 @@
 @implementation SubjectIsPlayerCondition
 - (NSString *)description {
     return @"Subject is player";
-}
+}   
 @end
 
 //Flags
