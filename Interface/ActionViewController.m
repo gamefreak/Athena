@@ -12,10 +12,11 @@
 #import "BaseObject.h"
 #import "ObjectEditor.h"
 #import "AthenaDocument.h"
+#import "MainData.h"
 
 @implementation ActionViewController
 @synthesize actionObj;
-@dynamic type, ref;
+@dynamic type, ref, nextScenarioIndex;
 - (void)dealloc {
     [actionObj release];
     [super dealloc];
@@ -62,5 +63,14 @@
 
 - (void)setRef:(BaseObject *)ref {
     [actionObj setValue:[ref valueForKey:@"index"] forKey:@"IDRef"];
+}
+
+- (NSUInteger)nextScenarioIndex {
+    return [[actionObj valueForKeyPath:@"nextLevel.orNull"] unsignedIntegerValue];
+}
+
+- (void)setNextScenarioIndex:(NSUInteger)index {
+    Index *idx = (Index *)[[[(MainData *)[(AthenaDocument *)[[[[self view] window] windowController] document] data] scenarios] objectAtIndex:index] index];
+    [actionObj setValue:idx forKey:@"nextLevel"];
 }
 @end
