@@ -174,6 +174,7 @@
 		D2E550E413E77C3600DAAC34 /* EnterWarp.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E550E313E77C3600DAAC34 /* EnterWarp.xib */; };
 		D2E5F6DD13EF4B4E00C9FBB3 /* BeamEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E5F6DC13EF4B4E00C9FBB3 /* BeamEditor.xib */; };
 		D2E98D19130AED3F0013EBCA /* SpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E98D18130AED3F0013EBCA /* SpriteView.m */; };
+		D2F40C86143CFF960078B5D2 /* SignedIntParameter.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F40C85143CFF960078B5D2 /* SignedIntParameter.xib */; };
 		D2F8344513FB184D0003FF76 /* AlterValue.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F8344413FB184D0003FF76 /* AlterValue.xib */; };
 		D2F8344713FB1A130003FF76 /* AlterRelativeRange.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */; };
 		D2F9DAC012F621B400CA8217 /* ScenarioInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F9DABF12F621B400CA8217 /* ScenarioInitialView.m */; };
@@ -497,6 +498,7 @@
 		D2E98D17130AED3F0013EBCA /* SpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteView.h; sourceTree = "<group>"; };
 		D2E98D18130AED3F0013EBCA /* SpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteView.m; sourceTree = "<group>"; };
 		D2F40C84143CF32E0078B5D2 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		D2F40C85143CFF960078B5D2 /* SignedIntParameter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignedIntParameter.xib; sourceTree = "<group>"; };
 		D2F8344413FB184D0003FF76 /* AlterValue.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterValue.xib; sourceTree = "<group>"; };
 		D2F8344613FB1A130003FF76 /* AlterRelativeRange.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterRelativeRange.xib; sourceTree = "<group>"; };
 		D2F9DABE12F621B400CA8217 /* ScenarioInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioInitialView.h; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 			children = (
 				D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */,
 				D275AB9C14040D360069F043 /* NoParameter.xib */,
+				D2F40C85143CFF960078B5D2 /* SignedIntParameter.xib */,
 			);
 			name = Conditions;
 			sourceTree = "<group>";
@@ -1327,6 +1330,7 @@
 				D2627544141FD4B10064AD95 /* athena.ggo in Resources */,
 				D2D6839C142FF6E9001B2C70 /* SoundEditor.xib in Resources */,
 				D204FE70143B7975006AA3F9 /* ImageEditor.xib in Resources */,
+				D2F40C86143CFF960078B5D2 /* SignedIntParameter.xib in Resources */,
 				D2B812D2143D115E00192B71 /* AlterActiveCondition.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

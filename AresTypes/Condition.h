@@ -70,6 +70,7 @@ typedef enum {
     signed int value;
 }
 @property (readwrite, assign) signed int value;
+- (NSString *)intLabel;
 @end
 
 @interface UnsignedIntCondition : Condition {

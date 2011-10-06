@@ -453,6 +453,14 @@
     [coder encodeSInt32:value];
     [coder skip:8u];//unused
 }
+
+- (NSString *)intLabel {
+    return @"Signed Int";
+}
+
+- (NSString *)nibName {
+    return @"SignedIntParameter";
+}
 @end
 
 @implementation UnsignedIntCondition
