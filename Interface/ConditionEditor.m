@@ -32,7 +32,6 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [actionEditor unbind:@"actions"];
     [self unbind:@"currentIndex"];
     [data release];
     [scenario release];
@@ -44,7 +43,6 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    [actionEditor bind:@"actions" toObject:self withKeyPath:@"currentActionsArray" options:nil];
     [self bind:@"currentIndex" toObject:conditionsController withKeyPath:@"selectionIndex" options:nil];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(conditionParametersDidChange:) name:XSConditionParametersChanged object:nil];
@@ -81,6 +79,8 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
     }
     [lastSubeditor release];
     lastSubeditor = [newInnerView retain];
+    [actionEditor setActions:[self currentActionsArray]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
 }
 
 - (Condition *)currentCondition {
@@ -91,9 +91,7 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
     [currentCondition release];
     currentCondition = currentCondition_;
     [currentCondition retain];
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc postNotificationName:XSActionParametersChanged object:nil];
-    [nc postNotificationName:XSConditionParametersChanged object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSConditionParametersChanged object:nil];
 }
 
 - (NSUInteger)currentIndex {

@@ -54,12 +54,11 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     //Action selection changed
-    [self willChangeValueForKey:@"hasSelection"];
     [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
-    [self didChangeValueForKey:@"hasSelection"];
 }
 
 - (void) actionParametersDidChange:(NSNotification *)notification {
+    [self willChangeValueForKey:@"hasSelection"];
     [self willChangeValueForKey:@"rowForDropDown"];
     int row = [actionTable selectedRow];
     
@@ -69,7 +68,7 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
     } else {
         nib = @"NoAction";
     }
-    
+
     ActionViewController *controller;
     controller = [editorControllers objectForKey:nib];
     if (controller == nil) {
@@ -92,9 +91,11 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
         [innerEditorView replaceSubview:lastInnerView with:newInnerView];
     }
 //    [[innerEditorView superview] replaceSubview:innerEditorView with:[controller view]];
+    [newInnerView retain];
     [lastInnerView release];
-    lastInnerView = [newInnerView retain];
+    lastInnerView = newInnerView;
     [self didChangeValueForKey:@"rowForDropDown"];
+    [self didChangeValueForKey:@"hasSelection"];
 }
 
 - (IBAction)addAction:(id)sender {
