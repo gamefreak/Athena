@@ -11,6 +11,7 @@
 #import "XSPoint.h"
 #import "XSInteger.h"
 #import "Action.h"
+#import "SubActions.h"
 
 @implementation Condition
 @synthesize subject, direct;
@@ -962,7 +963,57 @@
 }
 @end
 
-@implementation ZoomLevelCondition @end
+
+@implementation ZoomLevelCondition
+- (NSString *) zoomString {
+    switch (value) {
+        case ZoomLevelDoubleSize:
+            return @"2:1";
+            break;
+        case ZoomLevelActualSize:
+            return @"1:1";
+            break;
+        case ZoomLevelHalfSize:
+            return @"1:2";
+            break;
+        case ZoomLevelQuarterSize:
+            return @"1:4";
+            break;
+        case ZoomLevelSixteenthSize:
+            return @"1:16";
+            break;
+        case ZoomLevelNearestFoe:
+            return @"nearest hostile";
+            break;
+        case ZoomLevelNearestObject:
+            return @"nearest object";
+            break;
+        case ZoomLevelAll:
+            return @"all";
+            break;
+        default:
+            return @"<invalid zoom level>";
+            break;
+    }
+    NSAssert(0, @"Unreachable");
+}
+
++ (NSSet *)keyPathsForValuesAffectingZoomString {
+    return [NSSet setWithObjects:@"value", nil];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"zoomString", nil];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Zoom level is %@", [self zoomString]];
+}
+
+- (NSString *)nibName {
+    return @"ZoomLevelCondition";
+}
+@end
 
 @implementation AutopilotCondition @end
 

@@ -154,7 +154,10 @@ typedef enum {
 @property (readwrite, assign) int line;
 @end
 
-@interface ZoomLevelCondition : SignedIntCondition {} @end
+@interface ZoomLevelCondition : SignedIntCondition {
+}
+- (NSString *) zoomString;
+@end
 
 @interface AutopilotCondition : NoParameterCondition {} @end
 
