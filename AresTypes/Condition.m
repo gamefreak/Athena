@@ -890,6 +890,18 @@
     [coder encodeSInt32:page];
     [coder skip:4u];//unused
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Message %i page %i is being displayed", ID, page];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"ID", @"page", nil];
+}
+
+- (NSString *)nibName {
+    return @"CurrentMessageCondition";
+}
 @end
 
 @implementation CurrentComputerSelectionCondition

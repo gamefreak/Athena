@@ -51,6 +51,7 @@
 		D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = D25A40461327327F0017030B /* FlagMenuPopulator.m */; };
 		D25AA7E9143DEBDD0059DA02 /* ProximityCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */; };
 		D25AA7EB143DEE650059DA02 /* NoShipsLeftCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7EA143DEE650059DA02 /* NoShipsLeftCondition.xib */; };
+		D25AA7ED143DF1720059DA02 /* CurrentMessageCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7EC143DF1720059DA02 /* CurrentMessageCondition.xib */; };
 		D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */; };
 		D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D25B7E161403E93500BE6203 /* ConditionEditor.m */; };
 		D26259181432525C0014F9A8 /* XSKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = D26259171432525C0014F9A8 /* XSKeyValuePair.m */; };
@@ -387,6 +388,7 @@
 		D25A40461327327F0017030B /* FlagMenuPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlagMenuPopulator.m; path = ../AresTypes/BaseObjects/FlagMenuPopulator.m; sourceTree = "<group>"; };
 		D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProximityCondition.xib; sourceTree = "<group>"; };
 		D25AA7EA143DEE650059DA02 /* NoShipsLeftCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoShipsLeftCondition.xib; sourceTree = "<group>"; };
+		D25AA7EC143DF1720059DA02 /* CurrentMessageCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CurrentMessageCondition.xib; sourceTree = "<group>"; };
 		D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConditionEditor.xib; sourceTree = "<group>"; };
 		D25B7E151403E93500BE6203 /* ConditionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionEditor.h; sourceTree = "<group>"; };
 		D25B7E161403E93500BE6203 /* ConditionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionEditor.m; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 				D2E3EEBA143DE54A00FB9728 /* CounterCondition.xib */,
 				D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */,
 				D25AA7EA143DEE650059DA02 /* NoShipsLeftCondition.xib */,
+				D25AA7EC143DF1720059DA02 /* CurrentMessageCondition.xib */,
 			);
 			name = Conditions;
 			sourceTree = "<group>";
@@ -1352,6 +1355,7 @@
 				D2E3EEBB143DE54A00FB9728 /* CounterCondition.xib in Resources */,
 				D25AA7E9143DEBDD0059DA02 /* ProximityCondition.xib in Resources */,
 				D25AA7EB143DEE650059DA02 /* NoShipsLeftCondition.xib in Resources */,
+				D25AA7ED143DF1720059DA02 /* CurrentMessageCondition.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
