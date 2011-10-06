@@ -408,6 +408,13 @@
     }
 }
 
+- (void)copyValuesTo:(Condition *)condition {
+    [condition setSubject:subject];
+    [condition setDirect:direct];
+    [condition setActions:[actions mutableCopy]];
+    [condition setFlags:flags];
+}
+
 - (NSString *)nibName {
     return @"NoParameter";
 }

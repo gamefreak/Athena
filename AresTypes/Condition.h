@@ -52,12 +52,12 @@ typedef enum {
 @property (readwrite, assign) int direct;
 @property (readwrite, retain) NSMutableArray *actions;
 @property (readwrite, retain) ConditionFlags *flags;
-
 + (ConditionType) typeForString:(NSString *)typeName;
 + (NSString *) stringForType:(ConditionType)type;
 + (ConditionType) typeForClass:(Class)class;
 + (Class<LuaCoding, ResCoding>) classForType:(ConditionType)type;
 
+- (void)copyValuesTo:(Condition *)condition;
 - (NSString *)nibName;
 @end
 

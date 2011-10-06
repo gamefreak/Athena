@@ -16,9 +16,15 @@
 
 NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 
+@interface ConditionEditor (Private)
+- (void)insertObject:(Condition *)object inConditionsAtIndex:(NSUInteger)index;
+- (void)replaceObjectInConditionsAtIndex:(NSUInteger)index withObject:(Condition *)object;
+- (void)removeObjectFromConditionsAtIndex:(NSUInteger)index;
+@end
+
 @implementation ConditionEditor
 @synthesize conditions;
-@dynamic currentCondition, currentIndex;
+@dynamic currentCondition, currentIndex, rowForDropDown;
 - (id)initWithMainData:(MainData *)data_ scenario:(NSUInteger)scenario_ {
     self = [super initWithWindowNibName:@"ConditionEditor"];
     if (self) {
@@ -50,6 +56,8 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 }
 
 - (void)conditionParametersDidChange:(NSNotification *)note {
+    [self willChangeValueForKey:@"hasSelection"];
+    [self willChangeValueForKey:@"rowForDropDown"];
     int  row = [conditionsTable selectedRow];
 
     NSString *nib;
@@ -73,6 +81,8 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
     lastSubeditor = [newInnerView retain];
     [actionEditor setActions:[self currentActionsArray]];
     [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
+    [self didChangeValueForKey:@"rowForDropDown"];
+    [self didChangeValueForKey:@"hasSelection"];
 }
 
 - (Condition *)currentCondition {
@@ -90,6 +100,23 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 
 + (Class)classForMenuItem:(NSMenuItem *)menuItem {
     return [Condition classForType:[menuItem tag]];
+}
+
+- (void)setRowForDropDown:(NSInteger)rowForDropDown {
+    Class class = [Condition classForType:rowForDropDown];
+    Condition *newCondition = [[[class alloc] init] autorelease];
+    [[conditions objectAtIndex:[conditionsController selectionIndex]] copyValuesTo:newCondition];
+    [self replaceObjectInConditionsAtIndex:[conditionsController selectionIndex] withObject:newCondition];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XSConditionParametersChanged object:nil];
+}
+
+- (NSInteger)rowForDropDown {
+    if (![self hasSelection]) {
+        return 0;
+    }
+    NSUInteger index = [conditionsController selectionIndex];
+    Class currentClass = [[conditions objectAtIndex:index] class];
+    return [Condition typeForClass:currentClass];
 }
 
 - (void)setCurrentCondition:(Condition *)currentCondition_ {
@@ -125,5 +152,31 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 
 + (NSSet *)keyPathsForValuesAffectingCurrentActionsArray {
     return [NSSet setWithObjects:@"currentCondition", nil];
+}
+
+- (BOOL)hasSelection {
+    return [[conditionsController selectedObjects] count] > 0;
+}
+
+- (void)insertObject:(Condition *)object inConditionsAtIndex:(NSUInteger)index {
+    NSUndoManager *undo = [[[[self window] windowController] document] undoManager];
+    [undo setActionName:@"Add Condition"];
+    [[undo prepareWithInvocationTarget:self] removeObjectFromConditionsAtIndex:index];
+    [conditions insertObject:object atIndex:index];
+}
+
+- (void)replaceObjectInConditionsAtIndex:(NSUInteger)index withObject:(Condition *)object {
+    Condition *old = [conditions objectAtIndex:index];
+    NSUndoManager *undo = [[[[self window] windowController] document] undoManager];
+    [undo setActionName:@"Change Condition Type"];
+    [[undo prepareWithInvocationTarget:self] replaceObjectInConditionsAtIndex:index withObject:old];
+    [conditions replaceObjectAtIndex:index withObject:object];
+}
+
+- (void)removeObjectFromConditionsAtIndex:(NSUInteger)index {
+     NSUndoManager *undo = [[[[self window] windowController] document] undoManager];
+    [undo setActionName:@"Remove Condition"];
+    [[undo prepareWithInvocationTarget:self] insertObject:[conditions objectAtIndex:index] atIndex:index];
+    [conditions removeObjectAtIndex:index];
 }
 @end

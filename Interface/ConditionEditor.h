@@ -31,9 +31,11 @@ extern NSString *XSConditionParametersChanged;
 @property (readwrite, retain) NSMutableArray *conditions;
 @property (readwrite, retain) Condition *currentCondition;
 @property (readwrite, assign) NSUInteger currentIndex;
+@property (readwrite, assign) NSInteger rowForDropDown;
 - (id)initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
 - (NSMutableArray *)currentActionsArray;
 - (void)conditionParametersDidChange:(NSNotification *)note;
 - (IBAction)addCondition:(id)sender;
 + (Class)classForMenuItem:(NSMenuItem *)menuItem;
+- (BOOL)hasSelection;
 @end
