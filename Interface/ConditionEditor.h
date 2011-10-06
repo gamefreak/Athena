@@ -25,6 +25,8 @@ extern NSString *XSConditionParametersChanged;
     NSView *lastSubeditor;
     IBOutlet NSTableView *conditionsTable;
     NSMutableDictionary *editorControllers;
+    
+    IBOutlet NSMenu *conditionTypeMenu;
 }
 @property (readwrite, retain) NSMutableArray *conditions;
 @property (readwrite, retain) Condition *currentCondition;
@@ -32,4 +34,6 @@ extern NSString *XSConditionParametersChanged;
 - (id)initWithMainData:(MainData *)data scenario:(NSUInteger)scenario;
 - (NSMutableArray *)currentActionsArray;
 - (void)conditionParametersDidChange:(NSNotification *)note;
+- (IBAction)addCondition:(id)sender;
++ (Class)classForMenuItem:(NSMenuItem *)menuItem;
 @end

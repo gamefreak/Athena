@@ -59,14 +59,6 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
         nib = @"NoParameter";
     }
 
-//    ConditionViewController *controller;
-//    controller = [editorControllers objectForKey:nib];
-//    if (controller == nil) {
-//        NSLog(@"Loading new nib %@", nib);
-//        controller = [[ConditionViewController alloc] initWithNibName:nib bundle:nil];
-//        [editorControllers setObject:controller forKey:nib];
-//        [controller autorelease];
-//    }
     ConditionViewController *controller = [[[ConditionViewController alloc] initWithNibName:nib bundle:nil] autorelease];
     [controller setConditionObj:[conditionsController selection]];
 
@@ -85,6 +77,19 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 
 - (Condition *)currentCondition {
     return currentCondition;
+}
+
+- (IBAction)addCondition:(id)sender {
+    NSMenuItem *choice = [sender selectedItem];
+    Condition *newCondition = [[[ConditionEditor classForMenuItem:choice] alloc] init];
+    int count = [conditions count];
+    [conditionsController addObject:newCondition];
+    NSAssert(count != [conditions count], @"Length of conditions array unchanged %ul == %ul", count, [conditions count]);
+    [newCondition release];
+}
+
++ (Class)classForMenuItem:(NSMenuItem *)menuItem {
+    return [Condition classForType:[menuItem tag]];
 }
 
 - (void)setCurrentCondition:(Condition *)currentCondition_ {
