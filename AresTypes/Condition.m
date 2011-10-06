@@ -461,6 +461,10 @@
 - (NSString *)nibName {
     return @"SignedIntParameter";
 }
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"value", nil];
+}
 @end
 
 @implementation UnsignedIntCondition
@@ -508,6 +512,10 @@
 
 - (NSString *)nibName {
     return @"UnsignedIntParameter";
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"value", nil];
 }
 @end
 
