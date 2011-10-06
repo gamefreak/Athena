@@ -1015,15 +1015,35 @@
 }
 @end
 
-@implementation AutopilotCondition @end
+@implementation AutopilotCondition
+- (NSString *)description {
+    return @"Player is on autopilot";
+}
+@end
 
-@implementation NotAutopilotCondition @end
+@implementation NotAutopilotCondition
+- (NSString *)description {
+    return @"Player is not on autopilot";
+}
+@end
 
-@implementation ObjectBeingBuiltCondition @end
+@implementation ObjectBeingBuiltCondition
+- (NSString *)description {
+    return @"Subject is building something";
+}
+@end
 
-@implementation DirectIsSubjectTargetCondition @end
+@implementation DirectIsSubjectTargetCondition
+- (NSString *)description {
+    return @"Direct object is targeted by subject";
+}
+@end
 
-@implementation SubjectIsPlayerCondition @end
+@implementation SubjectIsPlayerCondition
+- (NSString *)description {
+    return @"Subject is player";
+}
+@end
 
 //Flags
 @implementation ConditionFlags
