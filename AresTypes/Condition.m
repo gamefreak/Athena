@@ -697,29 +697,103 @@
 }
 @end
 
-@implementation OwnerCondition @end
+@implementation OwnerCondition
+- (NSString *)intLabel {
+    return @"Owner";
+}
 
-@implementation DestructionCondition @end
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Object is owned by player %i", value];
+}
+@end
 
-@implementation AgeCondition @end
+@implementation DestructionCondition
 
-@implementation TimeCondition @end
+- (NSString *)intLabel {
+    return @"Object";
+}
 
-@implementation RandomCondition @end
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Object %i does not exist", value];
+}@end
 
-@implementation HalfHealthCondition @end
+@implementation AgeCondition
+- (NSString *)intLabel {
+    return @"Age";
+}
 
-@implementation IsAuxiliaryCondition @end
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Subject is older than %i time steps", value];
+}
+@end
 
-@implementation IsTargetCondition @end
+@implementation TimeCondition
+- (NSString *)intLabel {
+    return @"Ticks";
+}
 
-@implementation CounterGreaterCondition @end
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%i ticks have elapsed.", value];
+}
+@end
 
-@implementation CounterNotCondition @end
+@implementation RandomCondition
+- (NSString *)description {
+    return @"Occurs at random";
+}
+@end
 
-@implementation DistanceGreaterCondition @end
+@implementation HalfHealthCondition
+- (NSString *)description {
+    return @"Subject is below half health";
+}
+@end
 
-@implementation VelocityLessThanOrEqualCondition @end
+@implementation IsAuxiliaryCondition
+- (NSString *)description {
+    return @"Subject is an auxiliary object";
+}
+@end
+
+@implementation IsTargetCondition
+- (NSString *)description {
+    return @"Subject is current target";
+}
+@end
+
+@implementation CounterGreaterCondition
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Counter %i of player %i is greater than %i", counterId
+            , player, amount];
+}
+@end
+
+@implementation CounterNotCondition
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Counter %i of player %i is not %i", counterId
+            , player, amount];
+}
+@end
+
+@implementation DistanceGreaterCondition
+- (NSString *)intLabel {
+    return @"Distance";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Subject is further than %u units from direct", value];
+}
+@end
+
+@implementation VelocityLessThanOrEqualCondition
+- (NSString *)intLabel {
+    return @"Velocity";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Subject has a velocity greater than %i", value];
+}
+@end
 
 @implementation NoShipsLeftCondition
 @synthesize player;
