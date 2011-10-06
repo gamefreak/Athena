@@ -558,6 +558,18 @@
     [coder encodeSInt32:[location y]];
     [coder skip:4u];//unused
 }
+
+- (NSString *)nibName {
+    return @"LocationCondition";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Object is at location (%i, %i)", location.x, location.y];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"location", @"location.point", nil];
+}
 @end
 
 @implementation CounterCondition

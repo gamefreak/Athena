@@ -170,6 +170,7 @@
 		D2E03F1912EF191A00F77E59 /* XSBool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E03F1812EF191A00F77E59 /* XSBool.m */; };
 		D2E0409A12EF3C2B00F77E59 /* ScenarioInitial.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */; };
 		D2E040B112EF41A400F77E59 /* XSInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E040B012EF41A400F77E59 /* XSInteger.m */; };
+		D2E3EEB9143DE1A600FB9728 /* LocationCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E3EEB8143DE1A600FB9728 /* LocationCondition.xib */; };
 		D2E452D412EF4BC90099B0F9 /* FlagBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E452D312EF4BC90099B0F9 /* FlagBlob.m */; };
 		D2E550E213E77B0400DAAC34 /* LandAt.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E550E113E77B0400DAAC34 /* LandAt.xib */; };
 		D2E550E413E77C3600DAAC34 /* EnterWarp.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2E550E313E77C3600DAAC34 /* EnterWarp.xib */; };
@@ -492,6 +493,7 @@
 		D2E0409912EF3C2B00F77E59 /* ScenarioInitial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioInitial.m; sourceTree = "<group>"; };
 		D2E040AF12EF41A400F77E59 /* XSInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSInteger.h; sourceTree = "<group>"; };
 		D2E040B012EF41A400F77E59 /* XSInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSInteger.m; sourceTree = "<group>"; };
+		D2E3EEB8143DE1A600FB9728 /* LocationCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationCondition.xib; sourceTree = "<group>"; };
 		D2E452D212EF4BC90099B0F9 /* FlagBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagBlob.h; sourceTree = "<group>"; };
 		D2E452D312EF4BC90099B0F9 /* FlagBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlagBlob.m; sourceTree = "<group>"; };
 		D2E550E113E77B0400DAAC34 /* LandAt.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandAt.xib; sourceTree = "<group>"; };
@@ -827,6 +829,7 @@
 				D275AB9C14040D360069F043 /* NoParameter.xib */,
 				D2F40C85143CFF960078B5D2 /* SignedIntParameter.xib */,
 				D22247F5143D30B00085A936 /* UnsignedIntParameter.xib */,
+				D2E3EEB8143DE1A600FB9728 /* LocationCondition.xib */,
 			);
 			name = Conditions;
 			sourceTree = "<group>";
@@ -1336,6 +1339,7 @@
 				D2F40C86143CFF960078B5D2 /* SignedIntParameter.xib in Resources */,
 				D2B812D2143D115E00192B71 /* AlterActiveCondition.xib in Resources */,
 				D22247F6143D30B00085A936 /* UnsignedIntParameter.xib in Resources */,
+				D2E3EEB9143DE1A600FB9728 /* LocationCondition.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
