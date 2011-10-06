@@ -629,6 +629,19 @@
     [coder encodeSInt32:counterId];
     [coder encodeSInt32:amount];
 }
+
+- (NSString *)nibName {
+    return @"CounterCondition";
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Counter %i of player %i equals %i", counterId
+            , player, amount];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"counterId", @"player", @"amount", nil];
+}
 @end
 
 @implementation ProximityCondition

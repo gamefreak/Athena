@@ -59,15 +59,15 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
         nib = @"NoParameter";
     }
 
-    ConditionViewController *controller;
-    controller = [editorControllers objectForKey:nib];
-    if (controller == nil) {
-        NSLog(@"Loading new nib %@", nib);
-        controller = [[ConditionViewController alloc] initWithNibName:nib bundle:nil];
-        [editorControllers setObject:controller forKey:nib];
-        [controller autorelease];
-    }
-
+//    ConditionViewController *controller;
+//    controller = [editorControllers objectForKey:nib];
+//    if (controller == nil) {
+//        NSLog(@"Loading new nib %@", nib);
+//        controller = [[ConditionViewController alloc] initWithNibName:nib bundle:nil];
+//        [editorControllers setObject:controller forKey:nib];
+//        [controller autorelease];
+//    }
+    ConditionViewController *controller = [[[ConditionViewController alloc] initWithNibName:nib bundle:nil] autorelease];
     [controller setConditionObj:[conditionsController selection]];
 
     NSView *newInnerView = [controller view];
