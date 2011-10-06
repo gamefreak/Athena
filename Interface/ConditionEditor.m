@@ -99,7 +99,11 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
 }
 
 - (void)setCurrentIndex:(NSUInteger)currentIndex {
-    [self setCurrentCondition:[conditions objectAtIndex:currentIndex]];
+    if (currentIndex != NSNotFound) {
+        [self setCurrentCondition:[conditions objectAtIndex:currentIndex]];
+    } else {
+        [self setCurrentCondition:nil];
+    }
 }
 
 - (NSMutableArray *)currentActionsArray {
