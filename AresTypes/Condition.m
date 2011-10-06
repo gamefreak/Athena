@@ -501,6 +501,14 @@
     [coder encodeUInt32:value];
     [coder skip:8u];//unused
 }
+
+- (NSString *)intLabel {
+    return @"Unsigned Int";
+}
+
+- (NSString *)nibName {
+    return @"UnsignedIntParameter";
+}
 @end
 
 #pragma mark Subclasses

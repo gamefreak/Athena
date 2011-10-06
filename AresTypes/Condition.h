@@ -78,6 +78,7 @@ typedef enum {
     unsigned int value;
 }
 @property (readwrite, assign) unsigned int value;
+- (NSString *)intLabel;
 @end
 
 #pragma mark SubClasses
