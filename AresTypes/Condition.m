@@ -683,6 +683,18 @@
     [coder encodeUInt32:distance * distance];//location
     [coder skip:8u];//unused
 }
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Subject is within %u pixels of direct.", distance];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"distance", nil];
+}
+
+- (NSString *)nibName {
+    return @"ProximityCondition";
+}
 @end
 
 @implementation OwnerCondition @end

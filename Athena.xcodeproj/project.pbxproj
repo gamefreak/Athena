@@ -49,6 +49,7 @@
 		D251881F13EF34B300584740 /* AnimationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251881E13EF34B300584740 /* AnimationEditor.xib */; };
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
 		D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = D25A40461327327F0017030B /* FlagMenuPopulator.m */; };
+		D25AA7E9143DEBDD0059DA02 /* ProximityCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */; };
 		D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */; };
 		D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D25B7E161403E93500BE6203 /* ConditionEditor.m */; };
 		D26259181432525C0014F9A8 /* XSKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = D26259171432525C0014F9A8 /* XSKeyValuePair.m */; };
@@ -383,6 +384,7 @@
 		D253B46B13033B1300F0F66A /* BriefingEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefingEditor.m; sourceTree = "<group>"; };
 		D25A40451327327F0017030B /* FlagMenuPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlagMenuPopulator.h; path = ../AresTypes/BaseObjects/FlagMenuPopulator.h; sourceTree = "<group>"; };
 		D25A40461327327F0017030B /* FlagMenuPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlagMenuPopulator.m; path = ../AresTypes/BaseObjects/FlagMenuPopulator.m; sourceTree = "<group>"; };
+		D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProximityCondition.xib; sourceTree = "<group>"; };
 		D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConditionEditor.xib; sourceTree = "<group>"; };
 		D25B7E151403E93500BE6203 /* ConditionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionEditor.h; sourceTree = "<group>"; };
 		D25B7E161403E93500BE6203 /* ConditionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionEditor.m; sourceTree = "<group>"; };
@@ -833,6 +835,7 @@
 				D22247F5143D30B00085A936 /* UnsignedIntParameter.xib */,
 				D2E3EEB8143DE1A600FB9728 /* LocationCondition.xib */,
 				D2E3EEBA143DE54A00FB9728 /* CounterCondition.xib */,
+				D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */,
 			);
 			name = Conditions;
 			sourceTree = "<group>";
@@ -1344,6 +1347,7 @@
 				D22247F6143D30B00085A936 /* UnsignedIntParameter.xib in Resources */,
 				D2E3EEB9143DE1A600FB9728 /* LocationCondition.xib in Resources */,
 				D2E3EEBB143DE54A00FB9728 /* CounterCondition.xib in Resources */,
+				D25AA7E9143DEBDD0059DA02 /* ProximityCondition.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
