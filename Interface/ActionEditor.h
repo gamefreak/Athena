@@ -19,7 +19,6 @@ extern NSString *XSActionParametersChanged;
     NSView *lastInnerView;
 
     NSMutableArray *actions;
-    NSMutableDictionary *editorControllers;
 
     IBOutlet NSMenu *actionTypeMenu;
 }

@@ -32,13 +32,11 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [editorControllers release];
     [super dealloc];
 }
 
 - (void) awakeFromNib {
     [super awakeFromNib];
-    editorControllers = [[NSMutableDictionary alloc] init];
     [[[self view] superview] setFrameSize:actionsSize];
     [[self view] setFrameSize:actionsSize];
 //    [[[self view] superview] setFrameSize:actionsSize];
@@ -69,16 +67,7 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
         nib = @"NoAction";
     }
 
-    ActionViewController *controller;
-    controller = [editorControllers objectForKey:nib];
-    if (controller == nil) {
-        NSLog(@"Loading new nib %@", nib);
-        controller = [[ActionViewController alloc] initWithNibName:nib bundle:nil];
-
-        [editorControllers setObject:controller forKey:nib];
-        [controller autorelease];
-    }
-
+    ActionViewController *controller = [[[ActionViewController alloc] initWithNibName:nib bundle:nil] autorelease];
     [controller setActionObj:[actionsArrayController selection]];
 
     NSView *newInnerView = [controller view];
