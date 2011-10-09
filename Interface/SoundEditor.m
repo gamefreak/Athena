@@ -72,7 +72,6 @@
         [[NSAlert alertWithError:error] runModal];
         return NO;
     }
-    NSLog(@"type = %@", type);
     XSSound *sound = nil;
     //Load the sound
     if ([type hasSuffix:@"ogg"]) {

@@ -50,8 +50,7 @@
     ResType type = [class resType];
 
 
-    if ([class isPacked]) {//data is a concatinated array of structs
-        NSLog(@"Unpacking resources of type: %@", [class typeKey]);
+    if ([class isPacked]) {//data is a concatenated array of structs
         //500 seems to be used for all of ares's packed types
         const ResID packedResourceId = 500u;
         //Pull the data out of resource
@@ -82,7 +81,6 @@
         }
         [types setObject:table forKey:[class typeKey]];
     } else {//Use indexed resources
-        NSLog(@"Indexing resources of type: %@", [class typeKey]);
         ResourceCount count = CountResources(type);
         NSMutableDictionary *table = [NSMutableDictionary dictionaryWithCapacity:count];
         for (ResourceIndex index = 1; index <= count; index++) {

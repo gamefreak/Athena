@@ -59,7 +59,6 @@
 - (NSUInteger)spriteId {
     NSUInteger index = [spriteController selectionIndex];
     if (index == NSNotFound) {
-        NSLog(@"NOT FOUND");
         return -1;
     }
     return [[[spriteController selection] valueForKey:@"key"] intValue];
@@ -107,12 +106,10 @@
         [[NSAlert alertWithError:error] runModal];
         return NO;
     }
-    NSLog(@"type = %@", type);
     SMIVImage *sprite = nil;
     //Load the sprite
     if ([type isEqualToString:@"com.compuserve.gif"]) {
         NSBitmapImageRep *rep = [NSBitmapImageRep imageRepWithContentsOfFile:file];
-        NSLog(@"FILE: %@", [file lastPathComponent]);
         sprite = [[[SMIVImage alloc] initWithAnimation:rep
                                                  named:[[file lastPathComponent] stringByDeletingPathExtension]] autorelease];
         [self addSprite:sprite];

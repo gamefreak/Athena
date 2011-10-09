@@ -526,8 +526,6 @@ const CGFloat iconSizeScale = 2.0f;
     if (clickedObject != nil) {
         XSIPoint *position = [clickedObject valueForKey:@"position"];
         if (!isDragging) {
-            NSLog(@"Starting Drag.");
-            NSLog(@"Pushing: %@", NSStringFromPoint(position.point));
             id undoTarget = [[[self window] undoManager] prepareWithInvocationTarget:self];
             [undoTarget changeKeyPath:@"position.point" ofObject:clickedObject toValue:[NSValue valueWithPoint:position.point]];
             isDragging = YES;

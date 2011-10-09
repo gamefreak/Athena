@@ -104,11 +104,8 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
             ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
             if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
-                NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sprites'");
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sprites"]];
-                NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Sounds'");
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sounds"]];
-                NSLog(@"File is 'Ares Scenarios' attempting to load 'Ares Interfaces'");
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Interfaces"]];
             }
             data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];

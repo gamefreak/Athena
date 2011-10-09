@@ -48,7 +48,6 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
 }
 
 - (void)play {
-    NSLog(@"Playing");
     AudioStreamBasicDescription streamDesc;
     streamDesc.mSampleRate = sampleRate;
     streamDesc.mFormatID = kAudioFormatLinearPCM;

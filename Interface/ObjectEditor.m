@@ -182,7 +182,6 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
     NSString *identifier = [tabViewItem identifier];
     NSWindow *window = [self window];
     NSRect frame = [window frame];
-    NSLog(@"Resizing From: %@", NSStringFromRect(frame));
     if ([identifier isEqualTo:@"actions"]) {
         frame.size = actionsSize;
         frame.size.height += actionsVerticalBuffer;

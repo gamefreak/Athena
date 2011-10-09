@@ -17,7 +17,6 @@
     if (self) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"Starmap" ofType:@"png"];
         starmap = [[NSImage alloc] initWithContentsOfFile:path];   
-        NSLog(@"SIZE: %@", NSStringFromSize([starmap size]));
     }
     return self;
 }
