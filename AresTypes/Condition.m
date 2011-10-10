@@ -411,7 +411,7 @@
 - (void)copyValuesTo:(Condition *)condition {
     [condition setSubject:subject];
     [condition setDirect:direct];
-    [condition setActions:[actions mutableCopy]];
+    [condition setActions:[[actions mutableCopy] autorelease]];
     [condition setFlags:flags];
 }
 
