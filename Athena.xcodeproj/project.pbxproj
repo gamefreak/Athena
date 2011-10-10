@@ -141,6 +141,7 @@
 		D29690D913C50E7E005FD7A3 /* XSSound.m in Sources */ = {isa = PBXBuildFile; fileRef = D29690D813C50E7D005FD7A3 /* XSSound.m */; };
 		D2971B9A1370727E004EE1E0 /* ActionEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2971B981370727E004EE1E0 /* ActionEditor.xib */; };
 		D2971B9D137072E8004EE1E0 /* ActionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2971B9C137072E8004EE1E0 /* ActionEditor.m */; };
+		D29983F814424F83002B2F2E /* XseraPlugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = D29983F714424F83002B2F2E /* XseraPlugin.icns */; };
 		D2A1911212FE3BE500232914 /* Starmap.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911112FE3BE500232914 /* Starmap.png */; };
 		D2A1911812FE3C0D00232914 /* StarmapPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A1911712FE3C0D00232914 /* StarmapPicker.m */; };
 		D2A1911D12FE3CB700232914 /* StarmapPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A1911C12FE3CB700232914 /* StarmapPicker.xib */; };
@@ -448,6 +449,7 @@
 		D2971B981370727E004EE1E0 /* ActionEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionEditor.xib; sourceTree = "<group>"; };
 		D2971B9B137072E8004EE1E0 /* ActionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionEditor.h; sourceTree = "<group>"; };
 		D2971B9C137072E8004EE1E0 /* ActionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionEditor.m; sourceTree = "<group>"; };
+		D29983F714424F83002B2F2E /* XseraPlugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XseraPlugin.icns; sourceTree = "<group>"; };
 		D2A1911112FE3BE500232914 /* Starmap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Starmap.png; sourceTree = "<group>"; };
 		D2A1911612FE3C0D00232914 /* StarmapPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarmapPicker.h; sourceTree = "<group>"; };
 		D2A1911712FE3C0D00232914 /* StarmapPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarmapPicker.m; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 			children = (
 				D2A1911112FE3BE500232914 /* Starmap.png */,
 				D220C3FE13CE54F5002C3AD8 /* AresData.icns */,
+				D29983F714424F83002B2F2E /* XseraPlugin.icns */,
 				8D15AC360486D014006FF6A4 /* Athena-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				D2944BBD1315C2E900D1175E /* Nibs */,
@@ -1364,6 +1367,7 @@
 				D25AA7ED143DF1720059DA02 /* CurrentMessageCondition.xib in Resources */,
 				D2DAD7AF143DF34E00353E3F /* CurrentComputerSelectionCondition.xib in Resources */,
 				D2DAD7B1143DF53A00353E3F /* ZoomLevelCondition.xib in Resources */,
+				D29983F814424F83002B2F2E /* XseraPlugin.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

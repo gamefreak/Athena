@@ -29,6 +29,8 @@
 			<array>
 				<string>xsscenario</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>XseraPlugin</string>
 			<key>CFBundleTypeName</key>
 			<string>Xsera Plugin</string>
 			<key>CFBundleTypeRole</key>
@@ -99,6 +101,8 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Xsera Plugin</string>
+			<key>UTTypeIconFile</key>
+			<string>XseraPlugin</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.brainpen.XseraPlugin</string>
 			<key>UTTypeTagSpecification</key>
