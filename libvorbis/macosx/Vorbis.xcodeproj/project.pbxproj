@@ -711,6 +711,7 @@
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				SDKROOT = macosx10.6;
 			};
 			name = Debug;
@@ -721,6 +722,7 @@
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_CFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-ffast-math",
