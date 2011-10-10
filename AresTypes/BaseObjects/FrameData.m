@@ -224,7 +224,7 @@
     self = [self init];
     if (self) {
         type = [coder decodeIntegerForKey:@"hex"];
-        color = [coder decodeIntegerForKey:@"color"];
+        color = [coder decodeIntegerForKey:@"color"] - 1;
         accuracy = [coder decodeIntegerForKey:@"accuracy"];
         range = [coder decodeFloatForKey:@"range"];
     }
@@ -265,7 +265,7 @@
             @throw @"Invalid Beam Type";
             break;
     }
-    
+    [coder encodeInteger:color + 1 forKey:@"color"];
     [coder encodeInteger:accuracy forKey:@"accuracy"];
     [coder encodeFloat:range forKey:@"range"];
 }

@@ -98,7 +98,7 @@
 
     [coder encodeDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
         [XSInteger xsIntegerWithValue:rotation], @"minimum",
-        [XSInteger xsIntegerWithValue:rotation], @"range", nil
+        [XSInteger xsIntegerWithValue:rotationRange], @"range", nil
                              ] forKey:@"rotation" asArray:NO];
 
     [coder encodeInteger:spriteIdOverride forKey:@"spriteIdOverride"];

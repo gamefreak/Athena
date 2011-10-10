@@ -14,13 +14,17 @@
 
 - (id) init {
     self = [super init];
-    value = 0;
+    if (self) {
+        value = 0;
+    }
     return self;
 }
 
 - (id) initWithValue:(NSInteger)_value {
     self = [self init];
-    value = _value;
+    if (self) {
+        value = _value;
+    }
     return self;
 }
 
@@ -30,7 +34,9 @@
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
-    value = [coder decodeInteger];
+    if (self) {
+        value = [coder decodeInteger];
+    }
     return self;
 }
 
@@ -39,7 +45,7 @@
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"%d", value];
+    return [NSString stringWithFormat:@"%lli", value];
 }
 
 + (BOOL) isComposite {

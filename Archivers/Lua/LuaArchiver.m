@@ -219,7 +219,7 @@
 
 - (void) encodeInteger:(NSInteger)value {
     @synchronized(self) {
-        [data appendFormat:@"%d"];
+        [data appendFormat:@"%lli", value];
     }
 }
 
@@ -227,7 +227,7 @@
     @synchronized(self) {
         [keyStack addObject:key];
         [self indent];
-        [data appendFormat:@"%@ = %d;\n", key, value];
+        [data appendFormat:@"%@ = %lli;\n", key, value];
         [keyStack removeLastObject];
     }
 }
