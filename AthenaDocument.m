@@ -204,4 +204,48 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     [soundEditor showWindow:self];
     [soundEditor release];
 }
+
+- (IBAction) displayEasterWindow:(id)sender {
+    [easter makeKeyAndOrderFront:self];
+}
 @end
+
+@implementation AthenaDocumentWindow
+- (void)keyDown:(NSEvent *)event {
+    if ([[event charactersIgnoringModifiers] isEqualToString:@"x"]) {
+        [NSApp sendAction:@selector(displayEasterWindow:) to:nil from:self];
+    } else {
+        [super keyDown:event];
+    }
+}
+
+- (void)sendEvent:(NSEvent *)event {
+    if ([event type] == NSKeyDown && ([event modifierFlags] & NSAlternateKeyMask) == NSAlternateKeyMask && [[event charactersIgnoringModifiers] isEqualToString:@"x"]) {
+        [NSApp sendAction:@selector(displayEasterWindow:) to:nil from:self];
+    } else {
+        [super sendEvent:event];
+    }
+}
+@end
+
+@implementation EasterWindow
+- (void)makeKeyAndOrderFront:(id)sender {
+    NSURL *path = [[NSBundle mainBundle] URLForResource:@"Easter" withExtension:@"txt"];
+    NSError *error = nil;
+    NSArray *lines = [[NSString stringWithContentsOfURL:path encoding:NSUTF8StringEncoding error:&error] componentsSeparatedByString:@"\n"];
+    NSString *msg = [lines objectAtIndex:(arc4random() % [lines count])];
+
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    [attributes setObject:[NSFont fontWithName:@"Helvetica" size:24.0f]
+                   forKey:NSFontAttributeName];
+    NSAttributedString *message = [[[NSAttributedString alloc] initWithString:msg
+                                                                   attributes:attributes] autorelease];
+    [label setAttributedStringValue:message];
+    [super makeKeyAndOrderFront:sender];
+}
+
+- (void)keyDown:(NSEvent *)theEvent {
+    [self performClose:theEvent];
+}
+@end
+

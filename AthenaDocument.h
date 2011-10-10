@@ -13,6 +13,7 @@
 
 @interface AthenaDocument : NSDocument {
     MainData *data;
+    IBOutlet NSWindow *easter;
 }
 @property (readonly) MainData *data;
 
@@ -22,4 +23,14 @@
 - (IBAction) openImageEditor:(id)sender;
 - (IBAction) openSpriteEditor:(id)sender;
 - (IBAction) openSoundEditor:(id)sender;
+- (IBAction) displayEasterWindow:(id)sender;
+@end
+
+@interface AthenaDocumentWindow : NSWindow {
+}
+@end
+
+@interface EasterWindow : NSWindow {
+    IBOutlet NSTextField *label;
+}
 @end

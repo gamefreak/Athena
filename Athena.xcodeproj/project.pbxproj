@@ -48,6 +48,7 @@
 		D245ECDF143BBDCB00F78634 /* XSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D245ECDE143BBDCB00F78634 /* XSImageView.m */; };
 		D251881F13EF34B300584740 /* AnimationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251881E13EF34B300584740 /* AnimationEditor.xib */; };
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
+		D253DE6714433F21000A9739 /* Easter.txt in Resources */ = {isa = PBXBuildFile; fileRef = D253DE6614433F20000A9739 /* Easter.txt */; };
 		D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = D25A40461327327F0017030B /* FlagMenuPopulator.m */; };
 		D25AA7E9143DEBDD0059DA02 /* ProximityCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */; };
 		D25AA7EB143DEE650059DA02 /* NoShipsLeftCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7EA143DEE650059DA02 /* NoShipsLeftCondition.xib */; };
@@ -388,6 +389,7 @@
 		D251881E13EF34B300584740 /* AnimationEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimationEditor.xib; sourceTree = "<group>"; };
 		D253B46A13033B1300F0F66A /* BriefingEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefingEditor.h; sourceTree = "<group>"; };
 		D253B46B13033B1300F0F66A /* BriefingEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefingEditor.m; sourceTree = "<group>"; };
+		D253DE6614433F20000A9739 /* Easter.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Easter.txt; sourceTree = "<group>"; };
 		D25A40451327327F0017030B /* FlagMenuPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlagMenuPopulator.h; path = ../AresTypes/BaseObjects/FlagMenuPopulator.h; sourceTree = "<group>"; };
 		D25A40461327327F0017030B /* FlagMenuPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlagMenuPopulator.m; path = ../AresTypes/BaseObjects/FlagMenuPopulator.m; sourceTree = "<group>"; };
 		D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProximityCondition.xib; sourceTree = "<group>"; };
@@ -639,6 +641,7 @@
 				8D15AC360486D014006FF6A4 /* Athena-Info.plist */,
 				D28FB580144320FE00E0A728 /* Athena.icns */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
+				D253DE6614433F20000A9739 /* Easter.txt */,
 				D2944BBD1315C2E900D1175E /* Nibs */,
 			);
 			path = Resources;
@@ -1372,6 +1375,7 @@
 				D2DAD7B1143DF53A00353E3F /* ZoomLevelCondition.xib in Resources */,
 				D29983F814424F83002B2F2E /* XseraPlugin.icns in Resources */,
 				D28FB581144320FE00E0A728 /* Athena.icns in Resources */,
+				D253DE6714433F21000A9739 /* Easter.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
