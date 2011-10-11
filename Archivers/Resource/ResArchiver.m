@@ -136,7 +136,6 @@
     BOOL ok = YES;
     //Write the data tables
     for (NSString *key in planes) {
-        NSLog(@"KEY: %@", key);
         NSString *typeDir = [NSString stringWithFormat:@"./%@", key];
         mkdir([typeDir UTF8String], 0777);
         chdir([typeDir UTF8String]);
