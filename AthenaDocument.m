@@ -73,7 +73,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         return success;
     } else if ([type isEqualTo:@"org.brainpen.XseraPlugin"]) {
         return [super writeToURL:absoluteURL ofType:type error:outError];
-    } else if ([type isEqualTo:@"net.sfiera.AntaresPlugin"]) {
+    } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder encodeObject:data atIndex:128];
         BOOL success = [coder writeToZipFile:fileName];
@@ -90,8 +90,8 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     LuaArchiver *arch = [[LuaArchiver alloc] init];
     [arch encodeObject:data forKey:@"data"];
     [arch sync];
+    [arch saveFile:arch.data named:@"data.lua" inDirectory:@"Scripts/Modules"];
     NSMutableDictionary *files = [arch files];
-    [files setObject:arch.data forKey:@"data.lua"];
     NSFileWrapper *wrapper = generateFileWrapperFromDictionary(files);
     [arch release];
     NSLog(@"Save complete");
@@ -141,7 +141,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             NSLog(@"Unlinking temp file");
             unlink(tempName);
 #endif
-        } else if ([type isEqualTo:@"net.sfiera.AntaresPlugin"]) {
+        } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
             NSLog(@"Reading from Antares format not supported.");
             return NO;
         } else {
@@ -159,7 +159,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
 - (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type {
     LuaUnarchiver *arch = [[LuaUnarchiver alloc] init];
     [arch setBaseDir:wrapper];
-    [arch loadData:[arch fileNamed:@"data.lua" inDirectory:@""]];
+    [arch loadData:[arch fileNamed:@"data.lua" inDirectory:@"Scripts/Modules"]];
     [data release];
     data = [[arch decodeObjectOfClass:[MainData class] forKey:@"data"] retain];
     [arch release];

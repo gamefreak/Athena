@@ -45,15 +45,17 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>atscenario</string>
+				<string>antaresplugin</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>AntaresPlugin</string>
 			<key>CFBundleTypeName</key>
 			<string>Antares Plugin</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>net.sfiera.AntaresPlugin</string>
+				<string>org.arescentral.antares.plugin</string>
 			</array>
 			<key>NSDocumentClass</key>
 			<string>AthenaDocument</string>
@@ -136,13 +138,15 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Antares Plugin</string>
+			<key>UTTypeIconFile</key>
+			<string>AntaresPlugin</string>
 			<key>UTTypeIdentifier</key>
-			<string>net.sfiera.AntaresPlugin</string>
+			<string>org.arescentral.antares.plugin</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>atscenario</string>
+					<string>antaresplugin</string>
 				</array>
 			</dict>
 		</dict>
