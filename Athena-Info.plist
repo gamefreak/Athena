@@ -42,6 +42,22 @@
 			<key>NSDocumentClass</key>
 			<string>AthenaDocument</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>atscenario</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Antares Plugin</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>net.sfiera.AntaresPlugin</string>
+			</array>
+			<key>NSDocumentClass</key>
+			<string>AthenaDocument</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
@@ -110,6 +126,23 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>xsscenario</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Antares Plugin</string>
+			<key>UTTypeIdentifier</key>
+			<string>net.sfiera.AntaresPlugin</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>atscenario</string>
 				</array>
 			</dict>
 		</dict>
