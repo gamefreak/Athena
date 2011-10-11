@@ -13,6 +13,7 @@
 @class FlagMenuPopulator;
 @class WeaponViewController;
 @class ActionEditor;
+@class SpecialViewController;
 
 typedef enum {
     ActivateTab = 0,
@@ -49,8 +50,8 @@ static const float actionsVerticalBuffer = 56+31;
 
     ActionTab currentActionTab;
     IBOutlet ActionEditor *actionEditor;
-    
-    NSMutableDictionary *specialControllers;
+
+    SpecialViewController *specialController;
     NSView *lastSpecialView;
     IBOutlet NSView *specialViewTarget;
     
@@ -66,6 +67,7 @@ static const float actionsVerticalBuffer = 56+31;
 @property (readwrite, assign) ActionTab currentActionTab;
 @property (readonly) NSString *actionTypeKey;
 @property (readonly) NSMutableArray *currentActionsArray;
+@property (readwrite, retain) SpecialViewController *specialController;
 
 - (id) initWithMainData:(MainData *)data;
 - (id) initAsPickerWithData:(MainData *)data forDevices:(BOOL)forDevices;

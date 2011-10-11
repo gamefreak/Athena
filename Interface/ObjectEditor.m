@@ -29,6 +29,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
 @dynamic selectionIndex;
 @dynamic actionTypeKey;
 @dynamic currentActionTab;
+@synthesize specialController;
 
 - (id)initWithMainData:(MainData *)_data {
     self = [super initWithWindowNibName:@"ObjectEditor"];
@@ -52,7 +53,6 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
 
 - (void) awakeFromNib {
     [super awakeFromNib];
-    specialControllers = [[NSMutableDictionary alloc] initWithCapacity:4];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self
            selector:@selector(specialParametersChanged:)
@@ -93,7 +93,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
     [objects release];
     [self stopObservingObject:selection];
     [selection release];
-    [specialControllers release];
+    [specialController release];
     [self unbind:@"selectionIndex"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
@@ -188,7 +188,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
     } else {
         if ([identifier isEqualTo:@"special"]) {
             //Fix for missing sprite and sprite name on load.
-            [[specialControllers objectForKey:[objectsController valueForKeyPath:@"selection.specialPanelNib"]] loadFix];
+            [specialController loadFix];
         }
         frame.size = standardSize;
     }
@@ -210,13 +210,11 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
 
 - (void)specialParametersChanged:(NSNotification *)note {
     NSString *nibName = [objectsController valueForKeyPath:@"selection.specialPanelNib"];
-
-    SpecialViewController *controller = [specialControllers objectForKey:nibName];
-    if (controller == nil) {
-        controller = [[SpecialViewController alloc] initWithNibName:nibName bundle:nil];
-        [specialControllers setObject:controller forKey:nibName];
-        [controller autorelease];
+    if (nibName == NSNoSelectionMarker) {
+        return;
     }
+
+    SpecialViewController *controller = [[[SpecialViewController alloc] initWithNibName:nibName bundle:nil] autorelease];
 
     NSView *newSpecialView = [controller view];
     [newSpecialView setFrame:[specialViewTarget frame]];
@@ -226,6 +224,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
     } else {
         [specialViewTarget replaceSubview:lastSpecialView with:newSpecialView];
     }
+    [self setSpecialController:controller];
     [lastSpecialView release];
     lastSpecialView = [newSpecialView retain];
 
