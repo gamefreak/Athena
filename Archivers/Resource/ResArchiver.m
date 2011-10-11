@@ -11,6 +11,7 @@
 #import "ResSegment.h"
 #import "ResEntry.h"
 #import "StringTable.h"
+#import <sys/stat.h>
 
 @interface ResArchiver (Private)
 - (NSMutableDictionary *) getTableForClass:(Class<ResCoding>)class;
