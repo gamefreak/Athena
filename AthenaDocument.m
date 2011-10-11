@@ -111,7 +111,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         if ([type isEqual:@"org.brainpen.xseraplugin"]){
             return [super readFromURL:url ofType:type error:outError];
         } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
-            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
+            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithResourceFilePath:fileName];
             if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sprites"]];
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sounds"]];
@@ -138,7 +138,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             [encoder release];
             NSLog(@"Encoder Test Completed");
             NSLog(@"Running re-decode test");
-            ResUnarchiver *decoder = [[ResUnarchiver alloc] initWithFilePath:testFname];
+            ResUnarchiver *decoder = [[ResUnarchiver alloc] initWithResourceFilePath:testFname];
             [decoder decodeObjectOfClass:[MainData class] atIndex:128];
             [decoder release];
             NSLog(@"Completed re-decode test");
@@ -146,8 +146,10 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             unlink(tempName);
 #endif
         } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
-            NSLog(@"Reading from Antares format not supported.");
-            return NO;
+            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithZipFilePath:fileName];
+            data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
+            [coder release];
+            return YES;
         } else {
             NSLog(@"ERROR: Type not found. aborting");
             return NO;
