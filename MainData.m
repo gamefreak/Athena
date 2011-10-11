@@ -37,7 +37,7 @@ static NSArray *mainDataKeys;
 
 @implementation MainData
 @synthesize inFlareId, outFlareId, playerBodyId, energyBlobId;
-@synthesize title, downloadUrl, author, authorUrl, flags;
+@synthesize title, downloadUrl, author, authorUrl, identifier, flags;
 @synthesize version, minVersion;
 //@synthesize checkSum;
 
@@ -55,6 +55,7 @@ static NSArray *mainDataKeys;
         downloadUrl = @"";
         author = @"";
         authorUrl = @"";
+        identifier = @"";
 
         flags = [[MainDataFlags alloc] init];
 
@@ -78,6 +79,7 @@ static NSArray *mainDataKeys;
         downloadUrl = [[coder decodeStringForKey:@"downloadUrl"] retain];
         author = [[coder decodeStringForKey:@"author"] retain];
         authorUrl = [[coder decodeStringForKey:@"authorUrl"] retain];
+        identifier = [[coder decodeStringForKey:@"identifier"] retain];
         [objects    setArray:[coder decodeArrayOfClass:[BaseObject class]      forKey:@"objects"    zeroIndexed:YES]];
         [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
         [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
@@ -95,6 +97,14 @@ static NSArray *mainDataKeys;
     [coder encodeString:downloadUrl forKey:@"downloadUrl"];
     [coder encodeString:author forKey:@"author"];
     [coder encodeString:authorUrl forKey:@"authorUrl"];
+    if (identifier == nil || [identifier isEqualTo:@""]) {
+        [coder encodeString:[[self computedIdentifier] stringByAppendingString:@"\n"]
+                     forKey:@"identifier"];
+    } else {
+        [coder encodeString:[identifier stringByAppendingString:@"\n"]
+                     forKey:@"identifier"];
+    }
+    [coder encodeString:identifier forKey:@"identifier"];
     [flags encodeLuaWithCoder:coder];
     [coder encodeArray:objects    forKey:@"objects"    zeroIndexed:YES];
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
@@ -226,6 +236,15 @@ static NSArray *mainDataKeys;
     checkSum ^= [coder checkSumForIndex:500u ofPlane:@"bsob"];
     checkSum ^= [coder checkSumForIndex:500u ofPlane:@"snro"];
     [coder encodeUInt32:checkSum];
+
+    [coder addMetadata:@"1\n" forKey:@"version"];
+    
+    if (identifier == nil || [identifier isEqualTo:@""]) {
+        [coder addMetadata:[[self computedIdentifier] stringByAppendingString:@"\n"] forKey:@"identifier"];
+    } else {
+        [coder addMetadata:[identifier stringByAppendingString:@"\n"]
+                    forKey:@"identifer"];
+    }
 }
 
 + (ResType)resType {
@@ -244,6 +263,19 @@ static NSArray *mainDataKeys;
     return 1056;
 }
 
+- (NSString *) computedIdentifier {
+    NSString *tTitle = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (tTitle == nil || [tTitle isEqualTo:@""]) {
+        tTitle = @"untitled";
+    }
+    NSString *tAuthor = [author stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (tAuthor == nil || [tTitle isEqualTo:@""]) {
+        tAuthor = @"unknown";
+    }
+    return [NSString stringWithFormat:@"com.%@.%@", tAuthor, tTitle];
+    
+}
+
 - (void) dealloc {
     [self removeObserver:self forKeyPath:@"objects"];
     [self removeObserver:self forKeyPath:@"scenarios"];
@@ -259,7 +291,12 @@ static NSArray *mainDataKeys;
     [author release];
     [authorUrl release];
     [downloadUrl release];
+    [identifier release];
     [super dealloc];
+}
+
++ (NSSet *)keyPathsForValuesAffectingComputedIdentifier {
+    return [NSSet setWithObjects:@"title", @"author", nil];
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath

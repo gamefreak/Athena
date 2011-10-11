@@ -35,6 +35,7 @@
     NSString *downloadUrl;
     NSString *author;
     NSString *authorUrl;
+    NSString *identifier;
 
     MainDataFlags *flags;
     NSUInteger version, minVersion;
@@ -56,6 +57,7 @@
 @property (readwrite, retain) NSString *downloadUrl;
 @property (readwrite, retain) NSString *author;
 @property (readwrite, retain) NSString *authorUrl;
+@property (readwrite, retain) NSString *identifier;
 @property (readonly) MainDataFlags *flags;
 @property (readwrite) NSUInteger version;
 @property (readwrite) NSUInteger minVersion;
@@ -67,4 +69,6 @@
 @property (readonly) NSMutableArray *sprites;
 @property (readonly) NSMutableArray *sounds;
 @property (readonly) NSMutableArray *images;
+
+- (NSString *) computedIdentifier;
 @end
