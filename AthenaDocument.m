@@ -171,7 +171,6 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
 }
 
 - (void) dealloc {
-    [[identifierField cell] unbind:@"placeholderString"];
     [data release];
     [super dealloc];
 }
