@@ -459,7 +459,7 @@
             short stringId = [coder decodeSInt16];
             if (stringSet != -1 || stringId != -1) {
                 [name release];
-                name = [[[coder decodeObjectOfClass:[StringTable class] atIndex:stringSet] stringAtIndex:stringId] retain];
+                name = [[[coder decodeObjectOfClass:[StringTable class] atIndex:stringSet] stringAtIndex:stringId - 1] retain];
             }
             [coder skip:4];
             earningPower = [coder decodeFixed];
@@ -476,7 +476,7 @@
     [coder encodeSInt16:type];
     [coder encodeSInt16:race];
     [coder encodeSInt16:STRPlayerNames];
-    [coder encodeSInt16:[coder addUniqueString:name toStringTable:STRPlayerNames]];
+    [coder encodeSInt16:[coder addUniqueString:name toStringTable:STRPlayerNames] + 1];
     [coder skip:4u];
     [coder encodeFixed:earningPower];
     [coder encodeSInt16:netRaceFlags];
