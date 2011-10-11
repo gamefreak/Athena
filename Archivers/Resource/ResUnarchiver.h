@@ -60,4 +60,6 @@
 - (id) decodeObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 - (NSMutableDictionary *)allObjectsOfClass:(Class<ResCoding>)class;
 - (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<ResCoding>)class;
+
+- (NSString *)getMetadataForKey:(NSString *)key;
 @end

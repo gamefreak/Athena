@@ -412,4 +412,21 @@
     return string;
 }
 
+- (NSString *)getMetadataForKey:(NSString *)key {
+    if (sourceType == DataOriginAres) {
+        return @"";
+    } else if (sourceType == DataOriginAntares) {
+        for (NSString *base in files) {
+            NSString *dir = [base stringByAppendingPathComponent:@"data"];
+            NSString *file = [dir stringByAppendingPathComponent:key];
+            NSError *error = nil;
+            NSString *value = [NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:&error];
+            NSAssert(error == nil, @"ERROR: %@", error);
+            return value;
+        }
+    } else {
+        assert(0);
+        return nil;
+    }
+}
 @end

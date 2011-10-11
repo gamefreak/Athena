@@ -131,6 +131,10 @@ static NSArray *mainDataKeys;
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
+        if ([coder sourceType] == DataOriginAntares && [[coder getMetadataForKey:@"version"] intValue] != 1) {
+            [self release];
+            return nil;
+        }
         inFlareId = [coder decodeSInt32];
         outFlareId = [coder decodeSInt32];
         playerBodyId = [coder decodeSInt32];
@@ -140,6 +144,8 @@ static NSArray *mainDataKeys;
         title = [[coder decodePStringOfLength:0xff] retain];
         author = [[coder decodePStringOfLength:0xff] retain];
         authorUrl = [[coder decodePStringOfLength:0xff] retain];
+
+        identifier = [[coder getMetadataForKey:@"identifier"] retain];
 
         version = [coder decodeUInt32];
         minVersion = [coder decodeUInt32];
@@ -243,7 +249,7 @@ static NSArray *mainDataKeys;
         [coder addMetadata:[[self computedIdentifier] stringByAppendingString:@"\n"] forKey:@"identifier"];
     } else {
         [coder addMetadata:[identifier stringByAppendingString:@"\n"]
-                    forKey:@"identifer"];
+                    forKey:@"identifier"];
     }
 }
 
