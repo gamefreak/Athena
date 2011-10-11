@@ -18,7 +18,8 @@
     NSMutableDictionary *stringTables;
     NSMutableDictionary *planes;
 }
-- (BOOL) writeToFile:(NSString *)file;
+- (BOOL) writeToResourceFile:(NSString *)file;
+- (BOOL) writeToZipFile:(NSString *)file;
 
 - (size_t) tell;
 - (void) skip:(size_t)length;

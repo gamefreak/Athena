@@ -90,7 +90,7 @@
     [super dealloc];
 }
 
-- (BOOL) writeToFile:(NSString *)filePath {
+- (BOOL) writeToResourceFile:(NSString *)filePath {
     FSRef directoryRef;
     Boolean isDirectory;
     if (FSPathMakeRef((const UInt8 *)[[filePath stringByDeletingLastPathComponent] cStringUsingEncoding:NSMacOSRomanStringEncoding], &directoryRef, &isDirectory) != noErr) {
@@ -124,6 +124,54 @@
     }
     CloseResFile(resFile);
     return YES;
+}
+
+- (BOOL) writeToZipFile:(NSString *)file {
+    NSString *baseDir = [[file stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"data"];
+    mkdir([baseDir UTF8String], 0777);
+    chdir([baseDir UTF8String]);
+    BOOL ok = YES;
+    for (NSString *key in planes) {
+        NSLog(@"KEY: %@", key);
+        NSString *typeDir = [NSString stringWithFormat:@"./%@", key];
+        mkdir([typeDir UTF8String], 0777);
+        chdir([typeDir UTF8String]);
+        NSDictionary *table = [planes objectForKey:key];
+        for (NSNumber *index in table) {
+            ResEntry *entry = [table objectForKey:index];
+            NSString *fileName = [NSString stringWithFormat:@"./%i %@.%@", [index intValue], [[entry name] stringByReplacingOccurrencesOfString:@"/" withString:@":"], key];
+            ok = [[entry data] writeToFile:fileName atomically:NO];
+            if (!ok) {
+                break;
+            }
+        }
+        chdir("..");
+        if (!ok) {
+            break;
+        }
+    }
+    chdir("..");
+    if (ok) {
+        //zip it
+        NSTask *zipTask = [[NSTask alloc] init];
+        [zipTask setLaunchPath:@"/usr/bin/zip"];
+        [zipTask setArguments:[NSArray arrayWithObjects:@"-q", [file lastPathComponent], @"-r", @"./data/", nil]];
+        [zipTask setCurrentDirectoryPath:[file stringByDeletingLastPathComponent]];
+        [zipTask launch];
+        [zipTask waitUntilExit];
+        ok = ([zipTask terminationStatus] == 0);
+        [zipTask release];
+    }
+    //clean up the directories
+    NSTask *rmTask = [[NSTask alloc] init];
+    [rmTask setLaunchPath:@"/bin/rm"];
+    [rmTask setArguments:[NSArray arrayWithObjects:@"-r", @"./data/", nil]];
+    [rmTask setCurrentDirectoryPath:[file stringByDeletingLastPathComponent]];
+    [rmTask launch];
+    [rmTask waitUntilExit];
+    [rmTask release];
+
+    return ok;
 }
 
 - (size_t) tell {

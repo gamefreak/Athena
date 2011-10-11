@@ -67,13 +67,18 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     if ([type isEqualTo:@"com.biggerplanet.AresData"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder encodeObject:data atIndex:128];
-        BOOL success = [coder writeToFile:fileName];
-        assert(success==YES);
+        BOOL success = [coder writeToResourceFile:fileName];
         [coder release];
         NSLog(@"Save complete");
         return success;
     } else if ([type isEqualTo:@"org.brainpen.XseraPlugin"]) {
         return [super writeToURL:absoluteURL ofType:type error:outError];
+    } else if ([type isEqualTo:@"net.sfiera.AntaresPlugin"]) {
+        ResArchiver *coder = [[ResArchiver alloc] init];
+        [coder encodeObject:data atIndex:128];
+        BOOL success = [coder writeToZipFile:fileName];
+        NSLog(@"Save complete");
+        return success;
     } else {
         //BAD!!!
         return NO;
@@ -136,6 +141,9 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             NSLog(@"Unlinking temp file");
             unlink(tempName);
 #endif
+        } else if ([type isEqualTo:@"net.sfiera.AntaresPlugin"]) {
+            NSLog(@"Reading from Antares format not supported.");
+            return NO;
         } else {
             NSLog(@"ERROR: Type not found. aborting");
             return NO;
