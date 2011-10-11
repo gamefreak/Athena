@@ -81,6 +81,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder encodeObject:data atIndex:128];
         BOOL success = [coder writeToZipFile:fileName];
+        [coder release];
         NSLog(@"Save complete");
         return success;
     } else {
