@@ -78,6 +78,7 @@
         stack = [[NSMutableArray alloc] init];
         stringTables = [[NSMutableDictionary alloc] init];
         planes = [[NSMutableDictionary alloc] init];
+        metadataFiles = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -87,6 +88,7 @@
     [stack release];
     [stringTables release];
     [planes release];
+    [metadataFiles release];
     [super dealloc];
 }
 
@@ -131,6 +133,7 @@
     mkdir([baseDir UTF8String], 0777);
     chdir([baseDir UTF8String]);
     BOOL ok = YES;
+    //Write the data tables
     for (NSString *key in planes) {
         NSLog(@"KEY: %@", key);
         NSString *typeDir = [NSString stringWithFormat:@"./%@", key];
@@ -148,6 +151,15 @@
         chdir("..");
         if (!ok) {
             break;
+        }
+    }
+    //Add the metadata
+    if (ok) {
+        for (NSString *key in metadataFiles) {
+            ok = [[metadataFiles objectForKey:key] writeToFile:key atomically:NO];
+            if (!ok) {
+                break;
+            }
         }
     }
     chdir("..");
@@ -334,6 +346,12 @@
         [table autorelease];
     }
     return [table addUniqueString:string];
+}
+
+- (void) addMetadata:(NSString *)data forKey:(NSString *)key {
+    [metadataFiles setObject:[NSData dataWithBytes:[data UTF8String]
+                                            length:[data lengthOfBytesUsingEncoding:NSUTF8StringEncoding]]
+                      forKey:key];
 }
 
 - (void) flatten {
