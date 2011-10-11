@@ -14,6 +14,7 @@
 @interface AthenaDocument : NSDocument {
     MainData *data;
     IBOutlet NSWindow *easter;
+    IBOutlet NSTextField *identifierField;
 }
 @property (readonly) MainData *data;
 

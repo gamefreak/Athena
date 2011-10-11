@@ -61,6 +61,10 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     [aController setShouldCloseDocument:YES];
 }
 
+- (void)awakeFromNib {
+    [[identifierField cell] bind:@"placeholderString" toObject:self withKeyPath:@"data.computedIdentifier" options:nil];
+}
+
 - (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError {
     NSLog(@"Saving data of type: %@", type);
     NSString *fileName = [absoluteURL path];
@@ -167,6 +171,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
 }
 
 - (void) dealloc {
+    [[identifierField cell] unbind:@"placeholderString"];
     [data release];
     [super dealloc];
 }
