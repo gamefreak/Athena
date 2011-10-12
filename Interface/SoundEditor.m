@@ -63,6 +63,8 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+    NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"key" ascending:YES selector:@selector(numericCompare:)];
+    [soundsController setSortDescriptors:[NSArray arrayWithObject:desc]];
 }
 
 - (BOOL)addSoundForPath:(NSString *)file {
