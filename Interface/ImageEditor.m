@@ -39,6 +39,7 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+    [arrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"key" ascending:YES selector:@selector(numericCompare:)]]];
     [imageView bind:@"image" toObject:arrayController withKeyPath:@"selection.value" options:nil];
 }
 
