@@ -34,3 +34,7 @@
 - (IBAction)openSprite:(id)sender;
 - (IBAction)exportSprite:(id)sender;
 @end
+
+@interface SpriteImporterTableView : NSTableView {
+}
+@end

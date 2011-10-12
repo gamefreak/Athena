@@ -18,7 +18,6 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		D204FE6E143B7765006AA3F9 /* ImageEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D204FE6D143B7765006AA3F9 /* ImageEditor.m */; };
 		D204FE70143B7975006AA3F9 /* ImageEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D204FE6F143B7975006AA3F9 /* ImageEditor.xib */; };
-		D2132116141E760D001533A3 /* SpriteImporterTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2132115141E760D001533A3 /* SpriteImporterTableView.m */; };
 		D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D216CF66132420D1008E24F0 /* WeaponView.xib */; };
 		D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D216CFF413243027008E24F0 /* WeaponViewController.m */; };
 		D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D216E73012E9DE1700D17AFB /* LuaArchiver.m */; };
@@ -299,8 +298,6 @@
 		D204FE6C143B7765006AA3F9 /* ImageEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditor.h; sourceTree = "<group>"; };
 		D204FE6D143B7765006AA3F9 /* ImageEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEditor.m; sourceTree = "<group>"; };
 		D204FE6F143B7975006AA3F9 /* ImageEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageEditor.xib; sourceTree = "<group>"; };
-		D2132114141E760D001533A3 /* SpriteImporterTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteImporterTableView.h; sourceTree = "<group>"; };
-		D2132115141E760D001533A3 /* SpriteImporterTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteImporterTableView.m; sourceTree = "<group>"; };
 		D216CF66132420D1008E24F0 /* WeaponView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeaponView.xib; sourceTree = "<group>"; };
 		D216CFF413243027008E24F0 /* WeaponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeaponViewController.m; sourceTree = "<group>"; };
 		D216CFF513243027008E24F0 /* WeaponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponViewController.h; sourceTree = "<group>"; };
@@ -1152,8 +1149,6 @@
 				D2DEECB4130A2A74004AB731 /* SpriteEditor.m */,
 				D2E98D17130AED3F0013EBCA /* SpriteView.h */,
 				D2E98D18130AED3F0013EBCA /* SpriteView.m */,
-				D2132114141E760D001533A3 /* SpriteImporterTableView.h */,
-				D2132115141E760D001533A3 /* SpriteImporterTableView.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -1446,7 +1441,6 @@
 				D270392D140564EE00F426CD /* ConditionViewController.m in Sources */,
 				4D64EFB4140BCD0A00017458 /* ProgressWindow.m in Sources */,
 				4D64EFB8140BD0FF00017458 /* DownloadWindow.m in Sources */,
-				D2132116141E760D001533A3 /* SpriteImporterTableView.m in Sources */,
 				D2627542141FD4960064AD95 /* cmdline.c in Sources */,
 				D2D6839A142FF694001B2C70 /* SoundEditor.m in Sources */,
 				D26259181432525C0014F9A8 /* XSKeyValuePair.m in Sources */,
