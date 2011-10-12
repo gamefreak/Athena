@@ -22,6 +22,7 @@
 - (BOOL)addImageForPath:(NSString *)file;
 - (BOOL)addImage:(XSImage *)image;
 - (IBAction)openImage:(id)sender;
+- (IBAction)exportImage:(id)sender;
 @end
 
 @interface ImageImporterTableView : NSTableView {

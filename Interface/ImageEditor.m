@@ -59,6 +59,30 @@
     }];
 }
 
+- (IBAction)exportImage:(id)sender {
+    NSUInteger index = [arrayController selectionIndex];
+    if (index == NSNotFound) {
+        return;
+    }
+    XSImage *image = [[[[arrayController arrangedObjects] objectAtIndex:index] value] retain];
+    
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"png"]];
+    [savePanel setNameFieldStringValue:[[image name] stringByAppendingPathExtension:@"png"]];
+    [savePanel setCanSelectHiddenExtension:YES];
+    [savePanel retain];
+    [savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            BOOL ok = [[image PNGData] writeToURL:[savePanel URL] atomically:YES];
+            if (!ok) {
+                NSRunAlertPanel(@"Unable to export image.", @"Athena was unable to export the image.", nil, nil, nil);
+            }
+        }
+        [image release];
+        [savePanel autorelease];
+    }];
+}
+
 - (BOOL)addImageForPath:(NSString *)file {
     NSError *error = nil;
     NSString *type = [[NSWorkspace sharedWorkspace] typeOfFile:file error:&error];
