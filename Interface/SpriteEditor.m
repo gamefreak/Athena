@@ -10,6 +10,7 @@
 #import "MainData.h"
 #import "SpriteView.h"
 #import "SMIVImage.h"
+#import "XSKeyValuePair.h"
 
 @interface SpriteEditor (Private)
 - (void)insertObject:(SMIVImage *)object inSpritesAtIndex:(NSUInteger)index;    
@@ -233,12 +234,41 @@
         [savePanel autorelease];
     }];
 }
+
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
+    [pboard declareTypes:[NSArray arrayWithObjects:NSFileContentsPboardType, NSFilesPromisePboardType, nil] owner:self];
+    
+    NSMutableArray *fileNames = [NSMutableArray array];
+    for (XSKeyValuePair *pair in [[spriteController arrangedObjects] objectsAtIndexes:rowIndexes]) {
+        SMIVImage *sprite = pair.value;
+        NSFileWrapper *wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[sprite PNGData]];
+        NSString *filename = [[sprite title] stringByAppendingPathExtension:@"png"];
+        [wrapper setFilename:filename];
+        [wrapper setPreferredFilename:filename];
+        [pboard writeFileWrapper:wrapper];
+        [wrapper release];
+        [fileNames addObject:filename];
+        break;
+    }
+    
+    [pboard setPropertyList:fileNames forType:NSFilesPromisePboardType];
+    return YES;
+}
+
+- (NSArray *)tableView:(NSTableView *)tableView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
+    NSFileWrapper *wrapper = [[NSPasteboard pasteboardWithName:NSDragPboard] readFileWrapper];
+    NSError *error = nil;
+    [wrapper writeToURL:[dropDestination URLByAppendingPathComponent:[wrapper filename]]
+                options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
+    return [NSArray arrayWithObject:[[dropDestination path] stringByAppendingPathComponent:[wrapper filename]]];
+}
 @end
 
 @implementation SpriteImporterTableView
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
+    [self setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 }
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
     BOOL okForFileDrag = [[[sender draggingPasteboard] types] containsObject:NSFilenamesPboardType];
