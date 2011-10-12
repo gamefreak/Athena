@@ -843,7 +843,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Player %u has no ships remaining"];
+    return [NSString stringWithFormat:@"Player %i has no ships remaining", player];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
