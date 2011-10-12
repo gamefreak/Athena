@@ -18,6 +18,7 @@
 - (id)initWithMainData:(MainData *)data;
 - (IBAction)playSound:(id)sender;
 - (IBAction)openSound:(id)sender;
+- (IBAction)exportSound:(id)sender;
 - (BOOL)addSoundForPath:(NSString *)path;
 - (BOOL)addSound:(XSSound *)sound;
 @end

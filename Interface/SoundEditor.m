@@ -56,6 +56,26 @@
     }];
 }
 
+- (IBAction)exportSound:(id)sender {
+    NSUInteger index = [soundsController selectionIndex];
+    if (index == NSNotFound) {
+        return;
+    }
+    XSSound *sound = [[[[soundsController arrangedObjects] objectAtIndex:index] value] retain];
+    
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"ogg"]];
+    [savePanel setNameFieldStringValue:[[sound name] stringByAppendingPathExtension:@"ogg"]];
+    [savePanel retain];
+    [savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            [[sound getVorbis] writeToURL:[savePanel URL] atomically:YES];
+        }
+        [sound release];
+        [savePanel autorelease];
+    }];
+}
+
 - (void)dealloc {
     [sounds release];
     [super dealloc];
