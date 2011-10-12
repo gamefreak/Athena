@@ -31,4 +31,6 @@
 - (IBAction)dimensionsCancel:(id)sender;
 - (void)didEnd:(NSWindow *)sheet returnCode:(int)code context:(void *)context;
 - (BOOL)addSprite:(SMIVImage *)sprite;
+- (IBAction)openSprite:(id)sender;
+- (IBAction)exportSprite:(id)sender;
 @end

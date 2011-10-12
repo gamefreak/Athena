@@ -181,4 +181,56 @@
     }
     return NO;
 }
+
+- (IBAction)openSprite:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setAllowedFileTypes:[NSImage imageTypes]];
+    [openPanel setAllowsOtherFileTypes:NO];
+    [openPanel setAllowsMultipleSelection:NO];
+    assert([openPanel canChooseFiles]);
+    assert(![openPanel canChooseDirectories]);
+    
+    [openPanel retain];
+    [openPanel beginWithCompletionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelOKButton) {
+            [self addSpriteForPath:[[[openPanel URLs] objectAtIndex:0] path]];
+        }
+        [openPanel autorelease];
+    }];
+}
+
+- (IBAction)exportSprite:(id)sender {
+    NSUInteger index = [spriteController selectionIndex];
+    if (index == NSNotFound) {
+        return;
+    }
+    BOOL exportPNG = [sender tag];
+    SMIVImage *sprite = [[[[spriteController arrangedObjects] objectAtIndex:index] value] retain];
+    
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    [savePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"png", @"gif", nil]];
+    [savePanel setNameFieldStringValue:[[sprite title] stringByAppendingPathExtension:(exportPNG?@"png":@"gif")]];
+    [savePanel setCanSelectHiddenExtension:YES];
+    [savePanel retain];
+    [savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSString *extension = [[savePanel URL] pathExtension];
+            NSData *spriteData = nil;
+            if ([extension isCaseInsensitiveLike:@"png"]) {
+                spriteData = [sprite PNGData];
+            } else if ([extension isCaseInsensitiveLike:@"gif"]){
+                spriteData = [sprite GIFData];
+            } else {
+                NSRunAlertPanel(@"Attempt to save in incompatible format.", @"Athena currently only supports saving sprites in PNG or GIF formats.", nil, nil, nil);
+            }
+            
+            BOOL ok = [spriteData writeToURL:[savePanel URL] atomically:YES];
+            if (!ok && spriteData != nil) {
+                NSRunAlertPanel(@"Unable to export sprite.", @"Athena was unable to export the sprite.", nil, nil, nil);
+            }
+        }
+        [sprite release];
+        [savePanel autorelease];
+    }];
+}
 @end
