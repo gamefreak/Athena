@@ -8,6 +8,7 @@
 
 #import "SpriteView.h"
 #import "SMIVImage.h"
+#import "SpriteEditor.h"
 
 @implementation SpriteView
 @dynamic sprite, direction, speed, frameRange, angularVelocity;
@@ -33,6 +34,11 @@
     [dragTimer release];
     [dragStartEvent release];
     [super dealloc];
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -241,5 +247,38 @@
 
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag {
     return NSDragOperationCopy;
+}
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
+    BOOL okForFileDrag = [[[sender draggingPasteboard] types] containsObject:NSFilenamesPboardType];
+    return (NSDragOperationCopy * okForFileDrag);
+}
+
+- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
+    BOOL okForFileDrag = [[[sender draggingPasteboard] types] containsObject:NSFilenamesPboardType];
+    return (NSDragOperationCopy * okForFileDrag);
+}
+
+- (void)draggingExited:(id<NSDraggingInfo>)sender {
+}
+
+- (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender {
+    return YES;
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
+    NSPasteboard *pb = [sender draggingPasteboard];
+    if ([[pb types] containsObject:NSFilenamesPboardType]) {
+        NSArray *fileNames = [pb propertyListForType:NSFilenamesPboardType];
+        if ([fileNames count] < 1) {
+            return NO;
+        }
+        NSString *file = [fileNames objectAtIndex:0];
+        return [(SpriteEditor *)[[self window] windowController] addSpriteForPath:file];
+    }
+    return NO;
+}
+
+- (void)concludeDragOperation:(id<NSDraggingInfo>)sender {
 }
 @end
