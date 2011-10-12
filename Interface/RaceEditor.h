@@ -14,6 +14,7 @@
 @interface RaceEditor : NSWindowController {
     MainData *data;
     NSMutableArray *races;
+    IBOutlet NSArrayController *raceController;
 }
 @property (readwrite, retain) NSMutableArray *races;
 - (id) initWithMainData:(MainData *)data;

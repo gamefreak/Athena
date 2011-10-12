@@ -40,6 +40,11 @@
     [super dealloc];
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [raceController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"raceId" ascending:YES]]];
+}
+
 - (void) insertObject:(Race *)newRace
        inRacesAtIndex:(NSInteger)index {
     [self startObservingRace:newRace];
