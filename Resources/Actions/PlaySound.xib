@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11A511</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<int key="IBDocument.SystemTarget">1060</int>
+		<string key="IBDocument.SystemVersion">11C74</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
+		<string key="IBDocument.AppKitVersion">1138.23</string>
+		<string key="IBDocument.HIToolboxVersion">567.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1617</string>
+			<string key="NS.object.0">1938</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>NSCustomView</string>
 			<string>NSTextField</string>
-			<string>NSTextFieldCell</string>
-			<string>NSButtonCell</string>
 			<string>NSCustomObject</string>
+			<string>NSObjectController</string>
+			<string>NSCustomView</string>
+			<string>NSButtonCell</string>
 			<string>NSButton</string>
+			<string>NSTextFieldCell</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.Metadata">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="NSArray" key="dict.sortedKeys" id="0">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-			</object>
-			<reference key="dict.values" ref="0"/>
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -40,6 +38,11 @@
 			</object>
 			<object class="NSCustomObject" id="1004">
 				<string key="NSClassName">NSApplication</string>
+			</object>
+			<object class="NSObjectController" id="847521537">
+				<string key="NSObjectClassName">PlaySoundAction</string>
+				<bool key="NSEditable">YES</bool>
+				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
 			</object>
 			<object class="NSCustomView" id="1005">
 				<reference key="NSNextResponder"/>
@@ -336,100 +339,140 @@
 					<int key="connectionID">2</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: actionObj.soundId</string>
-						<reference key="source" ref="1013558884"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1013558884"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: actionObj.soundId</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">actionObj.soundId</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">actionController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="847521537"/>
 					</object>
-					<int key="connectionID">49</int>
+					<int key="connectionID">84</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: actionObj.soundIdRange</string>
-						<reference key="source" ref="1032033102"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1032033102"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: actionObj.soundIdRange</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">actionObj.soundIdRange</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">50</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: actionObj.volume</string>
-						<reference key="source" ref="46785096"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="46785096"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: actionObj.volume</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">actionObj.volume</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">54</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: actionObj.isAbsolute</string>
-						<reference key="source" ref="1015725626"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1015725626"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: actionObj.isAbsolute</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">actionObj.isAbsolute</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">59</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: actionObj.persistence</string>
-						<reference key="source" ref="741323732"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="741323732"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: actionObj.persistence</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">actionObj.persistence</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">63</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: actionObj.priority</string>
+						<string key="label">value: selection.priority</string>
 						<reference key="source" ref="557851564"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="847521537"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="557851564"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: actionObj.priority</string>
+							<reference key="NSDestination" ref="847521537"/>
+							<string key="NSLabel">value: selection.priority</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">actionObj.priority</string>
+							<string key="NSKeyPath">selection.priority</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">64</int>
+					<int key="connectionID">70</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.persistence</string>
+						<reference key="source" ref="741323732"/>
+						<reference key="destination" ref="847521537"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="741323732"/>
+							<reference key="NSDestination" ref="847521537"/>
+							<string key="NSLabel">value: selection.persistence</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.persistence</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">72</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.isAbsolute</string>
+						<reference key="source" ref="1015725626"/>
+						<reference key="destination" ref="847521537"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1015725626"/>
+							<reference key="NSDestination" ref="847521537"/>
+							<string key="NSLabel">value: selection.isAbsolute</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.isAbsolute</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">74</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.volume</string>
+						<reference key="source" ref="46785096"/>
+						<reference key="destination" ref="847521537"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="46785096"/>
+							<reference key="NSDestination" ref="847521537"/>
+							<string key="NSLabel">value: selection.volume</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.volume</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">76</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.volumeRange</string>
+						<reference key="source" ref="1034247434"/>
+						<reference key="destination" ref="847521537"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1034247434"/>
+							<reference key="NSDestination" ref="847521537"/>
+							<string key="NSLabel">value: selection.volumeRange</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.volumeRange</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">77</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.soundId</string>
+						<reference key="source" ref="1013558884"/>
+						<reference key="destination" ref="847521537"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1013558884"/>
+							<reference key="NSDestination" ref="847521537"/>
+							<string key="NSLabel">value: selection.soundId</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.soundId</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">80</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.soundIdRange</string>
+						<reference key="source" ref="1032033102"/>
+						<reference key="destination" ref="847521537"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1032033102"/>
+							<reference key="NSDestination" ref="847521537"/>
+							<string key="NSLabel">value: selection.soundIdRange</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.soundIdRange</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">83</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentObject: actionObj</string>
+						<reference key="source" ref="847521537"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="847521537"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">contentObject: actionObj</string>
+							<string key="NSBinding">contentObject</string>
+							<string key="NSKeyPath">actionObj</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">68</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -437,7 +480,9 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBObjectRecord">
 						<int key="objectID">0</int>
-						<reference key="object" ref="0"/>
+						<object class="NSArray" key="object" id="0">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
 						<reference key="children" ref="1000"/>
 						<nil key="parent"/>
 					</object>
@@ -467,14 +512,14 @@
 							<reference ref="604970278"/>
 							<reference ref="557851564"/>
 							<reference ref="509704924"/>
-							<reference ref="741323732"/>
-							<reference ref="1015725626"/>
 							<reference ref="750350001"/>
 							<reference ref="46785096"/>
 							<reference ref="1034247434"/>
 							<reference ref="964822566"/>
 							<reference ref="1013558884"/>
 							<reference ref="1032033102"/>
+							<reference ref="741323732"/>
+							<reference ref="1015725626"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -632,6 +677,11 @@
 						<reference key="object" ref="312209083"/>
 						<reference key="parent" ref="964822566"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">67</int>
+						<reference key="object" ref="847521537"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -661,12 +711,14 @@
 					<string>32.IBPluginDependency</string>
 					<string>33.IBPluginDependency</string>
 					<string>34.IBPluginDependency</string>
+					<string>67.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -707,7 +759,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">66</int>
+			<int key="maxID">84</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -719,8 +771,8 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>openObjectPicker2:</string>
 							<string>openObjectPicker:</string>
-							<string>playSound:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -732,19 +784,30 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>openObjectPicker2:</string>
 							<string>openObjectPicker:</string>
-							<string>playSound:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
-								<string key="name">openObjectPicker:</string>
+								<string key="name">openObjectPicker2:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">playSound:</string>
+								<string key="name">openObjectPicker:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">actionController</string>
+						<string key="NS.object.0">NSObjectController</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">actionController</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">actionController</string>
+							<string key="candidateClassName">NSObjectController</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -756,6 +819,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
+			<real value="1060" key="NS.object.0"/>
+		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
 			<integer value="3000" key="NS.object.0"/>
