@@ -44,6 +44,7 @@
 		D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D225D64613039FC500E75803 /* CoreServices.framework */; };
 		D22CBB4313FD5A1D003E7C37 /* AlterRange.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */; };
 		D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */; };
+		D238F22D144459FB00FF5109 /* AntaresPlugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = D238F22C144459FB00FF5109 /* AntaresPlugin.icns */; };
 		D245ECDF143BBDCB00F78634 /* XSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D245ECDE143BBDCB00F78634 /* XSImageView.m */; };
 		D251881F13EF34B300584740 /* AnimationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251881E13EF34B300584740 /* AnimationEditor.xib */; };
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
@@ -382,6 +383,8 @@
 		D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterRange.xib; sourceTree = "<group>"; };
 		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
 		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
+		D238F22C144459FB00FF5109 /* AntaresPlugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AntaresPlugin.icns; sourceTree = "<group>"; };
+		D238F22E14447E9A00FF5109 /* DataOrigin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataOrigin.h; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		D245ECDD143BBDCB00F78634 /* XSImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSImageView.h; sourceTree = "<group>"; };
 		D245ECDE143BBDCB00F78634 /* XSImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSImageView.m; sourceTree = "<group>"; };
@@ -636,12 +639,13 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D2A1911112FE3BE500232914 /* Starmap.png */,
+				D28FB580144320FE00E0A728 /* Athena.icns */,
 				D220C3FE13CE54F5002C3AD8 /* AresData.icns */,
+				D238F22C144459FB00FF5109 /* AntaresPlugin.icns */,
 				D29983F714424F83002B2F2E /* XseraPlugin.icns */,
 				8D15AC360486D014006FF6A4 /* Athena-Info.plist */,
-				D28FB580144320FE00E0A728 /* Athena.icns */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
+				D2A1911112FE3BE500232914 /* Starmap.png */,
 				D253DE6614433F20000A9739 /* Easter.txt */,
 				D2944BBD1315C2E900D1175E /* Nibs */,
 			);
@@ -878,6 +882,7 @@
 			isa = PBXGroup;
 			children = (
 				D2802FD412EA572500F1A0B0 /* Archivers.h */,
+				D238F22E14447E9A00FF5109 /* DataOrigin.h */,
 				D225D64013039D2F00E75803 /* Lua */,
 				D225D64213039D5900E75803 /* Resource */,
 			);
@@ -1379,6 +1384,7 @@
 				D253DE6714433F21000A9739 /* Easter.txt in Resources */,
 				D25651361447178900B2B328 /* AlterAbsoluteLocation.xib in Resources */,
 				D256513814471D5B00B2B328 /* AlterAbsoluteCash.xib in Resources */,
+				D238F22D144459FB00FF5109 /* AntaresPlugin.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

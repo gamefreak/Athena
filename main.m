@@ -108,6 +108,9 @@ int main(int argc, char *argv[]) {
             case type_arg_xsera:
                 type = @"org.brainpen.XseraPlugin";
                 break;
+            case type_arg_antares:
+                type = @"org.arescentral.antares.plugin";
+                break;
             default:
                 assert(0);
                 break;

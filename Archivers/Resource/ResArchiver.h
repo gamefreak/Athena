@@ -17,8 +17,11 @@
     NSMutableArray *stack;
     NSMutableDictionary *stringTables;
     NSMutableDictionary *planes;
+
+    NSMutableDictionary *metadataFiles;
 }
-- (BOOL) writeToFile:(NSString *)file;
+- (BOOL) writeToResourceFile:(NSString *)file;
+- (BOOL) writeToZipFile:(NSString *)file;
 
 - (size_t) tell;
 - (void) skip:(size_t)length;
@@ -57,6 +60,7 @@
 - (NSUInteger) addString:(NSString *)string toStringTable:(NSUInteger)table;
 - (NSUInteger) addUniqueString:(NSString *)string toStringTable:(NSUInteger)table;
 
+- (void) addMetadata:(NSString *)data forKey:(NSString *)key;
 - (void) flatten;
 - (uint32) checkSumForIndex:(NSInteger)index ofPlane:(NSString *)plane;
 @end

@@ -9,18 +9,24 @@
 #import <Foundation/Foundation.h>
 #import <CoreServices/CoreServices.h>
 #import "ResCoding.h"
+#import "DataOrigin.h"
 
 @class Index;
 
 @interface ResUnarchiver : NSObject {
+    DataOrigin sourceType;
     NSMutableDictionary *types;
     NSMutableArray *stack;
     NSMutableArray *files;
 }
-- (id) initWithFilePath:(NSString *)path;
+@property (readonly) DataOrigin sourceType;
+- (id) initWithResourceFilePath:(NSString *)path;
+- (id) initWithZipFilePath:(NSString *)path;
 - (void) addFile:(NSString *)path;
 
 - (void) registerClass:(Class<ResCoding>)class;
+- (void) registerAresClass:(Class<ResCoding>)class;
+- (void) registerAntaresClass:(Class<ResCoding>)class;
 - (NSUInteger) countOfClass:(Class<ResCoding>)class;
 
 - (void) skip:(NSUInteger)bytes;
@@ -54,4 +60,6 @@
 - (id) decodeObjectOfClass:(Class<ResCoding>)class atIndex:(NSUInteger)index;
 - (NSMutableDictionary *)allObjectsOfClass:(Class<ResCoding>)class;
 - (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<ResCoding>)class;
+
+- (NSString *)getMetadataForKey:(NSString *)key;
 @end

@@ -61,19 +61,29 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     [aController setShouldCloseDocument:YES];
 }
 
+- (void)awakeFromNib {
+    [[identifierField cell] bind:@"placeholderString" toObject:self withKeyPath:@"data.computedIdentifier" options:nil];
+}
+
 - (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError {
     NSLog(@"Saving data of type: %@", type);
     NSString *fileName = [absoluteURL path];
     if ([type isEqualTo:@"com.biggerplanet.AresData"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder encodeObject:data atIndex:128];
-        BOOL success = [coder writeToFile:fileName];
-        assert(success==YES);
+        BOOL success = [coder writeToResourceFile:fileName];
         [coder release];
         NSLog(@"Save complete");
         return success;
     } else if ([type isEqualTo:@"org.brainpen.XseraPlugin"]) {
         return [super writeToURL:absoluteURL ofType:type error:outError];
+    } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
+        ResArchiver *coder = [[ResArchiver alloc] init];
+        [coder encodeObject:data atIndex:128];
+        BOOL success = [coder writeToZipFile:fileName];
+        [coder release];
+        NSLog(@"Save complete");
+        return success;
     } else {
         //BAD!!!
         return NO;
@@ -85,8 +95,8 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     LuaArchiver *arch = [[LuaArchiver alloc] init];
     [arch encodeObject:data forKey:@"data"];
     [arch sync];
+    [arch saveFile:arch.data named:@"data.lua" inDirectory:@"Scripts/Modules"];
     NSMutableDictionary *files = [arch files];
-    [files setObject:arch.data forKey:@"data.lua"];
     NSFileWrapper *wrapper = generateFileWrapperFromDictionary(files);
     [arch release];
     NSLog(@"Save complete");
@@ -102,7 +112,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         if ([type isEqual:@"org.brainpen.xseraplugin"]){
             return [super readFromURL:url ofType:type error:outError];
         } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
-            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithFilePath:fileName];
+            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithResourceFilePath:fileName];
             if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sprites"]];
                 [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sounds"]];
@@ -129,13 +139,18 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             [encoder release];
             NSLog(@"Encoder Test Completed");
             NSLog(@"Running re-decode test");
-            ResUnarchiver *decoder = [[ResUnarchiver alloc] initWithFilePath:testFname];
+            ResUnarchiver *decoder = [[ResUnarchiver alloc] initWithResourceFilePath:testFname];
             [decoder decodeObjectOfClass:[MainData class] atIndex:128];
             [decoder release];
             NSLog(@"Completed re-decode test");
             NSLog(@"Unlinking temp file");
             unlink(tempName);
 #endif
+        } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
+            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithZipFilePath:fileName];
+            data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
+            [coder release];
+            return YES;
         } else {
             NSLog(@"ERROR: Type not found. aborting");
             return NO;
@@ -151,7 +166,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
 - (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type {
     LuaUnarchiver *arch = [[LuaUnarchiver alloc] init];
     [arch setBaseDir:wrapper];
-    [arch loadData:[arch fileNamed:@"data.lua" inDirectory:@""]];
+    [arch loadData:[arch fileNamed:@"data.lua" inDirectory:@"Scripts/Modules"]];
     [data release];
     data = [[arch decodeObjectOfClass:[MainData class] forKey:@"data"] retain];
     [arch release];

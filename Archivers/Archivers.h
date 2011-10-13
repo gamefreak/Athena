@@ -7,6 +7,8 @@
  *
  */
 
+#import "DataOrigin.h"
+
 #import "LuaCoding.h"
 #import "LuaArchiver.h"
 #import "LuaUnarchiver.h"

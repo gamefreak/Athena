@@ -39,7 +39,7 @@ const char *athena_args_full_help[] = {
   "  -d, --download     Download data",
   "  -c, --check        Preform consistency check",
   "  -l, --list         List file contents",
-  "  -t, --type=ENUM    Filetype to output  (possible values=\"ares\", \"xsera\")",
+  "  -t, --type=ENUM    Filetype to output  (possible values=\"ares\", \"xsera\", \n                       \"antares\")",
   "  -o, --out=FILE     Output location",
     0
 };
@@ -77,7 +77,7 @@ arg_parser_internal (int argc, char **argv, struct athena_args *args_info,
 static int
 arg_parser_required2 (struct athena_args *args_info, const char *prog_name, const char *additional_error);
 
-const char *arg_parser_type_values[] = {"ares", "xsera", 0}; /*< Possible values for type. */
+const char *arg_parser_type_values[] = {"ares", "xsera", "antares", 0}; /*< Possible values for type. */
 
 static char *
 gengetopt_strdup (const char *s);
