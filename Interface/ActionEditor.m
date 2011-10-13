@@ -74,6 +74,7 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
         nib = @"NoAction";
     }
     if ([nib isEqualToString:lastNib]) {
+        [lastViewController setActionObj:[actionsArrayController selection]];
         goto skip;
     }
     ActionViewController *controller = [[[ActionViewController alloc] initWithNibName:nib bundle:nil] autorelease];
