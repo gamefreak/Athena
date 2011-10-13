@@ -35,6 +35,7 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
     [lastNib release];
     [lastViewController release];
     [lastInnerView release];
+    [actions release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }

@@ -32,4 +32,9 @@
     return self;
 }
 
+- (void)dealloc {
+    [key release];
+    [value release];
+    [super dealloc];
+}
 @end

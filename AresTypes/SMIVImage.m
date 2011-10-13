@@ -11,7 +11,6 @@
 
 #define FRAME_HEADER_SIZE 8
 
-static CGColorSpaceRef CLUTCSpace;
 static CGColorSpaceRef devRGB;
 
 @implementation SMIVImage
@@ -26,9 +25,8 @@ static CGColorSpaceRef devRGB;
 }
 
 + (void) initialize {
-    //prepare these ahead of time
+    //prepare this ahead of time
     devRGB = CGColorSpaceCreateDeviceRGB();
-    CLUTCSpace = CGColorSpaceCreateIndexed(devRGB, 255, (uint8 *)CLUT);
 }
 
 - (id)init {
@@ -144,7 +142,9 @@ static CGColorSpaceRef devRGB;
         //Get headers
         for (int k = 0; k < frameCount; k++) {
             [coder seek:headerLocations[k]];
-            [frames addObject:[[[SMIVFrame alloc] initWithResArchiver:coder] autorelease]];
+            SMIVFrame *frame = [[SMIVFrame alloc] initWithResArchiver:coder];
+            [frames addObject:frame];
+            [frame release];
         }
 
         //calculate the overall size of each cell in the spritesheet

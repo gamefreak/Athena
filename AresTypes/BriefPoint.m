@@ -33,7 +33,7 @@
 - (void) dealloc {
     [title release];
     [range release];
-    [content retain];
+    [content release];
     [super dealloc];
 }
 
