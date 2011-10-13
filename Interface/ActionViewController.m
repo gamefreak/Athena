@@ -37,11 +37,11 @@
 }
 
 - (BaseObject *)type {
-    return [actionObj valueForKeyPath:@"baseType.object"];
+    return [actionController valueForKeyPath:@"selection.baseType.object"];
 }
 
 -  (void)setType:(BaseObject *)type {
-    [actionObj setValue:[type valueForKey:@"index"] forKeyPath:@"baseType"];
+    [actionController setValue:[type valueForKey:@"index"] forKeyPath:@"selection.baseType"];
 }
 
 //For alter actions
