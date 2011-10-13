@@ -49,6 +49,7 @@
 		D253B46C13033B1300F0F66A /* BriefingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D253B46B13033B1300F0F66A /* BriefingEditor.m */; };
 		D253DE6714433F21000A9739 /* Easter.txt in Resources */ = {isa = PBXBuildFile; fileRef = D253DE6614433F20000A9739 /* Easter.txt */; };
 		D25651361447178900B2B328 /* AlterAbsoluteLocation.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25651351447178900B2B328 /* AlterAbsoluteLocation.xib */; };
+		D256513814471D5B00B2B328 /* AlterAbsoluteCash.xib in Resources */ = {isa = PBXBuildFile; fileRef = D256513714471D5A00B2B328 /* AlterAbsoluteCash.xib */; };
 		D25A40471327327F0017030B /* FlagMenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = D25A40461327327F0017030B /* FlagMenuPopulator.m */; };
 		D25AA7E9143DEBDD0059DA02 /* ProximityCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */; };
 		D25AA7EB143DEE650059DA02 /* NoShipsLeftCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7EA143DEE650059DA02 /* NoShipsLeftCondition.xib */; };
@@ -389,6 +390,7 @@
 		D253B46B13033B1300F0F66A /* BriefingEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefingEditor.m; sourceTree = "<group>"; };
 		D253DE6614433F20000A9739 /* Easter.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Easter.txt; sourceTree = "<group>"; };
 		D25651351447178900B2B328 /* AlterAbsoluteLocation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterAbsoluteLocation.xib; sourceTree = "<group>"; };
+		D256513714471D5A00B2B328 /* AlterAbsoluteCash.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterAbsoluteCash.xib; sourceTree = "<group>"; };
 		D25A40451327327F0017030B /* FlagMenuPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlagMenuPopulator.h; path = ../AresTypes/BaseObjects/FlagMenuPopulator.h; sourceTree = "<group>"; };
 		D25A40461327327F0017030B /* FlagMenuPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlagMenuPopulator.m; path = ../AresTypes/BaseObjects/FlagMenuPopulator.m; sourceTree = "<group>"; };
 		D25AA7E8143DEBDD0059DA02 /* ProximityCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProximityCondition.xib; sourceTree = "<group>"; };
@@ -806,6 +808,7 @@
 				D2A4A00E13FD9BBA00104C59 /* AlterBaseType.xib */,
 				D2B812D1143D115E00192B71 /* AlterActiveCondition.xib */,
 				D25651351447178900B2B328 /* AlterAbsoluteLocation.xib */,
+				D256513714471D5A00B2B328 /* AlterAbsoluteCash.xib */,
 			);
 			name = "Alter Actions";
 			sourceTree = "<group>";
@@ -1375,6 +1378,7 @@
 				D28FB581144320FE00E0A728 /* Athena.icns in Resources */,
 				D253DE6714433F21000A9739 /* Easter.txt in Resources */,
 				D25651361447178900B2B328 /* AlterAbsoluteLocation.xib in Resources */,
+				D256513814471D5B00B2B328 /* AlterAbsoluteCash.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

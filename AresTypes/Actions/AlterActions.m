@@ -1237,19 +1237,7 @@
 }
 
 - (NSString *)nibName {
-    return @"AlterRelativeRange";
-}
-
-- (NSString *)relativeLabel {
-    return @"Use Object's Owner";
-}
-
-- (NSString *)minLabel {
-    return @"Amount:";
-}
-
-- (NSString *)rangeLabel {
-    return @"Player:";
+    return @"AlterAbsoluteCash";
 }
 
 - (NSString *)description {
