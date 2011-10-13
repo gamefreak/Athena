@@ -1084,6 +1084,14 @@
 - (NSString *)pickerLabel {
     return [NSString stringWithFormat:@"%i %@", [IDRef index], [[IDRef object] shortName]];
 }
+
++ (NSSet *)keyPathsForValuesAffectingDescription {
+    return [NSSet setWithObjects:@"IDRef", nil];
+}
+
++ (NSSet *)keyPathsForValuesAffectingPickerLabel {
+    return [NSSet setWithObjects:@"IDRef", nil];
+}
 @end
 
 @implementation AlterActiveConditionAction

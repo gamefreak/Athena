@@ -58,11 +58,11 @@
 }
 
 - (BaseObject *)ref {
-    return [actionObj valueForKeyPath:@"IDRef.object"];
+    return [actionController valueForKeyPath:@"selection.IDRef.object"];
 }
 
 - (void)setRef:(BaseObject *)ref {
-    [actionObj setValue:[ref valueForKey:@"index"] forKey:@"IDRef"];
+    [actionController setValue:[ref valueForKey:@"index"] forKeyPath:@"selection.IDRef"];
 }
 
 - (NSUInteger)nextScenarioIndex {
@@ -71,6 +71,6 @@
 
 - (void)setNextScenarioIndex:(NSUInteger)index {
     Index *idx = (Index *)[[[(MainData *)[(AthenaDocument *)[[[[self view] window] windowController] document] data] scenarios] objectAtIndex:index] index];
-    [actionObj setValue:idx forKey:@"nextLevel"];
+    [actionController setValue:idx forKey:@"selection.nextLevel"];
 }
 @end
