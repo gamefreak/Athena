@@ -28,7 +28,7 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
 
 @implementation ActionEditor
 @synthesize actions;
-@dynamic rowForDropDown;
+@dynamic tagForDropDown;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -57,9 +57,9 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
 
 - (void) actionParametersDidChange:(NSNotification *)notification {
     [self willChangeValueForKey:@"hasSelection"];
-    [self willChangeValueForKey:@"rowForDropDown"];
+    [self willChangeValueForKey:@"tagForDropDown"];
     int row = [actionTable selectedRow];
-    
+
     NSString *nib;
     if (row >= 0) {
         nib = [[actions objectAtIndex:row] nibName];
@@ -83,7 +83,7 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
     [newInnerView retain];
     [lastInnerView release];
     lastInnerView = newInnerView;
-    [self didChangeValueForKey:@"rowForDropDown"];
+    [self didChangeValueForKey:@"tagForDropDown"];
     [self didChangeValueForKey:@"hasSelection"];
 }
 
@@ -122,36 +122,34 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
 + (Class)classForMenuItem:(NSMenuItem *)menuItem {
     Class class;
     if ([[menuItem title] hasPrefix:@"Alter"]) {
-        class = [AlterAction classForAlterType:[menuItem tag]];
+        class = [AlterAction classForAlterType:[menuItem tag] - 100];
     } else {
+        //I should explain this
         class = [Action classForType:[menuItem tag]];
     }
     return class;
 }
 
-- (NSInteger)rowForDropDown {
+- (NSInteger)tagForDropDown {
     if (![self hasSelection]) {
-        return regularActionOffset + NoActionType;
+        return NoActionType;
     }
-
     NSUInteger index = [actionsArrayController selectionIndex];
     Class currentActionClass = [[actions objectAtIndex:index] class];
-
     BOOL isAlterType = [currentActionClass isSubclassOfClass:[AlterAction class]];
-
     if (isAlterType) {
-        return alterActionOffset + [AlterAction alterTypeForClass:currentActionClass];
+        return [AlterAction alterTypeForClass:currentActionClass] + 100;
     } else {
-        return regularActionOffset + [Action typeForClass:currentActionClass];
+        return [Action typeForClass:currentActionClass];
     }
 }
 
-- (void)setRowForDropDown:(NSInteger)rowForDropDown {
+- (void)setTagForDropDown:(NSInteger)tagForDropDown {
     Class class;
-    if (alterActionOffset <= rowForDropDown) {
-        class = [AlterAction classForAlterType:rowForDropDown - alterActionOffset];
+    if (tagForDropDown > 100) {
+        class = [AlterAction classForAlterType:tagForDropDown - 100];
     } else {
-        class = [Action classForType:rowForDropDown - regularActionOffset];
+        class = [Action classForType:tagForDropDown];
     }
     Action *newAction = [[[class alloc] init] autorelease];
     [[actions objectAtIndex:[actionsArrayController selectionIndex]] copyValuesTo:newAction];

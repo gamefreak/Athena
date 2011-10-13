@@ -23,7 +23,7 @@ extern NSString *XSActionParametersChanged;
     IBOutlet NSMenu *actionTypeMenu;
 }
 @property (readwrite, retain) NSMutableArray *actions;
-@property (readwrite, assign) NSInteger rowForDropDown;
+@property (readwrite, assign) NSInteger tagForDropDown;
 - (void) actionParametersDidChange:(NSNotification *)notification;
 - (IBAction)addAction:(id)sender;
 + (Class)classForMenuItem:(NSMenuItem *)menuItem;

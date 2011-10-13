@@ -314,7 +314,7 @@
             return [AlterAbsoluteLocationAction class];
             break;
         default:
-            @throw [NSString stringWithFormat:@"Invalid alter action type: %@", type];
+            @throw [NSString stringWithFormat:@"Invalid alter action type: %i", type];
 
             break;
     }
