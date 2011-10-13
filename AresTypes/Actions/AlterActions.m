@@ -1274,7 +1274,7 @@
     self = [super init];
     if (self) {
         relative = NO;
-        point = [[XSPoint alloc] init];
+        point = [[XSIPoint alloc] init];
     }
     return self;
 }
@@ -1308,7 +1308,7 @@
         relative = [coder decodeSInt8];
         int x = [coder decodeSInt32];
         int y = [coder decodeSInt32];
-        point = [[XSPoint alloc] initWithX:x Y:y];
+        point = [[XSIPoint alloc] initWithIntegerX:x Y:y];
         [coder skip:14u];//padding
     }
     return self;
@@ -1337,7 +1337,7 @@
 }
 
 - (NSString *)nibName {
-    return @"AlterRelativeRange";
+    return @"AlterAbsoluteLocation";
 }
 
 - (NSString *)description {
