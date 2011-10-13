@@ -2,7 +2,7 @@ package "Athena"
 version "0.1"
 purpose "Scenario editor for Ares, Xsera, and eventually Antares."
 
-args "--arg-struct-name=athena_args --func-name=arg_parser"
+args "--arg-struct-name=athena_args --func-name=arg_parser --no-handle-error"
 
 option "base" b "Use base data." string typestr="FILE" argoptional optional
 option "download" d "Download data" dependon="base" optional

@@ -1234,7 +1234,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0410;
+				LastUpgradeCheck = 0420;
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Athena" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1548,7 +1548,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Athena_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = __DEBUG__;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Athena-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Athena;
@@ -1563,7 +1562,6 @@
 				GCC_MODEL_TUNING = core2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Athena_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Athena-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Athena;

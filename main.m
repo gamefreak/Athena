@@ -16,11 +16,12 @@ int main(int argc, char *argv[]) {
     if (argc > 1 && strncmp("-psn", argv[1], 4) == 0) {
         hasPSN = YES;
     }
+    BOOL unhandledArguments = NO;
     struct athena_args args;
     if (!hasPSN && arg_parser(argc, argv, &args) != 0) {
-        exit(1);
+        unhandledArguments = YES;
     }
-    if (hasPSN || !args.base_given) {
+    if (hasPSN || unhandledArguments || !args.base_given) {
         NSLog(@"No parameters, starting to GUI");
         if (!hasPSN) {
             arg_parser_free(&args);   
