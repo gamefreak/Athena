@@ -12,6 +12,7 @@
 
 @interface ActionViewController : NSViewController {
     Action *actionObj;
+    IBOutlet NSObjectController *actionController;
 }
 @property (readwrite, retain) Action *actionObj;
 @property (readwrite, retain) BaseObject *type;

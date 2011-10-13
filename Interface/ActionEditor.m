@@ -29,25 +29,32 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
 @implementation ActionEditor
 @synthesize actions;
 @dynamic tagForDropDown;
+@synthesize lastInnerView, lastNib, lastViewController;
 
 - (void) dealloc {
+    [lastNib release];
+    [lastViewController release];
+    [lastInnerView release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
 - (void) awakeFromNib {
     [super awakeFromNib];
-    [[[self view] superview] setFrameSize:actionsSize];
-    [[self view] setFrameSize:actionsSize];
-//    [[[self view] superview] setFrameSize:actionsSize];
-    [[[self view] superview] setFrameOrigin:NSZeroPoint];
-    [targetView addSubview:[self view]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(actionParametersDidChange:)
-                                                 name:XSActionParametersChanged
-                                               object:nil];
+    if (!runInit) {
+        runInit = YES;
+        [targetView addSubview:[self view]];
+        [[[self view] superview] setFrameSize:actionsSize];
+        [[self view] setFrameSize:actionsSize];
+        [[[self view] superview] setFrameOrigin:NSZeroPoint];
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self
+               selector:@selector(actionParametersDidChange:)
+                   name:XSActionParametersChanged
+                 object:nil];
+        [nc postNotificationName:XSActionParametersChanged object:nil];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];
+    }
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
@@ -66,7 +73,9 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
     } else {
         nib = @"NoAction";
     }
-
+    if ([nib isEqualToString:lastNib]) {
+        goto skip;
+    }
     ActionViewController *controller = [[[ActionViewController alloc] initWithNibName:nib bundle:nil] autorelease];
     [controller setActionObj:[actionsArrayController selection]];
 
@@ -79,10 +88,11 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
     } else {
         [innerEditorView replaceSubview:lastInnerView with:newInnerView];
     }
-//    [[innerEditorView superview] replaceSubview:innerEditorView with:[controller view]];
-    [newInnerView retain];
-    [lastInnerView release];
-    lastInnerView = newInnerView;
+
+    [self setLastInnerView:newInnerView];
+    [self setLastViewController:controller];
+    [self setLastNib:nib];
+skip:
     [self didChangeValueForKey:@"tagForDropDown"];
     [self didChangeValueForKey:@"hasSelection"];
 }

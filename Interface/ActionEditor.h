@@ -10,6 +10,8 @@
 
 extern NSString *XSActionParametersChanged;
 
+@class ActionViewController;
+
 @interface ActionEditor : NSViewController <NSTableViewDelegate> {
     IBOutlet NSView *targetView;
     IBOutlet NSTableView *actionTable;
@@ -17,13 +19,19 @@ extern NSString *XSActionParametersChanged;
 
     IBOutlet NSView *innerEditorView;
     NSView *lastInnerView;
+    NSString *lastNib;
+    ActionViewController *lastViewController;
 
     NSMutableArray *actions;
 
     IBOutlet NSMenu *actionTypeMenu;
+    BOOL runInit;
 }
 @property (readwrite, retain) NSMutableArray *actions;
 @property (readwrite, assign) NSInteger tagForDropDown;
+@property (readwrite, retain) NSView *lastInnerView;
+@property (readwrite, retain) NSString *lastNib;
+@property (readwrite, retain) ActionViewController *lastViewController;
 - (void) actionParametersDidChange:(NSNotification *)notification;
 - (IBAction)addAction:(id)sender;
 + (Class)classForMenuItem:(NSMenuItem *)menuItem;
