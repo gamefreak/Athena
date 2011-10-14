@@ -12,13 +12,12 @@
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<string>NSCustomView</string>
 			<string>NSTextField</string>
+			<string>NSNumberFormatter</string>
+			<string>NSTextFieldCell</string>
 			<string>NSCustomObject</string>
 			<string>NSObjectController</string>
-			<string>NSNumberFormatter</string>
-			<string>NSCustomView</string>
-			<string>NSUserDefaultsController</string>
-			<string>NSTextFieldCell</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -193,7 +192,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<boolean value="NO"/>
 						<integer value="1040"/>
-						<boolean value="NO"/>
+						<boolean value="YES"/>
 						<integer value="0"/>
 						<integer value="10"/>
 						<string>#,##0</string>
@@ -202,7 +201,7 @@
 						<integer value="1"/>
 						<string>#,##0</string>
 						<string>+∞</string>
-						<boolean value="YES"/>
+						<boolean value="NO"/>
 					</object>
 				</object>
 				<string key="NS.positiveformat">#,##0</string>
@@ -240,12 +239,9 @@
 				</object>
 				<string key="NS.decimal">.</string>
 				<string key="NS.thousand">,</string>
-				<bool key="NS.hasthousands">YES</bool>
+				<bool key="NS.hasthousands">NO</bool>
 				<bool key="NS.localized">YES</bool>
 				<bool key="NS.allowsfloats">NO</bool>
-			</object>
-			<object class="NSUserDefaultsController" id="604057827">
-				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -301,19 +297,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.page</string>
+						<string key="label">value: selection.page</string>
 						<reference key="source" ref="81411970"/>
-						<reference key="destination" ref="604057827"/>
+						<reference key="destination" ref="422549102"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="81411970"/>
-							<reference key="NSDestination" ref="604057827"/>
-							<string key="NSLabel">value: values.page</string>
+							<reference key="NSDestination" ref="422549102"/>
+							<string key="NSLabel">value: selection.page</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.page</string>
+							<string key="NSKeyPath">selection.page</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">23</int>
+					<int key="connectionID">27</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -437,11 +433,6 @@
 						<reference key="object" ref="422549102"/>
 						<reference key="parent" ref="0"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">21</int>
-						<reference key="object" ref="604057827"/>
-						<reference key="parent" ref="0"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -459,7 +450,6 @@
 					<string>2.IBNumberFormatterLocalizesFormatMetadataKey</string>
 					<string>2.IBNumberFormatterSampleNumberKey</string>
 					<string>2.IBPluginDependency</string>
-					<string>21.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
@@ -486,7 +476,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -501,7 +490,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">27</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
