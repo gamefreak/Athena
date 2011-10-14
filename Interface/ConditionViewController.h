@@ -12,6 +12,7 @@
 
 @interface ConditionViewController : NSViewController {
     Condition *conditionObj;
+    IBOutlet NSObjectController *conditionController;
 }
 @property (readwrite, retain) Condition *conditionObj;
 @end
