@@ -89,5 +89,23 @@
    <ArchiveAction
       buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "ZIP_DEPLOYMENT_DIR=`git config --get --path athena.deploy-dir`&#10;if [ -n &quot;${ZIP_DEPLOYMENT_DIR}&quot; ]&#10;then&#10;TEMP_ZIP=&quot;${CONFIGURATION_TEMP_DIR}/${EXECUTABLE_NAME}.zip&quot;&#10;zip -q &quot;${TEMP_ZIP}&quot; -r &quot;${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/&quot;&#10;mv &quot;${TEMP_ZIP}&quot; &quot;${ZIP_DEPLOYMENT_DIR}/${EXECUTABLE_NAME}.zip&quot;&#10;fi">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "8D15AC270486D014006FF6A4"
+                     BuildableName = "Athena.app"
+                     BlueprintName = "Athena"
+                     ReferencedContainer = "container:Athena.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
    </ArchiveAction>
 </Scheme>
