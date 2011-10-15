@@ -11,7 +11,7 @@
 #import "ResCoding.h"
 
 //Semi-Abstract Class
-@interface FlagBlob : NSObject <LuaCoding, ResCoding> {}
+@interface FlagBlob : NSObject <LuaCoding, ResCoding, NSCopying> {}
 @property (readwrite, assign) NSUInteger hex;
 + (NSArray *)keys;
 + (NSArray *)names;

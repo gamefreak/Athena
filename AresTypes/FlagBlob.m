@@ -67,6 +67,12 @@ static NSArray *attributeBlobKeys;
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    FlagBlob *new = [[[self class] allocWithZone:zone] init];
+    [new setHex:[self hex]];
+    return new;
+}
+
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [self init];
     NSArray *keys = [[self class] keys];
