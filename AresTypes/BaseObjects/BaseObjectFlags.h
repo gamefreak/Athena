@@ -41,6 +41,7 @@
     BOOL neutralDeath;
     BOOL isGuided;
     BOOL appearOnRadar;
+    BOOL bit31;
     BOOL onAutoPilot;
 }
 @property (readwrite, assign) BOOL canTurn;
@@ -73,6 +74,7 @@
 @property (readwrite, assign) BOOL neutralDeath;
 @property (readwrite, assign) BOOL isGuided;
 @property (readwrite, assign) BOOL appearOnRadar;
+@property (readwrite, assign) BOOL bit31;
 @property (readwrite, assign) BOOL onAutoPilot;
 @end
 

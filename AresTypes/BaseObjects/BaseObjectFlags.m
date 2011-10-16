@@ -18,7 +18,7 @@
 @synthesize animationCycle, canCollide, canBeHit, isDestination;
 @synthesize hideEffect, releaseEnergyOnDeath, hated, occupiesSpace;
 @synthesize staticDestination, canBeEvaded, neutralDeath, isGuided;
-@synthesize appearOnRadar, onAutoPilot;
+@synthesize appearOnRadar, bit31, onAutoPilot;
 
 + (NSArray *) keys {
     static NSArray *bsobAttributeKeys;
@@ -30,7 +30,7 @@
                              @"autoTarget", @"animationCycle", @"canCollide", @"canBeHit",
                              @"isDestination", @"hideEffect", @"releaseEnergyOnDeath", @"hated",
                              @"occupiesSpace", @"staticDestination", @"canBeEvaded", @"neutralDeath",
-                             @"isGuided", @"appearOnRadar", [NSNull null], @"onAutoPilot", nil];
+                             @"isGuided", @"appearOnRadar", @"bit31", @"onAutoPilot", nil];
         
     }
     return bsobAttributeKeys;
@@ -46,7 +46,7 @@
                              @"Auto Target", @"Animation Cycle", @"Can Collide", @"Can Be Hit",
                              @"Is Destination", @"Hide Effect", @"Release Energy On Death", @"Hated",
                              @"Occupies Space", @"Static Destination", @"Can Be Evaded", @"Neutral Death",
-                             @"Is Guided", @"Appears On Radar", [NSNull null], @"On Auto Pilot", nil];
+                             @"Is Guided [A]", @"Appears On Radar [B]", @"Bit 31 [C]", @"On Auto Pilot [D]", nil];
     }
     return bsobAttributeNames;
 }
