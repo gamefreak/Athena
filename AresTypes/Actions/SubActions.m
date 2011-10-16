@@ -1057,11 +1057,11 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Disable keys with mask 0x%x.", keyMask];
+    return [NSString stringWithFormat:@"Disable keys with mask 0x08%x.", keyMask];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
-    return [NSSet setWithObjects:@"keyMask, hexValue", nil];
+    return [NSSet setWithObjects:@"keyMask", @"hexValue", nil];
 }
 
 - (NSString *)nibName {
@@ -1071,7 +1071,7 @@
 
 @implementation EnableKeysAction
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Enable keys with mask 0x%x.", keyMask];
+    return [NSString stringWithFormat:@"Enable keys with mask 0x%08x.", keyMask];
 }
 @end
 
