@@ -173,9 +173,6 @@ typedef enum {
 @property (readwrite, assign) BOOL useObjectsOwner;
 @property (readwrite, assign) int value;
 @property (readwrite, assign) int player;
-- (NSString *)relativeLabel;
-- (NSString *)minLabel;
-- (NSString *)rangeLabel;
 @end
 
 @interface AlterAbsoluteLocationAction : AlterAction {
