@@ -698,7 +698,7 @@
 												<string key="NSContents">Different</string>
 												<reference key="NSSupport" ref="90572749"/>
 												<reference key="NSControlView" ref="22264118"/>
-												<int key="NSTag">1</int>
+												<int key="NSTag">-1</int>
 												<int key="NSButtonFlags">1211912703</int>
 												<int key="NSButtonFlags2">0</int>
 												<object class="NSButtonImageSource" key="NSAlternateImage" id="779090776">
@@ -821,6 +821,7 @@ QXBwbGUgQ29tcHV0ZXIsIEluYy4sIDIwMDUAAAAAA</bytes>
 												<string key="NSContents">Same</string>
 												<reference key="NSSupport" ref="90572749"/>
 												<reference key="NSControlView" ref="22264118"/>
+												<int key="NSTag">1</int>
 												<int key="NSButtonFlags">1211912703</int>
 												<int key="NSButtonFlags2">0</int>
 												<reference key="NSAlternateImage" ref="779090776"/>
@@ -2202,6 +2203,22 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<int key="connectionID">97</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedTag: selection.owner</string>
+						<reference key="source" ref="22264118"/>
+						<reference key="destination" ref="35059526"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="22264118"/>
+							<reference key="NSDestination" ref="35059526"/>
+							<string key="NSLabel">selectedTag: selection.owner</string>
+							<string key="NSBinding">selectedTag</string>
+							<string key="NSKeyPath">selection.owner</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">462</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">menu</string>
 						<reference key="source" ref="304231713"/>
@@ -3528,7 +3545,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">461</int>
+			<int key="maxID">462</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

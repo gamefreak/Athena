@@ -22,7 +22,7 @@
         reflexive = NO;//Best way?
         inclusiveFilter = [[BaseObjectAttributes alloc] init];
         exclusiveFilter = [[BaseObjectAttributes alloc] init];
-        owner = 0;
+        owner = ObjectOwnerAny;
         delay = 0;
     }
     return self;
