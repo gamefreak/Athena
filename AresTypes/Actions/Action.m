@@ -10,6 +10,7 @@
 #import "Archivers.h"
 #import "AlterActions.h"
 #import "SubActions.h"
+#import "BaseObjectFlags.h"
 
 @implementation Action
 @synthesize reflexive, inclusiveFilter, exclusiveFilter;
@@ -19,9 +20,8 @@
     self = [super init];
     if (self) {
         reflexive = NO;//Best way?
-        inclusiveFilter = 0x00000000;//best??
-        exclusiveFilter = 0x00000000;//best??
-
+        inclusiveFilter = [[BaseObjectAttributes alloc] init];
+        exclusiveFilter = [[BaseObjectAttributes alloc] init];
         owner = 0;
         delay = 0;
     }
@@ -29,6 +29,8 @@
 }
 
 - (void) dealloc {
+    [inclusiveFilter release];
+    [exclusiveFilter release];
     [super dealloc];
 }
 
@@ -38,9 +40,8 @@
     self = [self init];
     if (self) {
         reflexive = [coder decodeBoolForKey:@"reflexive"];
-
-        inclusiveFilter = [coder decodeIntegerForKey:@"inclusiveFilter"];
-        exclusiveFilter = [coder decodeIntegerForKey:@"exclusiveFilter"];
+        [inclusiveFilter setHex:[coder decodeIntegerForKey:@"inclusiveFilter"]];
+        [exclusiveFilter setHex:[coder decodeIntegerForKey:@"exclusiveFilter"]];
         subjectOverride = [coder decodeIntegerForKey:@"subjectOverride"];
         directOverride = [coder decodeIntegerForKey:@"directOverride"];
 
@@ -54,8 +55,8 @@
     [coder encodeString:[Action stringForType:[Action typeForClass:[self class]]]
                  forKey:@"type"];
     [coder encodeBool:reflexive forKey:@"reflexive"];
-    [coder encodeInteger:inclusiveFilter forKey:@"inclusiveFilter"];
-    [coder encodeInteger:exclusiveFilter forKey:@"exclusiveFilter"];
+    [coder encodeInteger:[inclusiveFilter hex] forKey:@"inclusiveFilter"];
+    [coder encodeInteger:[exclusiveFilter hex] forKey:@"exclusiveFilter"];
     [coder encodeInteger:subjectOverride forKey:@"subjectOverride"];
     [coder encodeInteger:directOverride forKey:@"directOverride"];
 
@@ -90,11 +91,12 @@
      * //Remember kids, don't try this at home.
      * //    self = [[[[self class] classForType:type_] alloc] init];
      */
+    self = [self init];
     if (self) {
         [coder skip:1u];//type
         reflexive = (BOOL)[coder decodeSInt8];
-        inclusiveFilter = [coder decodeUInt32];
-        exclusiveFilter = [coder decodeUInt32];
+        [inclusiveFilter setHex:[coder decodeUInt32]];
+        [exclusiveFilter setHex:[coder decodeUInt32]];
         owner = [coder decodeSInt16];
         delay = [coder decodeSInt32];
         subjectOverride = [coder decodeSInt16];
@@ -107,8 +109,8 @@
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     [coder encodeSInt8:[Action typeForClass:[self class]]];
     [coder encodeSInt8:reflexive];
-    [coder encodeUInt32:inclusiveFilter];
-    [coder encodeUInt32:exclusiveFilter];
+    [coder encodeUInt32:[inclusiveFilter hex]];
+    [coder encodeUInt32:[exclusiveFilter hex]];
     [coder encodeSInt16:owner];
     [coder encodeSInt32:delay];
     [coder encodeSInt16:subjectOverride];
@@ -417,8 +419,8 @@
 
 - (void)addObserver:(NSObject *)observer {
     [self addObserver:observer forKeyPath:@"reflexive" options:NSKeyValueObservingOptionOld context:NULL];
-    [self addObserver:observer forKeyPath:@"inclusiveFilter" options:NSKeyValueObservingOptionOld context:NULL];
-    [self addObserver:observer forKeyPath:@"exclusiveFilter" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"inclusiveFilter.hex" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"exclusiveFilter.hex" options:NSKeyValueObservingOptionOld context:NULL];
     [self addObserver:observer forKeyPath:@"subjectOverride" options:NSKeyValueObservingOptionOld context:NULL];
     [self addObserver:observer forKeyPath:@"directOverride" options:NSKeyValueObservingOptionOld context:NULL];
     [self addObserver:observer forKeyPath:@"owner" options:NSKeyValueObservingOptionOld context:NULL];
@@ -427,8 +429,8 @@
 
 - (void)removeObserver:(NSObject *)observer {
     [self removeObserver:observer forKeyPath:@"reflexive"];
-    [self removeObserver:observer forKeyPath:@"inclusiveFilter"];
-    [self removeObserver:observer forKeyPath:@"exclusiveFilter"];
+    [self removeObserver:observer forKeyPath:@"inclusiveFilter.hex"];
+    [self removeObserver:observer forKeyPath:@"exclusiveFilter.hex"];
     [self removeObserver:observer forKeyPath:@"subjectOverride"];
     [self removeObserver:observer forKeyPath:@"directOverride"];
     [self removeObserver:observer forKeyPath:@"owner"];

@@ -37,21 +37,22 @@ typedef enum {
     AssumeInitialObjectActionType
 } ActionType;
 
+@class BaseObjectAttributes;
+
 @interface Action : NSObject <LuaCoding, ResCoding, ResClassOverriding> {
     BOOL reflexive;
-    NSUInteger inclusiveFilter, exclusiveFilter;
+    BaseObjectAttributes *inclusiveFilter, *exclusiveFilter;
     NSInteger subjectOverride, directOverride;
     NSInteger owner;
     NSInteger delay;
 }
 @property (readwrite, assign) BOOL reflexive;
-@property (readwrite, assign) NSUInteger inclusiveFilter;
-@property (readwrite, assign) NSUInteger exclusiveFilter;
+@property (readwrite, copy) BaseObjectAttributes *inclusiveFilter;
+@property (readwrite, copy) BaseObjectAttributes *exclusiveFilter;
 @property (readwrite, assign) NSInteger subjectOverride;
 @property (readwrite, assign) NSInteger directOverride;
 @property (readwrite, assign) NSInteger owner;
 @property (readwrite, assign) NSInteger delay;
-
 @property (readonly) NSString *nibName;
 + (ActionType) typeForClass:(Class)class;
 + (Class) classForType:(ActionType)type;
