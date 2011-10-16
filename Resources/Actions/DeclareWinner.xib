@@ -244,19 +244,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.nextLevel</string>
+						<string key="label">value: nextScenarioIndex</string>
 						<reference key="source" ref="1051948332"/>
-						<reference key="destination" ref="559621102"/>
+						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1051948332"/>
-							<reference key="NSDestination" ref="559621102"/>
-							<string key="NSLabel">value: selection.nextLevel</string>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">value: nextScenarioIndex</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.nextLevel</string>
+							<string key="NSKeyPath">nextScenarioIndex</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">50</int>
+					<int key="connectionID">56</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -445,7 +445,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">53</int>
+			<int key="maxID">56</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

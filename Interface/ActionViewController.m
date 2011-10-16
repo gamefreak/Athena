@@ -65,12 +65,12 @@
     [actionController setValue:[ref valueForKey:@"index"] forKeyPath:@"selection.IDRef"];
 }
 
-- (NSUInteger)nextScenarioIndex {
+- (NSInteger)nextScenarioIndex {
     return [[actionObj valueForKeyPath:@"nextLevel.orNull"] unsignedIntegerValue];
 }
 
-- (void)setNextScenarioIndex:(NSUInteger)index {
-    Index *idx = (Index *)[[[(MainData *)[(AthenaDocument *)[[[[self view] window] windowController] document] data] scenarios] objectAtIndex:index] index];
-    [actionController setValue:idx forKey:@"selection.nextLevel"];
+- (void)setNextScenarioIndex:(NSInteger)index {
+    Index *idx = (Index *)[[[(MainData *)[(AthenaDocument *)[[[[self view] window] windowController] document] data] scenarios] objectAtIndex:index] indexRef];
+    [actionController setValue:idx forKeyPath:@"selection.nextLevel"];
 }
 @end
