@@ -11,6 +11,8 @@
 #import "ActionViewController.h"
 #import "Action.h"
 #import "AlterActions.h"
+#import "BaseObjectFlags.h"
+#import "FlagMenuPopulator.h"
 
 const int regularActionOffset = 2;
 const int regularActionCount = 24;
@@ -48,6 +50,9 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
         [[[self view] superview] setFrameSize:actionsSize];
         [[self view] setFrameSize:actionsSize];
         [[[self view] superview] setFrameOrigin:NSZeroPoint];
+
+        [inclusiveFilterPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"inclusiveFilter"];
+        [exclusiveFilterPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"exclusiveFilter"];
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self
                selector:@selector(actionParametersDidChange:)

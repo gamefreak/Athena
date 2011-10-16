@@ -10,7 +10,7 @@
 
 extern NSString *XSActionParametersChanged;
 
-@class ActionViewController;
+@class ActionViewController, FlagMenuPopulator;
 
 @interface ActionEditor : NSViewController <NSTableViewDelegate> {
     IBOutlet NSView *targetView;
@@ -26,6 +26,9 @@ extern NSString *XSActionParametersChanged;
 
     IBOutlet NSMenu *actionTypeMenu;
     BOOL runInit;
+    
+    IBOutlet FlagMenuPopulator *inclusiveFilterPopulator;
+    IBOutlet FlagMenuPopulator *exclusiveFilterPopulator;
 }
 @property (readwrite, retain) NSMutableArray *actions;
 @property (readwrite, assign) NSInteger tagForDropDown;

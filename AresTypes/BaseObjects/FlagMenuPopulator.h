@@ -11,7 +11,7 @@
 
 @interface FlagMenuPopulator : NSObject {
     IBOutlet NSMenu *menu;
-    IBOutlet NSArrayController *controller;
+    IBOutlet NSObjectController *controller;
 }
 - (void) setRepresentedClass:(Class)class andPathComponent:(NSString *)component;
 - (void) clearItems;
