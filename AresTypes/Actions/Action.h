@@ -57,6 +57,7 @@ typedef enum {
 @property (readwrite, copy) BaseObjectAttributes *exclusiveFilter;
 @property (readwrite, assign) NSInteger subjectOverride;
 @property (readwrite, assign) NSInteger directOverride;
+@property (readwrite, assign) BOOL useLevelKeyFlags;
 @property (readwrite, assign) ObjectOwner owner;
 @property (readwrite, assign) NSInteger delay;
 @property (readonly) NSString *nibName;

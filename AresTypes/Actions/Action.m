@@ -15,7 +15,7 @@
 @implementation Action
 @synthesize reflexive, inclusiveFilter, exclusiveFilter;
 @synthesize subjectOverride, directOverride, owner, delay;
-@dynamic nibName;
+@dynamic nibName, useLevelKeyFlags;
 - (id) init {
     self = [super init];
     if (self) {
@@ -140,6 +140,21 @@
         type = [AlterAction classForAlterType:[AlterAction alterTypeForString:[coder decodeStringForKey:@"alterType"]]];
     }
     return type;
+}
+
+- (BOOL)useLevelKeyFlags {
+    return ([exclusiveFilter hex] & 0xffffffff) == 0xffffffff;
+}
+
+- (void)setUseLevelKeyFlags:(BOOL)useLevelKeyFlags {
+    @synchronized(self) {
+        assert(useLevelKeyFlags == 1 || useLevelKeyFlags == 0);
+        if (useLevelKeyFlags == 1) {
+            [exclusiveFilter setHex:0xffffffff];
+        } else {
+            [exclusiveFilter setHex:0x00000000];
+        }
+    }
 }
 
 + (ActionType)typeForClass:(Class)class {
