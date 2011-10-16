@@ -163,7 +163,7 @@ skip:
 
 - (void)setTagForDropDown:(NSInteger)tagForDropDown {
     Class class;
-    if (tagForDropDown > 100) {
+    if (tagForDropDown >= 100) {
         class = [AlterAction classForAlterType:tagForDropDown - 100];
     } else {
         class = [Action classForType:tagForDropDown];
