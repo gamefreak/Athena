@@ -15,6 +15,7 @@
 @class IndexedObject;
 @class XSPoint, XSText;
 @class ScenarioPar;
+@class Race;
 
 @interface Scenario : IndexedObject <LuaCoding, ResCoding, ResIndexOverriding> {
     NSString *name;
@@ -73,13 +74,14 @@ typedef enum {
 
 @interface ScenarioPlayer : NSObject <LuaCoding, ResCoding> {
     PlayerType type;
-    NSInteger race;
+    Race *race;
+    NSInteger raceId;//used as a temporary variable
     NSString *name;
     float earningPower;
     NSUInteger netRaceFlags;
 }
 @property (readwrite, assign) PlayerType type;
-@property (readwrite, assign) NSInteger race;
+@property (readwrite, retain) Race *race;
 @property (readwrite, retain) NSString *name;
 @property (readwrite, assign) float earningPower;
 @property (readwrite, assign) NSUInteger netRaceFlags;

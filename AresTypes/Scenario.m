@@ -16,6 +16,8 @@
 #import "BriefPoint.h"
 #import "ScenarioInitial.h"
 #import "Condition.h"
+#import "Race.h"
+#import "MainData.h"
 
 @implementation Scenario
 @synthesize name, netRaceFlags;
@@ -164,6 +166,7 @@
 
 - (void) finishLoadingFromLuaWithRootData:(id)data {
     [initialObjects makeObjectsPerformSelector:@selector(finishLoadingFromLuaWithRootData:) withObject:data];
+    [players makeObjectsPerformSelector:@selector(finishLoadingFromLuaWithRootData:) withObject:data];
 }
 
 + (BOOL) isComposite {
@@ -366,13 +369,15 @@
 
 
 @implementation ScenarioPlayer
-@synthesize type, race, name, earningPower, netRaceFlags;
+@synthesize type, name, earningPower, netRaceFlags;
+@dynamic race;
 
 - (id) init {
     self = [super init];
     if (self) {
         type = PlayerTypeCpu;
-        race = 100;
+        raceId = -1;
+        race = nil;
         name = @"Untitled";
         earningPower = 1.0f;
         netRaceFlags = 0x00000000;
@@ -382,6 +387,7 @@
 
 - (void) dealloc {
     [name release];
+    [race release];
     [super dealloc];
 }
 
@@ -407,7 +413,7 @@
             type = PlayerTypeNull;
         }
 
-        race = [coder decodeIntegerForKey:@"race"];
+        raceId = [coder decodeIntegerForKey:@"race"];
         [name release];
         name = [[coder decodeStringForKey:@"name"] retain];
         earningPower = [coder decodeFloatForKey:@"earningPower"];
@@ -434,8 +440,11 @@
             @throw @"Invalid Player Type";
             break;
     }
-    
-    [coder encodeInteger:race forKey:@"race"];
+    if (race != nil) {
+        [coder encodeInteger:[race raceId] forKey:@"race"];
+    } else {
+        [coder encodeInteger:raceId forKey:@"race"];
+    }
     [coder encodeString:name forKey:@"name"];
     [coder encodeFloat:earningPower forKey:@"earningPower"];
     [coder encodeInteger:netRaceFlags forKey:@"netRaceFlags"];
@@ -449,12 +458,21 @@
     return self;
 }
 
+- (void)finishLoadingFromLuaWithRootData:(MainData *)data {
+    [self setRace:[[data races] firstObjectPassingTest:^(id obj, NSUInteger idx){
+        return (BOOL)([obj raceId] == raceId);
+    }]];
+}
+
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
         type = [coder decodeSInt16];
         if (type != PlayerTypeNull) {
-            race = [coder decodeSInt16];
+            raceId = [coder decodeSInt16];
+            [self setRace:[[[coder allObjectsOfClass:[Race class]] allValues] firstObjectPassingTest:^(id obj, NSUInteger idx){
+                return (BOOL)([obj raceId] == raceId);
+            }]];
             short stringSet = [coder decodeSInt16];
             short stringId = [coder decodeSInt16];
             if (stringSet != -1 || stringId != -1) {
@@ -474,13 +492,32 @@
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     [coder encodeSInt16:type];
-    [coder encodeSInt16:race];
+    [coder encodeSInt16:raceId];
     [coder encodeSInt16:STRPlayerNames];
     [coder encodeSInt16:[coder addUniqueString:name toStringTable:STRPlayerNames] + 1];
     [coder skip:4u];
     [coder encodeFixed:earningPower];
     [coder encodeSInt16:netRaceFlags];
     [coder skip:2];
+}
+
+- (Race *)race {
+    @synchronized(self) {
+        return [[race retain] autorelease];
+    }
+}
+
+- (void)setRace:(Race *)race_ {
+    @synchronized(self) {
+        [race_ retain];
+        [race release];
+        race = race_;
+        if (race == nil) {
+            raceId = -1;
+        } else {
+            raceId = [race raceId];
+        }
+    }
 }
 @end
 
