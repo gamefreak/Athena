@@ -4,7 +4,7 @@
 
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
-
+#import "NSArray+AthenaAdditions.h"
 //To shut up some pedantic warning messages.
 //Why is this +alloc part of the NSObject protocol?
 @protocol Alloc + (id) alloc; @end

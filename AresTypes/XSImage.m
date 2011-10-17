@@ -59,12 +59,12 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     [coder setName:name];
     //Check if we already have a PICT representation
-    NSUInteger repIndex = [[image representations] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
-        return *stop = [obj isKindOfClass:[NSPICTImageRep class]];
+    NSPICTImageRep *pictRep = [[image representations] firstObjectPassingTest:^(id obj, NSUInteger idx){
+        return (BOOL)([obj isKindOfClass:[NSPICTImageRep class]]);
     }];
-    if (repIndex != NSNotFound) {
+    if (pictRep != nil) {
         //We have a pict representation so skip the custom encoder!
-        NSData *data = [[[image representations] objectAtIndex:repIndex] PICTRepresentation];
+        NSData *data = [pictRep PICTRepresentation];
         [coder extend:[data length]];
         [coder writeBytes:(void *)[data bytes] length:[data length]];
     } else {
