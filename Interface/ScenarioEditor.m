@@ -233,4 +233,13 @@
     [scenarios release];
     [super dealloc];
 }
+
+- (NSInteger)numberOfItemsInComboBoxCell:(NSComboBoxCell *)comboBoxCell {
+    
+    return [[data valueForKeyPath:@"scenarios.@distinctUnionOfArrays.players.name"] count];
+}
+
+- (id)comboBoxCell:(NSComboBoxCell *)aComboBoxCell objectValueForItemAtIndex:(NSInteger)index {
+    return [[data valueForKeyPath:@"scenarios.@distinctUnionOfArrays.players.name"] objectAtIndex:index];
+}
 @end

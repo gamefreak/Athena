@@ -10,7 +10,7 @@
 
 @class MainData;
 
-@interface ScenarioEditor : NSWindowController {
+@interface ScenarioEditor : NSWindowController <NSComboBoxCellDataSource> {
     IBOutlet NSArrayController *scenarioArray;
     IBOutlet NSTableView *scoreStringTable;
     IBOutlet NSArrayController *scoreStringController;
