@@ -61,7 +61,6 @@
     [editor showWindow:sender];
     [editor setSelection:currentInitial.type];
     [currentInitial bind:@"type" toObject:editor withKeyPath:@"selection" options:nil];
-    editor.selectionIndex = currentInitial.type.objectIndex;
     [editor release];
 }
 
