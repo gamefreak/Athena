@@ -39,6 +39,11 @@ typedef enum {
     SubjectIsPlayerConditionType,
 } ConditionType;
 
+enum {
+    NoObjectFlag = -1,
+    SubjectIsPlayerSpecialFlag = -2
+} ConditionSpecialInitials;
+
 @class XSIPoint;
 @class ConditionFlags;
 
@@ -52,6 +57,7 @@ typedef enum {
 @property (readwrite, assign) int direct;
 @property (readwrite, retain) NSMutableArray *actions;
 @property (readwrite, retain) ConditionFlags *flags;
+@property (readwrite, assign) BOOL subjectIsPlayer;
 + (ConditionType) typeForString:(NSString *)typeName;
 + (NSString *) stringForType:(ConditionType)type;
 + (ConditionType) typeForClass:(Class)class;

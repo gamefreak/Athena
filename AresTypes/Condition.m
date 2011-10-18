@@ -16,12 +16,13 @@
 @implementation Condition
 @synthesize subject, direct;
 @synthesize actions, flags;
+@dynamic subjectIsPlayer;
 
 - (id) init {
     self = [super init];
     if (self) {
-        subject = -1;
-        direct = -1;
+        subject = NoObjectFlag;
+        direct = NoObjectFlag;
         actions = [[NSMutableArray alloc] init];
         flags = [[ConditionFlags alloc] init];
         
@@ -417,6 +418,22 @@
 
 - (NSString *)nibName {
     return @"NoParameter";
+}
+
+- (BOOL)subjectIsPlayer {
+    return direct == SubjectIsPlayerSpecialFlag;
+}
+
+- (void)setSubjectIsPlayer:(BOOL)subjectIsPlayer {
+    [self setDirect:(subjectIsPlayer?SubjectIsPlayerSpecialFlag:NoObjectFlag)];
+}
+
++ (NSSet *)keyPathsForValuesAffectingSubjectIsPlayer {
+    return [NSSet setWithObjects:@"direct", nil];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDirect {
+    return [NSSet setWithObjects:@"subjectIsPlayer", nil];
 }
 @end
 
