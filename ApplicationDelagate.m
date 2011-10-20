@@ -13,6 +13,8 @@
 NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMedia.zip";
 NSString *XSHasAskedForData = @"AskedToGetData";
 NSString *XSHasAresData = @"HasAresData";
+NSString *HeraHelpURL = @"http://hera.sfiera.net/";
+
 
 @implementation ApplicationDelagate
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
@@ -142,5 +144,10 @@ NSString *XSHasAresData = @"HasAresData";
 
 - (IBAction)redownloadData:(id)sender {
     [self downloadAresData];
+}
+
+
+- (IBAction)showHeraHelp:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:HeraHelpURL]];
 }
 @end

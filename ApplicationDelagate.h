@@ -12,6 +12,8 @@ extern NSString *XSAresDataUrl;
 extern NSString *XSHasAskedForData;
 extern NSString *XSHasAresData;
 
+extern NSString *HeraHelpURL;
+
 @interface ApplicationDelagate : NSObject <NSApplicationDelegate> {
 
 }
@@ -22,4 +24,5 @@ extern NSString *XSHasAresData;
 - (void)openDefaultData;
 - (IBAction)redownloadData:(id)sender;
 - (IBAction)openOrignalData:(id)sender;//Action version
+- (IBAction)showHeraHelp:(id)sender;
 @end
