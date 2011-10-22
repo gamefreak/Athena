@@ -984,7 +984,6 @@
 			children = (
 				1DDD58280DA1D0D100B32029 /* AthenaDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
-				D225D5E713035E9A00E75803 /* BriefingEditor.xib */,
 				D216CF68132420DD008E24F0 /* Objects */,
 				D2132128141F7D45001533A3 /* Sprite */,
 				D288339112F24F4100A02383 /* RaceEditor.xib */,
@@ -1144,6 +1143,7 @@
 			children = (
 				D288344912F2642B00A02383 /* ScenarioEditor.xib */,
 				D2C55B4B12F3235E007140A2 /* InitialEditor.xib */,
+				D225D5E713035E9A00E75803 /* BriefingEditor.xib */,
 				D2A1911C12FE3CB700232914 /* StarmapPicker.xib */,
 				D25B7E141403E90300BE6203 /* Conditions */,
 			);
