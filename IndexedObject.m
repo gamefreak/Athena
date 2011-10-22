@@ -21,7 +21,7 @@
     return self;
 }
 
-- (id) initWithIndex:(NSUInteger)_index {
+- (id) initWithIndex:(unsigned short)_index {
     self = [super init];
     if (self) {
         index = [[Index alloc] initWithIndex:_index];
@@ -46,7 +46,7 @@
     return index.index;
 }
 
-- (void) setObjectIndex:(NSUInteger)_index {
+- (void) setObjectIndex:(unsigned short)_index {
     index.index = _index;
 }
 
@@ -69,13 +69,13 @@
 @synthesize object;
 
 - (id) init {
-    self = [self initWithIndex:NSUIntegerMax];
+    self = [self initWithIndex:UINT16_MAX];
     if (self) {
     }
     return self;
 }
 
-- (id) initWithIndex:(NSUInteger)_index {
+- (id) initWithIndex:(unsigned short)_index {
     self = [super init];
     if (self) {
         index = _index;
@@ -84,7 +84,7 @@
 }
 
 - (NSInteger) orNull {
-    if (index == NSUIntegerMax) {
+    if (index == UINT16_MAX) {
         return -1;
     } else {
         return index;

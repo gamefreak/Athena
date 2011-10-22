@@ -16,17 +16,17 @@
 }
 @property (readwrite, assign) NSUInteger objectIndex;
 @property (readwrite, retain) Index *indexRef;
-- (id) initWithIndex:(NSUInteger)index;
+- (id) initWithIndex:(unsigned short)index;
 - (void) objectsAddedAtIndexes:(NSIndexSet *)indexes;
 - (void) objectsRemovedAtIndexes:(NSIndexSet *)indexes;
 @end
 
 @interface Index : NSObject {
-    NSUInteger index;
+    unsigned short index;
     id object;//do not release/retain
 }
-@property (readwrite, assign) NSUInteger index;
+@property (readwrite, assign) unsigned short index;
 @property (readonly) NSInteger orNull;
 @property (readwrite, assign) id object;
-- (id) initWithIndex:(NSUInteger)index;
+- (id) initWithIndex:(unsigned short)index;
 @end

@@ -220,6 +220,7 @@ static void stackDump (lua_State *L) {
 }
 
 - (NSMutableDictionary *) decodeDictionaryOfClass:(Class<Alloc, LuaCoding>)_class forKey:(NSString *)key {
+    BOOL useIndexRefs = [[[[_class alloc] init] autorelease] isKindOfClass:[IndexedObject class]];
     [self getKey:key];
     assert(lua_istable(L, -1));
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -230,6 +231,9 @@ static void stackDump (lua_State *L) {
         lua_pop(L, 1);//Pop the copy
         Class class = [_class classForLuaCoder:self];
         id value = [[class alloc] initWithLuaCoder:self];
+        if (useIndexRefs) {
+            [(IndexedObject *)value setObjectIndex:[key intValue]];
+        }
         [dict setObject:value forKey:key];
         [value release];
         lua_pop(L, 1);
