@@ -85,7 +85,7 @@ static NSArray *mainDataKeys;
         [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
         [sprites setArray:[coder decodePairArrayOfClass:[SMIVImage class] forKey:@"sprites"]];
         [sounds setArray:[coder decodePairArrayOfClass:[XSSound class] forKey:@"sounds"]];
-        [images setArray:[coder decodePairArrayOfClass:[XSImage class] forKey:@"images"]];
+        [images setArray:[[coder decodeDictionaryOfClass:[XSImage class] forKey:@"images"] allValues]];
 
         [flags initWithLuaCoder:coder];
     }
@@ -111,7 +111,7 @@ static NSArray *mainDataKeys;
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
     [coder encodePairArray:sprites forKey:@"sprites"];
     [coder encodePairArray:sounds forKey:@"sounds"];
-    [coder encodePairArray:images forKey:@"images"];
+    [coder encodeDictionary:[NSDictionary dictionaryWithObjects:images forKeys:[images valueForKeyPath:@"objectIndex"]] forKey:@"images" asArray:YES];
 }
 
 - (void) finishLoadingFromLuaWithRootData:(id)data {
@@ -178,11 +178,8 @@ static NSArray *mainDataKeys;
         for (NSString *key in soundDict) {
             [sounds addObject:[XSKeyValuePair pairWithKey:key value:[soundDict objectForKey:key]]];
         }
-        
-        NSDictionary *imageDict = [coder allObjectsOfClass:[XSImage class]];
-        for (NSString *key in imageDict) {
-            [images addObject:[XSKeyValuePair pairWithKey:key value:[imageDict objectForKey:key]]];
-        }
+
+        [images setArray:[[coder allObjectsOfClass:[XSImage class]] allValues]];
     }
     return self;
 }
@@ -209,8 +206,8 @@ static NSArray *mainDataKeys;
         [coder encodeObject:pair.value atIndex:[pair.key intValue]];
     }
     
-    for (XSKeyValuePair *pair in images) {
-        [coder encodeObject:pair.value atIndex:[pair.key intValue]];
+    for (XSImage *image in images) {
+        [coder encodeObject:image atIndex:image.objectIndex];
     }
 
     [coder extend:1056];

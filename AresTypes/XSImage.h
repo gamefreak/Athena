@@ -8,8 +8,9 @@
 
 #import <AppKit/AppKit.h>
 #import "Archivers.h"
+#import "IndexedObject.h"
 
-@interface XSImage : NSObject <ResCoding, LuaCoding> {
+@interface XSImage : IndexedObject <ResCoding, LuaCoding> {
     NSString *name;
     NSImage *image;
 }

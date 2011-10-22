@@ -10,7 +10,6 @@
 #import "MainData.h"
 #import "XSImageView.h"
 #import "XSImage.h"
-#import "XSKeyValuePair.h"
 
 @interface ImageEditor (Private)
 - (void)insertObject:(XSImage *)object inImagesAtIndex:(NSUInteger)index;
@@ -39,8 +38,8 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    [arrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"key" ascending:YES selector:@selector(numericCompare:)]]];
-    [imageView bind:@"image" toObject:arrayController withKeyPath:@"selection.value" options:nil];
+    [arrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"objectIndex" ascending:YES]]];
+    [imageView bind:@"image" toObject:arrayController withKeyPath:@"selection.self" options:nil];
 }
 
 - (IBAction)openImage:(id)sender {
@@ -65,7 +64,7 @@
     if (index == NSNotFound) {
         return;
     }
-    XSImage *image = [[[[arrayController arrangedObjects] objectAtIndex:index] value] retain];
+    XSImage *image = [[[arrayController arrangedObjects] objectAtIndex:index] retain];
     
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"png"]];
@@ -108,31 +107,27 @@
 - (BOOL)addImage:(XSImage *)image {
     if (image != nil) {
         //get keys
-        NSArray *keys = [images valueForKeyPath:@"key"];
-        int firstIndex = [[keys valueForKeyPath:@"@min.intValue"] intValue];
-        int lastIndex = [[keys valueForKeyPath:@"@max.intValue"] intValue];
+        NSArray *IDs = [images valueForKeyPath:@"objectIndex"];
+        int firstID = [[IDs valueForKeyPath:@"@min.intValue"] intValue];
+        int lastID = [[IDs valueForKeyPath:@"@max.intValue"] intValue];
         int found = -1;
         //scan for gaps
-        for (int k = firstIndex; k < lastIndex; k++) {
-            NSString *tk = [[NSNumber numberWithInt:k] stringValue];
-            if (![keys containsObject:tk]) {
+        for (int k = firstID; k < lastID; k++) {
+            NSNumber *tk = [NSNumber numberWithInt:k];
+            if (![IDs containsObject:tk]) {
                 found = k;
                 break;
             }
         }
-        NSString *key = nil;
+        NSNumber *ID = nil;
         if (found == -1) {
-            found = lastIndex + 1;
+            found = lastID + 1;
         }
-        key = [[NSNumber numberWithInt:found] stringValue];
+        ID = [NSNumber numberWithInt:found];
 
-        NSAssert(![keys containsObject:key], @"images table contained unexpected key %@", key);
-
-        XSKeyValuePair *pair = [arrayController newObject];
-        [pair setKey:key];
-        [pair setValue:image];
-        [arrayController addObject:pair];
-        [pair release];
+        NSAssert(![IDs containsObject:ID], @"images table contained unexpected id %@", ID);
+        [image setObjectIndex:[ID integerValue]];
+        [arrayController addObject:image];
         return YES;
     }
     return NO;
@@ -142,8 +137,7 @@
     [pboard declareTypes:[NSArray arrayWithObjects:NSFileContentsPboardType, NSFilesPromisePboardType, nil] owner:self];
 
     NSMutableArray *fileNames = [NSMutableArray array];
-    for (XSKeyValuePair *pair in [[arrayController arrangedObjects] objectsAtIndexes:rowIndexes]) {
-        XSImage *image = pair.value;
+    for (XSImage *image in [[arrayController arrangedObjects] objectsAtIndexes:rowIndexes]) {
         NSFileWrapper *wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[image PNGData]];
         NSString *filename = [[image name] stringByAppendingPathExtension:@"png"];
         [wrapper setFilename:filename];
