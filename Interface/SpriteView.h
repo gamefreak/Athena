@@ -27,7 +27,7 @@
 @property (readwrite, assign) CGFloat angularVelocity;
 @property (readwrite, assign) NSRange frameRange;
 @property (readwrite, retain) NSEvent *dragStartEvent;
-
+- (void) stopTimer;
 - (void) resetTimer;
 - (IBAction) triggerChange:(id)sender;
 - (void)beginDrag:(NSTimer *)timer;

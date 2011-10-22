@@ -28,8 +28,7 @@
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"sprite"];
-    [timer invalidate];
-    [timer release];
+    [self stopTimer];
     [dragTimer invalidate];
     [dragTimer release];
     [dragStartEvent release];
@@ -39,6 +38,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
+}
+
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow {
+    [super viewWillMoveToWindow:newWindow];
+    [self stopTimer];
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -57,10 +61,14 @@
 
 }
 
-- (void) resetTimer {
+- (void) stopTimer {
     [timer invalidate];
     [timer release];
     timer = nil;
+}
+
+- (void) resetTimer {
+    [self stopTimer];
     if (direction == 1 || direction == -1) {
         timer = [[NSTimer scheduledTimerWithTimeInterval:1.0f / (speed) target:self selector:@selector(triggerChange:) userInfo:NULL repeats:YES] retain];
     }
@@ -109,14 +117,19 @@
 }
 
 - (void)setSprite:(SMIVImage *)sprite_ {
-    [sprite release];
-    sprite = sprite_;
-    [sprite retain];
-    [self setFrameRange:NSMakeRange(0, [sprite count])]; 
+    @synchronized(self) {
+        [sprite_ retain];
+        [sprite release];
+        sprite = sprite_;
+        [self setFrameRange:NSMakeRange(0, [sprite count])]; 
+        [self resetTimer];
+    }
 }
 
 - (SMIVImage *)sprite {
-    return sprite;
+    @synchronized(self) {
+        return [[sprite retain] autorelease];
+    }
 }
 
 - (void)setDirection:(NSInteger)_direction {
