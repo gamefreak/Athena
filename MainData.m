@@ -83,7 +83,7 @@ static NSArray *mainDataKeys;
         [objects    setArray:[coder decodeArrayOfClass:[BaseObject class]      forKey:@"objects"    zeroIndexed:YES]];
         [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
         [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
-        [sprites setArray:[coder decodePairArrayOfClass:[SMIVImage class] forKey:@"sprites"]];
+        [sprites setArray:[[coder decodeDictionaryOfClass:[SMIVImage class] forKey:@"sprites"] allValues]];
         [sounds setArray:[coder decodePairArrayOfClass:[XSSound class] forKey:@"sounds"]];
         [images setArray:[[coder decodeDictionaryOfClass:[XSImage class] forKey:@"images"] allValues]];
 
@@ -109,7 +109,7 @@ static NSArray *mainDataKeys;
     [coder encodeArray:objects    forKey:@"objects"    zeroIndexed:YES];
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
-    [coder encodePairArray:sprites forKey:@"sprites"];
+    [coder encodeDictionary:[NSDictionary dictionaryWithObjects:sprites forKeys:[sprites valueForKeyPath:@"objectIndex"]] forKey:@"sprites" asArray:YES];
     [coder encodePairArray:sounds forKey:@"sounds"];
     [coder encodeDictionary:[NSDictionary dictionaryWithObjects:images forKeys:[images valueForKeyPath:@"objectIndex"]] forKey:@"images" asArray:YES];
 }
@@ -169,10 +169,7 @@ static NSArray *mainDataKeys;
             [objects addObject:[coder decodeObjectOfClass:[BaseObject class] atIndex:index]];
         }
 
-        NSDictionary *spriteDict = [coder allObjectsOfClass:[SMIVImage class]];
-        for (NSString *key in spriteDict) {
-            [sprites addObject:[XSKeyValuePair pairWithKey:key value:[spriteDict objectForKey:key]]];
-        }
+        [sprites setArray:[[coder allObjectsOfClass:[SMIVImage class]] allValues]];
 
         NSDictionary *soundDict = [coder allObjectsOfClass:[XSSound class]];
         for (NSString *key in soundDict) {
@@ -198,8 +195,8 @@ static NSArray *mainDataKeys;
         [coder encodeObject:object];
     }
 
-    for (XSKeyValuePair *pair in sprites) {
-        [coder encodeObject:pair.value atIndex:[pair.key intValue]];
+    for (SMIVImage *sprite in sprites) {
+        [coder encodeObject:sprite atIndex:sprite.objectIndex];
     }
 
     for (XSKeyValuePair *pair in sounds) {

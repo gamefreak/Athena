@@ -10,7 +10,6 @@
 #import "MainData.h"
 #import "SpriteView.h"
 #import "SMIVImage.h"
-#import "XSKeyValuePair.h"
 
 @interface SpriteEditor (Private)
 - (void)insertObject:(SMIVImage *)object inSpritesAtIndex:(NSUInteger)index;    
@@ -40,12 +39,7 @@
 
 - (void) awakeFromNib {
     [super awakeFromNib];
-    [spriteController
-     setSortDescriptors:[NSArray
-                         arrayWithObject:[NSSortDescriptor
-                                          sortDescriptorWithKey:@"key"
-                                          ascending:YES
-                                          selector:@selector(numericCompare:)]]];
+    [spriteController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"objectIndex" ascending:YES]]];
     [spriteController addObserver:self
                        forKeyPath:@"selectionIndex"
                           options:NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
@@ -54,7 +48,7 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    [spriteView bind:@"sprite" toObject:spriteController withKeyPath:@"selection.value" options:nil];
+    [spriteView bind:@"sprite" toObject:spriteController withKeyPath:@"selection.self" options:nil];
 }
 
 - (NSUInteger)spriteId {
@@ -62,7 +56,7 @@
     if (index == NSNotFound) {
         return -1;
     }
-    return [[[spriteController selection] valueForKey:@"key"] intValue];
+    return [[[spriteController selection] valueForKey:@"objectIndex"] intValue];
 }
 
 - (void)setSpriteId:(NSUInteger)spriteId {
@@ -153,31 +147,27 @@
 - (BOOL)addSprite:(SMIVImage *)sprite {
     if (sprite != nil) {
         //get keys
-        NSArray *keys = [sprites valueForKeyPath:@"key"];
-        int firstIndex = [[keys valueForKeyPath:@"@min.intValue"] intValue];
-        int lastIndex = [[keys valueForKeyPath:@"@max.intValue"] intValue];
+        NSArray *IDs = [sprites valueForKeyPath:@"objectIndex"];
+        int firstID = [[IDs valueForKeyPath:@"@min.intValue"] intValue];
+        int lastID = [[IDs valueForKeyPath:@"@max.intValue"] intValue];
         int found = -1;
         //scan for gaps
-        for (int k = firstIndex; k < lastIndex; k++) {
-            NSString *tk = [[NSNumber numberWithInt:k] stringValue];
-            if (![sprites containsObject:tk]) {
+        for (int k = firstID; k < lastID; k++) {
+            NSNumber *tk = [NSNumber numberWithInt:k];
+            if (![IDs containsObject:tk]) {
                 found = k;
                 break;
             }
         }
-        NSString *key = nil;
+        NSNumber *ID = nil;
         if (found == -1) {
-            found = lastIndex + 1;
+            found = lastID + 1;
         }
-        key = [[NSNumber numberWithInt:found] stringValue];
+        ID = [NSNumber numberWithInt:found];
 
-        NSAssert(![sprites containsObject:key], @"sprites table contained unexpected key %@", key);
-
-        id pair = [spriteController newObject];
-        [pair setKey:key];
-        [pair setValue:sprite];
-        [spriteController addObject:pair];
-        [pair release];
+        NSAssert(![IDs containsObject:ID], @"sprites table contained unexpected ID %@", ID);
+        [sprite setObjectIndex:[ID unsignedShortValue]];
+        [spriteController addObject:sprite];
         return YES;
     }
     return NO;
@@ -206,7 +196,7 @@
         return;
     }
     BOOL exportPNG = [sender tag];
-    SMIVImage *sprite = [[[[spriteController arrangedObjects] objectAtIndex:index] value] retain];
+    SMIVImage *sprite = [[[spriteController arrangedObjects] objectAtIndex:index] retain];
     
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"png", @"gif", nil]];
@@ -239,8 +229,7 @@
     [pboard declareTypes:[NSArray arrayWithObjects:NSFileContentsPboardType, NSFilesPromisePboardType, nil] owner:self];
     
     NSMutableArray *fileNames = [NSMutableArray array];
-    for (XSKeyValuePair *pair in [[spriteController arrangedObjects] objectsAtIndexes:rowIndexes]) {
-        SMIVImage *sprite = pair.value;
+    for (SMIVImage *sprite in [[spriteController arrangedObjects] objectsAtIndexes:rowIndexes]) {
         NSFileWrapper *wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[sprite PNGData]];
         NSString *filename = [[sprite title] stringByAppendingPathExtension:@"png"];
         [wrapper setFilename:filename];

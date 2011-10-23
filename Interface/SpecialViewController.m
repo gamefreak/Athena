@@ -13,8 +13,6 @@
 #import "AthenaDocument.h"
 #import "SpriteEditor.h"
 
-@class XSKeyValuePair;
-
 @implementation SpecialViewController
 @dynamic object;
 @dynamic frame;
@@ -157,13 +155,17 @@
 
 - (SMIVImage *)spriteForObject:(BaseObject *)object_ {
     NSArray *sprites = [(MainData *)[[[[[self view] window] windowController] document] data] sprites];
-    NSString *spriteKey = [[object_ valueForKey:@"spriteId"] stringValue];
+    NSUInteger spriteId = [[object_ valueForKey:@"spriteId"] unsignedIntegerValue];
+//    return [sprites firstObjectPassingTest:^(id obj, NSUInteger idx) {
+//        return (BOOL)([obj objectIndex] == spriteId);
+//    }];
+//    NSString *spriteKey = [[object_ valueForKey:@"spriteId"] stringValue];
     NSUInteger index = [sprites indexOfObjectWithOptions:NSEnumerationConcurrent
                                              passingTest:^(id obj, NSUInteger idx, BOOL *stop){
-        return *stop = [[obj key] isEqual:spriteKey];
-    }];
+                                                 return *stop = [obj objectIndex] == spriteId;
+                                             }];
     if (index != NSNotFound) {
-        return (SMIVImage *)[(XSKeyValuePair *)[sprites objectAtIndex:index] value];
+        return (SMIVImage *)[sprites objectAtIndex:index];
     }
     return nil;
 }

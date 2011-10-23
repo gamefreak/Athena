@@ -10,8 +10,9 @@
 #import "Color.h"
 #import "ResCoding.h"
 #import "LuaCoding.h"
+#import "IndexedObject.h"
 
-@interface SMIVImage : NSObject <ResCoding, LuaCoding, NSCopying> {
+@interface SMIVImage : IndexedObject <ResCoding, LuaCoding, NSCopying> {
     NSString *title;
     NSMutableArray *frames;
     CGSize cellSize;
