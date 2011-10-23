@@ -13,7 +13,6 @@
 #import "lauxlib.h"
 #import "NSStringExtensions.h"
 #import "IndexedObject.h"
-#import "XSKeyValuePair.h"
 
 
 static void stackDump (lua_State *L) {
@@ -198,24 +197,6 @@ static void stackDump (lua_State *L) {
         lua_pop(L, 1); //pops value
     }
     [self pop]; //pop the array's table
-    return array;
-}
-
-- (NSMutableArray *) decodePairArrayOfClass:(Class<Alloc, LuaCoding>)_class forKey:(NSString *)key {
-    [self getKey:key];
-    assert(lua_istable(L, -1));
-    NSMutableArray *array = [NSMutableArray array];
-    lua_pushnil(L);
-    while (lua_next(L, -2) != 0) {
-        lua_pushvalue(L, -2);
-        NSString *key = [NSString stringWithUTF8String:lua_tostring(L, -1)];
-        lua_pop(L, 1);
-        Class class = [_class classForLuaCoder:self];
-        id value = [[[class alloc] initWithLuaCoder:self] autorelease];
-        [array addObject:[XSKeyValuePair pairWithKey:key value:value]];
-        lua_pop(L, 1);
-    }
-    [self pop];
     return array;
 }
 

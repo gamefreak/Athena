@@ -57,7 +57,6 @@
 		D25AA7ED143DF1720059DA02 /* CurrentMessageCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AA7EC143DF1720059DA02 /* CurrentMessageCondition.xib */; };
 		D25B7E131403E8FC00BE6203 /* ConditionEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */; };
 		D25B7E171403E93500BE6203 /* ConditionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D25B7E161403E93500BE6203 /* ConditionEditor.m */; };
-		D26259181432525C0014F9A8 /* XSKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = D26259171432525C0014F9A8 /* XSKeyValuePair.m */; };
 		D2627542141FD4960064AD95 /* cmdline.c in Sources */ = {isa = PBXBuildFile; fileRef = D2627540141FD4960064AD95 /* cmdline.c */; };
 		D2627544141FD4B10064AD95 /* athena.ggo in Resources */ = {isa = PBXBuildFile; fileRef = D2627543141FD4B10064AD95 /* athena.ggo */; };
 		D26B69DB130C14EB00B461FB /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28312E8BDE200694EBA /* lapi.c */; };
@@ -403,8 +402,6 @@
 		D25B7E121403E8FC00BE6203 /* ConditionEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConditionEditor.xib; sourceTree = "<group>"; };
 		D25B7E151403E93500BE6203 /* ConditionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionEditor.h; sourceTree = "<group>"; };
 		D25B7E161403E93500BE6203 /* ConditionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionEditor.m; sourceTree = "<group>"; };
-		D26259161432525C0014F9A8 /* XSKeyValuePair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSKeyValuePair.h; sourceTree = "<group>"; };
-		D26259171432525C0014F9A8 /* XSKeyValuePair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSKeyValuePair.m; sourceTree = "<group>"; };
 		D2627540141FD4960064AD95 /* cmdline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmdline.c; sourceTree = "<group>"; };
 		D2627541141FD4960064AD95 /* cmdline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdline.h; sourceTree = "<group>"; };
 		D2627543141FD4B10064AD95 /* athena.ggo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = athena.ggo; sourceTree = "<group>"; };
@@ -970,8 +967,6 @@
 				D2D7502E12F0874500B17631 /* NSStringExtensions.m */,
 				D2944B081315B29900D1175E /* XSText.h */,
 				D2944B091315B29900D1175E /* XSText.m */,
-				D26259161432525C0014F9A8 /* XSKeyValuePair.h */,
-				D26259171432525C0014F9A8 /* XSKeyValuePair.m */,
 				D284C92A144C786000956852 /* NSArray+AthenaAdditions.h */,
 				D284C92B144C786000956852 /* NSArray+AthenaAdditions.m */,
 			);
@@ -1463,7 +1458,6 @@
 				4D64EFB8140BD0FF00017458 /* DownloadWindow.m in Sources */,
 				D2627542141FD4960064AD95 /* cmdline.c in Sources */,
 				D2D6839A142FF694001B2C70 /* SoundEditor.m in Sources */,
-				D26259181432525C0014F9A8 /* XSKeyValuePair.m in Sources */,
 				D272DA4D1434DFD200F3CB12 /* UniquePairKeyFormatter.m in Sources */,
 				D21C4950143B496C00B5E39B /* Color.c in Sources */,
 				D21C4968143B528000B5E39B /* XSImage.m in Sources */,
