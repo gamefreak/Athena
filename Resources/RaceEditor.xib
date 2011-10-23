@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">11B26</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<string key="IBDocument.SystemVersion">11C74</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
+		<string key="IBDocument.AppKitVersion">1138.23</string>
+		<string key="IBDocument.HIToolboxVersion">567.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1617</string>
+			<string key="NS.object.0">1938</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -38,11 +38,8 @@
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.Metadata">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="NSArray" key="dict.sortedKeys" id="0">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-			</object>
-			<reference key="dict.values" ref="0"/>
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -176,7 +173,7 @@
 															<string key="NSFrameSize">{191, 277}</string>
 															<reference key="NSSuperview" ref="182029129"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="56945023"/>
+															<reference key="NSNextKeyView" ref="1014728882"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTableHeaderView" key="NSHeaderView" id="1017455190">
 																<reference key="NSNextResponder" ref="1014728882"/>
@@ -362,7 +359,7 @@
 											<string key="NSFrame">{{-1, 20}, {193, 295}}</string>
 											<reference key="NSSuperview" ref="370174363"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="1014728882"/>
+											<reference key="NSNextKeyView" ref="182029129"/>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="56945023"/>
 											<reference key="NSHScroller" ref="356496158"/>
@@ -476,7 +473,7 @@
 												<int key="NSPeriodicInterval">75</int>
 												<object class="NSMenuItem" key="NSMenuItem" id="786155815">
 													<reference key="NSMenu" ref="598818923"/>
-													<bool key="NSIsDisabled">YES</bool>
+													<bool key="NSIsHidden">YES</bool>
 													<string key="NSTitle">Illegal Colors</string>
 													<string key="NSKeyEquiv"/>
 													<int key="NSKeyEquivModMask">1048576</int>
@@ -759,7 +756,6 @@
 											<string key="NSFrame">{{118, 78}, {175, 22}}</string>
 											<reference key="NSSuperview" ref="63757536"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="1064702641">
 												<int key="NSCellFlags">343014977</int>
@@ -823,7 +819,9 @@
 														<string key="NSString">NaN</string>
 														<object class="NSDictionary" key="NSAttributes">
 															<bool key="EncodedWithXMLCoder">YES</bool>
-															<reference key="dict.sortedKeys" ref="0"/>
+															<object class="NSArray" key="dict.sortedKeys" id="0">
+																<bool key="EncodedWithXMLCoder">YES</bool>
+															</object>
 															<reference key="dict.values" ref="0"/>
 														</object>
 													</object>
@@ -1284,20 +1282,20 @@
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.singular</string>
-						<reference key="source" ref="1060170165"/>
-						<reference key="destination" ref="373997244"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1060170165"/>
-							<reference key="NSDestination" ref="373997244"/>
-							<string key="NSLabel">value: arrangedObjects.singular</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.singular</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">window</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1005"/>
 					</object>
-					<int key="connectionID">18</int>
+					<int key="connectionID">168</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">raceController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="373997244"/>
+					</object>
+					<int key="connectionID">227</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1314,6 +1312,38 @@
 						<reference key="destination" ref="801234628"/>
 					</object>
 					<int key="connectionID">26</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: races</string>
+						<reference key="source" ref="373997244"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="373997244"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">contentArray: races</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">races</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">169</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.singular</string>
+						<reference key="source" ref="1060170165"/>
+						<reference key="destination" ref="373997244"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1060170165"/>
+							<reference key="NSDestination" ref="373997244"/>
+							<string key="NSLabel">value: arrangedObjects.singular</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.singular</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">18</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1412,28 +1442,36 @@
 					<int key="connectionID">154</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">window</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1005"/>
-					</object>
-					<int key="connectionID">168</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: races</string>
-						<reference key="source" ref="373997244"/>
-						<reference key="destination" ref="1001"/>
+						<string key="label">value: selection.illegalColors.gray</string>
+						<reference key="source" ref="642130047"/>
+						<reference key="destination" ref="373997244"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="373997244"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">contentArray: races</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">races</string>
+							<reference key="NSSource" ref="642130047"/>
+							<reference key="NSDestination" ref="373997244"/>
+							<string key="NSLabel">value: selection.illegalColors.gray</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.illegalColors.gray</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">169</int>
+					<int key="connectionID">200</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.illegalColors.blue</string>
+						<reference key="source" ref="676874528"/>
+						<reference key="destination" ref="373997244"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="676874528"/>
+							<reference key="NSDestination" ref="373997244"/>
+							<string key="NSLabel">value: selection.illegalColors.blue</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.illegalColors.blue</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">203</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1450,22 +1488,6 @@
 						</object>
 					</object>
 					<int key="connectionID">183</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.illegalColors.gray</string>
-						<reference key="source" ref="642130047"/>
-						<reference key="destination" ref="373997244"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="642130047"/>
-							<reference key="NSDestination" ref="373997244"/>
-							<string key="NSLabel">value: selection.illegalColors.gray</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.illegalColors.gray</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">200</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1498,22 +1520,6 @@
 						</object>
 					</object>
 					<int key="connectionID">202</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.illegalColors.blue</string>
-						<reference key="source" ref="676874528"/>
-						<reference key="destination" ref="373997244"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="676874528"/>
-							<reference key="NSDestination" ref="373997244"/>
-							<string key="NSLabel">value: selection.illegalColors.blue</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.illegalColors.blue</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">203</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1735,14 +1741,6 @@
 						</object>
 					</object>
 					<int key="connectionID">226</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">raceController</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="373997244"/>
-					</object>
-					<int key="connectionID">227</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
