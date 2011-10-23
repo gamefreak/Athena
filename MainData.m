@@ -17,7 +17,6 @@
 #import "Condition.h"
 #import "Race.h"
 
-#import "XSKeyValuePair.h"
 #import "SMIVImage.h"
 #import "XSSound.h"
 #import "XSImage.h"
@@ -84,7 +83,7 @@ static NSArray *mainDataKeys;
         [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
         [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
         [sprites setArray:[[coder decodeDictionaryOfClass:[SMIVImage class] forKey:@"sprites"] allValues]];
-        [sounds setArray:[coder decodePairArrayOfClass:[XSSound class] forKey:@"sounds"]];
+        [sounds setArray:[[coder decodeDictionaryOfClass:[XSSound class] forKey:@"sounds"] allValues]];
         [images setArray:[[coder decodeDictionaryOfClass:[XSImage class] forKey:@"images"] allValues]];
 
         [flags initWithLuaCoder:coder];
@@ -110,7 +109,7 @@ static NSArray *mainDataKeys;
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
     [coder encodeDictionary:[NSDictionary dictionaryWithObjects:sprites forKeys:[sprites valueForKeyPath:@"objectIndex"]] forKey:@"sprites" asArray:YES];
-    [coder encodePairArray:sounds forKey:@"sounds"];
+    [coder encodeDictionary:[NSDictionary dictionaryWithObjects:sounds forKeys:[sounds valueForKeyPath:@"objectIndex"]] forKey:@"sounds" asArray:YES];
     [coder encodeDictionary:[NSDictionary dictionaryWithObjects:images forKeys:[images valueForKeyPath:@"objectIndex"]] forKey:@"images" asArray:YES];
 }
 
@@ -171,10 +170,7 @@ static NSArray *mainDataKeys;
 
         [sprites setArray:[[coder allObjectsOfClass:[SMIVImage class]] allValues]];
 
-        NSDictionary *soundDict = [coder allObjectsOfClass:[XSSound class]];
-        for (NSString *key in soundDict) {
-            [sounds addObject:[XSKeyValuePair pairWithKey:key value:[soundDict objectForKey:key]]];
-        }
+        [sounds setArray:[[coder allObjectsOfClass:[XSSound class]] allValues]];
 
         [images setArray:[[coder allObjectsOfClass:[XSImage class]] allValues]];
     }
@@ -199,8 +195,8 @@ static NSArray *mainDataKeys;
         [coder encodeObject:sprite atIndex:sprite.objectIndex];
     }
 
-    for (XSKeyValuePair *pair in sounds) {
-        [coder encodeObject:pair.value atIndex:[pair.key intValue]];
+    for (XSSound *sound in sounds) {
+        [coder encodeObject:sound atIndex:sound.objectIndex];
     }
     
     for (XSImage *image in images) {

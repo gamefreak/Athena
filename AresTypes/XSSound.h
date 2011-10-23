@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ResCoding.h"
 #import "LuaCoding.h"
+#import "IndexedObject.h"
 
 #define RATE32KHZ 0x7D000000
 #define RATE22050HZ 0x56220000
@@ -30,7 +31,7 @@
 #define SOUNDHEADERLOC 20
 
 
-@interface XSSound : NSObject <ResCoding, LuaCoding, NSCopying> {
+@interface XSSound : IndexedObject <ResCoding, LuaCoding, NSCopying> {
 @private
     NSString *name;
     uint32 bufferLength;

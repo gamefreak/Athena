@@ -10,7 +10,6 @@
 
 #import "MainData.h"
 #import "XSSound.h"
-#import "XSKeyValuePair.h"
 
 @interface SoundEditor (Private)
 - (void)insertObject:(XSSound *)object inSoundsAtIndex:(NSUInteger)index;
@@ -34,7 +33,7 @@
         return;
     }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [(XSSound *)[[[soundsController arrangedObjects] objectAtIndex:index] value] play];
+        [(XSSound *)[[soundsController arrangedObjects] objectAtIndex:index] play];
     });
 }
 
@@ -61,7 +60,7 @@
     if (index == NSNotFound) {
         return;
     }
-    XSSound *sound = [[[[soundsController arrangedObjects] objectAtIndex:index] value] retain];
+    XSSound *sound = [[[soundsController arrangedObjects] objectAtIndex:index] retain];
     
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"ogg"]];
@@ -83,7 +82,7 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"key" ascending:YES selector:@selector(numericCompare:)];
+    NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"objectIndex" ascending:YES];
     [soundsController setSortDescriptors:[NSArray arrayWithObject:desc]];
 }
 
@@ -108,32 +107,29 @@
 
 - (BOOL)addSound:(XSSound *)sound {
     if (sound != nil) {
-        //get keys
-        NSArray *keys = [sounds valueForKeyPath:@"key"];
-        int firstIndex = [[keys valueForKeyPath:@"@min.intValue"] intValue];
-        int lastIndex = [[keys valueForKeyPath:@"@max.intValue"] intValue];
+        //get IDs
+        NSArray *IDs = [sounds valueForKeyPath:@"objectIndex"];
+        int firstID = [[IDs valueForKeyPath:@"@min.intValue"] intValue];
+        int lastID = [[IDs valueForKeyPath:@"@max.intValue"] intValue];
         int found = -1;
         //scan for gaps
-        for (int k = firstIndex; k < lastIndex; k++) {
-            NSString *tk = [[NSNumber numberWithInt:k] stringValue];
-            if (![keys containsObject:tk]) {
+        for (int k = firstID; k < lastID; k++) {
+            NSNumber *tk = [NSNumber numberWithInt:k];
+            if (![IDs containsObject:tk]) {
                 found = k;
                 break;
             }
         }
-        NSString *key = nil;
+        NSNumber *ID = nil;
         if (found == -1) {
-            found = lastIndex + 1;
+            found = lastID + 1;
         }
-        key = [[NSNumber numberWithInt:found] stringValue];
+        ID = [NSNumber numberWithInt:found];
         
-        NSAssert(![keys containsObject:key], @"sounds table contained unexpected key %@", key);
-        
-        id pair = [soundsController newObject];
-        [pair setKey:key];
-        [pair setValue:sound];
-        [soundsController addObject:pair];
-        [pair release];
+        NSAssert(![IDs containsObject:ID], @"sounds table contained unexpected ID %@", ID);
+
+        [sound setObjectIndex:[ID unsignedShortValue]];
+        [soundsController addObject:sound];
         return YES;
     }
     return NO;
@@ -143,8 +139,7 @@
     [pboard declareTypes:[NSArray arrayWithObjects:NSFileContentsPboardType, NSFilesPromisePboardType, nil] owner:self];
 
     NSMutableArray *fileNames = [NSMutableArray array];
-    for (XSKeyValuePair *pair in [[soundsController arrangedObjects] objectsAtIndexes:rowIndexes]) {
-        XSSound *sound = pair.value;
+    for (XSSound *sound in [[soundsController arrangedObjects] objectsAtIndexes:rowIndexes]) {
         NSFileWrapper *wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[sound getVorbis]];
         NSString *filename = [[sound name] stringByAppendingPathExtension:@"ogg"];
         [wrapper setFilename:filename];
