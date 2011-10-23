@@ -166,7 +166,7 @@
         ID = [NSNumber numberWithInt:found];
 
         NSAssert(![IDs containsObject:ID], @"sprites table contained unexpected ID %@", ID);
-        [sprite setObjectIndex:[ID unsignedShortValue]];
+        [sprite setObjectIndex:[ID integerValue]];
         [spriteController addObject:sprite];
         return YES;
     }

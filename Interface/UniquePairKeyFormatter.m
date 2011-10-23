@@ -26,7 +26,10 @@
 }
 
 - (NSString *)stringForObjectValue:(id)obj {
-    return obj;
+    if ([obj isKindOfClass:[NSString class]]) {
+        return obj;
+    }
+    return [obj stringValue];
 }
 
 - (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error {
@@ -36,13 +39,14 @@
         }
         return NO;
     }
+    NSNumber *num = [NSNumber numberWithInteger:[string integerValue]];
     NSMutableArray *wk = [[array arrangedObjects] mutableCopy];
     [wk removeObject:[array selection]];
-    BOOL ok = ![[wk valueForKeyPath:@"key"] containsObject:string];
-    *obj = string;
+    BOOL ok = ![[wk valueForKeyPath:@"objectIndex"] containsObject:num];
+    *obj = num;
     if (!ok) {
         if (error != NULL) {
-            *error = [NSString stringWithFormat:@"Plugin already contains object with index %@", string];
+            *error = [NSString stringWithFormat:@"Plugin already contains object with ID %@", string];
         }
     }
     [wk release];

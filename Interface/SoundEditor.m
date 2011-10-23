@@ -128,7 +128,7 @@
         
         NSAssert(![IDs containsObject:ID], @"sounds table contained unexpected ID %@", ID);
 
-        [sound setObjectIndex:[ID unsignedShortValue]];
+        [sound setObjectIndex:[ID integerValue]];
         [soundsController addObject:sound];
         return YES;
     }
