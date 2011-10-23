@@ -27,6 +27,10 @@
     return self;
 }
 
+- (unsigned short)unsignedShortValue {
+    return (unsigned short)[self intValue];
+}
+
 - (id) string {
     return self;
 }

@@ -11,5 +11,6 @@
 
 @interface NSString (NSStringExtensions) <LuaCoding>
 - (id) string;
+- (unsigned short)unsignedShortValue;
 - (NSComparisonResult) numericCompare:(NSString *)string;
 @end
