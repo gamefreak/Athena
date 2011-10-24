@@ -13,7 +13,7 @@
 NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMedia.zip";
 NSString *XSHasAskedForData = @"AskedToGetData";
 NSString *XSHasAresData = @"HasAresData";
-NSString *HeraHelpURL = @"http://hera.sfiera.net/";
+NSString *HeraHelpURL = @"http://hera.arescentral.org/";
 
 
 @implementation ApplicationDelagate
