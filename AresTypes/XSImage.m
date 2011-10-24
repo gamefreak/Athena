@@ -218,6 +218,27 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
     }
     return [rep representationUsingType:NSPNGFileType properties:nil];
 }
+
++ (NSSet *)blacklistedImageIDs {
+    NSMutableSet *imageBlacklist = [NSMutableSet setWithCapacity:14];
+    [imageBlacklist addObject:[NSNumber numberWithInt:520]];//Key Back
+    [imageBlacklist addObject:[NSNumber numberWithInt:521]];//Key Accel
+    [imageBlacklist addObject:[NSNumber numberWithInt:522]];//Key Stop
+    [imageBlacklist addObject:[NSNumber numberWithInt:523]];//Key Rotate Counter
+    [imageBlacklist addObject:[NSNumber numberWithInt:524]];//Key Rotate Clockwise
+    
+    [imageBlacklist addObject:[NSNumber numberWithInt:525]];//Key Weapon 1
+    [imageBlacklist addObject:[NSNumber numberWithInt:526]];//Key Weapon 2
+    [imageBlacklist addObject:[NSNumber numberWithInt:527]];//Key Special
+    [imageBlacklist addObject:[NSNumber numberWithInt:528]];//Key Superlight
+    [imageBlacklist addObject:[NSNumber numberWithInt:529]];//Key Commands
+    
+    [imageBlacklist addObject:[NSNumber numberWithInt:530]];//Key Computer Controls
+    [imageBlacklist addObject:[NSNumber numberWithInt:2000]];//Ambrosia Logo
+    [imageBlacklist addObject:[NSNumber numberWithInt:2002]];//Ambrosia Credits
+    [imageBlacklist addObject:[NSNumber numberWithInt:-20932]];//QT badge
+    return imageBlacklist;
+}
 @end
 
 CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line) {

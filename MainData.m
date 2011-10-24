@@ -173,6 +173,17 @@ static NSArray *mainDataKeys;
         [sounds setArray:[[coder allObjectsOfClass:[XSSound class]] allValues]];
 
         [images setArray:[[coder allObjectsOfClass:[XSImage class]] allValues]];
+
+        //Remove blacklisted images.
+        assert([[NSNumber numberWithInt:42] isEqual:[NSNumber numberWithShort:42]]);
+        NSSet *imageBlacklist = [XSImage blacklistedImageIDs];
+        NSArray *imagesIter = [images copy];
+        for (XSImage *image in imagesIter) {
+            if ([imageBlacklist containsObject:[NSNumber numberWithShort:image.objectIndex]]) {
+                [images removeObject:image];
+            }
+        }
+        [imagesIter release];
     }
     return self;
 }
