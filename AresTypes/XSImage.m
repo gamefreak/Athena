@@ -9,7 +9,11 @@
 #import "XSImage.h"
 #import "Color.h"
 
+const size_t PICT_HEADER_LENGTH = 512;
+#define PICT_HEADER_OFFSET (write_header?PICT_HEADER_LENGTH:0)
+
 uint8_t *pack_scanline(uint8_t *scanline, size_t bytes_per_line, size_t *length_out);
+BOOL pict_has_header(uint8_t *pict_data);
 
 @interface ResArchiver (RectEncode)
 - (void)encodeRect:(Rect)rect;
@@ -62,11 +66,29 @@ uint8_t *pack_scanline(uint8_t *scanline, size_t bytes_per_line, size_t *length_
     NSPICTImageRep *pictRep = [[image representations] firstObjectPassingTest:^(id obj, NSUInteger idx){
         return (BOOL)([obj isKindOfClass:[NSPICTImageRep class]]);
     }];
+    BOOL write_header = [coder saveType] == DataBasisAntares;//NOTE: This is referenced by the PICT_HEADER_OFFSET macro
     if (pictRep != nil) {
         //We have a pict representation so skip the custom encoder!
         NSData *data = [pictRep PICTRepresentation];
-        [coder extend:[data length]];
-        [coder writeBytes:(void *)[data bytes] length:[data length]];
+        BOOL has_header = pict_has_header((uint8_t *)[data bytes]);
+        if (write_header) {
+            if (has_header) {//TT
+                [coder extend:[data length]];
+                [coder writeBytes:(void *)[data bytes] length:[data length]];
+            } else {//TF
+                [coder extend:[data length]+PICT_HEADER_LENGTH];
+                [coder skip:PICT_HEADER_LENGTH];
+                [coder writeBytes:(void *)[data bytes] length:[data length]];
+            }
+        } else {
+            if (has_header) {//FT
+                [coder extend:[data length]-PICT_HEADER_LENGTH];
+                [coder writeBytes:(void *)([data bytes]+PICT_HEADER_LENGTH) length:[data length]];
+            } else {//FF
+                [coder extend:[data length]];
+                [coder writeBytes:(void *)[data bytes] length:[data length]];
+            }
+        }
     } else {
         //Custom encoder time!
         NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithData:[image TIFFRepresentation]];
@@ -74,9 +96,9 @@ uint8_t *pack_scanline(uint8_t *scanline, size_t bytes_per_line, size_t *length_
         short width = CGImageGetWidth(image_);
         short height = CGImageGetHeight(image_);
         Rect rect = {0, 0, height, width};
-        [coder extend:2686];//this is how much data will be written before the image is encoded
-        [coder skip:512];//512 byte blank header
-        assert([coder tell] == 512);
+        [coder extend:2174 + PICT_HEADER_OFFSET];//this is how much data will be written before the image is encoded
+        [coder skip:PICT_HEADER_OFFSET];//512 byte blank header
+
         [coder encodeUInt16:0x0000];//length field (ignore for now)
         [coder encodeRect:rect];//the overall size of the picture
         [coder writeBytes:"\x00\x11\x02\xff" length:4];//version command (V2)
@@ -156,8 +178,8 @@ uint8_t *pack_scanline(uint8_t *scanline, size_t bytes_per_line, size_t *length_
         [coder extend:2];
         [coder encodeUInt16:0x00ff];//end command
         
-        short imageLength = [coder tell] - 512;
-        [coder seek:512];
+        short imageLength = [coder tell] - PICT_HEADER_OFFSET;
+        [coder seek:PICT_HEADER_OFFSET];
         [coder encodeSInt16:imageLength];//write the length
     }
 }
@@ -328,4 +350,13 @@ uint8_t *pack_scanline(uint8_t *scanline, size_t bytes_per_line, size_t *length_
         *datap++ = *q;
     }
     return data;
+}
+
+BOOL pict_has_header(uint8_t *pict_data) {
+    //Add complexity as necessary
+    if (*((uint16_t *)pict_data) == 0x0000) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
