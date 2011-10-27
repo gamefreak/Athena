@@ -9,7 +9,7 @@
 #import "XSImage.h"
 #import "Color.h"
 
-CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
+uint8_t *pack_scanline(uint8_t *scanline, size_t bytes_per_line, size_t *length_out);
 
 @interface ResArchiver (RectEncode)
 - (void)encodeRect:(Rect)rect;
@@ -134,17 +134,17 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
         const uint32_t *pixelBuffer = (uint32 *)CFDataGetBytePtr(imageData);
         int count = 0;
         for (int y = 0; y < height; y++) {
-            uint8_t *scanline = malloc(rowbytes & 0x7fff);
+            uint8_t scanline[rowbytes & 0x7fff];
             for (int x = 0; x < width; x++) {
                 uint32_t pixel = htonl(pixelBuffer[x + y * width]);
                 scanline[x] = quantitize_pixel(pixel);
             }
-            CFDataRef data = pack_scanline(scanline, rowbytes & 0x7fff);
-            count += CFDataGetLength(data);
-            [coder extend:CFDataGetLength(data)];
-            [coder writeBytes:(void *)CFDataGetBytePtr(data) length:CFDataGetLength(data)];
-            CFRelease(data);
-            free(scanline);
+            size_t len = 0;
+            uint8_t *data = pack_scanline(scanline, rowbytes & 0x7fff, &len);
+            count += len;
+            [coder extend:len];
+            [coder writeBytes:(void *)data length:len];
+            free(data);
         }
 
         if (count % 2 == 1) {
@@ -241,7 +241,7 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line);
 }
 @end
 
-CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line) {
+uint8_t *pack_scanline(uint8_t *scanline, size_t bytes_per_line, size_t *length_out) {
     uint8_t *buffer =  malloc(bytes_per_line * sizeof(uint8_t));
     uint8_t *p, *q;
     short count = 0, runlength = 0, repeat_count = 0;
@@ -311,18 +311,21 @@ CFDataRef pack_scanline(uint8_t *scanline, size_t bytes_per_line) {
         *q++ = (uint8_t)(count - 1);
     }
     short length = q - buffer;
-    CFMutableDataRef data = CFDataCreateMutable(kCFAllocatorDefault, length + (bytes_per_line>200?2:1));
+    *length_out = length+(bytes_per_line>200?2:1);
+    uint8_t *data = malloc(sizeof(uint8_t)**length_out);
+    uint8_t *datap = data;
+
     if (bytes_per_line > 200) {
-        short tmp = htons(length);
-        CFDataAppendBytes(data, (uint8_t *)&tmp, 2);
+        short tmp = htons(length);        
+        *((short *)datap) = tmp;
+        datap += 2;
     } else {
         char tmp = length;
-        CFDataAppendBytes(data, (uint8_t *)&tmp, 1);
+        *datap++ = tmp;
     }
-//    CFDataAppendBytes(data, buffer, length);
     while (q != buffer) {//q is backwards!
         q--;
-        CFDataAppendBytes(data, (uint8_t *)q, 1);
+        *datap++ = *q;
     }
     return data;
 }
