@@ -35,7 +35,7 @@ static NSArray *mainDataKeys;
 
 
 @implementation MainData
-@synthesize inFlareId, outFlareId, playerBodyId, energyBlobId;
+@synthesize warpInFlare, warpOutFlare, playerBody, energyBlob;
 @synthesize title, downloadUrl, author, authorUrl, identifier, flags;
 @synthesize version, minVersion;
 //@synthesize checkSum;
@@ -46,10 +46,10 @@ static NSArray *mainDataKeys;
 - (id) init {
     self = [super init];
     if (self) {
-        playerBodyId = 22;
-        energyBlobId = 28;
-        inFlareId = 32;
-        outFlareId = 33;
+        warpInFlare = [[Index alloc] init];
+        warpOutFlare = [[Index alloc] init];
+        playerBody = [[Index alloc] init];
+        energyBlob = [[Index alloc] init];
         title = @"";
         downloadUrl = @"";
         author = @"";
@@ -79,6 +79,13 @@ static NSArray *mainDataKeys;
         author = [[coder decodeStringForKey:@"author"] retain];
         authorUrl = [[coder decodeStringForKey:@"authorUrl"] retain];
         identifier = [[coder decodeStringForKey:@"identifier"] retain];
+
+        [self setWarpInFlare:[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"warpInFlare"]
+                                                forClass:[BaseObject class]]];
+        [self setWarpOutFlare:[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"warpOutFlare"] forClass:[BaseObject class]]];
+        [self setPlayerBody:[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"playerBody"] forClass:[BaseObject class]]];
+        [self setEnergyBlob:[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"energyBlob"] forClass:[BaseObject class]]];
+
         [objects    setArray:[coder decodeArrayOfClass:[BaseObject class]      forKey:@"objects"    zeroIndexed:YES]];
         [scenarios  setArray:[coder decodeArrayOfClass:[Scenario class]        forKey:@"scenarios"  zeroIndexed:YES]];
         [races      setArray:[coder decodeArrayOfClass:[Race class]            forKey:@"race"       zeroIndexed:YES]];
@@ -105,6 +112,12 @@ static NSArray *mainDataKeys;
     }
     [coder encodeString:identifier forKey:@"identifier"];
     [flags encodeLuaWithCoder:coder];
+
+    [coder encodeInteger:warpInFlare.orNull forKey:@"warpInFlare"];
+    [coder encodeInteger:warpOutFlare.orNull forKey:@"warpOutFlare"];
+    [coder encodeInteger:playerBody.orNull forKey:@"playerBody"];
+    [coder encodeInteger:energyBlob.orNull forKey:@"energyBlob"];
+
     [coder encodeArray:objects    forKey:@"objects"    zeroIndexed:YES];
     [coder encodeArray:scenarios  forKey:@"scenarios"  zeroIndexed:YES];
     [coder encodeArray:races      forKey:@"race"       zeroIndexed:YES];
@@ -134,10 +147,17 @@ static NSArray *mainDataKeys;
             [self release];
             return nil;
         }
-        inFlareId = [coder decodeSInt32];
-        outFlareId = [coder decodeSInt32];
-        playerBodyId = [coder decodeSInt32];
-        energyBlobId = [coder decodeSInt32];
+        int inFlareId = [coder decodeSInt32];
+        if (inFlareId >= 0) [self setWarpInFlare:[coder getIndexRefWithIndex:inFlareId forClass:[BaseObject class]]];
+        
+        int outFlareId = [coder decodeSInt32];
+        if (outFlareId >= 0) [self setWarpOutFlare:[coder getIndexRefWithIndex:outFlareId forClass:[BaseObject class]]];
+        
+        int playerBodyId = [coder decodeSInt32];
+        if (playerBodyId >= 0) [self setPlayerBody:[coder getIndexRefWithIndex:playerBodyId forClass:[BaseObject class]]];
+        
+        int energyBlobId = [coder decodeSInt32];
+        if (energyBlobId >= 0) [self setEnergyBlob:[coder getIndexRefWithIndex:energyBlobId forClass:[BaseObject class]]];
 
         downloadUrl = [[coder decodePStringOfLength:0xff] retain];
         title = [[coder decodePStringOfLength:0xff] retain];
@@ -215,10 +235,10 @@ static NSArray *mainDataKeys;
     }
 
     [coder extend:1056];
-    [coder encodeSInt32:inFlareId];
-    [coder encodeSInt32:outFlareId];
-    [coder encodeSInt32:playerBodyId];
-    [coder encodeSInt32:energyBlobId];
+    [coder encodeSInt32:warpInFlare.orNull];
+    [coder encodeSInt32:warpOutFlare.orNull];
+    [coder encodeSInt32:playerBody.orNull];
+    [coder encodeSInt32:energyBlob.orNull];
 
     [coder encodePString:downloadUrl ofFixedLength:255u];
     [coder encodePString:title ofFixedLength:255u];
@@ -299,6 +319,10 @@ static NSArray *mainDataKeys;
     [authorUrl release];
     [downloadUrl release];
     [identifier release];
+    [energyBlob release];
+    [playerBody release];
+    [warpOutFlare release];
+    [warpInFlare release];
     [super dealloc];
 }
 

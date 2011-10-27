@@ -12,6 +12,15 @@
 
 #import "FlagBlob.h"
 
+@class Index;
+
+enum {
+    DefaultPlayerBodyId = 22,
+    DefaultEnergyBlobId = 28,
+    DefaultInFlareId = 32,
+    DefaultOutFlareId = 33,
+};
+
 @interface MainDataFlags : FlagBlob {
     BOOL isNetworkable;
     BOOL customObjects;
@@ -27,10 +36,10 @@
 @end
 
 @interface MainData : NSObject <LuaCoding, ResCoding> {
-    NSInteger inFlareId;
-    NSInteger outFlareId;
-    NSInteger playerBodyId;
-    NSInteger energyBlobId;
+    Index *warpInFlare;
+    Index *warpOutFlare;
+    Index *playerBody;
+    Index *energyBlob;
     NSString *title;
     NSString *downloadUrl;
     NSString *author;
@@ -49,10 +58,10 @@
     NSMutableArray *sounds;
     NSMutableArray *images;
 }
-@property (readwrite) NSInteger inFlareId;
-@property (readwrite) NSInteger outFlareId;
-@property (readwrite) NSInteger playerBodyId;
-@property (readwrite) NSInteger energyBlobId;
+@property (readwrite, retain) Index *warpInFlare;
+@property (readwrite, retain) Index *warpOutFlare;
+@property (readwrite, retain) Index *playerBody;
+@property (readwrite, retain) Index *energyBlob;
 @property (readwrite, retain) NSString *title;
 @property (readwrite, retain) NSString *downloadUrl;
 @property (readwrite, retain) NSString *author;
