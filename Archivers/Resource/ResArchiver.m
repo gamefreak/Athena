@@ -71,9 +71,11 @@
 
 
 @implementation ResArchiver
+@synthesize saveType;
 - (id) init {
     self = [super init];
     if (self) {
+        saveType = DataBasisAres;
         hasBeenFlattened = NO;
         types = [[NSMutableDictionary alloc] init];
         stack = [[NSMutableArray alloc] init];

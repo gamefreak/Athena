@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreServices/CoreServices.h>
+#import "DataBasis.h"
 
 @protocol ResCoding;
 
 @interface ResArchiver : NSObject {
+    DataBasis saveType;
     BOOL hasBeenFlattened;
     NSMutableDictionary *types;
     NSMutableArray *stack;
@@ -20,6 +22,7 @@
 
     NSMutableDictionary *metadataFiles;
 }
+@property (readwrite, assign) DataBasis saveType;
 - (BOOL) writeToResourceFile:(NSString *)file;
 - (BOOL) writeToZipFile:(NSString *)file;
 

@@ -70,6 +70,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     NSString *fileName = [absoluteURL path];
     if ([type isEqualTo:@"com.biggerplanet.AresData"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
+        [coder setSaveType:DataBasisAres];
         [coder encodeObject:data atIndex:128];
         BOOL success = [coder writeToResourceFile:fileName];
         [coder release];
@@ -79,6 +80,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         return [super writeToURL:absoluteURL ofType:type error:outError];
     } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
+        [coder setSaveType:DataBasisAntares];
         [coder encodeObject:data atIndex:128];
         BOOL success = [coder writeToZipFile:fileName];
         [coder release];
