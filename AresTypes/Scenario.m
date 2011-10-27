@@ -24,7 +24,7 @@
 @synthesize playerNum, players, scoreStrings;
 @synthesize initialObjects, conditions, briefings;
 @synthesize starmap, par, angle, startTime, isTraining;
-@synthesize prologue, epilogue, songId, movie;
+@synthesize prologue, epilogue, noShipsText, songId, movie;
 
 - (id) init {
     self = [super init];
@@ -50,6 +50,7 @@
 
         prologue = [[XSText alloc] init];
         epilogue = [[XSText alloc] init];
+        noShipsText = [[XSText alloc] init];
 
         songId = -1;
         movie = @"";
@@ -68,6 +69,7 @@
     [par release];
     [prologue release];
     [epilogue release];
+    [noShipsText release];
     [movie release];
     [super dealloc];
 }
@@ -120,6 +122,8 @@
         prologue.text = [coder decodeStringForKey:@"prologue"];
 
         epilogue.text = [coder decodeStringForKey:@"epilogue"];
+        
+        noShipsText.text = [coder decodeStringForKey:@"noShipsText"];
 
         songId = [coder decodeIntegerForKey:@"songId"];
 
@@ -155,6 +159,7 @@
 
     [coder encodeString:prologue.text forKey:@"prologue"];
     [coder encodeString:epilogue.text forKey:@"epilogue"];
+    [coder encodeString:noShipsText.text forKey:@"noShipsText"];
     [coder encodeInteger:songId forKey:@"songId"];
 
     if ([movie isEqual:@""]) {
@@ -248,6 +253,10 @@
         [name release];
         name = [[[coder decodeObjectOfClass:[StringTable class] atIndex:STRScenarioNames] stringAtIndex:scenarioId - 1] retain];
 
+        
+        if ([coder hasObjectOfClass:[XSText class] atIndex:TEXTNoShipsOffset + scenarioId]) {
+            [self setNoShipsText:[coder decodeObjectOfClass:[XSText class] atIndex:TEXTNoShipsOffset + scenarioId]];
+        }
         par.ratio = [coder decodeFixed];
         par.losses = [coder decodeSInt16];
 
@@ -329,6 +338,13 @@
     }
     [coder encodeSInt16:par.kills];
     [coder encodeSInt16:self.objectIndex + 1];
+    if ([[noShipsText text] length] > 0) {
+        if ([[noShipsText name] length] == 0) {
+            [noShipsText setName:[NSString stringWithFormat:@"No Ships %i", [self objectIndex]]];
+        }
+        [coder encodeObject:noShipsText atIndex:TEXTNoShipsOffset + self.objectIndex];
+    }
+
     [coder addString:name toStringTable:STRScenarioNames];
     [coder encodeFixed:par.ratio];
     [coder encodeSInt16:par.losses];

@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "ResCoding.h"
 
+enum {
+    TEXTNoShipsOffset = 10000,
+};
+
 @interface XSText : NSObject <ResCoding> {
     NSString *name;
     NSString *text;

@@ -39,6 +39,7 @@
 
     XSText *prologue;
     XSText *epilogue;
+    XSText *noShipsText;
 
     NSInteger songId;
     NSString *movie;
@@ -60,6 +61,7 @@
 @property (readwrite, assign) BOOL isTraining;
 @property (readwrite, retain) XSText *prologue;
 @property (readwrite, retain) XSText *epilogue;
+@property (readwrite, retain) XSText *noShipsText;
 
 @property (readwrite, assign) NSInteger songId;
 @property (readwrite, retain) NSString *movie;
