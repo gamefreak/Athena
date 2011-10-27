@@ -83,6 +83,10 @@
     return self;
 }
 
++ (id) index  {
+    return [[[Index alloc] init] autorelease];
+}
+
 - (NSInteger) orNull {
     if (index == UINT16_MAX) {
         return -1;

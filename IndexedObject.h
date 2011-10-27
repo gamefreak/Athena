@@ -29,4 +29,5 @@
 @property (readonly) NSInteger orNull;
 @property (readwrite, assign) id object;
 - (id) initWithIndex:(unsigned short)index;
++ (id) index;
 @end
