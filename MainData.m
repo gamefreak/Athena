@@ -130,7 +130,7 @@ static NSArray *mainDataKeys;
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [self init];
     if (self) {
-        if ([coder sourceType] == DataOriginAntares && [[coder getMetadataForKey:@"version"] intValue] != 1) {
+        if ([coder sourceType] == DataBasisAntares && [[coder getMetadataForKey:@"version"] intValue] != 1) {
             [self release];
             return nil;
         }

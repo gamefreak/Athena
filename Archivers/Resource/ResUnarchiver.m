@@ -23,7 +23,7 @@
         types = [[NSMutableDictionary alloc] init];
         stack = [[NSMutableArray alloc] init];
         files = [[NSMutableArray alloc] init];
-        sourceType = DataOriginAres;
+        sourceType = DataBasisAres;
         [self addFile:path];
         [self registerClass:[StringTable class]];
     }
@@ -37,7 +37,7 @@
         types = [[NSMutableDictionary alloc] init];
         stack = [[NSMutableArray alloc] init];
         files = [[NSMutableArray alloc] init];
-        sourceType = DataOriginAntares;
+        sourceType = DataBasisAntares;
         [self addFile:path];
         [self registerClass:[StringTable class]];
     }
@@ -47,11 +47,11 @@
 - (void)dealloc {
     [types release];
     [stack release];
-    if (sourceType == DataOriginAres) {
+    if (sourceType == DataBasisAres) {
         for (NSNumber *resRef in files) {
             CloseResFile([resRef shortValue]);
         }
-    } else if (sourceType == DataOriginAntares) {
+    } else if (sourceType == DataBasisAntares) {
         //Clean up
         for (NSString *dir in files) {
             NSTask *rmTask = [[NSTask alloc] init];
@@ -69,7 +69,7 @@
 }
 
 - (void) addFile:(NSString *)path {
-    if (sourceType == DataOriginAres) {
+    if (sourceType == DataBasisAres) {
         FSRef file;
         if (!FSPathMakeRef((UInt8 *)[path cStringUsingEncoding:NSMacOSRomanStringEncoding], &file, NULL)) {
             ResFileRefNum resFile = FSOpenResFile(&file, fsRdPerm);
@@ -98,9 +98,9 @@
 }
 
 - (void) registerClass:(Class <NSObject, Alloc, ResCoding>)class {
-    if (sourceType == DataOriginAres) {
+    if (sourceType == DataBasisAres) {
         [self registerAresClass:class];
-    } else if (sourceType == DataOriginAntares) {
+    } else if (sourceType == DataBasisAntares) {
         [self registerAntaresClass:class];
     }
 }
@@ -413,9 +413,9 @@
 }
 
 - (NSString *)getMetadataForKey:(NSString *)key {
-    if (sourceType == DataOriginAres) {
+    if (sourceType == DataBasisAres) {
         return @"";
-    } else if (sourceType == DataOriginAntares) {
+    } else if (sourceType == DataBasisAntares) {
         for (NSString *base in files) {
             NSString *dir = [base stringByAppendingPathComponent:@"data"];
             NSString *file = [dir stringByAppendingPathComponent:key];

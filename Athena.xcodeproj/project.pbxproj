@@ -384,7 +384,7 @@
 		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
 		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
 		D238F22C144459FB00FF5109 /* AntaresPlugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AntaresPlugin.icns; sourceTree = "<group>"; };
-		D238F22E14447E9A00FF5109 /* DataOrigin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataOrigin.h; sourceTree = "<group>"; };
+		D238F22E14447E9A00FF5109 /* DataBasis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBasis.h; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		D245ECDD143BBDCB00F78634 /* XSImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSImageView.h; sourceTree = "<group>"; };
 		D245ECDE143BBDCB00F78634 /* XSImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSImageView.m; sourceTree = "<group>"; };
@@ -882,7 +882,7 @@
 			isa = PBXGroup;
 			children = (
 				D2802FD412EA572500F1A0B0 /* Archivers.h */,
-				D238F22E14447E9A00FF5109 /* DataOrigin.h */,
+				D238F22E14447E9A00FF5109 /* DataBasis.h */,
 				D225D64013039D2F00E75803 /* Lua */,
 				D225D64213039D5900E75803 /* Resource */,
 			);

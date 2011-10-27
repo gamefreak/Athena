@@ -9,17 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreServices/CoreServices.h>
 #import "ResCoding.h"
-#import "DataOrigin.h"
+#import "DataBasis.h"
 
 @class Index;
 
 @interface ResUnarchiver : NSObject {
-    DataOrigin sourceType;
+    DataBasis sourceType;
     NSMutableDictionary *types;
     NSMutableArray *stack;
     NSMutableArray *files;
 }
-@property (readonly) DataOrigin sourceType;
+@property (readonly) DataBasis sourceType;
 - (id) initWithResourceFilePath:(NSString *)path;
 - (id) initWithZipFilePath:(NSString *)path;
 - (void) addFile:(NSString *)path;

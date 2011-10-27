@@ -1,5 +1,5 @@
 //
-//  DataOrigin.h
+//  DataBasis.h
 //  Athena
 //
 //  Created by Scott McClaugherty on 10/11/11.
@@ -7,9 +7,9 @@
 //
 
 typedef enum {
-    DataOriginAres,
-    DataOriginAntares,
-    DataOriginXsera,
-    DataOriginExternal,
-    DataOriginNone
-} DataOrigin;
+    DataBasisAres,
+    DataBasisAntares,
+    DataBasisXsera,
+    DataBasisExternal,
+    DataBasisNone
+} DataBasis;
