@@ -30,6 +30,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
 @dynamic actionTypeKey;
 @dynamic currentActionTab;
 @synthesize specialController;
+@dynamic blessing;
 
 - (id)initWithMainData:(MainData *)_data {
     self = [super initWithWindowNibName:@"ObjectEditor"];
@@ -172,6 +173,56 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
 
 + (NSSet *) keyPathsForValuesAffectingCurrentActionsArray {
     return [NSSet setWithObjects: @"selection", @"currentActionTab", nil];
+}
+
+- (void)setBlessing:(BlessingType)blessing {
+    //This will need to handle undo!
+    @synchronized(data, selection) {
+        int idx = [selection objectIndex];
+        
+        if (blessing == BlessingWarpInFlare) {
+            [data setWarpInFlare:[selection indexRef]];
+        } else if ([[data warpInFlare] index]  == idx) {
+            [data setWarpInFlare:[Index index]];
+        }
+        
+        if (blessing == BlessingWarpOutFlare) {
+            [data setWarpOutFlare:[selection indexRef]];
+        } else if ([[data warpOutFlare] index] == idx) {
+            [data setWarpOutFlare:[Index index]];
+        }
+
+        if (blessing == BlessingPlayerBody) {
+            [data setPlayerBody:[selection indexRef]];
+        } else if ([[data playerBody] index] == idx) {
+            [data setWarpOutFlare:[Index index]];
+        }
+
+        if (blessing == BlessingEnergyBlob) {
+            [data setEnergyBlob:[selection indexRef]];
+        } else if ([[data energyBlob] index] == idx) {
+            [data setEnergyBlob:[Index index]];
+        }
+    }
+}
+
+- (BlessingType)blessing {
+    int idx = [selection objectIndex];
+    if ([[data warpInFlare] index] == idx) {
+        return BlessingWarpInFlare;
+    } else if ([[data warpOutFlare] index] == idx) {
+        return BlessingWarpOutFlare;
+    } else if ([[data playerBody] index] == idx) {
+        return BlessingPlayerBody;
+    } else if ([[data energyBlob] index] == idx) {
+        return BlessingEnergyBlob;
+    } else {
+        return BlessingNone;
+    }
+}
+
++ (NSSet *)keyPathsForValuesAffectingBlessing {
+    return [NSSet setWithObjects:@"selection", @"data.warpInFlare", @"data.warpOutFlare", @"data.playerBody", @"data.energyBlob", nil];
 }
 
 - (IBAction) calculateWarpOutDistance:(id)sender {
