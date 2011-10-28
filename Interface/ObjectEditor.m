@@ -87,9 +87,17 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
             [objectsController setFilterPredicate:[NSPredicate predicateWithFormat:@"NOT ((attributes.isBeam = NO) AND (attributes.shapeFromDirection = NO) AND (attributes.isSelfAnimated = NO))"]];
         }
     }
+    [data addObserver:self forKeyPath:@"warpInFlare" options:NSKeyValueObservingOptionOld context:NULL];
+    [data addObserver:self forKeyPath:@"warpOutFlare" options:NSKeyValueObservingOptionOld context:NULL];
+    [data addObserver:self forKeyPath:@"playerBody" options:NSKeyValueObservingOptionOld context:NULL];
+    [data addObserver:self forKeyPath:@"energyBlob" options:NSKeyValueObservingOptionOld context:NULL];
 }
 
 - (void)dealloc {
+    [data removeObserver:self forKeyPath:@"warpInFlare"];
+    [data removeObserver:self forKeyPath:@"warpOutFlare"];
+    [data removeObserver:self forKeyPath:@"playerBody"];
+    [data removeObserver:self forKeyPath:@"energyBlob"];
     [data release];
     [objects release];
     [self stopObservingObject:selection];
