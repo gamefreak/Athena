@@ -184,6 +184,16 @@
     [scoreStringTable setDoubleAction:@selector(scoreStringTableClick:)];
     [self bind:@"players" toObject:scenarioArray withKeyPath:@"selection.players" options:nil];
     [self bind:@"scoreStrings" toObject:scenarioArray withKeyPath:@"selection.scoreStrings" options:nil];
+    SEL setUsesFindBar = @selector(setUsesFindBar:);
+    if ([prologueTextView respondsToSelector:setUsesFindBar]) {
+        [prologueTextView performSelector:setUsesFindBar withObject:[NSNumber numberWithBool:YES]];
+    }
+    if ([epilogueTextView respondsToSelector:setUsesFindBar]) {
+        [epilogueTextView performSelector:setUsesFindBar withObject:[NSNumber numberWithBool:YES]];
+    }
+    if ([noShipsTextView respondsToSelector:setUsesFindBar]) {
+        [noShipsTextView performSelector:setUsesFindBar withObject:[NSNumber numberWithBool:YES]];
+    }
 }
 
 - (IBAction) openInitialEditor:(id)sender {

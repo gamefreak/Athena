@@ -18,6 +18,9 @@
     NSMutableArray *scenarios;
     NSMutableArray *players;
     NSMutableArray *scoreStrings;
+    IBOutlet NSTextView *prologueTextView;
+    IBOutlet NSTextView *epilogueTextView;
+    IBOutlet NSTextView *noShipsTextView;
 }
 - (id) initWithMainData:(MainData *)data;
 - (IBAction) openInitialEditor:(id)sender;
