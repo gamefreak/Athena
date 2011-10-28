@@ -9,7 +9,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "#Automatically generate a build number from git&apos;s short commit id&#10;PLIST=&quot;${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}&quot;&#10;GIT_COMMIT_ID=`git --git-dir=&quot;${PROJECT_DIR}/.git&quot; log -n 1 --format=%t`&#10;#Write build number to plist&#10;defaults write &quot;${PLIST%.plist}&quot; CFBundleVersion -string &quot;${GIT_COMMIT_ID}&quot;">
+               scriptText = "#Automatically generate a build number from git&apos;s short commit id&#10;GIT_COMMIT_ID=$(git --git-dir=&quot;${PROJECT_DIR}/.git&quot; log -n 1 --format=%h)&#10;#Determine the location of the info plist&#10;PLIST=&quot;${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}&quot;&#10;#Write build number to plist (don&apos;t forget to strip .plist from the filename)&#10;defaults write &quot;${PLIST%.plist}&quot; CFBundleVersion -string &quot;${GIT_COMMIT_ID}&quot;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
@@ -88,13 +88,13 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      revealArchiveInOrganizer = "YES">
+      revealArchiveInOrganizer = "NO">
       <PostActions>
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "ZIP_DEPLOYMENT_DIR=`git config --get --path athena.deploy-dir`&#10;if [ -n &quot;${ZIP_DEPLOYMENT_DIR}&quot; ]&#10;then&#10;TEMP_ZIP=&quot;${CONFIGURATION_TEMP_DIR}/${EXECUTABLE_NAME}.zip&quot;&#10;zip -q &quot;${TEMP_ZIP}&quot; -r &quot;${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/&quot;&#10;mv &quot;${TEMP_ZIP}&quot; &quot;${ZIP_DEPLOYMENT_DIR}/${EXECUTABLE_NAME}.zip&quot;&#10;fi">
+               scriptText = "#check git&apos;s variables for a locatation to save the zip to&#10;ZIP_DEPLOYMENT_DIR=$(git config --get --path athena.deploy-dir)&#10;#The directory that Athena.zip resides in&#10;BUILT_APPLICATION_DIR=&quot;${ARCHIVE_PRODUCTS_PATH}${INSTALL_PATH}&quot;&#10;#Where to stuff the zip before being moved to it&apos;s final location&#10;TEMP_ZIP=&quot;${CONFIGURATION_TEMP_DIR}/${EXECUTABLE_NAME}.zip&quot;&#10;#check if deployment location is specified&#10;if [ -n &quot;${ZIP_DEPLOYMENT_DIR}&quot; ]; then&#10;#switch to the directory containing Athena.app so zip won&apos;t include lots of extra directories&#10;cd &quot;${BUILT_APPLICATION_DIR}&quot;&#10;#make the zip&#10;zip -q &quot;${TEMP_ZIP}&quot; -r &quot;${WRAPPER_NAME}/&quot;&#10;#move the zip to it&apos;s destination&#10;mv &quot;${TEMP_ZIP}&quot; &quot;${ZIP_DEPLOYMENT_DIR}/${EXECUTABLE_NAME}.zip&quot;&#10;fi">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
