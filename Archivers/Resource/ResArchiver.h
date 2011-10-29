@@ -31,6 +31,7 @@
 - (void) seek:(size_t)position;
 - (void) extend:(NSUInteger)bytes;
 - (void) setName:(NSString *)name;
+- (NSUInteger) currentIndex;
 
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object;
 - (void) encodeObject:(id<ResCoding, NSObject>)object atIndex:(NSUInteger)index;

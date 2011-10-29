@@ -208,6 +208,10 @@
     [(ResSegment *)[stack lastObject] setName:name];
 }
 
+- (NSUInteger) currentIndex; {
+    return [(ResSegment *)[stack lastObject] index];
+}
+
 - (NSUInteger) encodeObject:(id<ResCoding, NSObject>)object {
     if (hasBeenFlattened) {
         @throw @"Cannot encode new object because the data has been flattened.";
