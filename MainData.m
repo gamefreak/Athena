@@ -21,6 +21,12 @@
 #import "XSSound.h"
 #import "XSImage.h"
 
+#import "VersionFormatter.h"
+
+//CBA0 = A.B.C
+const uint32_t ARES_VERSION_MIN = 0x00000201; //1.2.0
+const uint32_t DEFAULT_SCENARIO_VERSION = 0x00000001; //1.0.0
+
 static NSArray *mainDataKeys;
 @implementation MainDataFlags
 @synthesize isNetworkable, customObjects, customRaces, customScenarios, isUnoptimized;
@@ -55,6 +61,8 @@ static NSArray *mainDataKeys;
         author = @"";
         authorUrl = @"";
         identifier = @"";
+        version = DEFAULT_SCENARIO_VERSION;
+        minVersion = ARES_VERSION_MIN;
 
         flags = [[MainDataFlags alloc] init];
 
@@ -80,6 +88,12 @@ static NSArray *mainDataKeys;
         authorUrl = [[coder decodeStringForKey:@"authorUrl"] retain];
         identifier = [[coder decodeStringForKey:@"identifier"] retain];
 
+        NSNumber *versObj = nil;
+        BOOL ok = [[[[VersionFormatter alloc] init] autorelease] getObjectValue:&versObj forString:[coder decodeStringForKey:@"version"] errorDescription:nil];
+        if (ok) {
+            version = [versObj unsignedIntValue];
+        }
+        
         [self setWarpInFlare:[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"warpInFlare"]
                                                 forClass:[BaseObject class]]];
         [self setWarpOutFlare:[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"warpOutFlare"] forClass:[BaseObject class]]];
@@ -103,6 +117,10 @@ static NSArray *mainDataKeys;
     [coder encodeString:downloadUrl forKey:@"downloadUrl"];
     [coder encodeString:author forKey:@"author"];
     [coder encodeString:authorUrl forKey:@"authorUrl"];
+    
+    [coder encodeString:[[[[VersionFormatter alloc] init] autorelease] stringForObjectValue:[NSNumber numberWithUnsignedInt:version]]
+                 forKey:@"version"];
+    
     if (identifier == nil || [identifier isEqualTo:@""]) {
         [coder encodeString:[[self computedIdentifier] stringByAppendingString:@"\n"]
                      forKey:@"identifier"];
@@ -166,8 +184,8 @@ static NSArray *mainDataKeys;
 
         identifier = [[coder getMetadataForKey:@"identifier"] retain];
 
-        version = [coder decodeUInt32];
-        minVersion = [coder decodeUInt32];
+        version = [coder decodeSwappedUInt32];
+        minVersion = [coder decodeSwappedUInt32];
 
         [flags initWithResArchiver:coder];
         checkSum = [coder decodeUInt32];
@@ -245,8 +263,8 @@ static NSArray *mainDataKeys;
     [coder encodePString:author ofFixedLength:255u];
     [coder encodePString:authorUrl ofFixedLength:255u];
 
-    [coder encodeUInt32:version];
-    [coder encodeUInt32:minVersion];
+    [coder encodeSwappedUInt32:version];
+    [coder encodeSwappedUInt32:minVersion];
 
     flags.isUnoptimized = YES;
     flags.customRaces = YES;

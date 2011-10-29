@@ -161,6 +161,7 @@
 		D2B62BB613E4E288007C2DFE /* PlaySound.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B62BB513E4E287007C2DFE /* PlaySound.xib */; };
 		D2B720BF1308739900008307 /* SMIVImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B720BE1308739900008307 /* SMIVImage.m */; };
 		D2B812D2143D115E00192B71 /* AlterActiveCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B812D1143D115E00192B71 /* AlterActiveCondition.xib */; };
+		D2BFCCC9145C89820058177A /* VersionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D2BFCCC8145C89820058177A /* VersionFormatter.m */; };
 		D2C55B3C12F321E2007140A2 /* InitialEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C55B3B12F321E2007140A2 /* InitialEditor.m */; };
 		D2C55B4C12F3235E007140A2 /* InitialEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2C55B4B12F3235E007140A2 /* InitialEditor.xib */; };
 		D2C9D6FB13044E970087EDE4 /* ResSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C9D6FA13044E960087EDE4 /* ResSegment.m */; };
@@ -481,6 +482,8 @@
 		D2B720BD1308739900008307 /* SMIVImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIVImage.h; sourceTree = "<group>"; };
 		D2B720BE1308739900008307 /* SMIVImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMIVImage.m; sourceTree = "<group>"; };
 		D2B812D1143D115E00192B71 /* AlterActiveCondition.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterActiveCondition.xib; sourceTree = "<group>"; };
+		D2BFCCC7145C89820058177A /* VersionFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionFormatter.h; sourceTree = "<group>"; };
+		D2BFCCC8145C89820058177A /* VersionFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionFormatter.m; sourceTree = "<group>"; };
 		D2C55B3A12F321E2007140A2 /* InitialEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialEditor.h; sourceTree = "<group>"; };
 		D2C55B3B12F321E2007140A2 /* InitialEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialEditor.m; sourceTree = "<group>"; };
 		D2C55B4B12F3235E007140A2 /* InitialEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialEditor.xib; sourceTree = "<group>"; };
@@ -1028,6 +1031,8 @@
 				4D64EFB7140BD0FF00017458 /* DownloadWindow.m */,
 				D272DA4B1434DFD200F3CB12 /* UniquePairKeyFormatter.h */,
 				D272DA4C1434DFD200F3CB12 /* UniquePairKeyFormatter.m */,
+				D2BFCCC7145C89820058177A /* VersionFormatter.h */,
+				D2BFCCC8145C89820058177A /* VersionFormatter.m */,
 			);
 			name = Reusable;
 			sourceTree = "<group>";
@@ -1464,6 +1469,7 @@
 				D204FE6E143B7765006AA3F9 /* ImageEditor.m in Sources */,
 				D245ECDF143BBDCB00F78634 /* XSImageView.m in Sources */,
 				D284C92C144C786000956852 /* NSArray+AthenaAdditions.m in Sources */,
+				D2BFCCC9145C89820058177A /* VersionFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
