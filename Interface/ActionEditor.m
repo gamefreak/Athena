@@ -47,9 +47,8 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
     if (!runInit) {
         runInit = YES;
         [targetView addSubview:[self view]];
-        [[[self view] superview] setFrameSize:actionsSize];
-        [[self view] setFrameSize:actionsSize];
-        [[[self view] superview] setFrameOrigin:NSZeroPoint];
+        //[[self view] setFrameSize:[targetView bounds].size];
+        [[self view] setFrame:[targetView bounds]];
 
         [inclusiveFilterPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"inclusiveFilter"];
         [exclusiveFilterPopulator setRepresentedClass:[BaseObjectAttributes class] andPathComponent:@"exclusiveFilter"];
@@ -87,8 +86,7 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
     [controller setActionObj:[actionsArrayController selection]];
 
     NSView *newInnerView = [controller view];
-    //Resize and embed the view
-    [newInnerView setFrame:[innerEditorView frame]];
+    //Embed and resize the view
     //This is split up because the initial replacement involves nil (and that doesn't work)
     if (lastInnerView == nil) {
         [innerEditorView addSubview:newInnerView];
@@ -96,6 +94,7 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
         [innerEditorView replaceSubview:lastInnerView with:newInnerView];
     }
 
+    [newInnerView setFrame:[innerEditorView bounds]];
     [self setLastInnerView:newInnerView];
     [self setLastViewController:controller];
     [self setLastNib:nib];
