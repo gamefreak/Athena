@@ -533,37 +533,54 @@
 @end
 
 @implementation DisplayMessageAction
-@synthesize ID, page;
+@synthesize pages;
 
 - (id) init {
     self = [super init];
     if (self) {
-        ID = -1;
-        page = -1;
+        pages = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+- (void)dealloc {
+    [pages release];
+    [super dealloc];
 }
 
 - (id) initWithLuaCoder:(LuaUnarchiver *)coder {
     self = [super initWithLuaCoder:coder];
     if (self) {
-        ID = [coder decodeIntegerForKey:@"id"];
-        page = [coder decodeIntegerForKey:@"page"];
+        [pages setArray:[coder decodeArrayOfClass:[XSText class] forKey:@"pages" zeroIndexed:NO]];
     }
     return self;
 }
 
 - (void) encodeLuaWithCoder:(LuaArchiver *)coder {
     [super encodeLuaWithCoder:coder];
-    [coder encodeInteger:ID forKey:@"id"];
-    [coder encodeInteger:page forKey:@"page"];
+    [coder encodeArray:pages forKey:@"pages" zeroIndexed:NO];
 }
 
 - (id)initWithResArchiver:(ResUnarchiver *)coder {
     self = [super initWithResArchiver:coder];
     if (self) {
-        ID = [coder decodeSInt16];
-        page = [coder decodeSInt16];
+        short ID = [coder decodeSInt16];
+        short pageCount = [coder decodeSInt16];
+        for (int page = 0; page < pageCount; page++) {
+            XSText *pageText = nil;
+            @try {
+                pageText = [coder decodeObjectOfClass:[XSText class] atIndex:ID + page];
+            }
+            @catch (NSString *exc) {
+                NSLog(@"ACTION[%lu]: IS MISSING MESSAGE[%i][%i]", [coder currentIndex], ID, page);
+                pageText = [[[XSText alloc] init] autorelease];
+                [pageText setName:@"<MISSING>"];
+                [pageText setText:@"MISSING"];
+            }
+            @finally {
+                [pages addObject:pageText];
+            }
+        }
         [coder skip:20u];
     }
     return self;
@@ -571,29 +588,52 @@
 
 - (void) encodeResWithCoder:(ResArchiver *)coder {
     [super encodeResWithCoder:coder];
-    [coder encodeSInt16:ID];
-    [coder encodeSInt16:page];
+    NSUInteger idx = [coder currentIndex];
+    if ([pages count] == 0) {//Special case for no pages
+        XSText *text = [[XSText alloc] init];
+        [text setName:[NSString stringWithFormat:@"Empty message %i", idx]];
+        [text setText:@"EMPTY"];
+        [coder encodeSInt16:[coder encodeObject:text]];
+        [text release];
+        [coder encodeSInt16:1];
+    } else {
+        NSEnumerator *enumerator = [pages objectEnumerator];
+        int pageNumber = 1;
+        //Special case the first page so we can have it's ID
+        XSText *page = [enumerator nextObject];
+        if ([[page name] length] == 0) {
+            page = [[page copy] autorelease];
+            [page setName:[NSString stringWithFormat:@"Message %i page %i", idx, pageNumber++]];
+        }
+        [coder encodeSInt16:[coder encodeObject:page]];
+        for (XSText *page in enumerator) {
+            if ([[page name] length] == 0) {
+                page = [[page copy] autorelease];
+                [page setName:[NSString stringWithFormat:@"Message %i page %i", idx, pageNumber++]];
+            }
+            [coder encodeObject:page];
+        }
+        [coder encodeSInt16:[pages count]];
+    }
     [coder skip:20u];
 }
 
 - (void)addObserver:(NSObject *)observer {
     [super addObserver:observer];
-    [self addObserver:observer forKeyPath:@"ID" options:NSKeyValueObservingOptionOld context:NULL];
-    [self addObserver:observer forKeyPath:@"page" options:NSKeyValueObservingOptionOld context:NULL];
+    [self addObserver:observer forKeyPath:@"pages" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)removeObserver:(NSObject *)observer {
     [super removeObserver:observer];
-    [self removeObserver:observer forKeyPath:@"ID"];
-    [self removeObserver:observer forKeyPath:@"page"];
+    [self removeObserver:observer forKeyPath:@"pages"];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Display message #%i page %i", ID, page];
+    return [NSString stringWithFormat:@"Display a %llu pages of a message", [pages count]];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
-    return [NSSet setWithObjects:@"ID", @"page", nil];
+    return [NSSet setWithObjects:@"pages", nil];
 }
 
 - (NSString *)nibName {

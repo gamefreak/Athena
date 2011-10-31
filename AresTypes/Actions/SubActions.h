@@ -75,10 +75,9 @@
 @end
 
 @interface DisplayMessageAction : Action {
-    NSInteger ID, page;
+    NSMutableArray *pages;
 }
-@property (readwrite, assign) NSInteger ID;
-@property (readwrite, assign) NSInteger page;
+@property (readonly) NSMutableArray *pages;
 @end
 
 @interface ChangeScoreAction : Action {
