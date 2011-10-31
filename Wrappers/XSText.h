@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ResCoding.h"
+#import "LuaCoding.h"
 
 enum {
     TEXTNoShipsOffset = 10000,
 };
 
-@interface XSText : NSObject <ResCoding, NSCopying> {
+@interface XSText : NSObject <ResCoding, LuaCoding, NSCopying> {
     NSString *name;
     NSString *text;
 }

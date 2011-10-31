@@ -63,6 +63,28 @@
     return NO;
 }
 
+- (id)initWithLuaCoder:(LuaUnarchiver *)coder {
+    self = [super init];
+    if (self) {
+        name = [[coder decodeStringForKey:@"name"] retain];
+        text = [[coder decodeStringForKey:@"text"] retain];
+    }
+    return self;
+}
+
+- (void)encodeLuaWithCoder:(LuaArchiver *)coder {
+    [coder encodeString:name forKey:@"name"];
+    [coder encodeString:text forKey:@"text"];
+}
+
++ (BOOL)isComposite {
+    return YES;
+}
+
++ (Class)classForLuaCoder:(LuaUnarchiver *)coder {
+    return self;
+}
+
 - (NSString *) description {
     return [NSString stringWithFormat:@"%@\n%@", name, text];
 }
