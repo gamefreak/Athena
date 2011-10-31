@@ -13,7 +13,7 @@ enum {
     TEXTNoShipsOffset = 10000,
 };
 
-@interface XSText : NSObject <ResCoding> {
+@interface XSText : NSObject <ResCoding, NSCopying> {
     NSString *name;
     NSString *text;
 }

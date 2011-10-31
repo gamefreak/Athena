@@ -27,6 +27,15 @@
     [super dealloc];
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    XSText *copy = [[self->isa allocWithZone:zone] init];
+    if (copy) {
+        copy->name = [name copyWithZone:zone];
+        copy->text = [text copyWithZone:zone];
+    }
+    return copy;
+}
+
 - (id) initWithResArchiver:(ResUnarchiver *)coder {
     self = [super init];
     if (self) {
