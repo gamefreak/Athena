@@ -40,7 +40,6 @@ typedef enum {
     NSString *name;
     NSString *shortName;
     NSString *notes;
-    NSString *staticName;
 
     BaseObjectAttributes *attributes;
     BaseObjectBuildFlags *buildFlags;
@@ -104,7 +103,6 @@ typedef enum {
 @property (readwrite, retain) NSString *name;
 @property (readwrite, retain) NSString *shortName;
 @property (readwrite, retain) NSString *notes;
-@property (readwrite, retain) NSString *staticName;
 @property (readwrite, retain) BaseObjectAttributes *attributes;
 @property (readwrite, retain) BaseObjectBuildFlags *buildFlags;
 @property (readwrite, retain) BaseObjectOrderFlags *orderFlags;

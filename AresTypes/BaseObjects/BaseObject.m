@@ -13,7 +13,7 @@
 #import "ObjectEditor.h"
 
 @implementation BaseObject
-@synthesize name, shortName, notes, staticName;
+@synthesize name, shortName, notes;
 @synthesize attributes, buildFlags, orderFlags;
 @synthesize classNumber, race;
 @synthesize price, buildTime, buildRatio;
@@ -34,7 +34,6 @@
     name = @"Untitled";
     shortName = @"UNTITLED";
     notes = @"";
-    staticName = @"Untitled";
 
     attributes = [[BaseObjectAttributes alloc] init];
     buildFlags = [[BaseObjectBuildFlags alloc] init];
@@ -114,7 +113,6 @@
     [name release];
     [shortName release];
     [notes release];
-    [staticName release];
     
     [attributes release];
     [buildFlags release];
@@ -142,7 +140,6 @@
         name = [[coder decodeStringForKey:@"name"] retain];
         shortName = [[coder decodeStringForKey:@"shortName"] retain];
         notes = [[coder decodeStringForKey:@"notes"] retain];
-        staticName = [[coder decodeStringForKey:@"staticName"] retain];
 
         //disable the observation
         [self removeObserver:self forKeyPath:@"objectType"];
@@ -276,7 +273,6 @@
     [coder encodeString:name forKey:@"name"];
     [coder encodeString:shortName forKey:@"shortName"];
     [coder encodeString:notes forKey:@"notes"];
-    [coder encodeString:staticName forKey:@"staticName"];
 
     [coder encodeObject:attributes forKey:@"attributes"];
     [coder encodeObject:buildFlags forKey:@"buildFlags"];
@@ -510,10 +506,6 @@
         notes = [[[coder decodeObjectOfClass:[StringTable class]
                                      atIndex:STRBaseObjectNotes]
                   stringAtIndex:[coder currentIndex]] retain];
-        [staticName release];
-        staticName = [[[coder decodeObjectOfClass:[StringTable class]
-                                          atIndex:STRBaseObjectStaticNames]
-                       stringAtIndex:[coder currentIndex]] retain];
         //And re-enable
         [self addObserver:self forKeyPath:@"objectType" options:NSKeyValueObservingOptionOld context:NULL];
     }
@@ -601,7 +593,6 @@
     [coder addString:name toStringTable:STRBaseObjectNames];
     [coder addString:shortName toStringTable:STRBaseObjectShortNames];
     [coder addString:notes toStringTable:STRBaseObjectNotes];
-    [coder addString:staticName toStringTable:STRBaseObjectStaticNames];
 }
 
 + (ResType)resType {
