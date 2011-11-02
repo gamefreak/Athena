@@ -23,9 +23,8 @@
     self= [super init];
     if (self) {
         SInt16 count = [coder decodeSInt16];
-        count = CFSwapInt16(count);//Swap? WTF why?
         strings = [[NSMutableArray alloc] initWithCapacity:count];
-        for (sint16 k = 0; k < count; k++) {
+        for (SInt16 k = 0; k < count; k++) {
             [strings addObject:[coder decodePString]];
         }
     }
@@ -34,7 +33,6 @@
 
 - (void)encodeResWithCoder:(ResArchiver *)coder {
     short count = [strings count];
-    count = CFSwapInt16(count);//I still don't know why!
     [coder encodeSInt16:count];
     for (NSString *str in strings) {
         [coder encodePString:str];

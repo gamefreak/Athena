@@ -14,10 +14,14 @@
 #import "Scenario.h"
 #import <sys/stat.h>
 
+OSStatus CoreEndianNULLFlipProc(OSType dataDomain, OSType dataType, short id, void *dataPtr, UInt32 dataSize, Boolean currentlyNative, void *refcon) {
+    return noErr;
+}
 
 @implementation ResUnarchiver
 @synthesize sourceType;
 + (void)initialize {
+    CoreEndianInstallFlipper(kCoreEndianResourceManagerDomain, 'STR#', (CoreEndianFlipProc)&CoreEndianNULLFlipProc, NULL);
 }
 
 - (id)init {
