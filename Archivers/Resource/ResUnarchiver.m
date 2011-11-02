@@ -59,7 +59,7 @@ OSStatus CoreEndianNULLFlipProc(OSType dataDomain, OSType dataType, short id, vo
     for (id<ResFile> file in files) {
         NSDictionary *subTable = [file allEntriesOfClass:class];
         if ([class isPacked]) {
-            if ([table count] > 0) {
+            if ([subTable count] > 0) {
                 [table setDictionary:subTable];
             }
         } else {
@@ -69,7 +69,7 @@ OSStatus CoreEndianNULLFlipProc(OSType dataDomain, OSType dataType, short id, vo
     [types setObject:table forKey:[class typeKey]];
 }
 
-- (NSUInteger) countOfClass:(Class<ResCoding>)_class {
+- (NSUInteger) countOfClass:(Class<ResCoding, Alloc, NSObject>)_class {
     NSMutableDictionary *table = [types objectForKey:[_class typeKey]];
     if (table == nil) {
         [self registerClass:_class];
@@ -215,7 +215,7 @@ OSStatus CoreEndianNULLFlipProc(OSType dataDomain, OSType dataType, short id, vo
     return object;
 }
 
-- (NSMutableDictionary *)allObjectsOfClass:(Class<ResCoding>)class {
+- (NSMutableDictionary *)allObjectsOfClass:(Class<ResCoding, Alloc, NSObject>)class {
     NSMutableDictionary *table = [types objectForKey:[class typeKey]];
     if (table == nil) {
         [self registerClass:class];
@@ -232,7 +232,7 @@ OSStatus CoreEndianNULLFlipProc(OSType dataDomain, OSType dataType, short id, vo
     return outDict;
 }
 
-- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<Alloc, ResCoding>)class {
+- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<Alloc, ResCoding, NSObject>)class {
     NSMutableDictionary *table = [types objectForKey:[class typeKey]];
     if (table == nil) {
         [self registerClass:class];
@@ -270,7 +270,7 @@ OSStatus CoreEndianNULLFlipProc(OSType dataDomain, OSType dataType, short id, vo
         if ([file isKindOfClass:[ResourceFile class]]) {
             continue;
         }
-        NSString *value = [(ResourceFile *)file getMetadataForKey:key];
+        NSString *value = [(ZipFile *)file getMetadataForKey:key];
         if (value != nil) {
             return value;
         }
