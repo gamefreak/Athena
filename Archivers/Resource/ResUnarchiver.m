@@ -22,6 +22,7 @@ OSStatus CoreEndianNULLFlipProc(OSType dataDomain, OSType dataType, short id, vo
 @synthesize sourceType;
 + (void)initialize {
     CoreEndianInstallFlipper(kCoreEndianResourceManagerDomain, 'STR#', (CoreEndianFlipProc)&CoreEndianNULLFlipProc, NULL);
+    CoreEndianInstallFlipper(kCoreEndianResourceManagerDomain, 'snd ', (CoreEndianFlipProc)&CoreEndianNULLFlipProc, NULL);
 }
 
 - (id)init {
