@@ -10,6 +10,7 @@
 #import "MainData.h"
 #import "StringTable.h"
 #import "Archivers.h"
+#import "ApplicationDelagate.h"
 
 #import "ObjectEditor.h"
 #import "ScenarioEditor.h"
@@ -114,42 +115,26 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         if ([type isEqual:@"org.brainpen.xseraplugin"]){
             return [super readFromURL:url ofType:type error:outError];
         } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
-            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithResourceFilePath:fileName];
-            if ([[fileName lastPathComponent] isEqual:@"Ares Scenarios"]) {
-                [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sprites"]];
-                [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Sounds"]];
-                [coder addFile:[[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Ares Interfaces"]];
+            ResUnarchiver *coder = [[ResUnarchiver alloc] init];
+            NSString *dataDir = [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"];
+            [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sprites"] ofType:DataBasisAres];
+            [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sounds"] ofType:DataBasisAres];
+            [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Interfaces"] ofType:DataBasisAres];
+            [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Scenarios"] ofType:DataBasisAres];
+            if (![[fileName lastPathComponent] isEqualTo:@"Ares Scenarios"]) {
+                [coder addFile:fileName ofType:DataBasisAres];
             }
             data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
             [coder release];
-
-#if 0
-            char tempName[17] = "";
-            strlcpy(tempName, "/tmp/TEST.XXXXXX", 17);
-            mktemp(tempName);
-            NSString *testFname = [NSString stringWithCString:tempName];
-            NSLog(@"Running Encoder Test");
-            ResArchiver *encoder = [[ResArchiver alloc] init];
-            [encoder encodeObject:data atIndex:128];
-            NSLog(@"Encoding Completed");
-            NSLog(@"Writing to temp file: %@", testFname);
-            if ([encoder writeToFile:testFname]) {
-                NSLog(@"Write succeeded.");
-            } else {
-                NSLog(@"Write failed.");
-            }
-            [encoder release];
-            NSLog(@"Encoder Test Completed");
-            NSLog(@"Running re-decode test");
-            ResUnarchiver *decoder = [[ResUnarchiver alloc] initWithResourceFilePath:testFname];
-            [decoder decodeObjectOfClass:[MainData class] atIndex:128];
-            [decoder release];
-            NSLog(@"Completed re-decode test");
-            NSLog(@"Unlinking temp file");
-            unlink(tempName);
-#endif
         } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
-            ResUnarchiver *coder = [[ResUnarchiver alloc] initWithZipFilePath:fileName];
+            ResUnarchiver *coder = [[ResUnarchiver alloc] init];
+            NSString *dataDir = [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"];
+            [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sprites"] ofType:DataBasisAres];
+            [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sounds"] ofType:DataBasisAres];
+            [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Interfaces"] ofType:DataBasisAres];
+            [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Scenarios"] ofType:DataBasisAres];
+
+            [coder addFile:fileName ofType:DataBasisAntares];
             data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
             [coder release];
             return YES;

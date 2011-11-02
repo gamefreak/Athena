@@ -28,6 +28,6 @@
 
 
 @protocol ResIndexOverriding
-+ (NSUInteger) peekAtIndexWithCoder:(ResUnarchiver *)coder;
++ (NSUInteger) peekAtIndexWithData:(NSData *)data;
 @end
 

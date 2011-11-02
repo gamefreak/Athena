@@ -14,19 +14,13 @@
 @class Index;
 
 @interface ResUnarchiver : NSObject {
-    DataBasis sourceType;
     NSMutableDictionary *types;
     NSMutableArray *stack;
     NSMutableArray *files;
 }
 @property (readonly) DataBasis sourceType;
-- (id) initWithResourceFilePath:(NSString *)path;
-- (id) initWithZipFilePath:(NSString *)path;
-- (void) addFile:(NSString *)path;
 
-- (void) registerClass:(Class<ResCoding>)class;
-- (void) registerAresClass:(Class<ResCoding>)class;
-- (void) registerAntaresClass:(Class<ResCoding>)class;
+- (void) addFile:(NSString *)path ofType:(DataBasis)type;
 - (NSUInteger) countOfClass:(Class<ResCoding>)class;
 
 - (void) skip:(NSUInteger)bytes;
@@ -47,8 +41,6 @@
 - (SInt32) decodeSInt32;
 - (UInt32) decodeSwappedUInt32;
 - (SInt32) decodeSwappedSInt32;
-- (UInt64) decodeUInt64;
-- (SInt64) decodeSInt64;
 
 - (CGFloat) decodeFixed;
 

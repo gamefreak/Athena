@@ -12,7 +12,7 @@
 #import <objc/runtime.h>
 
 @implementation ResSegment
-@synthesize data, object, dataClass, cursor, loaded, name;
+@synthesize data, object, dataClass, cursor, loaded, name, origin;
 @dynamic index, indexRef;
 
 - (id) initWithObject:(id<ResCoding, NSObject>)_object atIndex:(NSUInteger)_index {
@@ -29,11 +29,12 @@
         loaded = NO;
         index = [[Index alloc] initWithIndex:_index];
         object = [_object retain];
+        origin = DataBasisNone;
     }
     return self;
 }
 
-- (id) initWithClass:(Class<Alloc, ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index name:(NSString *)_name {
+- (id) initWithClass:(Class<Alloc, ResCoding, NSObject>)_class data:(NSData *)_data index:(NSUInteger)_index name:(NSString *)_name origin:(DataBasis)_origin {
     self = [super init];
     if (self) {
         name = [_name retain];
@@ -42,6 +43,7 @@
         cursor = 0;
         loaded = NO;
         index = [[Index alloc] initWithIndex:_index];
+        origin = _origin;
     }
     return self;
 }

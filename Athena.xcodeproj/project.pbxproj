@@ -44,6 +44,7 @@
 		D225D64713039FC500E75803 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D225D64613039FC500E75803 /* CoreServices.framework */; };
 		D22CBB4313FD5A1D003E7C37 /* AlterRange.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */; };
 		D22F1E7712F84BFE00DAC007 /* ApplicationDelagate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */; };
+		D2325FAA1461A608000DF44C /* ResFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = D2325FA91461A608000DF44C /* ResFiles.m */; };
 		D238F22D144459FB00FF5109 /* AntaresPlugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = D238F22C144459FB00FF5109 /* AntaresPlugin.icns */; };
 		D245ECDF143BBDCB00F78634 /* XSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D245ECDE143BBDCB00F78634 /* XSImageView.m */; };
 		D251881F13EF34B300584740 /* AnimationEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D251881E13EF34B300584740 /* AnimationEditor.xib */; };
@@ -384,6 +385,8 @@
 		D22CBB4213FD5A1D003E7C37 /* AlterRange.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlterRange.xib; sourceTree = "<group>"; };
 		D22F1E7512F84BFE00DAC007 /* ApplicationDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelagate.h; sourceTree = "<group>"; };
 		D22F1E7612F84BFE00DAC007 /* ApplicationDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelagate.m; sourceTree = "<group>"; };
+		D2325FA81461A608000DF44C /* ResFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResFiles.h; sourceTree = "<group>"; };
+		D2325FA91461A608000DF44C /* ResFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResFiles.m; sourceTree = "<group>"; };
 		D238F22C144459FB00FF5109 /* AntaresPlugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AntaresPlugin.icns; sourceTree = "<group>"; };
 		D238F22E14447E9A00FF5109 /* DataBasis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBasis.h; sourceTree = "<group>"; };
 		D23EDD2112EE8129002699A4 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
@@ -797,6 +800,8 @@
 				D2C9D6FA13044E960087EDE4 /* ResSegment.m */,
 				D21FC226131580E700F33E5A /* ResEntry.h */,
 				D21FC227131580E700F33E5A /* ResEntry.m */,
+				D2325FA81461A608000DF44C /* ResFiles.h */,
+				D2325FA91461A608000DF44C /* ResFiles.m */,
 				D2D2078913107044000CDCA4 /* ResArchiver.h */,
 				D2D2078A13107044000CDCA4 /* ResArchiver.m */,
 				D225D64313039F0D00E75803 /* ResUnarchiver.h */,
@@ -1470,6 +1475,7 @@
 				D245ECDF143BBDCB00F78634 /* XSImageView.m in Sources */,
 				D284C92C144C786000956852 /* NSArray+AthenaAdditions.m in Sources */,
 				D2BFCCC9145C89820058177A /* VersionFormatter.m in Sources */,
+				D2325FAA1461A608000DF44C /* ResFiles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

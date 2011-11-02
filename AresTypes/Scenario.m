@@ -182,10 +182,10 @@
     return self;
 }
 
-+ (NSUInteger) peekAtIndexWithCoder:(ResUnarchiver *)coder {
-    [coder seek:114u];
-    short index = [coder decodeSInt16]-1;
-    [coder seek:0u];
++ (NSUInteger) peekAtIndexWithData:(NSData *)data {
+    short index;
+    [data getBytes:&index range:NSMakeRange(114, 2)];
+    index = CFSwapInt16BigToHost(index) - 1;
     return index;
 }
 

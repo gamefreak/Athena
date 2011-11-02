@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DataBasis.h"
 
 @protocol ResCoding;
 @class ResArchiver, ResUnarchiver, Index;
@@ -19,6 +20,7 @@
     NSUInteger cursor;
     BOOL loaded;
     Index *index;
+    DataBasis origin;
 }
 @property (readonly) NSData *data;
 @property (readonly) id<ResCoding, NSObject> object;
@@ -28,11 +30,11 @@
 @property (readwrite, assign) NSUInteger index;
 @property (readonly) Index *indexRef;
 @property (readwrite, retain) NSString *name;
-
+@property (readonly) DataBasis origin;
 //For Writing
 - (id) initWithObject:(id<ResCoding, NSObject>)object atIndex:(NSUInteger)index;
 //For Reading
-- (id) initWithClass:(Class<ResCoding>)class data:(NSData *)data index:(NSUInteger)index name:(NSString *)_name;
+- (id) initWithClass:(Class<ResCoding>)class data:(NSData *)data index:(NSUInteger)index name:(NSString *)_name origin:(DataBasis)origin;
 
 - (id) loadObjectWithCoder:(ResUnarchiver *)unarchiver;
 - (void) readBytes:(void *)bytes length:(size_t)length;
