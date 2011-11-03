@@ -317,7 +317,7 @@ static NSArray *mainDataKeys;
     if (tAuthor == nil || [tTitle isEqualTo:@""]) {
         tAuthor = @"unknown";
     }
-    return [NSString stringWithFormat:@"com.%@.%@", tAuthor, tTitle];
+    return [[NSString stringWithFormat:@"com.%@.%@", tAuthor, tTitle] lowercaseString];
     
 }
 
