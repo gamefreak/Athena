@@ -66,7 +66,7 @@ BOOL pict_has_header(uint8_t *pict_data);
     NSPICTImageRep *pictRep = [[image representations] firstObjectPassingTest:^(id obj, NSUInteger idx){
         return (BOOL)([obj isKindOfClass:[NSPICTImageRep class]]);
     }];
-    BOOL write_header = [coder saveType] == DataBasisAntares;//NOTE: This is referenced by the PICT_HEADER_OFFSET macro
+    BOOL write_header = [coder saveType] == DataBasisAres;//NOTE: This is referenced by the PICT_HEADER_OFFSET macro
     if (pictRep != nil) {
         //We have a pict representation so skip the custom encoder!
         NSData *data = [pictRep PICTRepresentation];
