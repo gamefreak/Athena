@@ -14,6 +14,7 @@
 @class WeaponViewController;
 @class ActionEditor;
 @class SpecialViewController;
+@class XSImageView;
 
 typedef enum {
     ActivateTab = 0,
@@ -69,6 +70,8 @@ static const float actionsVerticalBuffer = 56+31;
     //Only applies if isEditor == YES
     BOOL showDevices;
     BaseObject *selection;
+
+    IBOutlet XSImageView *portraitView;
 }
 @property (readwrite, retain) BaseObject *selection;
 @property (readwrite, assign) NSUInteger selectionIndex;

@@ -26,7 +26,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
+    if ([[[self window] windowController] isKindOfClass:[ImageEditor class]]) {
+        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
+    }
 }
 
 - (void)drawRect:(NSRect)dirtyRect {

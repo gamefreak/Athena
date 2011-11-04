@@ -99,6 +99,7 @@ typedef enum {
     NSInteger skillNumAdj, skillDenAdj;
 
     NSInteger portraitId;
+    Index *portrait;
 }
 @property (readwrite, retain) NSString *name;
 @property (readwrite, retain) NSString *shortName;
@@ -144,7 +145,8 @@ typedef enum {
 @property (readwrite, assign) NSInteger skillDen;
 @property (readwrite, assign) NSInteger skillNumAdj;
 @property (readwrite, assign) NSInteger skillDenAdj;
-@property (readwrite, assign) NSInteger portraitId;
+@property (readonly, assign) NSInteger portraitId;
+@property (readwrite, retain) Index *portrait;
 
 - (int) calculateWarpOutDistance;
 - (ObjectType)objectType;

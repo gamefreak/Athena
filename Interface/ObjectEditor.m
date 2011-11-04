@@ -16,6 +16,7 @@
 #import "WeaponViewController.h"
 #import "ActionEditor.h"
 #import "SpecialViewController.h"
+#import "XSImageView.h"
 
 NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
 
@@ -87,6 +88,8 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
             [objectsController setFilterPredicate:[NSPredicate predicateWithFormat:@"NOT ((attributes.isBeam = NO) AND (attributes.shapeFromDirection = NO) AND (attributes.isSelfAnimated = NO))"]];
         }
     }
+    [portraitView bind:@"image" toObject:objectsController withKeyPath:@"selection.portrait.object" options:nil];
+    
     [data addObserver:self forKeyPath:@"warpInFlare" options:NSKeyValueObservingOptionOld context:NULL];
     [data addObserver:self forKeyPath:@"warpOutFlare" options:NSKeyValueObservingOptionOld context:NULL];
     [data addObserver:self forKeyPath:@"playerBody" options:NSKeyValueObservingOptionOld context:NULL];
@@ -371,7 +374,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
     [object addObserver:self forKeyPath:@"skillDen" options:NSKeyValueObservingOptionOld context:NULL];
     [object addObserver:self forKeyPath:@"skillNumAdj" options:NSKeyValueObservingOptionOld context:NULL];
     [object addObserver:self forKeyPath:@"skillDenAdj" options:NSKeyValueObservingOptionOld context:NULL];
-    [object addObserver:self forKeyPath:@"portraitId" options:NSKeyValueObservingOptionOld context:NULL];
+    [object addObserver:self forKeyPath:@"portrait" options:NSKeyValueObservingOptionOld context:NULL];
 
     [object addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionOld context:NULL];
 }
@@ -436,7 +439,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
     [object removeObserver:self forKeyPath:@"skillDen"];
     [object removeObserver:self forKeyPath:@"skillNumAdj"];
     [object removeObserver:self forKeyPath:@"skillDenAdj"];
-    [object removeObserver:self forKeyPath:@"portraitId"];
+    [object removeObserver:self forKeyPath:@"portrait"];
 
     [object removeObserver:self forKeyPath:@"frame"];
 }

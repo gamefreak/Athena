@@ -11,6 +11,7 @@
 #import "XSPoint.h"
 #import "MainData.h"
 #import "ObjectEditor.h"
+#import "XSImage.h"
 
 @implementation BaseObject
 @synthesize name, shortName, notes;
@@ -26,7 +27,8 @@
 @synthesize initialDirection, initialDirectionRange;
 @synthesize weapons, actions, arriveActionDistance, frame;
 @synthesize skillNum, skillDen, skillNumAdj, skillDenAdj;
-@synthesize portraitId;
+@dynamic portraitId;
+@synthesize portrait;
 //@synthesize specialDirection; //Disabled
 
 - (id) init {
@@ -102,7 +104,8 @@
     skillNumAdj = 0;//???
     skillDenAdj = 0;//???
 
-    portraitId = -1;
+//    portraitId = -1;
+    portrait = nil;
 
     [self addObserver:self forKeyPath:@"objectType" options:NSKeyValueObservingOptionOld context:NULL];
     return self;
@@ -122,6 +125,7 @@
     [actions release];
     
     [frame release];
+    [portrait release];
     [super dealloc];
 }
 
@@ -264,7 +268,8 @@
         skillNumAdj = [coder decodeIntegerForKey:@"skillNumAdj"];
         skillNumAdj = [coder decodeIntegerForKey:@"skillDenAdj"];
 
-        portraitId = [coder decodeIntegerForKey:@"portraitId"];
+//        portraitId = [coder decodeIntegerForKey:@"portraitId"];
+        [self setPortrait:[coder getIndexRefWithIndex:[coder decodeIntegerForKey:@"portraitId"] forClass:[XSImage class]]];
     }
     return self;
 }
@@ -369,7 +374,7 @@
     }
     [coder encodeObject:frame forKey:encodeKey];
 
-    [coder encodeInteger:portraitId forKey:@"portraitId"];
+    [coder encodeInteger:[portrait index] forKey:@"portraitId"];
 }
 
 - (void) finishLoadingFromLuaWithRootData:(id)data {
@@ -491,7 +496,8 @@
         skillNumAdj = [coder decodeUInt8];
         skillDenAdj = [coder decodeUInt8];
 
-        portraitId = [coder decodeSInt16];
+//        portraitId = [coder decodeSInt16];
+        [self setPortrait:[coder getIndexRefWithIndex:[coder decodeSInt16] forClass:[XSImage class]]];
         [coder skip:10u];
 
         [name release];
@@ -587,7 +593,8 @@
     [coder encodeUInt8:skillNumAdj];
     [coder encodeUInt8:skillDenAdj];
 
-    [coder encodeSInt16:portraitId];
+//    [coder encodeSInt16:portraitId];
+    [coder encodeSInt16:[portrait index]];
     [coder skip:10u];
 
     [coder addString:name toStringTable:STRBaseObjectNames];
@@ -670,6 +677,15 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:XSSpecialParametersChanged object:self];
 }
+
++ (NSSet *)keyPathsForValuesAffectingPortraitId {
+    return [NSSet setWithObjects:@"portrait", nil];
+}
+
+- (NSInteger)portraitId {
+    return [portrait orNull];
+}
+
 @end
 
 @implementation Weapon
