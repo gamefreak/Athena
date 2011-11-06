@@ -26,6 +26,8 @@ NSString *XSAntaresPluginUTI = @"org.arescentral.antares.plugin";
 NSString *XSAresPluginUTI = @"com.biggerplanet.AresData";
 NSString *XSXseraPluginUTI = @"org.brainpen.XseraPlugin";
 
+NSString *XSAthenaMayCleanAntaresData = @"AthenaMayCleanAntaresData";
+
 NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     NSFileWrapper *wrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:[NSDictionary dictionary]];
     for (NSString *key in [dictionary keyEnumerator]) {
@@ -41,6 +43,10 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     }
     return [wrapper autorelease];
 }
+
+@interface AthenaDocument (Private)
+- (void)deleteAntaresTemp:(NSNotification *)notification;
+@end
 
 @implementation AthenaDocument
 @synthesize data;
@@ -214,6 +220,33 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
 
 - (IBAction) displayEasterWindow:(id)sender {
     [easter makeKeyAndOrderFront:self];
+}
+
+- (IBAction) launchInAntares:(id)sender {
+    NSString *fileName = nil;
+    BOOL isAntaresFileType = [[self fileType] isEqualToCaseInsensitiveString:XSAntaresPluginUTI];
+    if ([self isDocumentEdited] || !isAntaresFileType) {
+        fileName = NSTemporaryDirectory();
+        fileName = [fileName stringByAppendingPathComponent:[[[self data] computedIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"_" ]];
+        fileName = [fileName stringByAppendingPathExtension:[self fileNameExtensionForType:XSAntaresPluginUTI saveOperation:NSSaveToOperation]];
+        NSError *error = nil;
+        [self saveToURL:[NSURL fileURLWithPath:fileName] ofType:XSAntaresPluginUTI forSaveOperation:NSSaveToOperation error:&error];
+        if (error != nil) {
+            [self presentError:error];
+            return;
+        }
+
+        [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteAntaresTemp:) name:XSAthenaMayCleanAntaresData object:[fileName stringByStandardizingPath]];
+    } else {
+        fileName = [[self fileURL] path];
+    }
+    [[NSWorkspace sharedWorkspace] openFile:fileName withApplication:@"Antares"];
+}
+
+- (void)deleteAntaresTemp:(NSNotification *)notification {
+    NSString *file = [notification object];
+    NSLog(@"Deleting: %@", file);
+    unlink([file fileSystemRepresentation]);
 }
 @end
 

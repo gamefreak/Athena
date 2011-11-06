@@ -15,6 +15,8 @@ extern NSString *XSAntaresPluginUTI;
 extern NSString *XSAresPluginUTI;
 extern NSString *XSXseraPluginUTI;
 
+extern NSString *XSAthenaMayCleanAntaresData;
+
 @interface AthenaDocument : NSDocument {
     MainData *data;
     IBOutlet NSWindow *easter;
@@ -29,6 +31,7 @@ extern NSString *XSXseraPluginUTI;
 - (IBAction) openSpriteEditor:(id)sender;
 - (IBAction) openSoundEditor:(id)sender;
 - (IBAction) displayEasterWindow:(id)sender;
+- (IBAction) launchInAntares:(id)sender;
 @end
 
 @interface AthenaDocumentWindow : NSWindow {
