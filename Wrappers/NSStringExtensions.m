@@ -38,4 +38,8 @@
 - (NSComparisonResult) numericCompare:(NSString *)string {
     return [self compare:string options:NSNumericSearch];
 }
+
+- (BOOL)isEqualToCaseInsensitiveString:(NSString *)string {
+    return [self caseInsensitiveCompare:string] ==  NSOrderedSame;
+}
 @end

@@ -13,4 +13,5 @@
 - (id) string;
 - (unsigned short)unsignedShortValue;
 - (NSComparisonResult) numericCompare:(NSString *)string;
+- (BOOL)isEqualToCaseInsensitiveString:(NSString *)string;
 @end
