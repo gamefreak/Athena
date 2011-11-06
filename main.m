@@ -103,13 +103,13 @@ int main(int argc, char *argv[]) {
         NSString *type = nil;
         switch (args.type_arg) {
             case type_arg_ares:
-                type = @"com.biggerplanet.AresData";
+                type = XSAresPluginUTI;
                 break;
             case type_arg_xsera:
-                type = @"org.brainpen.XseraPlugin";
+                type = XSXseraPluginUTI;
                 break;
             case type_arg_antares:
-                type = @"org.arescentral.antares.plugin";
+                type = XSAntaresPluginUTI;
                 break;
             default:
                 assert(0);

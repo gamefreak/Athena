@@ -11,6 +11,10 @@
 
 @class MainData;
 
+extern NSString *XSAntaresPluginUTI;
+extern NSString *XSAresPluginUTI;
+extern NSString *XSXseraPluginUTI;
+
 @interface AthenaDocument : NSDocument {
     MainData *data;
     IBOutlet NSWindow *easter;

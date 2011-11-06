@@ -19,7 +19,12 @@
 #import "SpriteEditor.h"
 #import "SoundEditor.h"
 
+#import "NSStringExtensions.h"
 #import <sys/stat.h>
+
+NSString *XSAntaresPluginUTI = @"org.arescentral.antares.plugin";
+NSString *XSAresPluginUTI = @"com.biggerplanet.AresData";
+NSString *XSXseraPluginUTI = @"org.brainpen.XseraPlugin";
 
 NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     NSFileWrapper *wrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:[NSDictionary dictionary]];
@@ -69,7 +74,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
 - (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError {
     NSLog(@"Saving data of type: %@", type);
     NSString *fileName = [absoluteURL path];
-    if ([type isEqualTo:@"com.biggerplanet.AresData"]) {
+    if ([type isEqualToCaseInsensitiveString:XSAresPluginUTI]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder setSaveType:DataBasisAres];
         [coder encodeObject:data atIndex:128];
@@ -77,9 +82,9 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
         [coder release];
         NSLog(@"Save complete");
         return success;
-    } else if ([type isEqualTo:@"org.brainpen.XseraPlugin"]) {
+    } else if ([type isEqualToCaseInsensitiveString:XSXseraPluginUTI]) {
         return [super writeToURL:absoluteURL ofType:type error:outError];
-    } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
+    } else if ([type isEqualToCaseInsensitiveString:XSAntaresPluginUTI]) {
         ResArchiver *coder = [[ResArchiver alloc] init];
         [coder setSaveType:DataBasisAntares];
         [coder encodeObject:data atIndex:128];
@@ -112,9 +117,9 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     [data release];
     data = nil;
     @try {
-        if ([type isEqual:@"org.brainpen.xseraplugin"]){
+        if ([type isEqualToCaseInsensitiveString:XSXseraPluginUTI]){
             return [super readFromURL:url ofType:type error:outError];
-        } else if ([type isEqual:@"com.biggerplanet.aresdata"]) {
+        } else if ([type isEqualToCaseInsensitiveString:XSAresPluginUTI]) {
             ResUnarchiver *coder = [[ResUnarchiver alloc] init];
             NSString *dataDir = [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"];
             [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sprites"] ofType:DataBasisAres];
@@ -126,7 +131,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             }
             data = [[coder decodeObjectOfClass:[MainData class] atIndex:128] retain];
             [coder release];
-        } else if ([type isEqualTo:@"org.arescentral.antares.plugin"]) {
+        } else if ([type isEqualToCaseInsensitiveString:XSAntaresPluginUTI]) {
             ResUnarchiver *coder = [[ResUnarchiver alloc] init];
             NSString *dataDir = [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"];
             [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sprites"] ofType:DataBasisAres];
