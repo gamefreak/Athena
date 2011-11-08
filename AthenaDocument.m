@@ -26,7 +26,7 @@ NSString *XSAntaresPluginUTI = @"org.arescentral.antares.plugin";
 NSString *XSAresPluginUTI = @"com.biggerplanet.AresData";
 NSString *XSXseraPluginUTI = @"org.brainpen.XseraPlugin";
 
-NSString *XSAthenaMayCleanAntaresData = @"AthenaMayCleanAntaresData";
+NSString *XSAthenaMayCleanAntaresData = @"AntaresDidInstallScenarioFromPath";
 
 NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     NSFileWrapper *wrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:[NSDictionary dictionary]];
@@ -240,13 +240,14 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
     } else {
         fileName = [[self fileURL] path];
     }
-    [[NSWorkspace sharedWorkspace] openFile:fileName withApplication:@"Antares"];
+    [[NSWorkspace sharedWorkspace] openFile:fileName withApplication:@"/Users/scott/dev/antares/build/antares/Antares.app"];
 }
 
 - (void)deleteAntaresTemp:(NSNotification *)notification {
     NSString *file = [notification object];
     NSLog(@"Deleting: %@", file);
     unlink([file fileSystemRepresentation]);
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self name:XSAthenaMayCleanAntaresData object:file];
 }
 @end
 
