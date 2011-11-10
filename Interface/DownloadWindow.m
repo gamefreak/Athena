@@ -54,7 +54,7 @@ NSString *XSDownloadComplete = @"XSDownloadComplete";
 }
 
 - (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename {
-    NSString *path = [destination stringByAppendingPathComponent:filename];
+//    NSString *path = [destination stringByAppendingPathComponent:filename];
     [download setDestination:filename allowOverwrite:YES];
 }
 

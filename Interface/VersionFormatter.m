@@ -14,7 +14,7 @@ typedef union {
         int major:8;
         int minor:8;
         int bugfix:8;
-        int edit:8
+        int edit:8;
     };
 } AresVersion;
 

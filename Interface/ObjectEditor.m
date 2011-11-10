@@ -188,7 +188,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
 
 - (void)setBlessing:(BlessingType)blessing {
     //This will need to handle undo!
-    @synchronized(data, selection) {
+    @synchronized(self) {
         int idx = [selection objectIndex];
         
         if (blessing == BlessingWarpInFlare) {

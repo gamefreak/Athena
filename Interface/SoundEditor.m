@@ -157,8 +157,8 @@
 - (NSArray *)tableView:(NSTableView *)tableView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
     NSFileWrapper *wrapper = [[NSPasteboard pasteboardWithName:NSDragPboard] readFileWrapper];
     NSError *error = nil;
-    BOOL result = [wrapper writeToURL:[dropDestination URLByAppendingPathComponent:[wrapper filename]]
-                                options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
+    [wrapper writeToURL:[dropDestination URLByAppendingPathComponent:[wrapper filename]]
+                options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
     if (error) {
         [NSAlert alertWithError:error];
     }
