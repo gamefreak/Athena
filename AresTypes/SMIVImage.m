@@ -497,8 +497,18 @@ static CGColorSpaceRef devRGB;
     CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(slice));
     const uint32_t *buffer = (uint32_t *)CFDataGetBytePtr(data);
     uint8 *quantitizedBuffer = malloc(width * height);
-    for (int i = 0; i < width * height; i++) {
-        quantitizedBuffer[i] = quantitize_pixel(buffer[i]);
+    if (RCLUT == NULL) {
+        //Reverse CLUT is not yet available.
+        //Use slow function.
+        for (int i = 0; i < width * height; i++) {
+            quantitizedBuffer[i] = quantitize_pixel(buffer[i]);
+        }
+    } else {
+        //Reverse CLUT available.
+        //Enjoy blinding speed.
+        for (int i = 0; i < width * height; i++) {
+            quantitizedBuffer[i] = quantitize_pixel_fast(buffer[i]);
+        }
     }
     CFRelease(data);
     return quantitizedBuffer;

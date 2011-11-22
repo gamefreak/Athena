@@ -7,6 +7,10 @@
 //
 
 #import "Color.h"
+#import <assert.h>
+#import <stdlib.h>
+#import <stdio.h>
+#import <dispatch/dispatch.h>
 
 inline uint32_t dequantitize_pixel(uint8_t pixel) {
     return CLUT4P[pixel];
@@ -36,8 +40,29 @@ uint8_t quantitize_pixel(uint32_t pixel) {
     return bestIdx;
 }
 
+uint8_t quantitize_pixel_fast(uint32_t pixel) {
+    assert(RCLUT != NULL);
+    short alpha = (pixel & 0x000000ff) >> 0;
+    if (alpha < 0xf0) return 0;//transparent
+    return RCLUT[pixel>>8];
+}
 
 const uint32_t CLUT_ID = 0x00449d88;
+
+void rclut_init() {
+    assert(RCLUT == NULL);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        printf("Generating reverse color lookup table\n");
+        uint8_t *rclut_temp = malloc(1<<24);//do not free!
+        dispatch_apply(1<<24, dispatch_get_global_queue(0, 0), ^(size_t i){
+            rclut_temp[i] = quantitize_pixel(i << 8 | 0xff);
+        });
+        RCLUT = rclut_temp;
+        printf("Reverse CLUT generation complete\n");
+    });
+}
+
+const uint8_t *RCLUT = NULL;
 
 const uint8_t CLUT[256][3] = {
     {0x00, 0x00, 0x00}, {0x00, 0x00, 0x00}, {0xe0, 0xe0, 0xe0}, {0xd0, 0xd0, 0xd0},

@@ -9,6 +9,7 @@
 #import "ApplicationDelagate.h"
 #import "AthenaDocument.h"
 #import "DownloadWindow.h"
+#import "Color.h"
 
 NSString *XSAresDataUrl = @"https://github.com/downloads/gamefreak/Athena/AresMedia.zip";
 NSString *XSHasAskedForData = @"AskedToGetData";
@@ -18,6 +19,9 @@ NSString *HeraHelpURL = @"http://hera.arescentral.org/";
 
 @implementation ApplicationDelagate
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
+    //Prepare the reverse color lookuptable
+    rclut_init();
+
     NSMutableDictionary *baseDefaults = [NSMutableDictionary dictionary];
     [baseDefaults setObject:[NSNumber numberWithBool:NO] forKey:XSHasAskedForData];
     [baseDefaults setObject:[NSNumber numberWithBool:NO] forKey:XSHasAresData];

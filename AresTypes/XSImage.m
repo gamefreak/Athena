@@ -154,12 +154,17 @@ BOOL pict_has_header(uint8_t *pict_data);
         [coder encodeSInt16:0x0000];//cant remember what it's for
         CFDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(image_));
         const uint32_t *pixelBuffer = (uint32 *)CFDataGetBytePtr(imageData);
+        BOOL hasRCLUT = (RCLUT == NULL);
         int count = 0;
         for (int y = 0; y < height; y++) {
             uint8_t scanline[rowbytes & 0x7fff];
             for (int x = 0; x < width; x++) {
                 uint32_t pixel = htonl(pixelBuffer[x + y * width]);
-                scanline[x] = quantitize_pixel(pixel);
+                if (hasRCLUT) {
+                    scanline[x] = quantitize_pixel_fast(pixel);
+                } else {
+                    scanline[x] = quantitize_pixel(pixel);
+                }
             }
             size_t len = 0;
             uint8_t *data = pack_scanline(scanline, rowbytes & 0x7fff, &len);
