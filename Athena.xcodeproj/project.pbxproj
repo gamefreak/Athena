@@ -21,7 +21,7 @@
 		D216CF67132420D1008E24F0 /* WeaponView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D216CF66132420D1008E24F0 /* WeaponView.xib */; };
 		D216CFF613243027008E24F0 /* WeaponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D216CFF413243027008E24F0 /* WeaponViewController.m */; };
 		D216E73112E9DE1700D17AFB /* LuaArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D216E73012E9DE1700D17AFB /* LuaArchiver.m */; };
-		D21C4950143B496C00B5E39B /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = D21C494F143B496C00B5E39B /* Color.c */; };
+		D21C4950143B496C00B5E39B /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D21C494F143B496C00B5E39B /* Color.m */; };
 		D21C4968143B528000B5E39B /* XSImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D21C4967143B527F00B5E39B /* XSImage.m */; };
 		D21EB27912E8BAEF00694EBA /* MainData.m in Sources */ = {isa = PBXBuildFile; fileRef = D21EB27812E8BAEF00694EBA /* MainData.m */; };
 		D21EB2BD12E8BDE200694EBA /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = D21EB28712E8BDE200694EBA /* lbaselib.c */; };
@@ -308,7 +308,7 @@
 		D216CFF513243027008E24F0 /* WeaponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponViewController.h; sourceTree = "<group>"; };
 		D216E72F12E9DE1700D17AFB /* LuaArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaArchiver.h; sourceTree = "<group>"; };
 		D216E73012E9DE1700D17AFB /* LuaArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaArchiver.m; sourceTree = "<group>"; };
-		D21C494F143B496C00B5E39B /* Color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Color.c; sourceTree = "<group>"; };
+		D21C494F143B496C00B5E39B /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
 		D21C4966143B527F00B5E39B /* XSImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSImage.h; sourceTree = "<group>"; };
 		D21C4967143B527F00B5E39B /* XSImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSImage.m; sourceTree = "<group>"; };
 		D21EB27712E8BAEF00694EBA /* MainData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainData.h; sourceTree = "<group>"; };
@@ -765,7 +765,7 @@
 			isa = PBXGroup;
 			children = (
 				D23EDD2112EE8129002699A4 /* Color.h */,
-				D21C494F143B496C00B5E39B /* Color.c */,
+				D21C494F143B496C00B5E39B /* Color.m */,
 				D2E452D212EF4BC90099B0F9 /* FlagBlob.h */,
 				D2E452D312EF4BC90099B0F9 /* FlagBlob.m */,
 				D28831CC12F21E4E00A02383 /* Actions */,
@@ -1469,7 +1469,7 @@
 				D2627542141FD4960064AD95 /* cmdline.c in Sources */,
 				D2D6839A142FF694001B2C70 /* SoundEditor.m in Sources */,
 				D272DA4D1434DFD200F3CB12 /* UniquePairKeyFormatter.m in Sources */,
-				D21C4950143B496C00B5E39B /* Color.c in Sources */,
+				D21C4950143B496C00B5E39B /* Color.m in Sources */,
 				D21C4968143B528000B5E39B /* XSImage.m in Sources */,
 				D204FE6E143B7765006AA3F9 /* ImageEditor.m in Sources */,
 				D245ECDF143BBDCB00F78634 /* XSImageView.m in Sources */,

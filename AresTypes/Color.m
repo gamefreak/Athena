@@ -5,12 +5,15 @@
 //  Created by Scott McClaugherty on 10/4/11.
 //  Copyright 2011 Scott McClaugherty. All rights reserved.
 //
-
+#import <Foundation/Foundation.h>
 #import "Color.h"
 #import <assert.h>
 #import <stdlib.h>
 #import <stdio.h>
 #import <dispatch/dispatch.h>
+//#import <
+
+#import "ApplicationDelagate.h"
 
 inline uint32_t dequantitize_pixel(uint8_t pixel) {
     return CLUT4P[pixel];
@@ -51,15 +54,40 @@ const uint32_t CLUT_ID = 0x00449d88;
 
 void rclut_init() {
     assert(RCLUT == NULL);
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        printf("Generating reverse color lookup table\n");
-        uint8_t *rclut_temp = malloc(1<<24);//do not free!
-        dispatch_apply(1<<24, dispatch_get_global_queue(0, 0), ^(size_t i){
-            rclut_temp[i] = quantitize_pixel(i << 8 | 0xff);
+    const char *path = [[[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"color.cache"] fileSystemRepresentation];
+    FILE *cacheFile = fopen(path, "r");
+    if (cacheFile) {
+        uint8_t *rclut_temp = malloc(1<<24);//ONLY free on failure
+        int readcount = fread(rclut_temp, 1<<24, 1, cacheFile);
+        fclose(cacheFile);
+        if (readcount != 0) {
+            //success
+            RCLUT = rclut_temp;
+        } else {
+            free(rclut_temp);
+            NSLog(@"Could not load cache file. Regenerating");
+            unlink(path);
+        }
+    }
+    if (RCLUT == NULL) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            uint8_t *rclut_temp = malloc(1<<24);//do not free!
+            dispatch_apply(1<<24, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(size_t i){
+                rclut_temp[i] = quantitize_pixel(i << 8 | 0xff);
+            });
+            const char *path = [[[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"color.cache"] fileSystemRepresentation];
+            FILE *cacheFile = fopen(path, "w");
+            if (cacheFile) {
+                int result = fwrite(rclut_temp, 1<<24, 1, cacheFile);
+                if (result == 0) {
+                    NSLog(@"Cache save failed");
+                }
+                fclose(cacheFile);
+            }
+            RCLUT = rclut_temp;
+            NSLog(@"Reverse CLUT generation complete");
         });
-        RCLUT = rclut_temp;
-        printf("Reverse CLUT generation complete\n");
-    });
+    }
 }
 
 const uint8_t *RCLUT = NULL;
