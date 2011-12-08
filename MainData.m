@@ -128,7 +128,6 @@ static NSArray *mainDataKeys;
         [coder encodeString:[identifier stringByAppendingString:@"\n"]
                      forKey:@"identifier"];
     }
-    [coder encodeString:identifier forKey:@"identifier"];
     [flags encodeLuaWithCoder:coder];
 
     [coder encodeInteger:warpInFlare.orNull forKey:@"warpInFlare"];
