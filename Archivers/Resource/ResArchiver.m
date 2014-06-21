@@ -169,7 +169,7 @@
         //zip it
         NSTask *zipTask = [[NSTask alloc] init];
         [zipTask setLaunchPath:@"/usr/bin/zip"];
-        [zipTask setArguments:[NSArray arrayWithObjects:@"-q", [file lastPathComponent], @"-r", @"./data/", nil]];
+        [zipTask setArguments:[NSArray arrayWithObjects:@"-q", [file lastPathComponent], @"-x", @".DS_Store", @"-r", @"./data/", nil]];
         [zipTask setCurrentDirectoryPath:[file stringByDeletingLastPathComponent]];
         [zipTask launch];
         [zipTask waitUntilExit];
