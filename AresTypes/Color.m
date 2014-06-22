@@ -13,7 +13,7 @@
 #import <dispatch/dispatch.h>
 //#import <
 
-#import "ApplicationDelagate.h"
+#import "ApplicationDelegate.h"
 
 inline uint32_t dequantitize_pixel(uint8_t pixel) {
     return CLUT4P[pixel];
@@ -54,7 +54,7 @@ const uint32_t CLUT_ID = 0x00449d88;
 
 void rclut_init() {
     assert(RCLUT == NULL);
-    const char *path = [[[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"color.cache"] fileSystemRepresentation];
+    const char *path = [[[ApplicationDelegate supportDir] stringByAppendingPathComponent:@"color.cache"] fileSystemRepresentation];
     FILE *cacheFile = fopen(path, "r");
     if (cacheFile) {
         uint8_t *rclut_temp = malloc(1<<24);//ONLY free on failure
@@ -75,7 +75,7 @@ void rclut_init() {
             dispatch_apply(1<<24, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(size_t i){
                 rclut_temp[i] = quantitize_pixel(i << 8 | 0xff);
             });
-            const char *path = [[[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"color.cache"] fileSystemRepresentation];
+            const char *path = [[[ApplicationDelegate supportDir] stringByAppendingPathComponent:@"color.cache"] fileSystemRepresentation];
             FILE *cacheFile = fopen(path, "w");
             if (cacheFile) {
                 int result = fwrite(rclut_temp, 1<<24, 1, cacheFile);

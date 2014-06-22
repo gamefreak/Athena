@@ -1,5 +1,5 @@
 //
-//  ApplicationDelagate.h
+//  ApplicationDelegate.h
 //  Athena
 //
 //  Created by Scott McClaugherty on 2/1/11.
@@ -14,7 +14,7 @@ extern NSString *XSHasAresData;
 
 extern NSString *HeraHelpURL;
 
-@interface ApplicationDelagate : NSObject <NSApplicationDelegate> {
+@interface ApplicationDelegate : NSObject <NSApplicationDelegate> {
 
 }
 + (NSString *)supportDir;

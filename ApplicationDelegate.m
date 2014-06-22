@@ -1,12 +1,12 @@
 //
-//  ApplicationDelagate.m
+//  ApplicationDelegate.m
 //  Athena
 //
 //  Created by Scott McClaugherty on 2/1/11.
 //  Copyright 2011 Scott McClaugherty. All rights reserved.
 //
 
-#import "ApplicationDelagate.h"
+#import "ApplicationDelegate.h"
 #import "AthenaDocument.h"
 #import "DownloadWindow.h"
 #import "Color.h"
@@ -17,7 +17,7 @@ NSString *XSHasAresData = @"HasAresData";
 NSString *HeraHelpURL = @"http://hera.arescentral.org/";
 
 
-@implementation ApplicationDelagate
+@implementation ApplicationDelegate
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
     //Prepare the reverse color lookuptable
     rclut_init();
@@ -75,8 +75,8 @@ NSString *HeraHelpURL = @"http://hera.arescentral.org/";
 
 
 - (void)downloadAresData {
-    NSString *appSupport = [ApplicationDelagate supportDir];
-    [ApplicationDelagate ensureDirectoryExists:appSupport];
+    NSString *appSupport = [ApplicationDelegate supportDir];
+    [ApplicationDelegate ensureDirectoryExists:appSupport];
     NSURL *url = [NSURL URLWithString:XSAresDataUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url
                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -101,7 +101,7 @@ NSString *HeraHelpURL = @"http://hera.arescentral.org/";
 
 - (void)downloadDidComplete:(NSNotification *)notification {
     //Open the archive
-    NSString *path = [ApplicationDelagate supportDir];
+    NSString *path = [ApplicationDelegate supportDir];
     NSString *file = [path stringByAppendingPathComponent:@"AresMedia.zip"];
     NSString *dest = [path stringByAppendingPathComponent:@"Ares Data"];
     //use ditto not unzip because unzip doesn't handle resource fork
@@ -124,7 +124,7 @@ NSString *HeraHelpURL = @"http://hera.arescentral.org/";
 - (void)openDefaultData {
     NSDocumentController *controller = [NSDocumentController sharedDocumentController];
     NSError *error = nil;
-    NSString *path = [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"];
+    NSString *path = [[ApplicationDelegate supportDir] stringByAppendingPathComponent:@"Ares Data"];
     NSURL *fileURL = [NSURL fileURLWithPath:[path stringByAppendingPathComponent:@"Ares Scenarios"]];
     [controller openDocumentWithContentsOfURL:fileURL
                                       display:YES

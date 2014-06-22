@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "cmdline.h"
-#import "ApplicationDelagate.h"
+#import "ApplicationDelegate.h"
 #import "AthenaDocument.h"
 
 int main(int argc, char *argv[]) {
@@ -34,12 +34,12 @@ int main(int argc, char *argv[]) {
     //Determine file to work with.
     //Get desired path
     NSString *path = nil;
-    NSString *supportDir = [ApplicationDelagate supportDir];
+    NSString *supportDir = [ApplicationDelegate supportDir];
     BOOL needsToDownloadData = NO;
     if (args.base_arg == NULL) {
         //use downloaded info from Application Support
         path = supportDir;
-        [ApplicationDelagate ensureDirectoryExists:path];
+        [ApplicationDelegate ensureDirectoryExists:path];
         path = [path stringByAppendingPathComponent:@"Ares Data"];
         path = [path stringByAppendingPathComponent:@"Ares Scenarios"];
         //check if we need to download anyway

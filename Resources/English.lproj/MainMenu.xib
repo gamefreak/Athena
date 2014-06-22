@@ -36,7 +36,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomObject" id="970763492">
-				<string key="NSClassName">ApplicationDelagate</string>
+				<string key="NSClassName">ApplicationDelegate</string>
 			</object>
 			<object class="NSMenu" id="649796088">
 				<string key="NSTitle">AMainMenu</string>
@@ -3494,7 +3494,7 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">ApplicationDelagate</string>
+					<string key="className">ApplicationDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3537,7 +3537,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ApplicationDelagate.h</string>
+						<string key="minorKey">./Classes/ApplicationDelegate.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

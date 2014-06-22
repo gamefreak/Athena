@@ -10,7 +10,7 @@
 #import "MainData.h"
 #import "StringTable.h"
 #import "Archivers.h"
-#import "ApplicationDelagate.h"
+#import "ApplicationDelegate.h"
 
 #import "ObjectEditor.h"
 #import "ScenarioEditor.h"
@@ -127,7 +127,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             return [super readFromURL:url ofType:type error:outError];
         } else if ([type isEqualToCaseInsensitiveString:XSAresPluginUTI]) {
             ResUnarchiver *coder = [[ResUnarchiver alloc] init];
-            NSString *dataDir = [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"];
+            NSString *dataDir = [[ApplicationDelegate supportDir] stringByAppendingPathComponent:@"Ares Data"];
             [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sprites"] ofType:DataBasisAres];
             [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sounds"] ofType:DataBasisAres];
             [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Interfaces"] ofType:DataBasisAres];
@@ -139,7 +139,7 @@ NSFileWrapper *generateFileWrapperFromDictionary(NSDictionary *dictionary) {
             [coder release];
         } else if ([type isEqualToCaseInsensitiveString:XSAntaresPluginUTI]) {
             ResUnarchiver *coder = [[ResUnarchiver alloc] init];
-            NSString *dataDir = [[ApplicationDelagate supportDir] stringByAppendingPathComponent:@"Ares Data"];
+            NSString *dataDir = [[ApplicationDelegate supportDir] stringByAppendingPathComponent:@"Ares Data"];
             [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sprites"] ofType:DataBasisAres];
             [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Sounds"] ofType:DataBasisAres];
             [coder addFile:[dataDir stringByAppendingPathComponent:@"Ares Interfaces"] ofType:DataBasisAres];
