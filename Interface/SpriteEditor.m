@@ -51,6 +51,10 @@
     [spriteView bind:@"sprite" toObject:spriteController withKeyPath:@"selection.self" options:nil];
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Sprites", name];
+}
+
 - (NSUInteger)spriteId {
     NSUInteger index = [spriteController selectionIndex];
     if (index == NSNotFound) {

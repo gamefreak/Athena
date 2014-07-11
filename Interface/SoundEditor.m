@@ -27,6 +27,10 @@
     return self;
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Sounds", name];
+}
+
 - (IBAction)playSound:(id)sender {
     NSUInteger index = [soundsController selectionIndex];
     if (index == NSNotFound) {

@@ -45,6 +45,10 @@
     [raceController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"raceId" ascending:YES]]];
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Races", name];
+}
+
 - (void) insertObject:(Race *)newRace
        inRacesAtIndex:(NSInteger)index {
     [self startObservingRace:newRace];

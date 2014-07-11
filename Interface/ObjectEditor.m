@@ -111,6 +111,10 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
     [super dealloc];
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Objects", name];
+}
+
 - (BaseObject *) selection {
     return selection;
 }

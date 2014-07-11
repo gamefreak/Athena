@@ -53,6 +53,10 @@
        options:nil];
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Initial Objects", name];
+}
+
 - (IBAction) openObjectPicker:(id)sender {
     ObjectEditor *editor = [[ObjectEditor alloc]
                             initAsPickerWithData:data

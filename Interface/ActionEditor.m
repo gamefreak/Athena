@@ -62,6 +62,10 @@ NSString *XSActionParametersChanged = @"ActionParametersChanged";
     }
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Actions", name];
+}
+
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     //Action selection changed
     [[NSNotificationCenter defaultCenter] postNotificationName:XSActionParametersChanged object:nil];

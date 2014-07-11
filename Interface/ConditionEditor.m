@@ -55,6 +55,10 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
     [nc postNotificationName:XSConditionParametersChanged object:nil];
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Conditions", name];
+}
+
 - (void)conditionParametersDidChange:(NSNotification *)note {
     [self willChangeValueForKey:@"hasSelection"];
     [self willChangeValueForKey:@"rowForDropDown"];

@@ -42,6 +42,10 @@
     [imageView bind:@"image" toObject:arrayController withKeyPath:@"selection.self" options:nil];
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Images", name];
+}
+
 - (IBAction)openImage:(id)sender {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setAllowedFileTypes:[NSImage imageTypes]];

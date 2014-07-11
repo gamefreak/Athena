@@ -22,4 +22,5 @@
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value;
 - (void) startObservingRace:(Race *)race;
 - (void) stopObservingRace:(Race *)race;
+
 @end

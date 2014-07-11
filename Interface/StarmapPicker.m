@@ -37,6 +37,10 @@
 	
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Starmap", name];
+}
+
 - (void) changeKeyPath:(NSString *)keyPath ofObject:(id)object toValue:(id)value {
     [object setValue:value forKeyPath:keyPath];
 }

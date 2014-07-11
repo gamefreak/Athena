@@ -47,6 +47,10 @@
     return self;
 }
 
+- (NSString*) windowTitleForDocumentDisplayName:(NSString*)name {
+    return [NSString stringWithFormat:@"%@—Scenarios", name];
+}
+
 - (void) startObservingPlayer:(ScenarioPlayer *)player {
     [player addObserver:self forKeyPath:@"type" options:NSKeyValueObservingOptionOld context:NULL];
     [player addObserver:self forKeyPath:@"race" options:NSKeyValueObservingOptionOld context:NULL];
