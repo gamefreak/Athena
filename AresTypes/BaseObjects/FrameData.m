@@ -322,7 +322,7 @@
             encType = 4;
             break;
         default:
-            @throw [NSString stringWithFormat:@"Invalid beam type (%hhx)", type];
+            @throw [NSString stringWithFormat:@"Invalid beam type (%x)", (int)type];
             break;
     }
     [coder encodeUInt8:encType];

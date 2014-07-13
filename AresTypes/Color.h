@@ -27,10 +27,10 @@ typedef enum {
     ClutNone = 0xff,//for shields
 } ClutColor;
 
-extern inline uint32_t dequantitize_pixel(uint8_t pixel);
-extern inline uint32_t pixel_magnitude(uint32_t pixel, uint32_t color);
+extern uint32_t dequantitize_pixel(uint8_t pixel);
+extern uint32_t pixel_magnitude(uint32_t pixel, uint32_t color);
 extern uint8_t quantitize_pixel(uint32_t pixel);
-extern inline uint8_t quantitize_pixel_fast(uint32_t pixel);
+extern uint8_t quantitize_pixel_fast(uint32_t pixel);
 extern void rclut_init();
 
 extern const uint32_t CLUT_ID;

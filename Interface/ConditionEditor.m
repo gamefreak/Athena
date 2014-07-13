@@ -98,7 +98,7 @@ NSString *XSConditionParametersChanged = @"ConditionParametersChanged";
     Condition *newCondition = [[[ConditionEditor classForMenuItem:choice] alloc] init];
     int count = [conditions count];
     [conditionsController addObject:newCondition];
-    NSAssert(count != [conditions count], @"Length of conditions array unchanged %ul == %ul", count, [conditions count]);
+    NSAssert(count != [conditions count], @"Length of conditions array unchanged %ul == %lul", count, [conditions count]);
     [newCondition release];
 }
 

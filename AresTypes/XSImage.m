@@ -53,7 +53,7 @@ BOOL pict_has_header(uint8_t *pict_data);
         image = [[NSImage alloc] initWithData:[coder rawData]];
         NSString *name_ = [coder currentName];
         if ([name_ length] == 0) {
-            name_ = [NSString stringWithFormat:@"Image %i", [coder currentIndex]];
+            name_ = [NSString stringWithFormat:@"Image %lu", (unsigned long)[coder currentIndex]];
         }
         [self setName:name_];
     }

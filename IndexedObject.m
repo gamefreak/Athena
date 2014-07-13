@@ -42,7 +42,7 @@
     self.objectIndex -= [indexes countOfIndexesInRange:NSMakeRange(0, index.index)];
 }
 
-- (NSUInteger) objectIndex {
+- (unsigned short) objectIndex {
     return index.index;
 }
 

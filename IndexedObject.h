@@ -14,7 +14,7 @@
 @interface IndexedObject : NSObject {
     Index *index;
 }
-@property (readwrite, assign) NSUInteger objectIndex;
+@property (readwrite, assign) unsigned short objectIndex;
 @property (readwrite, retain) Index *indexRef;
 - (id) initWithIndex:(unsigned short)index;
 - (void) objectsAddedAtIndexes:(NSIndexSet *)indexes;

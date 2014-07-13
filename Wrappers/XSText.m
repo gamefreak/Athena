@@ -28,7 +28,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    XSText *copy = [[self->isa allocWithZone:zone] init];
+    XSText *copy = [[[self class] allocWithZone:zone] init];
     if (copy) {
         copy->name = [name copyWithZone:zone];
         copy->text = [text copyWithZone:zone];

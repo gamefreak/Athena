@@ -301,7 +301,7 @@ static void stackDump (lua_State *L) {
     return val;
 }
 
-- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<LuaCoding>)class {
+- (Index *) getIndexRefWithIndex:(NSUInteger)index forClass:(Class<LuaCoding, NSCopying>)class {
     NSMutableDictionary *table = [refTable objectForKey:class];
     if (table == nil) {
         table = [NSMutableDictionary dictionary];

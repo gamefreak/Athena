@@ -133,9 +133,9 @@
 
 - (NSString *)description {
     if (range > 0) {
-        return [NSString stringWithFormat:@"Create %i to %i of %@", min, min + range, [[baseType object] name]];
+        return [NSString stringWithFormat:@"Create %li to %li of %@", (long)min, min + range, [[baseType object] name]];
     } else {
-        return [NSString stringWithFormat:@"Create %i of %@", min, [[baseType object] name]];
+        return [NSString stringWithFormat:@"Create %li of %@", (long)min, [[baseType object] name]];
     }
 }
 
@@ -253,9 +253,9 @@
 
 - (NSString *)description {
     if (soundIdRange == 0) {
-        return [NSString stringWithFormat:@"Play sound %i", soundId];
+        return [NSString stringWithFormat:@"Play sound %li", (long)soundId];
     } else {
-        return [NSString stringWithFormat:@"Play sound in range %i - %i", soundId, soundId + soundIdRange];
+        return [NSString stringWithFormat:@"Play sound in range %li - %li", (long)soundId, soundId + soundIdRange];
     }
 }
 
@@ -338,9 +338,9 @@
 
 - (NSString *)description {
     if (count == 1) {
-        return [NSString stringWithFormat:@"Make 1 %i-colored spark", color];
+        return [NSString stringWithFormat:@"Make 1 %li-colored spark", (long)color];
     } else {
-        return [NSString stringWithFormat:@"Make %i %i-colored sparks", count, color];
+        return [NSString stringWithFormat:@"Make %li %li-colored sparks", (long)count, (long)color];
     }
 }
 
@@ -465,7 +465,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Land at destination at speed %i"];
+    return [NSString stringWithFormat:@"Land at destination at speed %li", (long)speed];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
@@ -528,7 +528,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Begin warping at %i u/s", warpSpeed];
+    return [NSString stringWithFormat:@"Begin warping at %li u/s", (long)warpSpeed];
 }
 @end
 
@@ -591,7 +591,7 @@
     NSUInteger idx = [coder currentIndex];
     if ([pages count] == 0) {//Special case for no pages
         XSText *text = [[XSText alloc] init];
-        [text setName:[NSString stringWithFormat:@"Empty message %i", idx]];
+        [text setName:[NSString stringWithFormat:@"Empty message %lu", (unsigned long)idx]];
         [text setText:@"EMPTY"];
         [coder encodeSInt16:[coder encodeObject:text]];
         [text release];
@@ -603,13 +603,13 @@
         XSText *page = [enumerator nextObject];
         if ([[page name] length] == 0) {
             page = [[page copy] autorelease];
-            [page setName:[NSString stringWithFormat:@"Message %i page %i", idx, pageNumber++]];
+            [page setName:[NSString stringWithFormat:@"Message %lu page %i", (unsigned long)idx, pageNumber++]];
         }
         [coder encodeSInt16:[coder encodeObject:page]];
         for (XSText *page in enumerator) {
             if ([[page name] length] == 0) {
                 page = [[page copy] autorelease];
-                [page setName:[NSString stringWithFormat:@"Message %i page %i", idx, pageNumber++]];
+                [page setName:[NSString stringWithFormat:@"Message %lu page %i", (unsigned long)idx, pageNumber++]];
             }
             [coder encodeObject:page];
         }
@@ -629,7 +629,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Display a %llu pages of a message", [pages count]];
+    return [NSString stringWithFormat:@"Display a %lu pages of a message", (unsigned long)[pages count]];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
@@ -705,7 +705,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Add %i to score %i of player %i.", amount, score, player];
+    return [NSString stringWithFormat:@"Add %li to score %li of player %li.", (long)amount, (long)score, (long)player];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
@@ -794,7 +794,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Declare player %i winner and go to level %i.", player, nextLevel.index];
+    return [NSString stringWithFormat:@"Declare player %li winner and go to level %i.", (long)player, nextLevel.index];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
@@ -918,7 +918,7 @@
 
 @implementation SetDestinationAction
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Set destination to %i", directOverride];
+    return [NSString stringWithFormat:@"Set destination to %li", (long)directOverride];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDestination {
@@ -1008,7 +1008,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%i tick flash of color %i:%i.", duration, color, shade];
+    return [NSString stringWithFormat:@"%li tick flash of color %li:%li.", (long)duration, (long)color, (long)shade];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
@@ -1023,9 +1023,9 @@
 @implementation CreateObjectSetDestinationAction
 - (NSString *)description {
     if (range > 0) {
-        return [NSString stringWithFormat:@"Create %i to %i of %@ with parent's destination.", min, min + range, [[baseType object] name]];
+        return [NSString stringWithFormat:@"Create %li to %li of %@ with parent's destination.", (long)min, min + range, [[baseType object] name]];
     } else {
-        return [NSString stringWithFormat:@"Create %i of %@ with parent's destination.", min, [[baseType object] name]];
+        return [NSString stringWithFormat:@"Create %li of %@ with parent's destination.", (long)min, [[baseType object] name]];
     }
 }
 @end
@@ -1275,7 +1275,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Select line %i of screen %i in minicomputer.", line, screen];
+    return [NSString stringWithFormat:@"Select line %li of screen %li in minicomputer.", (long)line, (long)screen];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {
@@ -1337,7 +1337,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Become initial object with id %i", ID];
+    return [NSString stringWithFormat:@"Become initial object with id %li", (long)ID];
 }
 
 + (NSSet *)keyPathsForValuesAffectingDescription {

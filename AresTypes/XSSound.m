@@ -98,7 +98,7 @@ void doNothing(void *user, AudioQueueRef refQueue, AudioQueueBufferRef inBuffer)
                 [self decodeType2SndFromCoder:coder];
                 break;
             default:
-                @throw [NSString stringWithFormat:@"Unhandled audio format [%h]", formatType];
+                @throw [NSString stringWithFormat:@"Unhandled audio format [%d]", formatType];
                 break;
         }
     }

@@ -11,8 +11,7 @@
 
 extern NSString *XSDownloadComplete;
 
-//Y U NO USE PROTOCOL?
-@interface DownloadWindow : ProgressWindow /*<NSURLDownloadDelegate>*/ {
+@interface DownloadWindow : ProgressWindow <NSURLDownloadDelegate> {
     NSString *displayText;
     NSURLResponse *response;
     NSUInteger bytesDownloaded;

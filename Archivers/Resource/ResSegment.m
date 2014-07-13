@@ -38,7 +38,7 @@
     self = [super init];
     if (self) {
         name = [_name retain];
-        data = [_data retain];
+        data = [_data mutableCopy];
         dataClass = _class;
         cursor = 0;
         loaded = NO;

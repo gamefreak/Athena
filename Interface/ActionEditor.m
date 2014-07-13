@@ -112,7 +112,7 @@ skip:
     Action *newAction = [[[ActionEditor classForMenuItem:choice] alloc] init];
     int count = [actions count];
     [actionsArrayController addObject:newAction];
-    NSAssert(count != [actions count], @"Length of actions array unchanged %ul == %ul", count, [actions count]);
+    NSAssert(count != [actions count], @"Length of actions array unchanged %ul == %lul", count, [actions count]);
     [newAction release];
 }
 

@@ -45,7 +45,7 @@
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"%lli", value];
+    return [NSString stringWithFormat:@"%li", (long)value];
 }
 
 + (BOOL) isComposite {

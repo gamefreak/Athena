@@ -340,7 +340,7 @@
     [coder encodeSInt16:self.objectIndex + 1];
     if ([[noShipsText text] length] > 0) {
         if ([[noShipsText name] length] == 0) {
-            [noShipsText setName:[NSString stringWithFormat:@"No Ships %i", [self objectIndex]]];
+            [noShipsText setName:[NSString stringWithFormat:@"No Ships %lu", (unsigned long)[self objectIndex]]];
         }
         [coder encodeObject:noShipsText atIndex:TEXTNoShipsOffset + self.objectIndex];
     }

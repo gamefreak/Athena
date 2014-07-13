@@ -115,7 +115,7 @@
         NSInteger idx = (isZeroIndexed?0:1);
         for (id<LuaCoding> obj in array) {
             [self encodeObject:obj
-                        forKey:[NSString stringWithFormat:@"[%d]", idx]];
+                        forKey:[NSString stringWithFormat:@"[%ld]", (long)idx]];
             idx++;
         }
         [self indent];
@@ -203,7 +203,7 @@
 
 - (void) encodeInteger:(NSInteger)value {
     @synchronized(self) {
-        [data appendFormat:@"%lli", value];
+        [data appendFormat:@"%li", (long)value];
     }
 }
 
@@ -211,7 +211,7 @@
     @synchronized(self) {
         [keyStack addObject:key];
         [self indent];
-        [data appendFormat:@"%@ = %lli;\n", key, value];
+        [data appendFormat:@"%@ = %li;\n", key, (long)value];
         [keyStack removeLastObject];
     }
 }

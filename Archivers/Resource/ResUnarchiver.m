@@ -91,7 +91,8 @@ OSStatus CoreEndianNULLFlipProc(OSType dataDomain, OSType dataType, short id, vo
 }
 
 - (NSUInteger) currentIndex {
-    return [[stack lastObject] index];
+    ResSegment* segment = [stack lastObject];  // Ensure the right index: method is called
+    return [segment index];
 }
 
 - (NSUInteger) currentSize {

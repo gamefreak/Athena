@@ -23,13 +23,13 @@ typedef union {
     AresVersion version;
     version.raw = [obj unsignedIntValue];
     if (version.edit != 0) {
-        return [NSString stringWithFormat:@"%hhu.%hhu.%hhu.%hhu", version.major, version.minor, version.bugfix, version.edit];
+        return [NSString stringWithFormat:@"%d.%d.%d.%d", version.major, version.minor, version.bugfix, version.edit];
     } else if (version.bugfix != 0) {
-        return [NSString stringWithFormat:@"%hhu.%hhu.%hu", version.major, version.minor, version.bugfix];
+        return [NSString stringWithFormat:@"%d.%d.%d", version.major, version.minor, version.bugfix];
     } else if (version.minor != 0) {
-        return [NSString stringWithFormat:@"%hhu.%hhu", version.major, version.minor];
+        return [NSString stringWithFormat:@"%d.%d", version.major, version.minor];
     }
-    return [NSString stringWithFormat:@"%hhu", version.major];
+    return [NSString stringWithFormat:@"%d", version.major];
 }
 
 - (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error {

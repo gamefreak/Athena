@@ -130,7 +130,7 @@ static CGColorSpaceRef devRGB;
 
         //Check data size
         unsigned int sizeOfAnimation = [coder decodeUInt32];
-        NSAssert(sizeOfAnimation == [coder currentSize] - 8, @"SMIV resource has incorrect size: %ui != %ui", sizeOfAnimation, [coder currentSize] - 8);
+        NSAssert(sizeOfAnimation == [coder currentSize] - 8, @"SMIV resource has incorrect size: %ui != %lui", sizeOfAnimation, [coder currentSize] - 8);
 
         //Get frame header locations
         unsigned int frameCount = [coder decodeUInt32];
