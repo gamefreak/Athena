@@ -247,7 +247,8 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
     NSString *identifier = [tabViewItem identifier];
     NSWindow *window = [self window];
-    NSRect frame = [window frame];
+    NSRect oldFrame = [window frame];
+    NSRect frame = oldFrame;
     if ([identifier isEqualTo:@"actions"]) {
         frame.size = actionsSize;
         frame.size.height += actionsVerticalBuffer;
@@ -260,6 +261,7 @@ NSString *XSSpecialParametersChanged = @"SpecialParametersChanged";
     }
     frame.size.width += borderSize.width;
     frame.size.height += borderSize.height;
+    frame.origin.y = oldFrame.origin.y + oldFrame.size.height - frame.size.height;
     [window setFrame:frame display:YES animate:YES];
 }
 
