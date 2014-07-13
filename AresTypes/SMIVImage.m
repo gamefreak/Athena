@@ -351,33 +351,18 @@ static CGColorSpaceRef devRGB;
  * is less than or equal to 8
  */
 + (CGSize)gridDistributionForCount:(int)count {
-    //The width with the lowest difference from the height so far
-    int best = 1;
-    //difference for the previous value
-    int bestDiff = count - best;
-    //We don't need to test past sqrt(count)
-    int max = ceilf(sqrtf(count));
-    for (int width = 1; width <=  max; width++) {
-        if (fmodf(count, width) != 0.0f) {
-            //The grid won't be rectangular for this width
-            continue;//so skip
-        }
-        //width - height
-        int diff = abs(width - count/width);
-        if (diff < bestDiff) {
-            best = width;
-            bestDiff = diff;
+    int height = 1;
+    for (int i = sqrt(count); i > 1; --i) {
+        if (count % i == 0) {
+            height = i;
+            break;
         }
     }
-    int a = best;
-    int b = count / best;
-    if (a < b) {//swap if a is less than b
-        a ^= b, b ^= a, a ^= b;
-    }
-    if (a <= 8) {
-        return NSMakeSize(a, b);
+    int width = count / height;
+    if (width <= 8) {
+        return NSMakeSize(width, height);
     } else {
-        return NSMakeSize(b, a);
+        return NSMakeSize(height, width);
     }
 }
 
