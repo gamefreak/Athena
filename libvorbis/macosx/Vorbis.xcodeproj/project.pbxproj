@@ -525,7 +525,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0720;
 			};
 			buildConfigurationList = 730F23F3091827B200AB638C /* Build configuration list for PBXProject "Vorbis" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -714,7 +714,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -733,7 +733,7 @@
 					"-ffast-math",
 					"-falign-loops=16",
 				);
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
